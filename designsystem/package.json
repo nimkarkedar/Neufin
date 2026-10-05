@@ -1,5 +1,5 @@
 {
-  "name": "neufin-brand",
+  "name": "neufin-designsystem",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "BASE_PATH=/neufin-brand/ vite build && gh-pages -d dist -t"
+    "deploy": "BASE_PATH=/Neufin/designsystem/ vite build && gh-pages -d dist -e designsystem -t"
   },
   "dependencies": {
     "react": "^18.3.1",
