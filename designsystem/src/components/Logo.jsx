@@ -4,7 +4,8 @@ const paths = (list) => list.map((d, i) => <path key={i} d={d} />);
 
 // variant: 'stacked' (primary) | 'horizontal' | 'symbol'
 // Colour follows CSS `color`, so set it with a class or the `color` prop.
-export function Logo({ variant = 'stacked', color, height = 48, title = 'Neufin Energy', style, ...rest }) {
+// markColor sets the symbol separately, for the two-colour logo only.
+export function Logo({ variant = 'stacked', color, markColor, height = 48, title = 'Neufin Energy', style, ...rest }) {
   const common = {
     role: 'img',
     'aria-label': title,
@@ -24,7 +25,7 @@ export function Logo({ variant = 'stacked', color, height = 48, title = 'Neufin 
   if (variant === 'horizontal') {
     return (
       <svg viewBox="0 0 270 32" {...common}>
-        <g transform="translate(0 0.88) scale(0.4587)"><path d={MARK} /></g>
+        <g transform="translate(0 0.88) scale(0.4587)"><path d={MARK} fill={markColor} /></g>
         <g transform="translate(-31.76 0)">{paths(NEUFIN)}</g>
         <g transform="translate(87.99 -26.66)">{paths(ENERGY)}</g>
       </svg>
@@ -33,7 +34,7 @@ export function Logo({ variant = 'stacked', color, height = 48, title = 'Neufin 
 
   return (
     <svg viewBox="0 0 182 58" {...common}>
-      <path d={MARK} />
+      <path d={MARK} fill={markColor} />
       {paths(NEUFIN)}
       {paths(ENERGY)}
     </svg>

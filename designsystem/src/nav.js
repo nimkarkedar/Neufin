@@ -10,8 +10,8 @@ import Photography from './pages/Photography.jsx';
 import Illustration from './pages/Illustration.jsx';
 import ToneOfVoice from './pages/ToneOfVoice.jsx';
 import Applications from './pages/Applications.jsx';
+import Presentations from './pages/Presentations.jsx';
 import Tokens from './pages/Tokens.jsx';
-import Components from './pages/Components.jsx';
 
 export const nav = [
   {
@@ -32,7 +32,7 @@ export const nav = [
     items: [
       { id: 'iconography', label: 'Iconography', page: Iconography },
       { id: 'photography', label: 'Photography', page: Photography },
-      { id: 'illustration', label: 'Illustration', page: Illustration, status: 'todo' },
+      { id: 'illustration', label: 'Illustration', page: Illustration },
     ],
   },
   {
@@ -41,13 +41,15 @@ export const nav = [
   },
   {
     group: 'Examples',
-    items: [{ id: 'applications', label: 'Applications', page: Applications }],
+    items: [
+      { id: 'applications', label: 'Applications', page: Applications },
+      { id: 'presentations', label: 'Presentations', page: Presentations },
+    ],
   },
   {
     group: 'Product',
     items: [
       { id: 'tokens', label: 'Design tokens', page: Tokens },
-      { id: 'components', label: 'Components', page: Components, status: 'todo' },
     ],
   },
 ];

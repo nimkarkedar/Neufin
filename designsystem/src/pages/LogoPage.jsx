@@ -14,11 +14,24 @@ const colourways = [
   { bg: 'var(--near-black)', fg: 'var(--warm-white)', label: 'Warm White on Near Black' },
   { bg: 'var(--warm-white)', fg: 'var(--near-black)', label: 'Near Black on Warm White' },
   { bg: 'var(--warm-white)', fg: 'var(--electric-violet)', label: 'Electric Violet on Warm White' },
-  { bg: `url(${asset('/assets/photos/wind-hills.jpg')}) center/cover`, fg: 'var(--warm-white)', label: 'Warm White on calm photography' },
+  // Violet wash: Violet 300 multiplied at 45%, the same treatment as on the Photography page.
+  { bg: `linear-gradient(color-mix(in srgb, var(--violet-300) 45%, white), color-mix(in srgb, var(--violet-300) 45%, white)), url(${asset('/assets/photos/wind-hills.jpg')}) center/cover`, blend: 'multiply', fg: 'var(--warm-white)', label: 'Warm White on photography with violet wash' },
 ];
 
-const downloads = ['stacked', 'horizontal', 'symbol'].flatMap((v) =>
-  ['white', 'black', 'violet'].map((c) => ({ v, c, href: asset(`/assets/logo/neufin-${v}-${c}.svg`) })));
+const downloads = [
+  ...['stacked', 'horizontal', 'symbol'].flatMap((v) =>
+    ['white', 'black', 'violet'].map((c) => ({ v, c, href: asset(`/assets/logo/neufin-${v}-${c}.svg`) }))),
+  ...['stacked', 'horizontal'].map((v) => ({ v, c: 'two-colour', href: asset(`/assets/logo/neufin-${v}-two-colour.svg`) })),
+];
+
+const twoColour = { color: 'var(--near-black)', markColor: 'var(--electric-violet)' };
+
+const twoColourRules = [
+  ['Colours', 'Symbol in Electric Violet. Wordmark in Near Black. No other pairing.'],
+  ['Backgrounds', 'White or Warm White only.'],
+  ['Use for', 'Website and product headers, documents, presentations, email signatures, stationery.'],
+  ['Everywhere else', 'Use a one-colour logo from Colourways.'],
+];
 
 export default function LogoPage() {
   return (
@@ -39,14 +52,44 @@ export default function LogoPage() {
         </div>
       </Section>
 
-      <Section title="Colourways" intro="The logo is always one solid colour.">
+      <Section title="Colourways" intro="One solid colour. The only exception is the two-colour logo below.">
         <div className="grid-2">
           {colourways.map((c) => (
             <div key={c.label} className="tile">
-              <div className="tile-stage tall" style={{ background: c.bg }}><Logo height={64} color={c.fg} /></div>
+              <div className="tile-stage tall" style={{ background: c.bg, backgroundBlendMode: c.blend }}><Logo height={64} color={c.fg} /></div>
               <div className="tile-meta"><strong>{c.label}</strong>{c.primary && <span className="pill">Hero</span>}</div>
             </div>
           ))}
+        </div>
+      </Section>
+
+      <Section title="Two-colour logo">
+        <div className="grid-2">
+          <div className="tile">
+            <div className="tile-stage tall" style={{ background: 'var(--white)' }}><Logo height={64} {...twoColour} /></div>
+            <div className="tile-meta"><strong>On White</strong></div>
+          </div>
+          <div className="tile">
+            <div className="tile-stage tall" style={{ background: 'var(--warm-white)' }}><Logo height={64} {...twoColour} /></div>
+            <div className="tile-meta"><strong>On Warm White</strong></div>
+          </div>
+        </div>
+        <div className="rows two-colour-rules">
+          {twoColourRules.map(([k, v]) => <div key={k} className="row"><span className="row-key">{k}</span><p>{v}</p></div>)}
+        </div>
+        <div className="grid-4 two-colour-donts">
+          <DoDont kind="dont" caption="Swap the colours.">
+            <div className="mini-stage" style={{ background: 'var(--white)' }}><Logo height={36} color="var(--electric-violet)" markColor="var(--near-black)" /></div>
+          </DoDont>
+          <DoDont kind="dont" caption="Use other colours.">
+            <div className="mini-stage" style={{ background: 'var(--white)' }}><Logo height={36} color="var(--near-black)" markColor="var(--electric-coral)" /></div>
+          </DoDont>
+          <DoDont kind="dont" caption="Place it on colour or dark backgrounds.">
+            <div className="mini-stage" style={{ background: 'var(--violet-200)' }}><Logo height={36} {...twoColour} /></div>
+          </DoDont>
+          <DoDont kind="dont" caption="Place it on photos or gradients.">
+            <div className="mini-stage" style={{ background: `url(${asset('/assets/photos/solar.jpg')}) center/cover` }}><Logo height={36} {...twoColour} /></div>
+          </DoDont>
         </div>
       </Section>
 
@@ -102,7 +145,7 @@ export default function LogoPage() {
         <div className="download-grid">
           {downloads.map((d) => (
             <a key={d.href} href={d.href} download className="download">
-              <span className={`download-chip chip-${d.c}`}><Logo variant={d.v} height={18} /></span>
+              <span className={`download-chip chip-${d.c}`}><Logo variant={d.v} height={18} markColor={d.c === 'two-colour' ? 'var(--electric-violet)' : undefined} /></span>
               <span>{d.v} · {d.c}</span>
             </a>
           ))}
