@@ -35,22 +35,27 @@ export default function App() {
           <a href="#/overview" className="sidebar-logo" aria-label="Neufin Energy brand home">
             <Logo variant="horizontal" height={22} />
           </a>
-          <span className="sidebar-tag">Brand &amp; Product</span>
+          <span className="sidebar-tag">Brand, website &amp; product</span>
         </div>
         <nav className="sidebar-nav">
-          {nav.map((g) => (
-            <div key={g.group} className="nav-group">
-              <div className="nav-group-label">{g.group}</div>
-              {g.items.map((n) => (
-                <a key={n.id} href={`#/${n.id}`} className={`nav-link ${n.id === item.id ? 'active' : ''}`}>
-                  {n.label}
-                  {n.status && <span className={`nav-status nav-status-${n.status}`}>{n.status}</span>}
-                </a>
+          {nav.map((s) => (
+            <div key={s.section} className="nav-section">
+              <div className="nav-section-label">{s.section}</div>
+              {s.groups.map((g, i) => (
+                <div key={g.group ?? i} className="nav-group">
+                  {g.group && <div className="nav-group-label">{g.group}</div>}
+                  {g.items.map((n) => (
+                    <a key={n.id} href={`#/${n.id}`} className={`nav-link ${n.id === item.id ? 'active' : ''}`}>
+                      {n.label}
+                      {n.status && <span className={`nav-status nav-status-${n.status}`}>{n.status}</span>}
+                    </a>
+                  ))}
+                </div>
               ))}
             </div>
           ))}
         </nav>
-        <div className="sidebar-foot">v0.1 · Source of truth for Neufin brand</div>
+        <div className="sidebar-foot">v0.2 · Source of truth for Neufin brand, website and product</div>
       </aside>
 
       <button className="menu-toggle" onClick={() => setMenuOpen((o) => !o)} aria-label="Toggle navigation">

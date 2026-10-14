@@ -1,6 +1,6 @@
 import { Logo } from '../components/Logo.jsx';
 import { Section } from '../components/ui.jsx';
-import { flatNav } from '../nav.js';
+import { nav } from '../nav.js';
 
 export default function Overview() {
   return (
@@ -14,20 +14,22 @@ export default function Overview() {
 
       <Section title="What this is">
         <p className="prose">
-          Brand and product guidelines for Neufin Energy.
+          Guidelines for Neufin Energy in three sections: brand and marketing, the website, and the Neufin product.
         </p>
       </Section>
 
-      <Section title="Contents">
-        <div className="card-grid">
-          {flatNav.filter((n) => n.id !== 'overview').map((n) => (
-            <a key={n.id} href={`#/${n.id}`} className="card-link">
-              <span>{n.label}</span>
-              {n.status && <span className={`nav-status nav-status-${n.status}`}>{n.status}</span>}
-            </a>
-          ))}
-        </div>
-      </Section>
+      {nav.map((sec) => (
+        <Section key={sec.section} title={sec.section}>
+          <div className="card-grid">
+            {sec.groups.flatMap((g) => g.items).filter((n) => n.id !== 'overview').map((n) => (
+              <a key={n.id} href={`#/${n.id}`} className="card-link">
+                <span>{n.label}</span>
+                {n.status && <span className={`nav-status nav-status-${n.status}`}>{n.status}</span>}
+              </a>
+            ))}
+          </div>
+        </Section>
+      ))}
     </>
   );
 }

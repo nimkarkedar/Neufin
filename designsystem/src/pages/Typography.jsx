@@ -75,6 +75,7 @@ export default function Typography() {
                 <strong>{s.name}</strong>
                 <span>{fonts[s.font].name} · {s.weight}</span>
                 <span>{s.size}/{Math.round(s.size * s.lh)} · {s.track}</span>
+                {s.mobile && <span>Phones: {s.mobile}/{Math.round(s.mobile * s.lh)}</span>}
               </div>
               <div
                 className="type-sample"

@@ -9,9 +9,9 @@ export default function Tokens() {
   return (
     <>
       <PageHeader
-        eyebrow="Product"
+        eyebrow="Website"
         title="Design tokens"
-        intro="Source: src/brand/tokens.js"
+        intro="Source: src/brand/tokens.js. Used by the website and, later, the product."
       />
 
       <Section title="All tokens">

@@ -53,16 +53,52 @@ export const fonts = {
   fallback: { name: 'Arial', stack: 'Arial, sans-serif', use: 'Body fallback. For Windows, system defaults and Office files when the brand fonts are not available. Regular 400, Bold 700.' },
 };
 
-// Type scale. Sizes are desktop px; the website steps the display sizes down on small screens.
+// Type scale. `size` is desktop px (from the desktop breakpoint up); `mobile` is the
+// size below it, where a style steps down on small screens.
 export const typeScale = [
-  { name: 'Display', token: 'display', font: 'display', size: 72, lh: 0.95, weight: 800, track: '-0.02em' },
-  { name: 'H1', token: 'h1', font: 'display', size: 48, lh: 1.0, weight: 700, track: '-0.015em' },
-  { name: 'H2', token: 'h2', font: 'display', size: 32, lh: 1.1, weight: 700, track: '-0.01em' },
-  { name: 'H3', token: 'h3', font: 'display', size: 22, lh: 1.2, weight: 700, track: '0' },
-  { name: 'Body L', token: 'body-l', font: 'body', size: 20, lh: 1.5, weight: 400, track: '0' },
+  { name: 'Display', token: 'display', font: 'display', size: 72, mobile: 44, lh: 0.95, weight: 800, track: '-0.02em' },
+  { name: 'H1', token: 'h1', font: 'display', size: 48, mobile: 36, lh: 1.0, weight: 700, track: '-0.015em' },
+  { name: 'H2', token: 'h2', font: 'display', size: 32, mobile: 28, lh: 1.1, weight: 700, track: '-0.01em' },
+  { name: 'H3', token: 'h3', font: 'display', size: 22, mobile: 20, lh: 1.2, weight: 700, track: '0' },
+  { name: 'Body L', token: 'body-l', font: 'body', size: 20, mobile: 18, lh: 1.5, weight: 400, track: '0' },
   { name: 'Body', token: 'body', font: 'body', size: 16, lh: 1.55, weight: 400, track: '0' },
   { name: 'Small', token: 'small', font: 'body', size: 13, lh: 1.45, weight: 400, track: '0.01em' },
   { name: 'Label', token: 'label', font: 'body', size: 12, lh: 1.3, weight: 600, track: '0' },
+];
+
+// Web layout. 12 columns of 88px with 20px gutters on desktop (1276px of content),
+// 8 columns on tablets and 4 on phones. Margins are the space either side of the content.
+export const breakpoints = { tablet: 768, desktop: 1024, wide: 1280 };
+export const layout = {
+  maxWidth: 1276,
+  gutter: 20,
+  columns: { phone: 4, tablet: 8, desktop: 12 },
+  margin: { phone: 20, tablet: 32, desktop: 40 },
+};
+
+// Corner radii. Pill (999px) is for buttons and fields.
+export const radii = { xs: 4, s: 8, m: 12, l: 16, pill: 999 };
+
+// Shadows, drawn in Near Black. Raised: cards and tiles on hover. Overlay: menus and
+// popovers that float over the page.
+const rgbOf = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)).join(' ');
+const ink = rgbOf(coreColours.find((c) => c.token === 'near-black').hex);
+export const shadows = {
+  raised: `0 1px 2px rgb(${ink} / 0.04), 0 12px 32px -8px rgb(${ink} / 0.16)`,
+  overlay: `0 1px 2px rgb(${ink} / 0.04), 0 8px 24px -6px rgb(${ink} / 0.08), 0 32px 64px -16px rgb(${ink} / 0.14)`,
+};
+
+// Motion. Most UI changes use `base`; menus opening use `slow` with ease-out.
+export const motion = {
+  easeOut: 'cubic-bezier(0.16, 1, 0.3, 1)',
+  fast: '0.15s',
+  base: '0.25s',
+  slow: '0.4s',
+};
+
+// Colours that are not Neufin's but appear inside third-party marks only.
+export const externalColours = [
+  { name: 'WhatsApp green', token: 'whatsapp', hex: '#25D366', role: 'Only inside the WhatsApp mark.' },
 ];
 
 export function allTokens() {
@@ -79,6 +115,16 @@ export function allTokens() {
     t[`--text-${s.token}-weight`] = String(s.weight);
     t[`--text-${s.token}-track`] = s.track;
   });
+  t['--grid-max'] = `${layout.maxWidth}px`;
+  t['--grid-gutter'] = `${layout.gutter}px`;
+  t['--grid-margin'] = `${layout.margin.phone}px`;
+  Object.entries(radii).forEach(([k, v]) => (t[`--radius-${k}`] = `${v}px`));
+  Object.entries(shadows).forEach(([k, v]) => (t[`--shadow-${k}`] = v));
+  t['--ease-out'] = motion.easeOut;
+  t['--duration-fast'] = motion.fast;
+  t['--duration-base'] = motion.base;
+  t['--duration-slow'] = motion.slow;
+  externalColours.forEach((c) => (t[`--${c.token}`] = c.hex));
   return t;
 }
 

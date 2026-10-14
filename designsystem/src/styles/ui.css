@@ -1,0 +1,141 @@
+/* Web components shared by the design system site and the marketing website.
+   Built only from tokens (tokens.js). Documented on the Web components page.
+   The website imports this file; change it here, not in the website. */
+
+/* ---------- Buttons ----------
+   Pill shaped, 48px tall. Primary is solid Near Black: one per block or card, for
+   the main action. Secondary is white with a Grey 200 outline, for everything else. */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 24px;
+  border: 1px solid transparent;
+  border-radius: var(--radius-pill);
+  font-family: var(--font-body);
+  font-size: var(--text-body-size);
+  font-weight: 500;
+  line-height: 1;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast),
+    color var(--duration-fast),
+    border-color var(--duration-fast);
+}
+
+.btn > svg,
+.btn > span {
+  flex-shrink: 0;
+}
+
+.btn:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+
+.btn-primary {
+  background: var(--near-black);
+  color: var(--white);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background: var(--violet-800);
+}
+
+.btn-secondary {
+  background: var(--white);
+  color: var(--near-black);
+  border-color: var(--grey-200);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  border-color: var(--near-black);
+}
+
+/* A round badge at the start of a button, sitting 8px in from the top, bottom and
+   left (7px padding + the 1px border) so it follows the pill's rounded end. */
+.btn-badge {
+  padding-left: 7px;
+}
+
+.btn-badge > .badge {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+/* WhatsApp's green appears only inside the WhatsApp mark. */
+.badge-whatsapp {
+  background: var(--whatsapp);
+  color: var(--white);
+}
+
+/* ---------- Text field ----------
+   A white pill, 48px tall, with an optional fixed prefix (such as +91). Numbers are
+   set in IBM Plex Mono. The border turns Near Black on focus and Electric Coral when
+   the value is invalid (add data-invalid). */
+
+.text-field {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-pill);
+  transition: border-color var(--duration-fast);
+}
+
+.text-field:focus-within {
+  border-color: var(--near-black);
+}
+
+.text-field[data-invalid] {
+  border-color: var(--electric-coral);
+}
+
+.text-field-prefix {
+  padding: 0 10px 0 20px;
+  border-right: 1px solid var(--grey-200);
+  color: var(--grey-600);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.text-field-input {
+  flex: 1;
+  min-width: 0;
+  height: 46px;
+  padding: 0 20px;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  color: var(--near-black);
+  font: inherit;
+}
+
+.text-field-prefix + .text-field-input {
+  padding-left: 10px;
+  border-radius: 0 var(--radius-pill) var(--radius-pill) 0;
+}
+
+.text-field-input[inputmode="numeric"],
+.text-field-input[type="tel"] {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.text-field-input::placeholder {
+  color: var(--grey-600);
+  font-family: var(--font-body);
+}
+
+.text-field-input:focus {
+  outline: none;
+}
