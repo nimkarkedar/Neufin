@@ -4,3 +4,6 @@ dist
 *.log
 .claude/*
 !.claude/skills/
+
+# Vercel project link (website deploys)
+.vercel

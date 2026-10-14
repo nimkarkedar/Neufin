@@ -1,0 +1,151 @@
+/* The footer: the contact card on white, then a Near Black area whose top edge steps
+   down at the top right along the Stripe's edge. The diagonal always ends at the
+   content's right edge: --kink = content right edge − drop ÷ Stripe slope (0.6306). */
+
+.footer {
+  margin-top: 64px;
+}
+
+.contactRow {
+  padding-bottom: 32px;
+}
+
+.dark {
+  --drop: 40px;
+  --cw: min(100% - 2 * var(--margin), var(--content-max));
+  --kink: calc((100% + var(--cw)) / 2 - var(--drop) / 0.6306);
+
+  position: relative;
+  isolation: isolate;
+  color: var(--warm-white);
+}
+
+.field {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: var(--near-black);
+}
+
+/* ---------- Logo and link columns ---------- */
+
+.main {
+  row-gap: 24px;
+  padding-block: 32px 56px;
+}
+
+.logo {
+  grid-column: 1 / -1;
+  width: max-content;
+  height: 40px;
+  color: var(--warm-white);
+}
+
+.groups {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px var(--gutter);
+  margin-top: 32px;
+}
+
+.groupTitle {
+  margin-bottom: 12px;
+  font-family: var(--font-display);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-lh);
+  font-weight: 700;
+}
+
+.group ul,
+.legal {
+  list-style: none;
+  padding: 0;
+}
+
+.group a,
+.legal a {
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+
+.group a {
+  display: inline-block;
+  padding-block: 6px;
+}
+
+.group a:hover,
+.legal a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Bottom bar ---------- */
+
+.bottom {
+  background: var(--grey-900);
+}
+
+.bottomInner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 8px 24px;
+  padding-block: 20px 24px;
+}
+
+.legal {
+  display: flex;
+  gap: 24px;
+}
+
+@media (min-width: 768px) {
+  .dark {
+    --drop: 72px;
+  }
+
+  .main {
+    padding-block: 40px 64px;
+  }
+
+  .logo {
+    height: 44px;
+  }
+
+  .groups {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Desktop: the step takes columns 11–12 and the five groups start on every second column. */
+@media (min-width: 1024px) {
+  .footer {
+    margin-top: 96px;
+  }
+
+  .contactRow {
+    padding-bottom: 40px;
+  }
+
+  .dark {
+    --drop: 120px;
+  }
+
+  .main {
+    padding-block: 48px 80px;
+  }
+
+  .groups {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    margin-top: 40px;
+  }
+
+  .group a {
+    padding-block: 5px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .logo {
+    height: 56px;
+  }
+}

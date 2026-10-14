@@ -1,0 +1,229 @@
+/* One contact card above the dark footer, in three blocks divided by lines, on a
+   single soft gradient: the design system's Dawn gradient under a 60% white wash.
+   Phones and tablets: stacked. Desktop: side by side, with the buttons lined up
+   along the bottom. */
+
+.card {
+  display: grid;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    linear-gradient(
+      color-mix(in srgb, var(--white) 60%, transparent),
+      color-mix(in srgb, var(--white) 60%, transparent)
+    ),
+    var(--gradient-dawn);
+  color: var(--near-black);
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 28px 20px;
+  transition:
+    background-color 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+.col + .col {
+  border-top: 1px solid var(--line);
+}
+
+/* Hover (or keyboard focus inside): the block brightens a little, with a fine
+   inner line. Nothing moves. */
+.col:hover,
+.col:focus-within {
+  background-color: color-mix(in srgb, var(--white) 45%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--white) 80%, transparent);
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  font-weight: var(--text-h3-weight);
+}
+
+.text {
+  color: var(--ink-2);
+}
+
+/* Buttons and the call-back form sit at the bottom of their column. */
+.action {
+  margin-top: 16px;
+}
+
+.waButton {
+  padding-left: 7px;
+}
+
+/* WhatsApp's own green, used only inside its mark. */
+.wa {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #25d366;
+  color: var(--white);
+}
+
+/* Overlapping faces with a white ring. */
+.faces {
+  display: flex;
+  margin-top: 4px;
+}
+
+.faces img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--white);
+  object-fit: cover;
+}
+
+.faces img + img {
+  margin-left: -10px;
+}
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-style: normal;
+  font-size: var(--text-body-l-size);
+  line-height: var(--text-body-l-lh);
+}
+
+.contact a {
+  text-decoration: none;
+  text-underline-offset: 4px;
+}
+
+.contact a:hover {
+  text-decoration: underline;
+}
+
+/* ---------- Call-back form ---------- */
+
+.form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+/* A fixed +91 prefix and the number, in one white pill. */
+.field {
+  display: flex;
+  flex: 1 1 220px;
+  align-items: center;
+  min-height: 48px;
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  transition: border-color 0.15s;
+}
+
+.field:focus-within {
+  border-color: var(--near-black);
+}
+
+.field[data-invalid] {
+  border-color: var(--electric-coral);
+}
+
+.prefix {
+  padding: 0 10px 0 20px;
+  border-right: 1px solid var(--line);
+  color: var(--ink-2);
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.input {
+  flex: 1;
+  min-width: 0;
+  height: 46px;
+  padding: 0 20px 0 10px;
+  background: none;
+  border: 0;
+  border-radius: 0 999px 999px 0;
+  color: var(--near-black);
+  font: inherit;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.input::placeholder {
+  color: var(--ink-2);
+  font-family: var(--font-body);
+}
+
+.input:focus {
+  outline: none;
+}
+
+.trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.done {
+  margin-top: 16px;
+  font-weight: 500;
+}
+
+.error {
+  font-size: var(--text-small-size);
+}
+
+.error:not(:empty) {
+  margin-top: 12px;
+}
+
+.error:not(:empty)::before {
+  content: "";
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 8px;
+  background: var(--electric-coral);
+  vertical-align: 1px;
+}
+
+@media (min-width: 768px) {
+  .col {
+    padding: 32px 40px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .card {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .col {
+    padding: 40px;
+  }
+
+  .col + .col {
+    border-top: 0;
+    border-left: 1px solid var(--line);
+  }
+
+  .action,
+  .done {
+    margin-top: auto;
+  }
+
+  /* Keep a gap between the copy and a bottom-aligned action. */
+  .col > :nth-last-child(2) {
+    margin-bottom: 16px;
+  }
+}
