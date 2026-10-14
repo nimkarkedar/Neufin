@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "deploy": "BASE_PATH=/Neufin/website next build && touch out/.nojekyll && gh-pages -d out -e website -t"
+    "sync": "node scripts/sync-ds-assets.mjs",
+    "predev": "npm run sync",
+    "prebuild": "npm run sync",
+    "deploy": "BASE_PATH=/Neufin/website npm run build && touch out/.nojekyll && gh-pages -d out -e website -t"
   },
   "dependencies": {
     "next": "16.4.0",

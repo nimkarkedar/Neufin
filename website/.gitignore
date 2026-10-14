@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Copied from the design system by scripts/sync-ds-assets.mjs
+/src/app/icon.svg

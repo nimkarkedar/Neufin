@@ -1,6 +1,6 @@
 /* The footer: the contact card on white, then a Near Black area whose top edge steps
    down at the top right along the Stripe's edge. The diagonal always ends at the
-   content's right edge: --kink = content right edge − drop ÷ Stripe slope (0.6306). */
+   content's right edge: --kink = content right edge − drop ÷ --stripe-slope (from the design system). */
 
 .footer {
   margin-top: 64px;
@@ -12,8 +12,8 @@
 
 .dark {
   --drop: 40px;
-  --cw: min(100% - 2 * var(--margin), var(--content-max));
-  --kink: calc((100% + var(--cw)) / 2 - var(--drop) / 0.6306);
+  --cw: min(100% - 2 * var(--grid-margin), var(--grid-max));
+  --kink: calc((100% + var(--cw)) / 2 - var(--drop) / var(--stripe-slope));
 
   position: relative;
   isolation: isolate;
@@ -45,7 +45,7 @@
   grid-column: 1 / -1;
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 40px var(--gutter);
+  gap: 40px var(--grid-gutter);
   margin-top: 32px;
 }
 

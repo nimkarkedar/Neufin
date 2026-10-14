@@ -1,11 +1,14 @@
 import type { Metadata, Viewport } from "next";
-// Global styles load first so component styles (CSS Modules) can override them.
+// Global styles load first so component styles (CSS Modules) can override them:
+// the site's base styles, then the design system's buttons and text fields.
 import "./globals.css";
+import "@ds/styles/ui.css";
 import { Archivo, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import { SiteFooter } from "@/components/SiteFooter";
 import { SiteHeader } from "@/components/SiteHeader";
 import { isLive, site } from "@/lib/site";
 import { tokensCss } from "@/lib/tokens";
+import { hexOf } from "@ds/brand/tokens.js";
 
 const archivo = Archivo({ variable: "--nf-archivo", subsets: ["latin"] });
 const plexSans = IBM_Plex_Sans({
@@ -36,7 +39,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#FFFFFF",
+  themeColor: hexOf("white"),
 };
 
 const organisation = {

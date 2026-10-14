@@ -1,24 +1,17 @@
 // Turns the design system tokens (designsystem/src/brand/tokens.js) into the
 // :root CSS rendered in <head>. Edit values in the design system, not here.
-import { allTokens, fonts, typeScale } from "@ds/brand/tokens.js";
+import { allTokens, breakpoints, fonts, layout, typeScale } from "@ds/brand/tokens.js";
+import { STRIPE_SLOPE } from "@ds/components/Stripe.jsx";
 
-// Mobile first: phones get these smaller heading sizes, and the design system's
-// own sizes apply from the desktop breakpoint up.
-const mobileSizes: Record<string, number> = {
-  display: 44,
-  h1: 36,
-  h2: 28,
-  h3: 20,
-  "body-l": 18,
-};
-
-export const DESKTOP_MIN = 1024;
+export const TABLET_MIN = breakpoints.tablet;
+export const DESKTOP_MIN = breakpoints.desktop;
 
 const block = (vars: Record<string, string>) =>
   Object.entries(vars)
     .map(([k, v]) => `${k}:${v};`)
     .join("");
 
+// Mobile first: the base values are for phones; tablet and desktop override them.
 // fontVars are the CSS variables next/font creates for the self-hosted files.
 export function tokensCss(fontVars: { display: string; body: string; mono: string }) {
   const base: Record<string, string> = {
@@ -26,14 +19,24 @@ export function tokensCss(fontVars: { display: string; body: string; mono: strin
     "--font-display": `var(${fontVars.display}), ${fonts.display.stack}`,
     "--font-body": `var(${fontVars.body}), ${fonts.body.stack}`,
     "--font-mono": `var(${fontVars.mono}), ${fonts.mono.stack}`,
+    "--grid-margin": `${layout.margin.phone}px`,
+    // The Stripe's angle as rise over run, for CSS that draws its edge.
+    "--stripe-slope": String(STRIPE_SLOPE),
   };
-  const desktop: Record<string, string> = {};
+  const tablet: Record<string, string> = { "--grid-margin": `${layout.margin.tablet}px` };
+  const desktop: Record<string, string> = { "--grid-margin": `${layout.margin.desktop}px` };
+
+  // Type styles with a phone size use it below the desktop breakpoint.
   for (const s of typeScale) {
-    const mobile = mobileSizes[s.token];
-    if (mobile) {
-      base[`--text-${s.token}-size`] = `${mobile}px`;
+    if (s.mobile) {
+      base[`--text-${s.token}-size`] = `${s.mobile}px`;
       desktop[`--text-${s.token}-size`] = `${s.size}px`;
     }
   }
-  return `:root{${block(base)}}@media (min-width:${DESKTOP_MIN}px){:root{${block(desktop)}}}`;
+
+  return [
+    `:root{${block(base)}}`,
+    `@media (min-width:${breakpoints.tablet}px){:root{${block(tablet)}}}`,
+    `@media (min-width:${breakpoints.desktop}px){:root{${block(desktop)}}}`,
+  ].join("");
 }

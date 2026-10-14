@@ -6,8 +6,8 @@ The marketing website for Neufin Energy. This file is the running record of how 
 
 ## Rules
 
-1. **Mobile first.** Write CSS for a 390px phone first, then add `min-width` queries: 768px tablet, 1024px desktop (`DESKTOP_MIN` in `src/lib/tokens.ts`). Check every change at 390px and 1440px. Tap targets at least 48px.
-2. **Powered by the Neufin design system.** Colours, fonts, the type scale, the logo and icons come from `../designsystem/src` (imported as `@ds/...`). Never hard-code a hex value, font or type size here. If something is missing, add it to the design system first, then use it.
+1. **Mobile first.** Write CSS for a 390px phone first, then add `min-width` queries at the design system breakpoints: 768px tablet, 1024px desktop, 1280px wide (`breakpoints` in tokens.js; `TABLET_MIN` and `DESKTOP_MIN` in `src/lib/tokens.ts`). Check every change at 390px and 1440px. Tap targets at least 48px.
+2. **Powered by the Neufin design system.** Every design value comes from `../designsystem` (imported as `@ds/...`): colours, gradients, fonts, the type scale with its phone sizes, the layout grid and margins, breakpoints, radii, shadows, motion, the logo, icons, Stripe shapes, buttons and text fields. Never hard-code a hex value, rgb(), font, type size, radius, shadow or duration here. If something is missing, add it to the design system first (and to its docs), then use it. See "Where design decisions live" below.
 3. **SEO rich.** Every page exports `metadata` (title, description, canonical), has one `h1`, uses semantic landmarks, and is added to `src/app/sitemap.ts`. Organisation JSON-LD is in `layout.tsx`; add page-level JSON-LD (Article, FAQ, Breadcrumb) where it applies. Pages are pre-rendered to HTML at build time; use client components only for interaction.
 4. **Accessible.** Keyboard and screen reader support for every interactive piece (Escape closes, focus returns, `aria-expanded`, `aria-current`). Respect reduced motion.
 5. **Copy** follows the design system's Tone of voice page: plain, factual, numbers over adjectives. No slogans, rhythmic triplets or puffery. Uppercase only for labels of one or two words.
@@ -18,7 +18,8 @@ The marketing website for Neufin Energy. This file is the running record of how 
 - Next.js 16 (App Router, Turbopack), TypeScript, CSS Modules plus `src/app/globals.css`. No Tailwind.
 - Built as a static export (`output: "export"` in `next.config.ts`): plain HTML, CSS and JS, no server. Cache Components is off because it doesn't work with a static export.
 - Fonts: Archivo, IBM Plex Sans and IBM Plex Mono, self-hosted with `next/font`.
-- `globals.css` is the first import in `layout.tsx`, so component CSS Modules can override global classes like `.btn`. Keep it first.
+- `globals.css` and then `@ds/styles/ui.css` are the first imports in `layout.tsx`, so component CSS Modules can override them. Keep them first.
+- `npm run dev` and `npm run build` first run `scripts/sync-ds-assets.mjs`, which copies files the site serves as-is from the design system (the browser tab icon). Don't edit the copies.
 - Blog and forms: Sanity (planned). Blog posts will come from Sanity and be added to the sitemap.
 - Preview hosting: GitHub Pages, next to the design system. `npm run deploy` in `website/` builds with `BASE_PATH=/Neufin/website` and publishes `out/` to the `website/` folder of the `gh-pages` branch. Live at https://nimkarkedar.github.io/Neufin/website/. Local dev: `npm run dev`, http://localhost:3000.
 - Search engines are blocked (robots.txt disallow + noindex) until the site is built with `SITE_LIVE=true` at launch.
@@ -28,6 +29,18 @@ The marketing website for Neufin Energy. This file is the running record of how 
 - Grid from Figma: 12 columns of 88px with 20px gutters, 1276px content, centred. 4 columns on phones, 8 on tablets.
 - `.container` gives the centred width and side margins (20 / 32 / 40px). `.grid` gives the column grid.
 - Heading sizes step down on phones (set in `src/lib/tokens.ts`); the design system sizes apply from 1024px.
+
+## Where design decisions live
+
+| Decision | Source | In the website as |
+| --- | --- | --- |
+| Colours, gradients, fonts, type scale | `designsystem/src/brand/tokens.js` | `var(--violet-600)`, `var(--gradient-dawn)`, `var(--font-body)`, `var(--text-h3-size)` |
+| Phone type sizes | `typeScale[].mobile` in tokens.js | applied below 1024px by `src/lib/tokens.ts` |
+| Layout grid, margins, breakpoints | `layout`, `breakpoints` in tokens.js | `.container`, `.grid`, `var(--grid-max)`, `var(--grid-gutter)`, `var(--grid-margin)` |
+| Radii, shadows, motion | `radii`, `shadows`, `motion` in tokens.js | `var(--radius-m)`, `var(--shadow-overlay)`, `var(--duration-base)`, `var(--ease-out)` |
+| Buttons, text fields, WhatsApp badge | `designsystem/src/styles/ui.css`, `WhatsAppBadge.jsx` | `.btn .btn-primary`, `.btn-secondary`, `.btn-badge`, `.text-field` |
+| Logo, icons, Stripe shapes | `designsystem/src/components/` | `<Logo>`, `<Icon>`, `stripeEdgeClipPath`, `var(--stripe-slope)` |
+| Site-only: header height, page structure, copy and links | this folder | `--header-h`, components, `src/lib/site.ts` |
 
 ## Built so far
 
@@ -43,7 +56,6 @@ The marketing website for Neufin Energy. This file is the running record of how 
 - Real Streamline Duotone icons to replace the placeholder icons in `designsystem/src/brand/icons.js`.
 - Call-backs aren't connected. `src/lib/callback.ts` has the checking code and a ready-to-paste endpoint; connect it to the forms backend (Sanity or a CRM) before launch.
 - Pages linked from the nav don't exist yet.
-- Buttons are defined here (`.btn` in `globals.css`). Add them to the design system once settled.
 
 ## Handover to Neufin's engineer
 
@@ -77,3 +89,4 @@ The repo (github.com/nimkarkedar/Neufin) holds two projects: `designsystem/` (Vi
 - 2026-10-14: Contact card blocks get the design system gradients (Daylight, Violet, Dawn) and a hover glow. Stays one card (Kedar: no separate cards). Button hierarchy: WhatsApp solid, call back outlined, contact details as links. Text on the gradients is Near Black; grey only for large bold text, where it still passes contrast.
 - 2026-10-14: Contact card uses one gradient across all three blocks, super soft (Dawn under a 60% white wash). Kedar: same gradient across, soft and elegant. Prefer quiet surfaces over colourful ones.
 - 2026-10-14: Preview moved from Vercel to GitHub Pages (Kedar: one place next to the design system; hand the repo to Neufin's engineer). Static export; the call-back endpoint became `src/lib/callback.ts` for the engineer to connect.
+- 2026-10-14: Audit: everything the site used that wasn't in the design system moved there (layout grid, breakpoints, phone type sizes, radii, shadows, motion, buttons, text field, WhatsApp badge and colour, tab icon). The site now has no hard-coded colours, sizes, radii, shadows or durations. The design system is organised in three sections: brand and marketing, website, product (planned).

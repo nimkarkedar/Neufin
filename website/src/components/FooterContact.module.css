@@ -7,7 +7,7 @@
   display: grid;
   overflow: hidden;
   border: 1px solid var(--line);
-  border-radius: var(--radius);
+  border-radius: var(--radius-m);
   background:
     linear-gradient(
       color-mix(in srgb, var(--white) 60%, transparent),
@@ -24,8 +24,8 @@
   gap: 12px;
   padding: 28px 20px;
   transition:
-    background-color 0.4s ease,
-    box-shadow 0.4s ease;
+    background-color var(--duration-slow) ease,
+    box-shadow var(--duration-slow) ease;
 }
 
 .col + .col {
@@ -54,21 +54,6 @@
 /* Buttons and the call-back form sit at the bottom of their column. */
 .action {
   margin-top: 16px;
-}
-
-.waButton {
-  padding-left: 7px;
-}
-
-/* WhatsApp's own green, used only inside its mark. */
-.wa {
-  display: grid;
-  place-items: center;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: #25d366;
-  color: var(--white);
 }
 
 /* Overlapping faces with a white ring. */
@@ -115,55 +100,9 @@
   gap: 12px;
 }
 
-/* A fixed +91 prefix and the number, in one white pill. */
+/* The field's look comes from the design system's .text-field; this only sizes it. */
 .field {
-  display: flex;
   flex: 1 1 220px;
-  align-items: center;
-  min-height: 48px;
-  background: var(--white);
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  transition: border-color 0.15s;
-}
-
-.field:focus-within {
-  border-color: var(--near-black);
-}
-
-.field[data-invalid] {
-  border-color: var(--electric-coral);
-}
-
-.prefix {
-  padding: 0 10px 0 20px;
-  border-right: 1px solid var(--line);
-  color: var(--ink-2);
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-}
-
-.input {
-  flex: 1;
-  min-width: 0;
-  height: 46px;
-  padding: 0 20px 0 10px;
-  background: none;
-  border: 0;
-  border-radius: 0 999px 999px 0;
-  color: var(--near-black);
-  font: inherit;
-  font-family: var(--font-mono);
-  font-variant-numeric: tabular-nums;
-}
-
-.input::placeholder {
-  color: var(--ink-2);
-  font-family: var(--font-body);
-}
-
-.input:focus {
-  outline: none;
 }
 
 .trap {
