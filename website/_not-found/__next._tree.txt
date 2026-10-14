@@ -1,4 +1,4 @@
 :HL["/Neufin/website/_next/static/chunks/05qcbclt4ga5b.css","style"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"/_not-found","h":64,"c":"$Q2"}]]
-0:{"b":"zldZ5ZcHCTIop4FxY1rRw","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"lqERydPXlHnEntDB97-Cp","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
