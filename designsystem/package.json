@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "deploy": "BASE_PATH=/Neufin/designsystem/ vite build && gh-pages -d dist -e designsystem -t",
-    "references": "cd public/assets/illustrations && rm -f neufin-references.zip && zip -jq neufin-references.zip inspiration/*.jpg"
+    "references": "cd public/assets/illustrations && rm -f neufin-references.zip && zip -jq neufin-references.zip inspiration/*.jpg",
+    "icons": "node scripts/icons.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

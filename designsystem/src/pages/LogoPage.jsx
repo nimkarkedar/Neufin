@@ -1,5 +1,6 @@
 import { asset } from '../brand/asset.js';
 import { Logo } from '../components/Logo.jsx';
+import { Stamp } from '../components/Stamp.jsx';
 import { ClearSpace, Placement } from '../components/LogoRules.jsx';
 import { PageHeader, Section, DoDont, Figure } from '../components/ui.jsx';
 
@@ -138,6 +139,22 @@ export default function LogoPage() {
           <DoDont kind="dont" caption="Add shadows, outlines or effects.">
             <div className="mini-stage stage-light"><Logo height={44} color="var(--electric-violet)" style={{ filter: 'drop-shadow(3px 3px 0 var(--signal-yellow))' }} /></div>
           </DoDont>
+        </div>
+      </Section>
+
+      <Section title="Stamp" intro="The symbol inside a ring that reads Cut energy cost on your terms. A sign-off, not a logo: it never replaces the logo and never sits next to it.">
+        <div className="tile">
+          <div className="tile-stage stage-light stamp-demo">
+            <Stamp size={160} style={{ color: 'var(--near-black)' }} />
+            <div className="stamp-dark"><Stamp size={160} style={{ color: 'var(--warm-white)', opacity: 0.25 }} /></div>
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Where</span><p>Website footer, the back of printed pieces, the last slide of a deck.</p></div>
+          <div className="row"><span className="row-key">Colour</span><p>One colour: Near Black or Warm White. On the dark footer, Warm White at 25% opacity.</p></div>
+          <div className="row"><span className="row-key">Size</span><p>At least 96px across, so the lettering stays readable.</p></div>
+          <div className="row"><span className="row-key">Motion</span><p>On the web, the ring may turn slowly while hovered (<code>--duration-spin</code>, one turn in 16s). The symbol stays upright. No motion when reduced motion is on.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>{'<Stamp size={160} ringClassName="…" />'}</code> in <code>src/components/Stamp.jsx</code>. SVG download: <a href={asset('/assets/stamp/neufin-stamp.svg')} download>neufin-stamp.svg</a>.</p></div>
         </div>
       </Section>
 

@@ -243,9 +243,24 @@ img { max-width: 100%; display: block; }
 .mini-poster-logo { position: absolute; left: 32px; bottom: 28px; }
 
 /* ---------- Iconography ---------- */
-.icon-row { display: flex; flex-wrap: wrap; gap: 12px; }
-.icon-cell { margin: 0; width: 104px; height: 104px; border: 1px solid var(--line); border-radius: var(--radius); display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
-.icon-cell figcaption { font-size: 12px; color: var(--ink-2); }
+.icon-strip { display: flex; flex-wrap: wrap; gap: 4px; padding: 16px; border-radius: var(--radius); }
+.icon-strip + .icon-strip { margin-top: 6px; }
+.icon-strip-light { background: var(--surface); }
+.icon-strip-neutral { background: var(--white); border: 1px solid var(--line); }
+.icon-strip-dark { background: var(--near-black); }
+.icon-sample { margin: 0; width: 92px; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 8px 0; }
+.icon-sample figcaption { font-size: 12px; opacity: .7; text-align: center; overflow-wrap: anywhere; }
+.icon-strip-light .icon-sample figcaption { color: var(--ink-2); opacity: 1; }
+.icon-strip-dark .icon-sample figcaption { color: var(--warm-white); }
+.icon-family + .icon-family { margin-top: 32px; }
+.icon-family-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 12px; margin-bottom: 10px; }
+.icon-family-head span { color: var(--ink-2); flex: 1 1 320px; }
+.icon-family-head code { font-size: 12px; color: var(--ink-2); }
+
+.web-action { width: 100%; max-width: 520px; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.stamp-demo { display: flex; gap: 24px; justify-content: center; flex-wrap: wrap; }
+.stamp-dark { background: var(--near-black); padding: 24px; border-radius: var(--radius); }
 
 /* ---------- Photography ---------- */
 .seg { display: inline-flex; border: 1px solid var(--line); border-radius: 8px; padding: 3px; margin-bottom: 16px; background: var(--surface); }

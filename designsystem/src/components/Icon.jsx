@@ -1,17 +1,21 @@
 import { icons, iconColours } from '../brand/icons.js';
 
-// name: a key of `icons`. tone: 'light' | 'dark'. Decorative by default.
-/** @param {{ name: keyof typeof icons, tone?: 'light' | 'dark', size?: number, title?: string } & import('react').SVGProps<SVGSVGElement>} props */
-export function Icon({ name, tone = 'light', size = 24, title, ...rest }) {
-  const c = iconColours[tone];
+// Draws one Nucleo icon from its copied SVG body. icon: { viewBox, body }.
+/** @param {{ icon: { viewBox: string, body: string }, size?: number, title?: string } & import('react').SVGProps<SVGSVGElement>} props */
+export function IconSvg({ icon, size = 24, title, ...rest }) {
   return (
     <svg
-      viewBox="0 0 24 24" width={size} height={size} fill="none"
-      stroke={c.stroke} strokeWidth="1.75" strokeLinecap="square" strokeLinejoin="miter"
+      xmlns="http://www.w3.org/2000/svg" viewBox={icon.viewBox} width={size} height={size}
       role={title ? 'img' : undefined} aria-label={title} aria-hidden={title ? undefined : true}
+      dangerouslySetInnerHTML={{ __html: icon.body }}
       {...rest}
-    >
-      <path d={icons[name]} fill={c.fill} />
-    </svg>
+    />
   );
+}
+
+// name: a key of `icons`. tone: 'light' | 'neutral' | 'dark'. Decorative by default.
+/** @param {{ name: keyof typeof icons, tone?: 'light' | 'neutral' | 'dark', size?: number, title?: string } & import('react').SVGProps<SVGSVGElement>} props */
+export function Icon({ name, tone = 'light', size = 24, style, ...rest }) {
+  const c = iconColours[tone];
+  return <IconSvg icon={icons[name]} size={size} style={{ color: c.main, '--icon-color-2': c.accent, ...style }} {...rest} />;
 }

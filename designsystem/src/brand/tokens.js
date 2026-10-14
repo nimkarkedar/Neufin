@@ -17,12 +17,12 @@ export const violetScale = [
 export const coreColours = [
   { name: 'Electric Violet', token: 'electric-violet', hex: '#7E22FF', role: 'Same as Violet 600.' },
   { name: 'Near Black', token: 'near-black', hex: '#19161F' },
-  { name: 'Warm White', token: 'warm-white', hex: '#F7F5FA' },
+  { name: 'Warm White', token: 'warm-white', hex: '#F7F5FA', role: 'Page background on the website.' },
 ];
 
 // Neutrals for UI: backgrounds, secondary text and lines.
 export const neutrals = [
-  { name: 'White', token: 'white', hex: '#FFFFFF', role: 'Page and card background.' },
+  { name: 'White', token: 'white', hex: '#FFFFFF', role: 'Main navigation, cards, menus and fields on Warm White.' },
   { name: 'Grey 200', token: 'grey-200', hex: '#E6E2EC', role: 'Lines and borders on light.' },
   { name: 'Grey 400', token: 'grey-400', hex: '#9C95A8', role: 'Secondary text on dark.' },
   { name: 'Grey 600', token: 'grey-600', hex: '#5F5A68', role: 'Secondary text on light.' },
@@ -89,11 +89,15 @@ export const shadows = {
 };
 
 // Motion. Most UI changes use `base`; menus opening use `slow` with ease-out.
+// `spin` is one full turn of the stamp's ring, slow enough to read the words.
+// `draw` is a line or shape drawing itself in once, such as a chart's trend line.
 export const motion = {
   easeOut: 'cubic-bezier(0.16, 1, 0.3, 1)',
   fast: '0.15s',
   base: '0.25s',
   slow: '0.4s',
+  spin: '16s',
+  draw: '1.2s',
 };
 
 // Colours that are not Neufin's but appear inside third-party marks only.
@@ -124,6 +128,8 @@ export function allTokens() {
   t['--duration-fast'] = motion.fast;
   t['--duration-base'] = motion.base;
   t['--duration-slow'] = motion.slow;
+  t['--duration-spin'] = motion.spin;
+  t['--duration-draw'] = motion.draw;
   externalColours.forEach((c) => (t[`--${c.token}`] = c.hex));
   return t;
 }

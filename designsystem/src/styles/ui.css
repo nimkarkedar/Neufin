@@ -4,7 +4,9 @@
 
 /* ---------- Buttons ----------
    Pill shaped, 48px tall. Primary is solid Near Black: one per block or card, for
-   the main action. Secondary is white with a Grey 200 outline, for everything else. */
+   the main action. Secondary is white with a Grey 200 outline, for everything else.
+   Accent is solid Electric Violet: once per page, for the page's main action (the
+   home page hero). */
 
 .btn {
   display: inline-flex;
@@ -45,6 +47,15 @@
 
 .btn-primary:hover:not(:disabled) {
   background: var(--violet-800);
+}
+
+.btn-accent {
+  background: var(--electric-violet);
+  color: var(--white);
+}
+
+.btn-accent:hover:not(:disabled) {
+  background: var(--violet-700);
 }
 
 .btn-secondary {
@@ -138,4 +149,85 @@
 
 .text-field-input:focus {
   outline: none;
+}
+
+/* ---------- Action field ----------
+   A choice and its button in one white pill, such as a state picker with See my
+   options. The button sits inside the pill, 6px in. On phones the two stack: the
+   pill holds the choice and the button goes full width below it. */
+
+.action-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.action-field-choice {
+  position: relative;
+  display: flex;
+  min-height: 48px;
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-pill);
+  transition: border-color var(--duration-fast);
+}
+
+.action-field-choice:focus-within {
+  border-color: var(--near-black);
+}
+
+.action-field-choice select {
+  flex: 1;
+  min-width: 0;
+  padding: 0 48px 0 24px;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  color: var(--near-black);
+  font: inherit;
+  appearance: none;
+  cursor: pointer;
+}
+
+.action-field-choice select:focus {
+  outline: none;
+}
+
+/* Chevron drawn from two borders, in the text colour. */
+.action-field-choice::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 24px;
+  width: 7px;
+  height: 7px;
+  margin-top: -6px;
+  border-right: 1.5px solid var(--near-black);
+  border-bottom: 1.5px solid var(--near-black);
+  transform: rotate(45deg);
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .action-field {
+    flex-direction: row;
+    gap: 0;
+    padding: 5px;
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+    border-radius: var(--radius-pill);
+    box-shadow: var(--shadow-raised);
+    transition: border-color var(--duration-fast);
+  }
+
+  .action-field:focus-within {
+    border-color: var(--near-black);
+  }
+
+  .action-field-choice {
+    flex: 1;
+    min-height: 48px;
+    background: none;
+    border: 0;
+  }
 }

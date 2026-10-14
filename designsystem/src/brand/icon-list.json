@@ -1,0 +1,33 @@
+{
+  "icons": {
+    "bolt": { "family": "core", "label": "bolt", "fill": "outline", "size": "24px" },
+    "meter": { "family": "core", "label": "gauge-2", "fill": "outline", "size": "24px" },
+    "leaf": { "family": "core", "label": "leaf", "fill": "outline", "size": "24px" },
+    "bill": { "family": "core", "label": "bill", "fill": "outline", "size": "24px" },
+    "home": { "family": "core", "label": "house-4", "fill": "outline", "size": "24px" },
+    "chart": { "family": "core", "label": "chart-bar-trend-up", "fill": "outline", "size": "24px" },
+    "sun": { "family": "core", "label": "sun", "fill": "outline", "size": "24px" },
+    "book": { "family": "core", "label": "book-open", "fill": "outline", "size": "24px" },
+    "news": { "family": "core", "label": "newspaper", "fill": "outline", "size": "24px" },
+    "people": { "family": "core", "label": "users-3", "fill": "outline", "size": "24px" },
+    "briefcase": { "family": "core", "label": "suitcase", "fill": "outline", "size": "24px" },
+    "arrow": { "family": "core", "label": "arrow-right", "fill": "outline", "size": "24px" },
+    "plant": { "family": "core", "label": "industry", "fill": "outline", "size": "24px" },
+    "drag": { "family": "core", "label": "chevron-expand-x", "fill": "outline", "size": "24px" }
+  },
+  "samples": [
+    { "family": "core", "fill": "outline", "size": "24px", "labels": ["bolt", "plug", "battery-charging", "solar-panel", "wind", "lightbulb", "bill", "wallet"] },
+    { "family": "core", "fill": "glyph", "size": "24px", "labels": ["bolt", "plug", "battery-charging", "solar-panel", "wind", "lightbulb", "bill", "wallet"] },
+    { "family": "ui", "fill": "outline", "size": "18px", "labels": ["check", "arrow-right", "phone", "calendar", "location", "lock", "user", "globe"] },
+    { "family": "ui", "fill": "outline-duo", "size": "18px", "labels": ["bolt", "plug", "battery-charging", "solar-panel", "gauge", "lightbulb", "money", "wallet"] },
+    { "family": "ui", "fill": "glyph", "size": "18px", "labels": ["check", "arrow-right", "phone", "calendar", "location", "lock", "user", "globe"] },
+    { "family": "ui", "fill": "glyph-duo", "size": "18px", "labels": ["bolt", "plug", "battery-charging", "solar-panel", "gauge", "lightbulb", "money", "wallet"] },
+    { "family": "sharp", "fill": "outline", "size": "24px", "labels": ["bolt", "plug", "battery", "solar-panel", "gauge", "lightbulb", "bill", "wallet"] },
+    { "family": "micro", "fill": "glyph", "size": "20px", "labels": ["bolt", "plug", "battery", "solar-panel", "gauge", "lightbulb", "check", "arrow-right"] },
+    { "family": "social-media", "labels": ["linkedin", "instagram", "x-twitter", "youtube", "whatsapp", "facebook"] },
+    { "family": "flags", "labels": ["india", "singapore", "united-kingdom", "united-states", "australia", "germany"] },
+    { "family": "credit-cards", "labels": ["visa", "mastercard", "american-express", "google-pay", "paypal", "bank-account"] },
+    { "family": "glass", "labels": ["earth", "analytics", "phone", "envelope", "trophy", "sun-cloud-showers"] },
+    { "family": "cursors", "labels": ["default-2", "pointer", "hand", "grab", "text", "zoom-in"] }
+  ]
+}
