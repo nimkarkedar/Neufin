@@ -49,6 +49,40 @@
   margin-top: 32px;
 }
 
+/* The Neufin stamp, faint, in the cell after the last group. Its ring turns while
+   the pointer is on it and stops where it is when the pointer leaves. */
+.stamp {
+  align-self: center;
+  width: 120px;
+  color: var(--warm-white);
+  opacity: 0.25;
+}
+
+.stamp svg {
+  display: block;
+}
+
+.stampRing {
+  animation: stamp-turn var(--duration-spin) linear infinite;
+  animation-play-state: paused;
+}
+
+.stamp:hover .stampRing {
+  animation-play-state: running;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stampRing {
+    animation: none;
+  }
+}
+
+@keyframes stamp-turn {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
 .groupTitle {
   margin-bottom: 12px;
   font-family: var(--font-display);
@@ -147,5 +181,9 @@
 @media (min-width: 1280px) {
   .logo {
     height: 56px;
+  }
+
+  .stamp {
+    width: 168px;
   }
 }

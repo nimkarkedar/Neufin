@@ -39,7 +39,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: hexOf("white"),
+  themeColor: hexOf("warm-white"),
 };
 
 const organisation = {

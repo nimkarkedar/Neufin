@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@ds/components/Logo.jsx";
+import { Stamp } from "@ds/components/Stamp.jsx";
 import { stripeEdgeClipPath } from "@ds/components/Stripe.jsx";
 import { footerGroups, legalLinks, site } from "@/lib/site";
 import { FooterContact } from "./FooterContact";
@@ -47,6 +48,10 @@ export function SiteFooter() {
                 </ul>
               </div>
             ))}
+            {/* Decorative. Fills the empty grid cell after the last group at every width. */}
+            <div className={styles.stamp}>
+              <Stamp size="100%" ringClassName={styles.stampRing} />
+            </div>
           </nav>
         </div>
 

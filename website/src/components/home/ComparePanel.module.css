@@ -1,0 +1,358 @@
+/* Before and after panel. Two identical layers, one over the other; the after layer
+   is clipped from the left at --pos, set by the handle. Before: White with greys.
+   After: Near Black, with Energy Mint only in the bars and the energy mix. Kept
+   quiet on purpose: thin soft bars, figures at H3 size. No violet. */
+
+.figure {
+  margin: 0;
+}
+
+.panel {
+  position: relative;
+  overflow: hidden;
+  height: 520px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-raised);
+  touch-action: pan-y;
+  user-select: none;
+  cursor: ew-resize;
+}
+
+.layer {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-rows: auto auto minmax(0, 1fr) auto;
+  gap: 20px;
+  padding: 20px;
+}
+
+.afterClip {
+  position: absolute;
+  inset: 0;
+  clip-path: inset(0 0 0 var(--pos));
+}
+
+/* ---------- Layer contents ---------- */
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.after .head {
+  flex-direction: row-reverse;
+  text-align: right;
+}
+
+.tile {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-m);
+}
+
+.headText {
+  font-family: var(--font-display);
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  font-weight: var(--text-h3-weight);
+}
+
+.eyebrow {
+  display: block;
+  font-family: var(--font-body);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-lh);
+  font-weight: var(--text-label-weight);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* Each side's figures and mix stay on their own half, so the other layer never
+   covers them with the handle in the middle. Stacked until desktop. */
+.head,
+.stats,
+.mix {
+  width: 46%;
+}
+
+.after .head,
+.after .stats,
+.after .mix {
+  margin-left: auto;
+  text-align: right;
+}
+
+.after .mixKey {
+  justify-content: flex-end;
+}
+
+.stats {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+}
+
+.stats dt {
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+}
+
+.stats dd {
+  margin: 4px 0 0;
+  font-size: var(--text-small-size);
+}
+
+.big {
+  font-family: var(--font-mono);
+  font-size: var(--text-h3-size);
+  line-height: 1.2;
+  font-variant-numeric: tabular-nums;
+}
+
+.chart {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  gap: 8px;
+  min-height: 0;
+}
+
+/* Bars on a light grid of four lines. */
+.bars {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  min-height: 0;
+  background: repeating-linear-gradient(to top, var(--grid-line) 0 1px, transparent 1px 25%);
+}
+
+/* Thin bars centred in each month's slot, so the chart reads as a quiet texture. */
+.bar {
+  flex: 1;
+  max-width: 24px;
+  margin-inline: auto;
+  border-radius: var(--radius-xs) var(--radius-xs) 0 0;
+}
+
+.months {
+  display: flex;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: var(--text-label-size);
+}
+
+.months span {
+  flex: 1;
+  text-align: center;
+}
+
+/* Phones show every other month. */
+.months span:nth-child(even) {
+  visibility: hidden;
+}
+
+/* The price line: the Stripe, stepping down at the N's angle at the handle. */
+.priceLine {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* Cropped to the chart, so the step never draws outside it near the edges. */
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.line_before {
+  fill: var(--near-black);
+}
+
+.line_after {
+  fill: var(--energy-mint);
+}
+
+.cutLabel {
+  fill: var(--energy-mint);
+  font-family: var(--font-mono);
+  font-size: var(--text-small-size);
+  font-weight: 500;
+}
+
+.mixBar {
+  display: flex;
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+}
+
+.mixKey {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 16px;
+  margin-top: 10px;
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-lh);
+}
+
+.mixKey span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.mixKey i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+/* ---------- Before: grid power ---------- */
+
+.before {
+  --grid-line: var(--grey-200);
+
+  background: var(--white);
+  color: var(--near-black);
+}
+
+.before .tile {
+  border: 1px solid var(--line);
+  background: var(--warm-white);
+}
+
+.before .eyebrow,
+.before dt,
+.before .months,
+.before .mixKey {
+  color: var(--grey-600);
+}
+
+.before .bar {
+  background: linear-gradient(var(--grey-200), color-mix(in srgb, var(--grey-200) 40%, transparent));
+}
+
+/* ---------- After: with Neufin ---------- */
+
+.after {
+  --grid-line: var(--grey-900);
+
+  background: var(--near-black);
+  color: var(--warm-white);
+}
+
+.after .tile {
+  background: var(--grey-900);
+}
+
+.after .eyebrow,
+.after dt,
+.after .months,
+.after .mixKey {
+  color: var(--grey-400);
+}
+
+.after .bar {
+  background: linear-gradient(
+    color-mix(in srgb, var(--energy-mint) 70%, transparent),
+    color-mix(in srgb, var(--energy-mint) 10%, transparent)
+  );
+}
+
+/* Energy mix tones. */
+.fossil { background: var(--grey-800); }
+.fossil2 { background: var(--grey-400); }
+.green { background: var(--energy-mint); }
+.green2 { background: color-mix(in srgb, var(--energy-mint) 55%, var(--white)); }
+.grid { background: var(--grey-800); }
+
+/* ---------- Handle ---------- */
+
+.handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 2px;
+  margin-left: -1px;
+  background: var(--white);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--near-black) 12%, transparent);
+  outline: none;
+}
+
+.knob {
+  position: absolute;
+  /* Low on the line, under the chart's price step, so it never hides the drop. */
+  top: 78%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  translate: -50% -50%;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--near-black);
+  box-shadow: var(--shadow-overlay);
+  transition: scale var(--duration-fast) ease;
+}
+
+.panel:hover .knob,
+.handle:focus-visible .knob {
+  scale: 1.08;
+}
+
+.handle:focus-visible .knob {
+  outline: 2px solid var(--near-black);
+  outline-offset: 3px;
+}
+
+.caption {
+  margin-top: 12px;
+  color: var(--ink-2);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+  text-align: center;
+}
+
+@media (min-width: 768px) {
+  .panel {
+    height: 440px;
+  }
+
+  .layer {
+    gap: 24px;
+    padding: 28px;
+  }
+
+  .months span:nth-child(even) {
+    visibility: visible;
+  }
+}
+
+@media (min-width: 1024px) {
+  .panel {
+    height: 500px;
+  }
+
+  .layer {
+    padding: 32px 40px;
+  }
+
+  .stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .bars,
+  .months {
+    gap: 16px;
+  }
+
+  .bar {
+    max-width: 32px;
+  }
+}

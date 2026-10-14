@@ -1,10 +1,12 @@
-import { site } from "@/lib/site";
+import { Hero } from "@/components/home/Hero";
+import styles from "./page.module.css";
 
-// Home page. Empty until the hero design arrives. The h1 is here so the page has one.
+// Home page. The hero holds the page's h1.
 export default function Home() {
   return (
-    <div className="container" style={{ minHeight: "60vh" }}>
-      <h1 className="visually-hidden">{site.name}</h1>
-    </div>
+    <>
+      <Hero />
+      <div className={styles.upcoming} aria-hidden="true" />
+    </>
   );
 }

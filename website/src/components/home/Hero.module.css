@@ -1,0 +1,78 @@
+/* Home hero, centred: headline, one line, the state picker, then the product panel.
+   Sits on the page's White-to-Warm-White fade (globals.css). */
+
+.hero {
+  padding-top: 40px;
+}
+
+.intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.title {
+  font-size: var(--text-display-size);
+  line-height: var(--text-display-lh);
+  font-weight: var(--text-display-weight);
+  letter-spacing: var(--text-display-track);
+  text-wrap: balance;
+}
+
+.lead {
+  max-width: 40ch;
+  margin-top: 20px;
+  font-size: var(--text-body-l-size);
+  line-height: var(--text-body-l-lh);
+  text-wrap: balance;
+}
+
+.picker {
+  width: 100%;
+  max-width: 560px;
+  margin-top: 32px;
+  text-align: left;
+}
+
+.more {
+  margin-top: 20px;
+  color: var(--ink-2);
+}
+
+.more a {
+  color: var(--ink);
+  text-underline-offset: 4px;
+}
+
+.more a:hover {
+  text-decoration-thickness: 2px;
+}
+
+.preview {
+  margin-top: 48px;
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding-top: 64px;
+  }
+
+  .lead {
+    max-width: none;
+  }
+
+  .preview {
+    margin-top: 64px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    padding-top: 72px;
+  }
+
+  .preview {
+    margin-top: 72px;
+  }
+}

@@ -1,19 +1,18 @@
-/* One contact card above the dark footer, in three blocks divided by lines, on a
-   single soft gradient: the design system's Dawn gradient under a 60% white wash.
-   Phones and tablets: stacked. Desktop: side by side, with the buttons lined up
-   along the bottom. */
+/* One contact card above the dark footer, in three blocks divided by lines.
+   Each block has its own layer of the design system's Violet gradient, resting
+   at 20% opacity. Hovering a block (or keyboard focus inside it) fades that
+   block's gradient to 50% and raises the block out of the card with the design
+   system's raised shadow. Phones and tablets: stacked. Desktop: side by side,
+   with the buttons lined up along the bottom. */
 
 .card {
+  /* Inner corners, so blocks meet the card's rounded edge exactly. */
+  --inner-r: calc(var(--radius-m) - 1px);
+
   display: grid;
-  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius-m);
-  background:
-    linear-gradient(
-      color-mix(in srgb, var(--white) 60%, transparent),
-      color-mix(in srgb, var(--white) 60%, transparent)
-    ),
-    var(--gradient-dawn);
+  background: var(--white);
   color: var(--near-black);
 }
 
@@ -22,22 +21,61 @@
   flex-direction: column;
   align-items: flex-start;
   gap: 12px;
+  position: relative;
+  isolation: isolate;
   padding: 28px 20px;
+  background: var(--white);
   transition:
-    background-color var(--duration-slow) ease,
-    box-shadow var(--duration-slow) ease;
+    transform var(--duration-slow) var(--ease-out),
+    box-shadow var(--duration-slow) var(--ease-out),
+    border-radius var(--duration-slow) var(--ease-out);
+}
+
+/* Outer corners follow the card; stacked first, side by side from desktop. */
+.col:first-child {
+  border-radius: var(--inner-r) var(--inner-r) 0 0;
+}
+
+.col:last-child {
+  border-radius: 0 0 var(--inner-r) var(--inner-r);
+}
+
+/* Raised: the block lifts 4px with every corner rounded, above its neighbours. */
+.col:hover,
+.col:focus-within {
+  z-index: 1;
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-raised);
+  transform: translateY(-4px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .col:hover,
+  .col:focus-within {
+    transform: none;
+  }
+}
+
+/* The gradient sits on its own layer so only it fades, not the text. */
+.col::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--gradient-violet);
+  opacity: 0.2;
+  /* Ease-in-out so the whole fade is seen; ease-out finishes almost at once. */
+  transition: opacity var(--duration-slow) ease-in-out;
+}
+
+.col:hover::before,
+.col:focus-within::before {
+  opacity: 0.5;
 }
 
 .col + .col {
   border-top: 1px solid var(--line);
-}
-
-/* Hover (or keyboard focus inside): the block brightens a little, with a fine
-   inner line. Nothing moves. */
-.col:hover,
-.col:focus-within {
-  background-color: color-mix(in srgb, var(--white) 45%, transparent);
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--white) 80%, transparent);
 }
 
 .title {
@@ -154,6 +192,19 @@
   .col + .col {
     border-top: 0;
     border-left: 1px solid var(--line);
+  }
+
+  .col:first-child {
+    border-radius: var(--inner-r) 0 0 var(--inner-r);
+  }
+
+  .col:last-child {
+    border-radius: 0 var(--inner-r) var(--inner-r) 0;
+  }
+
+  .col:hover,
+  .col:focus-within {
+    border-radius: var(--radius-m);
   }
 
   .action,

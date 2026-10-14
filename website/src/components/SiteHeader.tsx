@@ -75,6 +75,16 @@ export function SiteHeader() {
 
   useEffect(() => () => clearTimeout(hoverTimer.current), []);
 
+  // At the top of the page the header has no bottom line, so its White runs straight
+  // into the page's top fade. The line appears once the page scrolls under it.
+  const [scrolled, setScrolled] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 0);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   // Desktop flyout: close on outside click or Escape.
   useEffect(() => {
     if (!flyout) return;
@@ -112,7 +122,7 @@ export function SiteHeader() {
   }, [menuOpen]);
 
   return (
-    <header className={styles.header} data-menu-open={menuOpen || undefined}>
+    <header className={styles.header} data-menu-open={menuOpen || undefined} data-scrolled={scrolled || undefined}>
       <div className={`container ${styles.bar}`}>
         <Link href="/" className={styles.logo} aria-label={`${site.name} home`}>
           <Logo variant="stacked" markColor={hexOf("electric-violet")} height="100%" title={site.name} />
@@ -163,7 +173,7 @@ export function SiteHeader() {
                             aria-current={isCurrent(pathname, m.href) ? "page" : undefined}
                           >
                             <span className={styles.iconTile}>
-                              <Icon name={m.icon} tone="dark" size={18} />
+                              <Icon name={m.icon} tone="neutral" size={24} />
                             </span>
                             <span>
                               <span className={styles.flyoutLabel}>{m.label}</span>
@@ -240,7 +250,7 @@ export function SiteHeader() {
                         <li key={m.href}>
                           <Link href={m.href} className={styles.groupLink}>
                             <span className={styles.iconTile}>
-                              <Icon name={m.icon} tone="dark" size={20} />
+                              <Icon name={m.icon} tone="neutral" size={24} />
                             </span>
                             {m.label}
                           </Link>

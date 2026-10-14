@@ -8,8 +8,9 @@
   --header-h: 64px;
 
   /* Site-level names for design system tokens. */
-  --bg: var(--white);
-  --surface: var(--warm-white);
+  /* Page background is Warm White; the main navigation, cards, menus and fields are White. */
+  --bg: var(--warm-white);
+  --surface: var(--white);
   --ink: var(--near-black);
   --ink-2: var(--grey-600);
   --line: var(--grey-200);
@@ -29,9 +30,12 @@ html {
   scroll-padding-top: var(--header-h);
 }
 
+/* Warm White page. The top of every page fades from the navigation's White into
+   Warm White over most of the first screen, then stays flat Warm White. The fade
+   scrolls away with the page. */
 body {
   margin: 0;
-  background: var(--bg);
+  background: linear-gradient(var(--white) var(--header-h), var(--bg) 80svh) top / 100% 80svh no-repeat var(--bg);
   color: var(--ink);
   font-family: var(--font-body);
   font-size: var(--text-body-size);
