@@ -8,7 +8,7 @@ import styles from "./ComparePanel.module.css";
 
 // Before and after, for a typical industrial site (illustrative, no real client).
 // Two identical layouts are stacked: before (grid power, mostly coal, on White) and
-// after (Neufin: open access and solar, on Near Black). A handle reveals the after
+// after (Neufin: open access and solar, on Violet 100). A handle reveals the after
 // layer from the right; dragging it left sweeps across the bars, so the bill drops.
 // A price line runs across both: high on the before side, stepping down at the angle
 // of the N exactly where the handle is, then low. The step moves with the handle.
@@ -101,7 +101,7 @@ function Layer({ side, line, barsRef }: { side: Side; line: Line; barsRef?: Reac
     <div className={`${styles.layer} ${styles[side.key]}`}>
       <div className={styles.head}>
         <span className={styles.tile}>
-          <Icon name={side.icon} tone={side.key === "after" ? "dark" : "neutral"} size={24} />
+          <Icon name={side.icon} tone="neutral" size={24} />
         </span>
         <p className={styles.headText}>
           <span className={styles.eyebrow}>{side.eyebrow}</span>

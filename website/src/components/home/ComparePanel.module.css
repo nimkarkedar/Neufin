@@ -1,13 +1,17 @@
 /* Before and after panel. Two identical layers, one over the other; the after layer
    is clipped from the left at --pos, set by the handle. Before: White with greys.
-   After: Near Black, with Energy Mint only in the bars and the energy mix. Kept
-   quiet on purpose: thin soft bars, figures at H3 size. No violet. */
+   After: Violet 100 with Electric Violet, a design system illustration combo; the
+   accent colours the bars, the price line and renewables in the mix. Kept quiet on
+   purpose: thin soft bars, figures at H3 size. */
 
 .figure {
   margin: 0;
 }
 
 .panel {
+  /* The After accent, also used for renewables in the Before mix. */
+  --after-accent: var(--electric-violet);
+
   position: relative;
   overflow: hidden;
   height: 520px;
@@ -173,11 +177,11 @@
 }
 
 .line_after {
-  fill: var(--energy-mint);
+  fill: var(--after-accent);
 }
 
 .cutLabel {
-  fill: var(--energy-mint);
+  fill: var(--after-accent);
   font-family: var(--font-mono);
   font-size: var(--text-small-size);
   font-weight: 500;
@@ -239,36 +243,36 @@
 /* ---------- After: with Neufin ---------- */
 
 .after {
-  --grid-line: var(--grey-900);
+  --grid-line: color-mix(in srgb, var(--near-black) 10%, transparent);
 
-  background: var(--near-black);
-  color: var(--warm-white);
+  background: var(--violet-100);
+  color: var(--near-black);
 }
 
 .after .tile {
-  background: var(--grey-900);
+  background: color-mix(in srgb, var(--white) 55%, transparent);
 }
 
 .after .eyebrow,
 .after dt,
 .after .months,
 .after .mixKey {
-  color: var(--grey-400);
+  color: var(--grey-600);
 }
 
 .after .bar {
   background: linear-gradient(
-    color-mix(in srgb, var(--energy-mint) 70%, transparent),
-    color-mix(in srgb, var(--energy-mint) 10%, transparent)
+    color-mix(in srgb, var(--after-accent) 70%, transparent),
+    color-mix(in srgb, var(--after-accent) 10%, transparent)
   );
 }
 
 /* Energy mix tones. */
 .fossil { background: var(--grey-800); }
 .fossil2 { background: var(--grey-400); }
-.green { background: var(--energy-mint); }
-.green2 { background: color-mix(in srgb, var(--energy-mint) 55%, var(--white)); }
-.grid { background: var(--grey-800); }
+.green { background: var(--after-accent); }
+.green2 { background: color-mix(in srgb, var(--after-accent) 55%, var(--white)); }
+.grid { background: var(--grey-400); }
 
 /* ---------- Handle ---------- */
 
