@@ -23,7 +23,7 @@ export function Hero() {
           Cut Energy Cost. <br />
           On Your Terms.
         </h1>
-        <p className={styles.lead}>Find better electricity deals. Make the switch. Keep every unit accountable.</p>
+        <p className={styles.lead}>Energy orchestration software that plans, buys and optimises clean power for your business.</p>
 
         {/* TODO: the options page doesn't exist yet. */}
         <Form action="/options" className={`action-field ${styles.picker}`}>
@@ -42,7 +42,7 @@ export function Hero() {
         </Form>
 
         <p className={styles.more}>
-          Know your bill? <Link href="/products/bill-checker">Estimate possible savings</Link> or{" "}
+          Know your bill? Check <Link href="/products/bill-checker">estimated possible savings</Link> or{" "}
           <a href={whatsappHref} target="_blank" rel="noopener">
             share your bill
           </a>
