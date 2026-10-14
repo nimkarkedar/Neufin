@@ -1,8 +1,8 @@
 import { useId } from 'react';
 import { asset } from '../brand/asset.js';
-import { hexOf } from '../brand/tokens.js';
 import { stripePoints, markBand, STRIPE_SLOPE } from './Stripe.jsx';
 import { Logo } from './Logo.jsx';
+import { Duotone, VioletWash } from './PhotoFilters.jsx';
 
 // Photo posts are drawn on a 1080-wide canvas with a 90 px module: 12 columns,
 // 15 rows at 4:5 and 12 rows at 1:1. Every overlay and text edge sits on a module line.
@@ -19,6 +19,7 @@ export const photos = [
   { id: 'pylon-sky', src: '/assets/photos/pylon-sky.jpg', alt: 'Transmission tower against a pink and blue sky', align: 'xMaxYMid' },
   { id: 'spinning-mill', src: '/assets/photos/spinning-mill.jpg', alt: 'Worker tending a machine in a spinning mill', align: 'xMidYMid' },
   { id: 'pylon-lattice', src: '/assets/photos/pylon-lattice.jpg', alt: 'Looking up through the steel lattice of a pylon', align: 'xMidYMid' },
+  { id: 'pylon-dusk', src: '/assets/photos/pylon-dusk.jpg', alt: 'Transmission tower and power lines against a violet and peach dusk sky', align: 'xMinYMid' },
 ];
 
 export const treatments = [
@@ -45,33 +46,10 @@ function lanes({ y, kinkX, drop, widths }) {
   });
 }
 
-const rgb = (hex) => [1, 3, 5].map((i) => (parseInt(hex.slice(i, i + 2), 16) / 255).toFixed(3));
-const LUMA = '.2126 .7152 .0722 0 0 .2126 .7152 .0722 0 0 .2126 .7152 .0722 0 0 0 0 0 1 0';
-
-// Maps the photo's shadows to `dark` and highlights to `light`.
-function Duotone({ id, dark, light }) {
-  const a = rgb(hexOf(dark));
-  const b = rgb(hexOf(light));
-  return (
-    <filter id={id} colorInterpolationFilters="sRGB" x="0" y="0" width="1" height="1">
-      <feColorMatrix type="matrix" values={LUMA} />
-      <feComponentTransfer>
-        <feFuncR type="table" tableValues={`${a[0]} ${b[0]}`} />
-        <feFuncG type="table" tableValues={`${a[1]} ${b[1]}`} />
-        <feFuncB type="table" tableValues={`${a[2]} ${b[2]}`} />
-      </feComponentTransfer>
-    </filter>
-  );
-}
-
 function Filters({ id }) {
   return (
     <>
-      {/* Violet wash: Violet 300 multiplied at 45%. */}
-      <filter id={`${id}-wash`} colorInterpolationFilters="sRGB" x="0" y="0" width="1" height="1">
-        <feFlood floodColor={hexOf('violet-300')} floodOpacity="0.45" result="f" />
-        <feBlend in="SourceGraphic" in2="f" mode="multiply" />
-      </filter>
+      <VioletWash id={`${id}-wash`} />
       <Duotone id={`${id}-duotone`} dark="violet-900" light="violet-200" />
       {/* Ribbon lanes: the photo seen through violet. The middle lane is lighter. */}
       <Duotone id={`${id}-lane`} dark="violet-900" light="violet-400" />

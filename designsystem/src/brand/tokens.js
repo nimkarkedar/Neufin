@@ -53,6 +53,18 @@ export const fonts = {
   fallback: { name: 'Arial', stack: 'Arial, sans-serif', use: 'Body fallback. For Windows, system defaults and Office files when the brand fonts are not available. Regular 400, Bold 700.' },
 };
 
+// Type scale. Sizes are desktop px; the website steps the display sizes down on small screens.
+export const typeScale = [
+  { name: 'Display', token: 'display', font: 'display', size: 72, lh: 0.95, weight: 800, track: '-0.02em' },
+  { name: 'H1', token: 'h1', font: 'display', size: 48, lh: 1.0, weight: 700, track: '-0.015em' },
+  { name: 'H2', token: 'h2', font: 'display', size: 32, lh: 1.1, weight: 700, track: '-0.01em' },
+  { name: 'H3', token: 'h3', font: 'display', size: 22, lh: 1.2, weight: 700, track: '0' },
+  { name: 'Body L', token: 'body-l', font: 'body', size: 20, lh: 1.5, weight: 400, track: '0' },
+  { name: 'Body', token: 'body', font: 'body', size: 16, lh: 1.55, weight: 400, track: '0' },
+  { name: 'Small', token: 'small', font: 'body', size: 13, lh: 1.45, weight: 400, track: '0.01em' },
+  { name: 'Label', token: 'label', font: 'body', size: 12, lh: 1.3, weight: 600, track: '0' },
+];
+
 export function allTokens() {
   const t = {};
   violetScale.forEach((c) => (t[`--violet-${c.step}`] = c.hex));
@@ -61,6 +73,12 @@ export function allTokens() {
   t['--font-display'] = fonts.display.stack;
   t['--font-body'] = fonts.body.stack;
   t['--font-mono'] = fonts.mono.stack;
+  typeScale.forEach((s) => {
+    t[`--text-${s.token}-size`] = `${s.size}px`;
+    t[`--text-${s.token}-lh`] = String(s.lh);
+    t[`--text-${s.token}-weight`] = String(s.weight);
+    t[`--text-${s.token}-track`] = s.track;
+  });
   return t;
 }
 

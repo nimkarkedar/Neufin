@@ -5,6 +5,7 @@ const paths = (list) => list.map((d, i) => <path key={i} d={d} />);
 // variant: 'stacked' (primary) | 'horizontal' | 'symbol'
 // Colour follows CSS `color`, so set it with a class or the `color` prop.
 // markColor sets the symbol separately, for the two-colour logo only.
+/** @param {{ variant?: 'stacked' | 'horizontal' | 'symbol', color?: string, markColor?: string, height?: number | string, title?: string } & import('react').SVGProps<SVGSVGElement>} props */
 export function Logo({ variant = 'stacked', color, markColor, height = 48, title = 'Neufin Energy', style, ...rest }) {
   const common = {
     role: 'img',

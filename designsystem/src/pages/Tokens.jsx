@@ -22,7 +22,7 @@ export default function Tokens() {
               <tr key={k} onClick={() => copy(`var(${k})`)}>
                 <td><code>{k}</code></td>
                 <td><code>{v}</code></td>
-                <td>{v.startsWith('#') || v.startsWith('linear') ? <span className="token-dot" style={{ background: v }} /> : <span style={{ fontFamily: v }}>Aa</span>}</td>
+                <td>{v.startsWith('#') || v.startsWith('linear') ? <span className="token-dot" style={{ background: v }} /> : k.startsWith('--font') ? <span style={{ fontFamily: v }}>Aa</span> : null}</td>
               </tr>
             ))}
           </tbody>

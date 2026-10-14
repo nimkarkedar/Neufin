@@ -1,16 +1,17 @@
-import { fonts } from '../brand/tokens.js';
+import { fonts, typeScale } from '../brand/tokens.js';
 import { PageHeader, Section } from '../components/ui.jsx';
 
-const scale = [
-  { name: 'Display', font: 'display', size: 72, lh: 0.95, weight: 800, track: '-0.02em', sample: 'Cut Energy Cost.' },
-  { name: 'H1', font: 'display', size: 48, lh: 1.0, weight: 700, track: '-0.015em', sample: 'On Your Terms.' },
-  { name: 'H2', font: 'display', size: 32, lh: 1.1, weight: 700, track: '-0.01em', sample: 'Know what you pay.' },
-  { name: 'H3', font: 'display', size: 22, lh: 1.2, weight: 700, track: '0', sample: 'Your monthly usage' },
-  { name: 'Body L', font: 'body', size: 20, lh: 1.5, weight: 400, track: '0', sample: 'See where every unit goes and what it costs you, in plain numbers.' },
-  { name: 'Body', font: 'body', size: 16, lh: 1.55, weight: 400, track: '0', sample: 'Your bill is split into usage, fixed charges and taxes. Tap any line to see how it was calculated.' },
-  { name: 'Small', font: 'body', size: 13, lh: 1.45, weight: 400, track: '0.01em', sample: 'Last updated 5 Oct 2026, 09:40' },
-  { name: 'Label', font: 'body', size: 12, lh: 1.3, weight: 600, track: '0', sample: 'Estimated saving' },
-];
+const samples = {
+  display: 'Cut Energy Cost.',
+  h1: 'On Your Terms.',
+  h2: 'Know what you pay.',
+  h3: 'Your monthly usage',
+  'body-l': 'See where every unit goes and what it costs you, in plain numbers.',
+  body: 'Your bill is split into usage, fixed charges and taxes. Tap any line to see how it was calculated.',
+  small: 'Last updated 5 Oct 2026, 09:40',
+  label: 'Estimated saving',
+};
+const scale = typeScale.map((s) => ({ ...s, sample: samples[s.token] }));
 
 
 const Doc = ({ kind, label }) => (
