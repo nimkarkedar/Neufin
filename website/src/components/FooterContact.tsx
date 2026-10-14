@@ -2,12 +2,20 @@
 
 import Image from "next/image";
 import { useRef, useState, type FormEvent } from "react";
+import face1 from "@/assets/placeholder-faces/face-1.jpg";
+import face2 from "@/assets/placeholder-faces/face-2.jpg";
+import face3 from "@/assets/placeholder-faces/face-3.jpg";
+import face4 from "@/assets/placeholder-faces/face-4.jpg";
 import { formatIndianMobile, normaliseIndianMobile } from "@/lib/phone";
 import { site, telHref, whatsappHref } from "@/lib/site";
 import styles from "./FooterContact.module.css";
 
 // TODO: placeholder faces from Unsplash until the team photos arrive.
-const faces = ["face-1", "face-2", "face-3", "face-4"].map((f) => `/placeholder/faces/${f}.jpg`);
+const faces = [face1, face2, face3, face4];
+
+// Where call-back requests are sent. Unset in the GitHub Pages preview, which has no
+// server; see src/lib/callback.ts for how to connect it.
+const CALLBACK_URL = process.env.NEXT_PUBLIC_CALLBACK_URL;
 
 // WhatsApp glyph from Simple Icons (CC0).
 const WhatsAppIcon = () => (
@@ -18,7 +26,7 @@ const WhatsAppIcon = () => (
   </span>
 );
 
-type State = "closed" | "open" | "sending" | "error" | { done: string };
+type State = "closed" | "open" | "sending" | "error" | "unavailable" | { done: string };
 
 // The call-back column: a button that opens a +91 field in place.
 function CallBack() {
@@ -41,9 +49,13 @@ function CallBack() {
       return;
     }
     setError("");
+    if (!CALLBACK_URL) {
+      setState("unavailable");
+      return;
+    }
     setState("sending");
     try {
-      const res = await fetch("/api/callback", {
+      const res = await fetch(CALLBACK_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ phone, company: data.get("company") }),
@@ -60,6 +72,14 @@ function CallBack() {
     return (
       <p className={styles.done} role="status">
         Thanks. We&apos;ll call you on {formatIndianMobile(state.done)}.
+      </p>
+    );
+  }
+
+  if (state === "unavailable") {
+    return (
+      <p className={styles.done} role="status">
+        Call-back requests aren&apos;t connected in this preview yet. Send your bill on WhatsApp or email us instead.
       </p>
     );
   }
@@ -129,7 +149,7 @@ export function FooterContact() {
         <p className={styles.text}>Leave your number and we&apos;ll call you back.</p>
         <span className={styles.faces} aria-hidden="true">
           {faces.map((src) => (
-            <Image key={src} src={src} alt="" width={40} height={40} />
+            <Image key={src.src} src={src} alt="" width={40} height={40} />
           ))}
         </span>
         <CallBack />

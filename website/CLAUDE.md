@@ -8,20 +8,20 @@ The marketing website for Neufin Energy. This file is the running record of how 
 
 1. **Mobile first.** Write CSS for a 390px phone first, then add `min-width` queries: 768px tablet, 1024px desktop (`DESKTOP_MIN` in `src/lib/tokens.ts`). Check every change at 390px and 1440px. Tap targets at least 48px.
 2. **Powered by the Neufin design system.** Colours, fonts, the type scale, the logo and icons come from `../designsystem/src` (imported as `@ds/...`). Never hard-code a hex value, font or type size here. If something is missing, add it to the design system first, then use it.
-3. **SEO rich.** Every page exports `metadata` (title, description, canonical), has one `h1`, uses semantic landmarks, and is added to `src/app/sitemap.ts`. Organisation JSON-LD is in `layout.tsx`; add page-level JSON-LD (Article, FAQ, Breadcrumb) where it applies. Pages render on the server; use client components only for interaction.
+3. **SEO rich.** Every page exports `metadata` (title, description, canonical), has one `h1`, uses semantic landmarks, and is added to `src/app/sitemap.ts`. Organisation JSON-LD is in `layout.tsx`; add page-level JSON-LD (Article, FAQ, Breadcrumb) where it applies. Pages are pre-rendered to HTML at build time; use client components only for interaction.
 4. **Accessible.** Keyboard and screen reader support for every interactive piece (Escape closes, focus returns, `aria-expanded`, `aria-current`). Respect reduced motion.
 5. **Copy** follows the design system's Tone of voice page: plain, factual, numbers over adjectives. No slogans, rhythmic triplets or puffery. Uppercase only for labels of one or two words.
 6. **One source for content.** Navigation, footer links and contact details are in `src/lib/site.ts`. The header, footer, sitemap and metadata read from it.
 
 ## Stack
 
-- Next.js 16 (App Router, Turbopack, Cache Components), TypeScript, CSS Modules plus `src/app/globals.css`. No Tailwind.
+- Next.js 16 (App Router, Turbopack), TypeScript, CSS Modules plus `src/app/globals.css`. No Tailwind.
+- Built as a static export (`output: "export"` in `next.config.ts`): plain HTML, CSS and JS, no server. Cache Components is off because it doesn't work with a static export.
 - Fonts: Archivo, IBM Plex Sans and IBM Plex Mono, self-hosted with `next/font`.
 - `globals.css` is the first import in `layout.tsx`, so component CSS Modules can override global classes like `.btn`. Keep it first.
 - Blog and forms: Sanity (planned). Blog posts will come from Sanity and be added to the sitemap.
-
-- Hosting: Vercel project `neufin-website` (Kedar's account), separate from the design system's GitHub Pages site. Deploy from `website/` with `vercel build --prod && vercel deploy --prebuilt --prod`; the build runs locally so it can read `../designsystem`.
-- Search engines are blocked (robots.txt disallow + noindex) until `SITE_LIVE=true` is set in Vercel at launch.
+- Preview hosting: GitHub Pages, next to the design system. `npm run deploy` in `website/` builds with `BASE_PATH=/Neufin/website` and publishes `out/` to the `website/` folder of the `gh-pages` branch. Live at https://nimkarkedar.github.io/Neufin/website/. Local dev: `npm run dev`, http://localhost:3000.
+- Search engines are blocked (robots.txt disallow + noindex) until the site is built with `SITE_LIVE=true` at launch.
 
 ## Layout
 
@@ -32,19 +32,27 @@ The marketing website for Neufin Energy. This file is the running record of how 
 ## Built so far
 
 - **Header** (`src/components/SiteHeader.tsx`): sticky. Desktop shows the links inline. Solutions, Products, Resources and About open a flyout: icon tile, title, one-line description, and a link to the overview page. Flyouts open on hover (after a 120ms rest, close 250ms after leaving, mouse only) and on click or keyboard. Phones and tablets get a menu button that opens a full-screen panel, where those four expand in place.
-- **Footer** (`src/components/SiteFooter.tsx`): first a contact card on white (`FooterContact.tsx`): one card, three blocks with Grey 200 dividers, on one very soft gradient across the whole card (the Dawn gradient under a 60% white wash). On hover a block brightens slightly with a fine white inner line; nothing moves. Only the WhatsApp button is solid; Request a call back is outlined. Blocks: (1) "Send us your latest power bill. We'll show you where the money is going." with Send your bill on WhatsApp; (2) "Speak to a Neufin specialist" with faces and Request a call back, which opens a +91 field and Call me back in place (checked by `src/lib/phone.ts`, posted to `/api/callback`); (3) Contact us with email and phone. Below it, the Near Black area whose top edge steps down at the top right along the Stripe's edge (`stripeEdgeClipPath`; the step starts at column 11 on desktop and the diagonal ends at the content's right edge). Inside: white logo, five link groups on every second column (Solutions, Products, Resources, Company, Social), and a Grey 900 bottom bar with Privacy policy, Terms of use and ©. No animation.
+- **Footer** (`src/components/SiteFooter.tsx`): first a contact card on white (`FooterContact.tsx`): one card, three blocks with Grey 200 dividers, on one very soft gradient across the whole card (the Dawn gradient under a 60% white wash). On hover a block brightens slightly with a fine white inner line; nothing moves. Only the WhatsApp button is solid; Request a call back is outlined. Blocks: (1) "Send us your latest power bill. We'll show you where the money is going." with Send your bill on WhatsApp; (2) "Speak to a Neufin specialist" with faces and Request a call back, which opens a +91 field and Call me back in place (checked by `src/lib/phone.ts`, sent to `NEXT_PUBLIC_CALLBACK_URL`; unset in the preview, so the form says call-backs aren't connected yet); (3) Contact us with email and phone. Below it, the Near Black area whose top edge steps down at the top right along the Stripe's edge (`stripeEdgeClipPath`; the step starts at column 11 on desktop and the diagonal ends at the content's right edge). Inside: white logo, five link groups on every second column (Solutions, Products, Resources, Company, Social), and a Grey 900 bottom bar with Privacy policy, Terms of use and ©. No animation.
 - **Home page**: empty, waiting for the hero design from Kedar.
 
 ## Open items
 
 - Real solution and product names and descriptions for the flyouts (placeholders in `site.ts`).
 - Email, phone, WhatsApp number and the LinkedIn, Instagram and X links in `site.ts` are dummies. Also confirm the registered company name and address.
-- Team photos for the footer card. The four in `public/placeholder/faces/` are free Unsplash photos used as placeholders; replace them and delete that folder.
+- Team photos for the footer card. The four in `src/assets/placeholder-faces/` are free Unsplash photos used as placeholders; replace them and delete that folder.
 - Real Streamline Duotone icons to replace the placeholder icons in `designsystem/src/brand/icons.js`.
-- `/api/callback` is a placeholder: it validates the number but doesn't store or send it. Connect it to the forms backend (Sanity or a CRM) before launch.
+- Call-backs aren't connected. `src/lib/callback.ts` has the checking code and a ready-to-paste endpoint; connect it to the forms backend (Sanity or a CRM) before launch.
 - Pages linked from the nav don't exist yet.
-- "Book a demo" points to /contact until there is a booking page.
 - Buttons are defined here (`.btn` in `globals.css`). Add them to the design system once settled.
+
+## Handover to Neufin's engineer
+
+The repo (github.com/nimkarkedar/Neufin) holds two projects: `designsystem/` (Vite + React) and `website/` (this site). The website imports tokens, logo, icons and shapes from `../designsystem/src`, so keep the two folders side by side.
+
+- Run: `cd website && npm install && npm run dev`.
+- Content to replace: everything marked TODO (`grep -rn TODO src`), the dummies in `src/lib/site.ts` and the placeholder faces.
+- Production hosting needs a server for forms and the Sanity blog. On a server host (for example Vercel with root directory `website`): remove `output`, `trailingSlash` and `images` from `next.config.ts`, unset `BASE_PATH`, optionally turn Cache Components back on, add `src/app/api/callback/route.ts` as shown in `src/lib/callback.ts`, and set `NEXT_PUBLIC_CALLBACK_URL=/api/callback` and `SITE_LIVE=true`.
+- Point `neufin.energy` at the production host. `site.url` in `site.ts` is already `https://neufin.energy`.
 
 ## Decisions log
 
@@ -68,3 +76,4 @@ The marketing website for Neufin Energy. This file is the running record of how 
 - 2026-10-14: Contact moved out of the dark footer into a three-column card above it (Kedar's mock). Request a call back opens the phone field in place rather than linking away. Pill buttons and Grey 200 dividers per the design system.
 - 2026-10-14: Contact card blocks get the design system gradients (Daylight, Violet, Dawn) and a hover glow. Stays one card (Kedar: no separate cards). Button hierarchy: WhatsApp solid, call back outlined, contact details as links. Text on the gradients is Near Black; grey only for large bold text, where it still passes contrast.
 - 2026-10-14: Contact card uses one gradient across all three blocks, super soft (Dawn under a 60% white wash). Kedar: same gradient across, soft and elegant. Prefer quiet surfaces over colourful ones.
+- 2026-10-14: Preview moved from Vercel to GitHub Pages (Kedar: one place next to the design system; hand the repo to Neufin's engineer). Static export; the call-back endpoint became `src/lib/callback.ts` for the engineer to connect.
