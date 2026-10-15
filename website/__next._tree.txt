@@ -5,4 +5,4 @@
 :HL["/Neufin/website/_next/static/media/effe91970fc4db64-s.p.0oace-s_gkfks.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/chunks/1kwh7ygdc5ldi.css","style"]
 1:[["children",{"s":"__PAGE__","h":128}]]
-0:{"b":"CWI5WTXHImdbuagbtpDP5","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"l2r3GCSt0Qoq5aIq_Xg4Q","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
