@@ -13,7 +13,10 @@
     "briefcase": { "family": "core", "label": "suitcase", "fill": "outline", "size": "24px" },
     "arrow": { "family": "core", "label": "arrow-right", "fill": "outline", "size": "24px" },
     "plant": { "family": "core", "label": "industry", "fill": "outline", "size": "24px" },
-    "drag": { "family": "core", "label": "chevron-expand-x", "fill": "outline", "size": "24px" }
+    "drag": { "family": "core", "label": "chevron-expand-x", "fill": "outline", "size": "24px" },
+    "calendar": { "family": "core", "label": "calendar", "fill": "outline", "size": "24px" },
+    "location": { "family": "core", "label": "location", "fill": "outline", "size": "24px" },
+    "shield": { "family": "core", "label": "shield-check", "fill": "outline", "size": "24px" }
   },
   "samples": [
     { "family": "core", "fill": "outline", "size": "24px", "labels": ["bolt", "plug", "battery-charging", "solar-panel", "wind", "lightbulb", "bill", "wallet"] },

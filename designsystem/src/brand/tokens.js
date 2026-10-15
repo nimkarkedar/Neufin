@@ -50,7 +50,7 @@ export const fonts = {
   display: { name: 'Archivo', stack: "'Archivo', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif", use: 'Titles, headlines and the logotype', fallback: 'the system font (San Francisco on Apple, Segoe UI on Windows)' },
   body: { name: 'IBM Plex Sans', stack: "'IBM Plex Sans', Arial, sans-serif", use: 'Body copy, UI text', fallback: 'Arial' },
   mono: { name: 'IBM Plex Mono', stack: "'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, Consolas, monospace", fallback: 'the system monospace font', use: 'Numbers in select cases: tables, tariffs, meter readings' },
-  fallback: { name: 'Arial', stack: 'Arial, sans-serif', use: 'Body fallback. For Windows, system defaults and Office files when the brand fonts are not available. Regular 400, Bold 700.' },
+  fallback: { name: 'Arial', stack: 'Arial, sans-serif', use: 'Fallback. For Windows, system defaults and Office files when the brand fonts are not available, and the only font in the sales deck template, which is shared across machines. Regular 400, Bold 700.' },
 };
 
 // Type scale. `size` is desktop px (from the desktop breakpoint up); `mobile` is the

@@ -27,6 +27,8 @@ npm run dev     # http://localhost:5173
 | Logo paths (generated from `Neufin-logo.svg`) | `src/brand/logo-paths.js` |
 | Logo, Icon, Stripe shapes, stamp, photo filters, WhatsApp badge | `src/components/*.jsx` |
 | Web components: buttons and text fields | `src/styles/ui.css` |
+| Sales deck: every slide layout, its grid and its help text | `src/presentations/deck.js` |
+| Sales deck template (.pptx for Google Slides), built from `deck.js` by `npm run slides` | `scripts/slides.mjs` → `public/assets/templates/neufin-sales-deck.pptx` |
 | Styles for this site only | `src/styles/app.css` |
 | Logo downloads, photos, PDF page renders | `public/assets/` |
 

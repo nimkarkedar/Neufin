@@ -111,5 +111,29 @@ export const nucleoIcons = {
   "size": "24px",
   "viewBox": "0 0 24 24",
   "body": "<path d=\"M7.5 17.5L2 12L7.5 6.5\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" fill=\"none\"></path> <path d=\"M16.5 17.5L22 12L16.5 6.5\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path>"
+ },
+ "calendar": {
+  "family": "core",
+  "label": "calendar",
+  "fill": "outline",
+  "size": "24px",
+  "viewBox": "0 0 24 24",
+  "body": "<line x1=\"2\" y1=\"9\" x2=\"22\" y2=\"9\" fill=\"none\" stroke=\"var(--icon-color-2, currentColor)\" stroke-miterlimit=\"10\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-color=\"color-2\" data-cap=\"butt\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" stroke-linecap=\"var(--nucleo-stroke-linecap-butt, butt)\"></line><line x1=\"7\" y1=\"1\" x2=\"7\" y2=\"4\" fill=\"none\" stroke=\"var(--icon-color-2, currentColor)\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" stroke-miterlimit=\"10\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-color=\"color-2\"></line><line x1=\"17\" y1=\"1\" x2=\"17\" y2=\"4\" fill=\"none\" stroke=\"var(--icon-color-2, currentColor)\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" stroke-miterlimit=\"10\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-color=\"color-2\"></line><rect x=\"2\" y=\"4\" width=\"20\" height=\"16\" rx=\"2\" ry=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" stroke-miterlimit=\"10\" stroke-width=\"var(--nucleo-stroke-width, 2)\"></rect>"
+ },
+ "location": {
+  "family": "core",
+  "label": "location",
+  "fill": "outline",
+  "size": "24px",
+  "viewBox": "0 0 24 24",
+  "body": "<path d=\"M8.5 15H4L2 22H22L20 15H15.5\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" data-color=\"color-2\" data-cap=\"butt\" fill=\"none\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" stroke-linecap=\"var(--nucleo-stroke-linecap-butt, butt)\"></path> <path d=\"M5 7.59403C5 13.2778 12 18 12 18C12 18 19 13.2778 19 7.59403C19 3.39004 15.4122 1 12 1C8.58782 1 5 3.39004 5 7.59403Z\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" fill=\"none\"></path> <path d=\"M12 10C13.1046 10 14 9.10457 14 8C14 6.89543 13.1046 6 12 6C10.8954 6 10 6.89543 10 8C10 9.10457 10.8954 10 12 10Z\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path>"
+ },
+ "shield": {
+  "family": "core",
+  "label": "shield-check",
+  "fill": "outline",
+  "size": "24px",
+  "viewBox": "0 0 24 24",
+  "body": "<polyline points=\"8 12.75 10.25 15 16 8.75\" fill=\"none\" stroke=\"var(--icon-color-2, currentColor)\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" stroke-miterlimit=\"10\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-color=\"color-2\"></polyline><path d=\"m12,22s9-2,9-11v-7c-3.203,0-6.11-.731-9-2-2.89,1.269-5.797,2-9,2v7c0,9,9,11,9,11Z\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" stroke-miterlimit=\"10\" stroke-width=\"var(--nucleo-stroke-width, 2)\"></path>"
  }
 };

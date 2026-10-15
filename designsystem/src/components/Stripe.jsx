@@ -2,18 +2,9 @@
 // A horizontal band that steps down on the symbol's angle and continues flat.
 // Geometry matches the mark: slope 536/850 (~32°), lower edge kinks 0.29t left of the upper edge.
 
-export const STRIPE_SLOPE = 536 / 850;
-// The lower edge turns this many thicknesses left of the upper edge.
-export const STRIPE_KINK_OFFSET = 0.29;
+import { STRIPE_SLOPE, STRIPE_KINK_OFFSET, stripePoints } from '../brand/stripe-geometry.js';
 
-export function stripePoints({ width, y, thickness: t, kinkX, drop }) {
-  const run = drop / STRIPE_SLOPE;
-  const off = t * STRIPE_KINK_OFFSET;
-  return [
-    [-1, y], [kinkX, y], [kinkX + run, y + drop], [width + 1, y + drop],
-    [width + 1, y + drop + t], [kinkX + run - off, y + drop + t], [kinkX - off, y + t], [-1, y + t],
-  ].map((p) => p.join(',')).join(' ');
-}
+export { STRIPE_SLOPE, STRIPE_KINK_OFFSET, stripePoints };
 
 // The Stripe's upper edge as a CSS clip-path: flat, then stepping down at the Stripe
 // angle, with everything below filled. kinkX and drop are CSS lengths (px, %, calc()
