@@ -17,8 +17,8 @@ const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "
 // Monthly bill in ₹ lakh.
 const beforeBills = [24.6, 26.3, 25.1, 23.8, 24.9, 25.7, 26.4, 25.2, 24.1, 23.6, 24.8, 25.5];
 const afterBills = [16.1, 16.9, 16.4, 15.2, 15.8, 16.7, 17.2, 16.3, 15.6, 15.1, 16.0, 16.6];
-// Bar scale in ₹ lakh. It starts above zero so the drop is big enough to read; the
-// figures above the chart carry the exact amounts.
+// Bar scale in ₹ lakh. It starts above zero so the drop is big enough to read. The
+// chart is representational: no axis or month labels, one figure per side.
 const scaleMin = 8;
 const scaleMax = 28;
 const toHeight = (v: number) => (v - scaleMin) / (scaleMax - scaleMin);
@@ -34,8 +34,6 @@ type Side = {
   icon: "plant" | "bolt";
   bills: number[];
   perUnit: string;
-  monthly: string;
-  renewable: number;
   mix: { label: string; share: number; tone: "fossil" | "fossil2" | "green" | "green2" | "grid" }[];
 };
 
@@ -47,8 +45,6 @@ const sides: Side[] = [
     icon: "plant",
     bills: beforeBills,
     perUnit: "₹9.40",
-    monthly: "₹25.0",
-    renewable: 12,
     mix: [
       { label: "Coal", share: 72, tone: "fossil" },
       { label: "Gas", share: 16, tone: "fossil2" },
@@ -62,8 +58,6 @@ const sides: Side[] = [
     icon: "bolt",
     bills: afterBills,
     perUnit: "₹6.20",
-    monthly: "₹16.2",
-    renewable: 74,
     mix: [
       { label: "Solar", share: 46, tone: "green" },
       { label: "Wind", share: 28, tone: "green2" },
@@ -110,38 +104,17 @@ function Layer({ side, line, barsRef }: { side: Side; line: Line; barsRef?: Reac
       </div>
 
       <dl className={styles.stats}>
-        <div>
-          <dt>Monthly bill</dt>
-          <dd>
-            <span className={styles.big}>{side.monthly}</span> lakh
-          </dd>
-        </div>
-        <div>
-          <dt>Cost per unit</dt>
-          <dd>
-            <span className={styles.big}>{side.perUnit}</span> /kWh
-          </dd>
-        </div>
-        <div>
-          <dt>Renewable share</dt>
-          <dd>
-            <span className={styles.big}>{side.renewable}%</span>
-          </dd>
-        </div>
+        <dt>Cost per unit</dt>
+        <dd>
+          <span className={styles.big}>{side.perUnit}</span> /kWh
+        </dd>
       </dl>
 
-      <div className={styles.chart}>
-        <div ref={barsRef} className={styles.bars}>
-          {side.bills.map((v, i) => (
-            <span key={months[i]} className={styles.bar} style={{ height: `${toHeight(v) * 100}%` }} />
-          ))}
-          <PriceLine line={line} tone={side.key} />
-        </div>
-        <div className={styles.months}>
-          {months.map((m) => (
-            <span key={m}>{m}</span>
-          ))}
-        </div>
+      <div ref={barsRef} className={styles.bars}>
+        {side.bills.map((v, i) => (
+          <span key={months[i]} className={styles.bar} style={{ height: `${toHeight(v) * 100}%` }} />
+        ))}
+        <PriceLine line={line} tone={side.key} />
       </div>
 
       <div className={styles.mix}>
@@ -154,7 +127,7 @@ function Layer({ side, line, barsRef }: { side: Side; line: Line; barsRef?: Reac
           {side.mix.map((m) => (
             <span key={m.label}>
               <i className={styles[m.tone]} />
-              {m.label} {m.share}%
+              {m.label}
             </span>
           ))}
         </p>

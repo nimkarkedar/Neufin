@@ -170,8 +170,6 @@
 .groupInner {
   overflow: hidden;
   min-height: 0;
-  list-style: none;
-  padding: 0;
   opacity: 0;
   transition: opacity var(--duration-base) ease;
 }
@@ -196,11 +194,36 @@
   border-radius: var(--radius-s);
 }
 
-.groupOverview {
-  display: inline-block;
+/* Group titles are sentence case: some run to four words. */
+.panelGroupTitle {
+  padding-top: 8px;
+  color: var(--ink-2);
+  font-size: var(--text-label-size);
+  line-height: var(--text-label-lh);
+  font-weight: var(--text-label-weight);
+}
+
+.panelGroup ul {
+  list-style: none;
+  padding: 0;
+}
+
+.panelGroup + .panelGroup {
   margin-top: 8px;
-  padding-block: 8px;
-  font-weight: 600;
+}
+
+/* Links without an icon: industries, and the link from the side panel. */
+.groupPlain {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.groupLink[aria-current="page"],
+.groupPlain[aria-current="page"] {
+  text-decoration: underline;
   text-underline-offset: 4px;
 }
 
@@ -248,7 +271,6 @@
   .contact {
     display: inline-flex;
     margin-left: auto;
-    margin-right: -12px;
   }
 
   .topLink {
@@ -278,48 +300,65 @@
     text-underline-offset: 8px;
   }
 
-  .hasFlyout {
-    position: relative;
+  .topLink {
+    white-space: nowrap;
   }
 
-  /* The flyout sits just below the header bar. */
+  /* Small laptops: seven links and the button only fit with tighter spacing, and
+     Home is dropped because the logo already links home. */
+  @media (max-width: 1279px) {
+    .desktopNav {
+      margin-left: 24px;
+    }
+
+    .desktopList {
+      gap: 0;
+    }
+
+    .topLink {
+      padding: 0 10px;
+    }
+
+    .desktopList > li:first-child {
+      display: none;
+    }
+  }
+
+  /* The flyout spans the content width just under the header bar, so it is placed
+     against the header (the nearest positioned box), not against its menu name. */
   .flyout {
     position: absolute;
-    top: calc(50% + var(--header-h) / 2 + 8px);
-    left: -12px;
-    width: 340px;
-    padding: 12px;
+    top: 100%;
+    left: 0;
+    right: 0;
+    width: min(100% - 2 * var(--grid-margin), var(--grid-max));
+    margin-inline: auto;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 300px;
+    overflow: hidden;
     background: var(--white);
     border: 1px solid var(--line);
-    border-radius: var(--radius-l);
+    border-top: 0;
+    border-radius: 0 0 var(--radius-l) var(--radius-l);
     box-shadow: var(--shadow-overlay);
-    transform-origin: top left;
     opacity: 0;
     visibility: hidden;
-    transform: translateY(-6px) scale(0.98);
+    transform: translateY(-8px);
     transition:
       opacity var(--duration-fast) ease,
       transform var(--duration-fast) ease,
       visibility 0s linear var(--duration-fast);
   }
 
-  /* The last menu (About) opens leftwards below 1280px, so it stays on screen. */
-  @media (max-width: 1279px) {
-    .hasFlyout:last-child .flyout {
-      left: auto;
-      right: -12px;
-      transform-origin: top right;
-    }
-  }
-
-  /* Invisible bridge over the gap between the name and the panel, so hover isn't lost. */
+  /* Invisible bridge from the menu name down to the panel, so hover isn't lost on the way.
+     It covers only the strip below the names, so it never catches another name. */
   .flyout::before {
     content: "";
     position: absolute;
     left: 0;
     right: 0;
     bottom: 100%;
-    height: calc(var(--header-h) / 2 - 12px);
+    height: calc(var(--header-h) / 2 - 20px);
   }
 
   .flyout[data-open] {
@@ -332,8 +371,49 @@
       visibility 0s;
   }
 
+  /* The page behind dims while a flyout is open. */
+  .scrim {
+    position: fixed;
+    inset: var(--header-h) 0 0;
+    z-index: -1;
+    background: var(--scrim);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity var(--duration-base) ease,
+      visibility 0s linear var(--duration-base);
+  }
+
+  .scrim[data-open] {
+    opacity: 1;
+    visibility: visible;
+    transition:
+      opacity var(--duration-slow) var(--ease-out),
+      visibility 0s;
+  }
+
+  /* Columns of equal width, divided by Grey 200 lines. */
+  .flyoutMain {
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-flow: column;
+    padding: 40px 0 44px;
+  }
+
+  .flyoutCol {
+    padding-inline: 40px;
+  }
+
+  .flyoutCol + .flyoutCol {
+    border-left: 1px solid var(--line);
+  }
+
+  /* Column labels: one or two words, so uppercase is allowed. The line beneath sets
+     them apart from the links. */
   .flyoutTitle {
-    padding: 8px 10px 6px;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
     color: var(--ink-2);
     font-size: var(--text-label-size);
     line-height: var(--text-label-lh);
@@ -344,7 +424,7 @@
 
   .flyoutList {
     display: grid;
-    gap: 2px;
+    gap: 4px;
     list-style: none;
     padding: 0;
   }
@@ -366,15 +446,18 @@
       transform calc(var(--duration-slow) * 1.25) var(--ease-out);
   }
 
-  .flyout[data-open] .flyoutList > li:nth-child(2) { transition-delay: 0.04s; }
-  .flyout[data-open] .flyoutList > li:nth-child(3) { transition-delay: 0.08s; }
-  .flyout[data-open] .flyoutList > li:nth-child(4) { transition-delay: 0.12s; }
+  .flyout[data-open] .flyoutList > li:nth-child(2) { transition-delay: 0.03s; }
+  .flyout[data-open] .flyoutList > li:nth-child(3) { transition-delay: 0.06s; }
+  .flyout[data-open] .flyoutList > li:nth-child(4) { transition-delay: 0.09s; }
+  .flyout[data-open] .flyoutList > li:nth-child(5) { transition-delay: 0.12s; }
+  .flyout[data-open] .flyoutList > li:nth-child(6) { transition-delay: 0.15s; }
 
   .flyoutItem {
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 10px;
+    align-items: center;
+    gap: 16px;
+    margin-inline: -12px;
+    padding: 12px;
     border-radius: var(--radius-m);
     text-decoration: none;
     transition: background-color var(--duration-fast) ease;
@@ -385,36 +468,98 @@
     background: var(--warm-white);
   }
 
-  .flyoutItem .iconTile {
-    width: 40px;
-    height: 40px;
-    border-radius: var(--radius-s);
-    transition: transform var(--duration-slow) var(--ease-out);
-  }
-
   .flyoutItem:hover .iconTile {
-    transform: scale(1.05);
+    background: var(--white);
   }
 
   .flyoutLabel {
     display: block;
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.35;
   }
 
   .flyoutDesc {
     display: block;
     margin-top: 2px;
     color: var(--ink-2);
-    font-size: var(--text-small-size);
-    line-height: var(--text-small-lh);
+    line-height: 1.4;
   }
 
-  .flyoutOverview {
-    display: inline-block;
-    margin: 6px 10px 6px;
-    font-size: var(--text-small-size);
+  /* Plain links, in a column of their own (industries). */
+  .flyoutPlain {
+    display: block;
+    margin-inline: -12px;
+    padding: 10px 12px;
+    border-radius: var(--radius-m);
+    font-weight: 500;
+    line-height: 1.35;
+    text-decoration: none;
+    transition: background-color var(--duration-fast) ease;
+  }
+
+  .flyoutPlain:hover,
+  .flyoutPlain[aria-current="page"] {
+    background: var(--warm-white);
+  }
+
+  /* The Warm White panel on the right: one thing to point at. */
+  .flyoutAside {
+    display: flex;
+    flex-direction: column;
+    padding: 40px 32px 44px;
+    background: var(--warm-white);
+    border-left: 1px solid var(--line);
+  }
+
+  .asideTitle {
+    font-family: var(--font-display);
+    font-size: var(--text-h3-size);
+    line-height: var(--text-h3-lh);
+    font-weight: var(--text-h3-weight);
+  }
+
+  .asideText {
+    margin-top: 8px;
+    color: var(--ink-2);
+  }
+
+  .asideLink {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+    margin-top: 20px;
     font-weight: 600;
     text-underline-offset: 4px;
+  }
+
+  .asideLink svg {
+    transition: transform var(--duration-base) var(--ease-out);
+  }
+
+  .asideLink:hover svg {
+    transform: translateX(3px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .flyout,
+    .flyoutList > li {
+      transform: none;
+    }
+  }
+
+  /* Small laptops: less padding so the columns keep their width. */
+  @media (max-width: 1279px) {
+    .flyout {
+      grid-template-columns: minmax(0, 1fr) 260px;
+    }
+
+    .flyoutCol {
+      padding-inline: 28px;
+    }
+
+    .flyoutAside {
+      padding-inline: 24px;
+    }
   }
 }

@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Logo } from "@ds/components/Logo.jsx";
 import { Stamp } from "@ds/components/Stamp.jsx";
 import { stripeEdgeClipPath } from "@ds/components/Stripe.jsx";
-import { footerGroups, legalLinks, site } from "@/lib/site";
+import { footerGroups, legalLinks, site, socialLinks } from "@/lib/site";
 import { FooterContact } from "./FooterContact";
 import styles from "./SiteFooter.module.css";
 
@@ -61,6 +61,15 @@ export function SiteFooter() {
               {legalLinks.map((l) => (
                 <li key={l.href}>
                   <Link href={l.href}>{l.label}</Link>
+                </li>
+              ))}
+            </ul>
+            <ul className={styles.legal} aria-label="Neufin on social media">
+              {socialLinks.map((l) => (
+                <li key={l.href}>
+                  <a href={l.href} target="_blank" rel="noopener">
+                    {l.label}
+                  </a>
                 </li>
               ))}
             </ul>

@@ -150,7 +150,7 @@
   }
 }
 
-/* Desktop: the step takes columns 11–12 and the five groups start on every second column. */
+/* Desktop: the step takes columns 11–12; seven groups and the stamp in four columns of three. */
 @media (min-width: 1024px) {
   .footer {
     margin-top: 96px;
@@ -169,7 +169,7 @@
   }
 
   .groups {
-    grid-template-columns: repeat(6, minmax(0, 1fr));
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     margin-top: 40px;
   }
 

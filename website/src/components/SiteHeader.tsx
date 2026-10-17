@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { Icon } from "@ds/components/Icon.jsx";
 import { Logo } from "@ds/components/Logo.jsx";
 import { hexOf } from "@ds/brand/tokens.js";
-import { contactLink, mainNav, site, type NavItem } from "@/lib/site";
+import { contactLink, mainNav, site, type MenuAside, type MenuColumn, type NavItem } from "@/lib/site";
 import { DESKTOP_MIN } from "@/lib/tokens";
 import styles from "./SiteHeader.module.css";
 
@@ -14,13 +14,60 @@ const isCurrent = (pathname: string, href: string) =>
   href === "/" ? pathname === "/" : pathname === href || pathname.startsWith(`${href}/`);
 
 const inSection = (pathname: string, item: NavItem) =>
-  isCurrent(pathname, item.href) || !!item.menu?.items.some((m) => isCurrent(pathname, m.href));
+  isCurrent(pathname, item.href) ||
+  !!item.menu?.columns.some((c) => c.items.some((m) => isCurrent(pathname, m.href)));
+
+const ariaCurrent = (pathname: string, href: string) => (isCurrent(pathname, href) ? "page" : undefined);
 
 const Chevron = () => (
   <svg className={styles.chevron} viewBox="0 0 12 12" width="12" height="12" aria-hidden="true">
     <path d="m2.5 4.5 3.5 3.5 3.5-3.5" fill="none" stroke="currentColor" strokeWidth="1.5" />
   </svg>
 );
+
+// One labelled column of a desktop flyout: icon items (tile, label, note) or plain links.
+function FlyoutColumn({ column, pathname }: { column: MenuColumn; pathname: string }) {
+  return (
+    <div className={styles.flyoutCol}>
+      <p className={styles.flyoutTitle}>{column.title}</p>
+      <ul className={styles.flyoutList}>
+        {column.items.map((m) => (
+          <li key={m.href + m.label}>
+            {m.icon ? (
+              <Link href={m.href} className={styles.flyoutItem} aria-current={ariaCurrent(pathname, m.href)}>
+                <span className={styles.iconTile}>
+                  <Icon name={m.icon} tone="neutral" size={24} />
+                </span>
+                <span>
+                  <span className={styles.flyoutLabel}>{m.label}</span>
+                  <span className={styles.flyoutDesc}>{m.description}</span>
+                </span>
+              </Link>
+            ) : (
+              <Link href={m.href} className={styles.flyoutPlain} aria-current={ariaCurrent(pathname, m.href)}>
+                {m.label}
+              </Link>
+            )}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+function FlyoutAside({ aside }: { aside: MenuAside }) {
+  return (
+    <div className={styles.flyoutAside}>
+      <p className={styles.flyoutTitle}>{aside.label}</p>
+      <p className={styles.asideTitle}>{aside.title}</p>
+      <p className={styles.asideText}>{aside.text}</p>
+      <Link href={aside.link.href} className={styles.asideLink}>
+        {aside.link.label}
+        <Icon name="arrow" size={20} />
+      </Link>
+    </div>
+  );
+}
 
 export function SiteHeader() {
   const pathname = usePathname();
@@ -163,29 +210,12 @@ export function SiteHeader() {
                     <Chevron />
                   </button>
                   <div id={id} className={styles.flyout} data-open={open || undefined}>
-                    <p className={styles.flyoutTitle}>{item.menu.title}</p>
-                    <ul className={styles.flyoutList}>
-                      {item.menu.items.map((m) => (
-                        <li key={m.href}>
-                          <Link
-                            href={m.href}
-                            className={styles.flyoutItem}
-                            aria-current={isCurrent(pathname, m.href) ? "page" : undefined}
-                          >
-                            <span className={styles.iconTile}>
-                              <Icon name={m.icon} tone="neutral" size={24} />
-                            </span>
-                            <span>
-                              <span className={styles.flyoutLabel}>{m.label}</span>
-                              <span className={styles.flyoutDesc}>{m.description}</span>
-                            </span>
-                          </Link>
-                        </li>
+                    <div className={styles.flyoutMain}>
+                      {item.menu.columns.map((c) => (
+                        <FlyoutColumn key={c.title} column={c} pathname={pathname} />
                       ))}
-                    </ul>
-                    <Link href={item.href} className={styles.flyoutOverview}>
-                      {item.menu.overviewLabel}
-                    </Link>
+                    </div>
+                    <FlyoutAside aside={item.menu.aside} />
                   </div>
                 </li>
               );
@@ -195,7 +225,7 @@ export function SiteHeader() {
 
         <Link
           href={contactLink.href}
-          className={`${styles.topLink} ${styles.contact}`}
+          className={`btn btn-primary ${styles.contact}`}
           aria-current={isCurrent(pathname, contactLink.href) ? "page" : undefined}
         >
           {contactLink.label}
@@ -212,6 +242,9 @@ export function SiteHeader() {
           <span className={styles.menuIcon} aria-hidden="true" />
         </button>
       </div>
+
+      {/* Dims the page behind an open desktop flyout. A click on it closes the flyout. */}
+      <div className={styles.scrim} data-open={flyout ? true : undefined} aria-hidden="true" />
 
       <div id="mobile-menu" className={styles.panel} hidden={!menuOpen}>
         <nav aria-label="Main" className="container">
@@ -245,23 +278,31 @@ export function SiteHeader() {
                     <Chevron />
                   </button>
                   <div id={id} className={styles.group} data-open={open || undefined}>
-                    <ul className={styles.groupInner} inert={!open}>
-                      {item.menu.items.map((m) => (
-                        <li key={m.href}>
-                          <Link href={m.href} className={styles.groupLink}>
-                            <span className={styles.iconTile}>
-                              <Icon name={m.icon} tone="neutral" size={24} />
-                            </span>
-                            {m.label}
-                          </Link>
-                        </li>
+                    <div className={styles.groupInner} inert={!open}>
+                      {[...item.menu.columns, { title: item.menu.aside.label, items: [item.menu.aside.link] }].map((g) => (
+                        <div key={g.title} className={styles.panelGroup}>
+                          <p className={styles.panelGroupTitle}>{g.title}</p>
+                          <ul>
+                            {g.items.map((m: MenuColumn["items"][number]) => (
+                              <li key={m.href + m.label}>
+                                <Link
+                                  href={m.href}
+                                  className={m.icon ? styles.groupLink : styles.groupPlain}
+                                  aria-current={ariaCurrent(pathname, m.href)}
+                                >
+                                  {m.icon && (
+                                    <span className={styles.iconTile}>
+                                      <Icon name={m.icon} tone="neutral" size={24} />
+                                    </span>
+                                  )}
+                                  {m.label}
+                                </Link>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
                       ))}
-                      <li>
-                        <Link href={item.href} className={styles.groupOverview}>
-                          {item.menu.overviewLabel}
-                        </Link>
-                      </li>
-                    </ul>
+                    </div>
                   </div>
                 </li>
               );
@@ -269,7 +310,7 @@ export function SiteHeader() {
           </ul>
           <div className={styles.panelFoot}>
             <Link href={contactLink.href} className="btn btn-primary">
-              Contact us
+              {contactLink.label}
             </Link>
             <a href={`mailto:${site.email}`} className={styles.panelEmail}>
               {site.email}
