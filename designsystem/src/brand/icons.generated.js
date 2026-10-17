@@ -135,5 +135,61 @@ export const nucleoIcons = {
   "size": "24px",
   "viewBox": "0 0 24 24",
   "body": "<polyline points=\"8 12.75 10.25 15 16 8.75\" fill=\"none\" stroke=\"var(--icon-color-2, currentColor)\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" stroke-miterlimit=\"10\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-color=\"color-2\"></polyline><path d=\"m12,22s9-2,9-11v-7c-3.203,0-6.11-.731-9-2-2.89,1.269-5.797,2-9,2v7c0,9,9,11,9,11Z\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" stroke-miterlimit=\"10\" stroke-width=\"var(--nucleo-stroke-width, 2)\"></path>"
+ },
+ "wrench": {
+  "family": "core",
+  "label": "wrench",
+  "fill": "outline",
+  "size": "24px",
+  "viewBox": "0 0 24 24",
+  "body": "<path d=\"m11.373,9.479l-8.437,7.593c-1.204,1.083-1.253,2.955-.108,4.1,1.156,1.156,3.049,1.093,4.126-.136l7.413-8.465\" fill=\"none\" stroke=\"var(--icon-color-2, currentColor)\" stroke-miterlimit=\"10\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-color=\"color-2\" data-cap=\"butt\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" stroke-linecap=\"var(--nucleo-stroke-linecap-butt, butt)\"></path><path d=\"m18.164,8.664l-2.828-2.828,3.372-3.372c-.676-.297-1.422-.464-2.207-.464-3.038,0-5.5,2.462-5.5,5.5s2.462,5.5,5.5,5.5,5.5-2.462,5.5-5.5c0-.786-.167-1.531-.464-2.207l-3.372,3.372Z\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" stroke-miterlimit=\"10\" stroke-width=\"var(--nucleo-stroke-width, 2)\"></path>"
+ },
+ "calculator": {
+  "family": "core",
+  "label": "calculator",
+  "fill": "outline",
+  "size": "24px",
+  "viewBox": "0 0 24 24",
+  "body": "<path d=\"M18 2L6 2C4.89543 2 4 2.89543 4 4L4 20C4 21.1046 4.89543 22 6 22L18 22C19.1046 22 20 21.1046 20 20L20 4C20 2.89543 19.1046 2 18 2Z\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" fill=\"none\"></path> <path d=\"M16 6L8 6L8 10L16 10L16 6Z\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" fill=\"none\"></path> <path d=\"M12 14V14.01\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path> <path d=\"M12 18V18.01\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path> <path d=\"M8 18V18.01\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path> <path d=\"M16 18V18.01\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path> <path d=\"M16 14V14.01\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path> <path d=\"M8 14V14.01\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path>"
+ },
+ "solar-panel": {
+  "family": "core",
+  "label": "solar-panel",
+  "fill": "outline",
+  "size": "24px",
+  "viewBox": "0 0 24 24",
+  "body": "<path d=\"M12 16V22\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" fill=\"none\"></path> <path d=\"M7 22H17\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" fill=\"none\"></path> <path d=\"M12 3V16\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-color=\"color-2\" data-cap=\"butt\" fill=\"none\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" stroke-linecap=\"var(--nucleo-stroke-linecap-butt, butt)\"></path> <path d=\"M3.07805 7H20.9072\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-color=\"color-2\" data-cap=\"butt\" fill=\"none\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" stroke-linecap=\"var(--nucleo-stroke-linecap-butt, butt)\"></path> <path d=\"M2.17827 11H21.8363\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-color=\"color-2\" data-cap=\"butt\" fill=\"none\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" stroke-linecap=\"var(--nucleo-stroke-linecap-butt, butt)\"></path> <path d=\"M22.4347 13.5503L20.3578 4.55028C20.1483 3.64282 19.3403 3 18.409 3L5.59102 3C4.65971 3 3.85166 3.64282 3.64224 4.55028L1.56532 13.5503C1.27611 14.8035 2.22793 16 3.5141 16L20.4859 16C21.7721 16 22.7239 14.8035 22.4347 13.5503Z\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" fill=\"none\"></path>"
+ },
+ "map": {
+  "family": "core",
+  "label": "map",
+  "fill": "outline",
+  "size": "24px",
+  "viewBox": "0 0 24 24",
+  "body": "<path d=\"M15.5 6V21.5\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-color=\"color-2\" data-cap=\"butt\" fill=\"none\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" stroke-linecap=\"var(--nucleo-stroke-linecap-butt, butt)\"></path> <path d=\"M8.5 2.51807V18\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-color=\"color-2\" data-cap=\"butt\" fill=\"none\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" stroke-linecap=\"var(--nucleo-stroke-linecap-butt, butt)\"></path> <path d=\"M2 5L8.5 2.5L15.5 6L22 3.5V19L15.5 21.5L8.5 18L2 20.5V5Z\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" fill=\"none\"></path>"
+ },
+ "battery": {
+  "family": "core",
+  "label": "battery-charging",
+  "fill": "outline",
+  "size": "24px",
+  "viewBox": "0 0 24 24",
+  "body": "<polyline points=\"21 9 23 9 23 15 21 15\" fill=\"var(--icon-color-2, currentColor)\" stroke=\"currentColor\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" stroke-miterlimit=\"10\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-color=\"color-2\"></polyline><polyline points=\"16 13 11 10 11 14 6 11\" fill=\"none\" stroke=\"var(--icon-color-2, currentColor)\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" stroke-miterlimit=\"10\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-color=\"color-2\"></polyline><rect x=\"2\" y=\"5\" width=\"19\" height=\"14\" rx=\"2\" ry=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" stroke-miterlimit=\"10\" stroke-width=\"var(--nucleo-stroke-width, 2)\"></rect>"
+ },
+ "contract": {
+  "family": "core",
+  "label": "signature",
+  "fill": "outline",
+  "size": "24px",
+  "viewBox": "0 0 24 24",
+  "body": "<path d=\"M6.5 20V22\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" fill=\"none\"></path> <path d=\"M6.5 2V3\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" fill=\"none\"></path> <path d=\"M10 7L14 7V13.0632\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path> <path d=\"M4 14L4 17.5C4 18.8807 5.11929 20 6.5 20V20C7.88071 20 9 18.8807 9 17.5V14\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-color=\"color-2\" data-cap=\"butt\" fill=\"none\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" stroke-linecap=\"var(--nucleo-stroke-linecap-butt, butt)\"></path> <path d=\"M3 6.5C3 4.567 4.567 3 6.5 3V3C8.433 3 10 4.567 10 6.5V13.9552H3L3 6.5Z\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-cap=\"butt\" fill=\"none\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" stroke-linecap=\"var(--nucleo-stroke-linecap-butt, butt)\"></path> <path d=\"M12.5 21.5C14 18 15.596 16.7421 16.491 17.0211C17.386 17.3001 17.126 20.2961 18.074 20.4711C18.773 20.6001 19.392 19.0611 20.144 19.2531C20.751 19.4081 20.714 20.5021 21.402 20.7141C21.678 20.7991 21.976 20.7141 22.255 20.5581\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" fill=\"none\"></path>"
+ },
+ "nodes": {
+  "family": "core",
+  "label": "network-nodes",
+  "fill": "outline",
+  "size": "24px",
+  "viewBox": "0 0 24 24",
+  "body": "<path d=\"M4.5 13.5L10.5 19.5\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-cap=\"butt\" fill=\"none\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" stroke-linecap=\"var(--nucleo-stroke-linecap-butt, butt)\"></path> <path d=\"M4.5 10.5L10.5 4.5\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-cap=\"butt\" fill=\"none\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" stroke-linecap=\"var(--nucleo-stroke-linecap-butt, butt)\"></path> <path d=\"M19.5 13.5L13.5 19.5\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-cap=\"butt\" fill=\"none\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" stroke-linecap=\"var(--nucleo-stroke-linecap-butt, butt)\"></path> <path d=\"M19.5 10.5L13.5 4.5\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-cap=\"butt\" fill=\"none\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" stroke-linecap=\"var(--nucleo-stroke-linecap-butt, butt)\"></path> <path d=\"M12 5C13.1046 5 14 4.10457 14 3C14 1.89543 13.1046 1 12 1C10.8954 1 10 1.89543 10 3C10 4.10457 10.8954 5 12 5Z\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path> <path d=\"M12 23C13.1046 23 14 22.1046 14 21C14 19.8954 13.1046 19 12 19C10.8954 19 10 19.8954 10 21C10 22.1046 10.8954 23 12 23Z\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path> <path d=\"M19 12C19 13.1046 19.8954 14 21 14C22.1046 14 23 13.1046 23 12C23 10.8954 22.1046 10 21 10C19.8954 10 19 10.8954 19 12Z\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path> <path d=\"M1 12C1 13.1046 1.89543 14 3 14C4.10457 14 5 13.1046 5 12C5 10.8954 4.10457 10 3 10C1.89543 10 1 10.8954 1 12Z\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path> <path d=\"M12 14C13.1046 14 14 13.1046 14 12C14 10.8954 13.1046 10 12 10C10.8954 10 10 10.8954 10 12C10 13.1046 10.8954 14 12 14Z\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path>"
  }
 };

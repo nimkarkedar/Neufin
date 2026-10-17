@@ -89,6 +89,7 @@ export default function WebComponents() {
           <div><span>Radius</span><strong>{Object.entries(radii).map(([k, v]) => `${k} ${v}`).join(', ')}</strong></div>
           <div><span>Raised shadow</span><strong>Cards and tiles on hover, lifted 4px</strong></div>
           <div><span>Overlay shadow</span><strong>Menus that float over the page</strong></div>
+          <div><span>Scrim</span><strong>Near Black at 24% over the page behind an open menu (the header's mega menu)</strong></div>
           <div><span>Durations</span><strong>{motion.fast} / {motion.base} / {motion.slow}</strong></div>
           <div><span>Spin</span><strong>{motion.spin} a turn, for the stamp's ring on hover</strong></div>
           <div><span>Draw</span><strong>{motion.draw}, once, for a chart line drawing itself in</strong></div>

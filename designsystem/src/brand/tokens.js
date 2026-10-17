@@ -88,6 +88,9 @@ export const shadows = {
   overlay: `0 1px 2px rgb(${ink} / 0.04), 0 8px 24px -6px rgb(${ink} / 0.08), 0 32px 64px -16px rgb(${ink} / 0.14)`,
 };
 
+// Scrim: Near Black at 24%, laid over the page behind an open menu so the menu stands forward.
+export const scrim = `rgb(${ink} / 0.24)`;
+
 // Motion. Most UI changes use `base`; menus opening use `slow` with ease-out.
 // `spin` is one full turn of the stamp's ring, slow enough to read the words.
 // `draw` is a line or shape drawing itself in once, such as a chart's trend line.
@@ -124,6 +127,7 @@ export function allTokens() {
   t['--grid-margin'] = `${layout.margin.phone}px`;
   Object.entries(radii).forEach(([k, v]) => (t[`--radius-${k}`] = `${v}px`));
   Object.entries(shadows).forEach(([k, v]) => (t[`--shadow-${k}`] = v));
+  t['--scrim'] = scrim;
   t['--ease-out'] = motion.easeOut;
   t['--duration-fast'] = motion.fast;
   t['--duration-base'] = motion.base;

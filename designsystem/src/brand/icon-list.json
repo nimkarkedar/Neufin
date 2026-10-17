@@ -16,7 +16,14 @@
     "drag": { "family": "core", "label": "chevron-expand-x", "fill": "outline", "size": "24px" },
     "calendar": { "family": "core", "label": "calendar", "fill": "outline", "size": "24px" },
     "location": { "family": "core", "label": "location", "fill": "outline", "size": "24px" },
-    "shield": { "family": "core", "label": "shield-check", "fill": "outline", "size": "24px" }
+    "shield": { "family": "core", "label": "shield-check", "fill": "outline", "size": "24px" },
+    "wrench": { "family": "core", "label": "wrench", "fill": "outline", "size": "24px" },
+    "calculator": { "family": "core", "label": "calculator", "fill": "outline", "size": "24px" },
+    "solar-panel": { "family": "core", "label": "solar-panel", "fill": "outline", "size": "24px" },
+    "map": { "family": "core", "label": "map", "fill": "outline", "size": "24px" },
+    "battery": { "family": "core", "label": "battery-charging", "fill": "outline", "size": "24px" },
+    "contract": { "family": "core", "label": "signature", "fill": "outline", "size": "24px" },
+    "nodes": { "family": "core", "label": "network-nodes", "fill": "outline", "size": "24px" }
   },
   "samples": [
     { "family": "core", "fill": "outline", "size": "24px", "labels": ["bolt", "plug", "battery-charging", "solar-panel", "wind", "lightbulb", "bill", "wallet"] },
