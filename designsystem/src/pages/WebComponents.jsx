@@ -1,8 +1,40 @@
+import { useState } from 'react';
 import { breakpoints, layout, motion, radii } from '../brand/tokens.js';
 import { PageHeader, Section } from '../components/ui.jsx';
+import { RollingFigure } from '../components/RollingFigure.jsx';
 import { WhatsAppBadge } from '../components/WhatsAppBadge.jsx';
 import { IconSvg } from '../components/Icon.jsx';
 import { icons } from '../brand/icons.js';
+
+const terms = ['30 days', '1 year', '3 years', '5 years', '15 years'];
+
+function StepSliderDemo() {
+  const [v, setV] = useState(1);
+  return (
+    <div className="step-slider web-action" style={{ '--steps': terms.length, '--value': v }}>
+      <input type="range" min={0} max={terms.length - 1} step={1} value={v} onChange={(e) => setV(+e.target.value)} aria-label="Example contract length" aria-valuetext={terms[v]} />
+      <ol className="step-slider-marks">
+        {terms.map((t, i) => (
+          <li key={t}><button type="button" style={{ '--i': i }} aria-current={i === v} onClick={() => setV(i)}>{t}</button></li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
+function OptionTilesDemo() {
+  return (
+    <div className="option-tiles web-action" role="radiogroup" aria-label="Example type of site">
+      {[['plant', 'Factory or plant'], ['office', 'Office, hotel, mall or shop']].map(([icon, label], i) => (
+        <label key={label} className="option-tile">
+          <input type="radio" name="demo-site" defaultChecked={i === 0} />
+          <span className="option-tile-icon"><IconSvg icon={icons[icon]} size={24} /></span>
+          {label}
+        </label>
+      ))}
+    </div>
+  );
+}
 
 // Web components shared with the marketing website. Styles: src/styles/ui.css.
 export default function WebComponents() {
@@ -49,6 +81,127 @@ export default function WebComponents() {
         </div>
       </Section>
 
+      <Section title="Select field">
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo">
+            <label className="select-field web-field">
+              <span className="visually-hidden">Your state</span>
+              <select defaultValue="Maharashtra"><option>Maharashtra</option><option>Gujarat</option><option>Karnataka</option></select>
+            </label>
+            <label className="select-field web-field">
+              <span className="visually-hidden">Contract length</span>
+              <span className="select-field-icon"><IconSvg icon={icons['field-calendar']} size={18} /></span>
+              <select defaultValue="1 year"><option>30 days</option><option>1 year</option><option>3 years</option></select>
+            </label>
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Use</span><p>A dropdown in a form, such as Your state in the home page plan finder.</p></div>
+          <div className="row"><span className="row-key">Shape</span><p>The action field's choice on its own: white pill, 48px tall, Grey 200 border, chevron in Near Black. Near Black border on focus.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>.select-field</code> label around a <code>select</code>. Optional icon: a <code>.select-field-icon</code> before the select (UI outline at 18px in Near Black, one colour like every icon on the site; it says what the field is).</p></div>
+        </div>
+      </Section>
+
+      <Section title="Choice chips">
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo">
+            <div className="chips" role="radiogroup" aria-label="Example contract length">
+              {['30 days', '1 year', '3 years', '5 years', '15 years'].map((t) => (
+                <label key={t} className="chip"><input type="radio" name="demo-term" defaultChecked={t === '1 year'} />{t}</label>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Use</span><p>One choice from a short set (up to about six), shown all at once, such as a contract length. Longer lists use the select field.</p></div>
+          <div className="row"><span className="row-key">Shape</span><p>White pill, 48px tall, Grey 200 line. The chosen chip is solid Near Black with white text.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>.chips</code> around <code>.chip</code> labels, each holding a radio input. Arrow keys move the choice.</p></div>
+        </div>
+      </Section>
+
+      <Section title="Step slider">
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo"><StepSliderDemo /></div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Use</span><p>A choice along an ordered scale with a few fixed stops, such as a contract length or a monthly use band.</p></div>
+          <div className="row"><span className="row-key">Shape</span><p>6px pill track, filled in Near Black up to the handle. The handle is a 22px circle with a white edge and the raised shadow, matching the pill shapes of buttons and fields. Labels under each stop; the chosen one is Near Black and bold. On phones only the end labels show, so put the chosen value in words beside the field's label.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>.step-slider</code> with <code>--steps</code> and <code>--value</code>, around a range input and <code>.step-slider-marks</code> (buttons with <code>--i</code>). Arrow keys step; labels can be clicked.</p></div>
+        </div>
+      </Section>
+
+      <Section title="Option tiles">
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo"><OptionTilesDemo /></div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Use</span><p>One choice from two to four options that read better as pictures, such as a type of site.</p></div>
+          <div className="row"><span className="row-key">Shape</span><p>White tile, 64px tall, Grey 200 line, 48px icon tile in Warm White. Chosen: Near Black outline and a Near Black icon tile with a white icon.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>.option-tiles</code> around <code>.option-tile</code> labels, each holding a radio input and an <code>.option-tile-icon</code>.</p></div>
+        </div>
+      </Section>
+
+      <Section title="Arrow link and tag">
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo" style={{ alignItems: 'center' }}>
+            <a className="link-arrow" href="#arrow" onClick={(e) => e.preventDefault()}>See every plan<IconSvg icon={icons.arrow} size={20} /></a>
+            <span className="tag">Guide</span>
+            <span className="tag">Hotels and resorts</span>
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Arrow link</span><p>A text link to the next page, with the Nucleo arrow that nudges right on hover. Never the main action. <code>.link-arrow</code>.</p></div>
+          <div className="row"><span className="row-key">Tag</span><p>A small label for a content type or a group. Sentence case, never uppercase, not clickable. <code>.tag</code>.</p></div>
+        </div>
+      </Section>
+
+      <Section title="Rolling figure">
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo">
+            <RollingFigureDemo />
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Use</span><p>A figure that changes when someone changes a choice, such as the price and saving in the plan finder. Its digits roll to the new value, so the change is seen, not just swapped.</p></div>
+          <div className="row"><span className="row-key">Motion</span><p>Each digit is a 0–9 reel that slides once over <code>--duration-roll</code> ({motion.roll}) with ease-out; the reels settle left to right a moment apart. Symbols and words stay still. No bounce, blur or flashing. No motion with reduced motion on.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>{'<RollingFigure value="₹7,50,000" />'}</code> in <code>src/components/RollingFigure.jsx</code>; styles <code>.rolling-figure</code> in ui.css. Takes the font of where it sits.</p></div>
+        </div>
+      </Section>
+
+      <Section title="Accordion">
+        <div className="tile">
+          <div className="tile-stage stage-light" style={{ display: 'block' }}>
+            <div className="accordion" style={{ maxWidth: 560 }}>
+              {['Is there a minimum size?', 'Which states do you cover?'].map((q, i) => (
+                <details key={q} open={i === 0}>
+                  <summary>{q}<span className="accordion-icon"><IconSvg icon={icons.plus} size={20} /></span></summary>
+                  <p className="accordion-answer">Plans start from 0.5 MWp. We supply across 16 states.</p>
+                </details>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Use</span><p>Questions and answers, such as a page's FAQ.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>.accordion</code> around <code>details</code>; each <code>summary</code> ends with an <code>.accordion-icon</code> holding the Nucleo plus, which turns into a cross when open. Answer in <code>.accordion-answer</code>.</p></div>
+        </div>
+      </Section>
+
+      <Section title="Media placeholder">
+        <div className="tile">
+          <div className="tile-stage stage-light" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(160px, 1fr))', gap: 12 }}>
+            {[['', 'image', 'Photo: a plant at golden hour'], ['placeholder-dawn', 'people', 'Team photo'], ['placeholder-violet', 'chart', 'Lumen screen'], ['placeholder-dark', 'palette', 'Illustration']].map(([v, ic, note]) => (
+              <div key={note} className={`placeholder ${v}`}><span className="placeholder-icon"><IconSvg icon={icons[ic]} size={24} /></span><span className="placeholder-note">{note}</span></div>
+            ))}
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Use</span><p>Holds the place of a photo, illustration or product screen until the real one arrives. The note says what goes there, in plain words.</p></div>
+          <div className="row"><span className="row-key">Colour</span><p>A design system gradient: Daylight (default) for places and clean energy, Dawn for people, Violet for product screens, Violet 900 (<code>-dark</code>) for illustrations on brand moments.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>.placeholder</code> with <code>.placeholder-icon</code> (a Nucleo icon) and <code>.placeholder-note</code>.</p></div>
+        </div>
+      </Section>
+
       <Section title="Action field">
         <div className="tile">
           <div className="tile-stage stage-light web-demo">
@@ -59,13 +212,20 @@ export default function WebComponents() {
               </label>
               <button type="submit" className="btn btn-accent">See my options<IconSvg icon={icons.arrow} size={20} /></button>
             </form>
+            <form className="action-field web-action" onSubmit={(e) => e.preventDefault()}>
+              <label className="action-field-choice">
+                <span className="visually-hidden">Work email</span>
+                <input type="email" placeholder="Your work email" autoComplete="email" />
+              </label>
+              <button type="submit" className="btn btn-accent">Get a quote<IconSvg icon={icons.arrow} size={20} /></button>
+            </form>
           </div>
         </div>
         <div className="rows spec-inline">
-          <div className="row"><span className="row-key">Use</span><p>A choice and the button that acts on it, as one unit. The home page state picker.</p></div>
+          <div className="row"><span className="row-key">Use</span><p>A choice or an entry and the button that acts on it, as one unit. A state picker, or the home page's work email with Get a quote.</p></div>
           <div className="row"><span className="row-key">Shape</span><p>One white pill with the raised shadow; the button sits inside it, 6px in. Near Black border on focus.</p></div>
-          <div className="row"><span className="row-key">Phones</span><p>The choice and the button stack, each full width.</p></div>
-          <div className="row"><span className="row-key">Code</span><p><code>.action-field</code>, <code>.action-field-choice</code> around a <code>select</code>, then a <code>.btn</code>.</p></div>
+          <div className="row"><span className="row-key">Phones</span><p>The choice and the button stack, each full width. On a coloured panel (the home hero's Electric Violet), add <code>.action-field-inline</code> so the button stays inside the pill and drops its arrow on phones; keep the entry and the button label short.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>.action-field</code> (plus <code>.action-field-inline</code> on colour), <code>.action-field-choice</code> around a <code>select</code> or an <code>input</code>, then a <code>.btn</code>.</p></div>
         </div>
       </Section>
 
@@ -87,15 +247,34 @@ export default function WebComponents() {
         </div>
         <div className="spec-list spec-inline">
           <div><span>Radius</span><strong>{Object.entries(radii).map(([k, v]) => `${k} ${v}`).join(', ')}</strong></div>
-          <div><span>Raised shadow</span><strong>Cards and tiles on hover, lifted 4px</strong></div>
+          <div><span>Raised shadow</span><strong>Surfaces (large content blocks) at rest; cards and tiles on hover, lifted 4px</strong></div>
+          <div><span>Surface</span><strong><code>.surface</code>: White, Grey 200 line, radius l, raised shadow. Every large content block on a page uses it. Add <code>.surface-flat</code> to drop the shadow on a block that only holds information (the home page's numbers)</strong></div>
+          <div><span>Card</span><strong><code>.card</code>: White, Grey 200 line, radius l, no shadow. For smaller blocks in a row: features, links to pages, plans</strong></div>
           <div><span>Overlay shadow</span><strong>Menus that float over the page</strong></div>
           <div><span>Scrim</span><strong>Near Black at 24% over the page behind an open menu (the header's mega menu)</strong></div>
           <div><span>Durations</span><strong>{motion.fast} / {motion.base} / {motion.slow}</strong></div>
           <div><span>Spin</span><strong>{motion.spin} a turn, for the stamp's ring on hover</strong></div>
           <div><span>Draw</span><strong>{motion.draw}, once, for a chart line drawing itself in</strong></div>
+          <div><span>Roll</span><strong>{motion.roll}, for a figure's digits rolling to a new value</strong></div>
+          <div><span>Marquee</span><strong>{motion.marquee} a loop, for a sliding logo strip. Pauses on hover; still with reduced motion</strong></div>
+          <div><span>Current</span><strong>{motion.current} a loop, for current along the power lines in a photo (home hero): a Violet 100 flash with a soft glow shoots along the wires in the first tenth, then rests. None with reduced motion</strong></div>
           <div><span>Easing</span><strong>Ease-out for things opening</strong></div>
         </div>
       </Section>
     </>
+  );
+}
+
+// Rolling figure demo: each press picks another saving.
+function RollingFigureDemo() {
+  const values = ['₹7,50,000', '₹3,12,400', '₹11,08,950', '₹96,300'];
+  const [i, setI] = useState(0);
+  return (
+    <div style={{ display: 'grid', gap: 16, justifyItems: 'start' }}>
+      <RollingFigure value={values[i]} className="rolling-demo" />
+      <button type="button" className="btn btn-secondary" onClick={() => setI((i + 1) % values.length)}>
+        Change the value
+      </button>
+    </div>
   );
 }

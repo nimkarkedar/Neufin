@@ -88,6 +88,33 @@
   color: var(--white);
 }
 
+/* ---------- Surface ----------
+   The one style for a large content block on the page, such as the home page's
+   before-and-after panel and plan finder: White, Grey 200 line, large radius and the
+   raised shadow. Every big block uses it, so they sit at the same height. */
+
+.surface {
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-raised);
+}
+
+/* ---------- Card ----------
+   A smaller block in a row of like ones (a feature, a link to a page, a plan): White,
+   Grey 200 line, radius l, no shadow. */
+.card {
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-l);
+}
+
+/* Flat version: the line only, no shadow. For a surface that holds information rather
+   than something to act on, such as the home page's numbers. */
+.surface-flat {
+  box-shadow: none;
+}
+
 /* ---------- Text field ----------
    A white pill, 48px tall, with an optional fixed prefix (such as +91). Numbers are
    set in IBM Plex Mono. The border turns Near Black on focus and Electric Coral when
@@ -152,8 +179,8 @@
 }
 
 /* ---------- Action field ----------
-   A choice and its button in one white pill, such as a state picker with See my
-   options. The button sits inside the pill, 6px in. On phones the two stack: the
+   A choice or an entry and its button in one white pill, such as a state picker with
+   See my options, or a work email with Get a quote. The button sits inside the pill, 6px in. On phones the two stack: the
    pill holds the choice and the button goes full width below it. */
 
 .action-field {
@@ -162,7 +189,10 @@
   gap: 8px;
 }
 
-.action-field-choice {
+/* The select field is the action field's choice on its own: a white pill with a
+   chevron, for a labelled dropdown in a form (such as Your state). */
+.action-field-choice,
+.select-field {
   position: relative;
   display: flex;
   min-height: 48px;
@@ -172,11 +202,13 @@
   transition: border-color var(--duration-fast);
 }
 
-.action-field-choice:focus-within {
+.action-field-choice:focus-within,
+.select-field:focus-within {
   border-color: var(--near-black);
 }
 
-.action-field-choice select {
+.action-field-choice select,
+.select-field select {
   flex: 1;
   min-width: 0;
   padding: 0 48px 0 24px;
@@ -189,12 +221,54 @@
   cursor: pointer;
 }
 
-.action-field-choice select:focus {
+.action-field-choice select:focus,
+.select-field select:focus {
   outline: none;
 }
 
+/* Entry version: a text input (such as a work email) instead of a select. */
+.action-field-choice input {
+  flex: 1;
+  min-width: 0;
+  padding: 0 24px;
+  background: none;
+  border: 0;
+  border-radius: var(--radius-pill);
+  color: var(--near-black);
+  font: inherit;
+}
+
+.action-field-choice input::placeholder {
+  color: var(--grey-600);
+}
+
+.action-field-choice input:focus {
+  outline: none;
+}
+
+.action-field-choice:has(> input)::after {
+  content: none;
+}
+
+/* Optional leading icon in a select field: a UI outline icon at 18px, 20px in from the
+   left, in Near Black like every icon on the site (one colour, no second tone). */
+.select-field-icon {
+  position: absolute;
+  top: 50%;
+  left: 20px;
+  display: grid;
+  color: var(--near-black);
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.select-field:has(.select-field-icon) select {
+  padding-left: 52px;
+}
+
 /* Chevron drawn from two borders, in the text colour. */
-.action-field-choice::after {
+.action-field-choice::after,
+.select-field::after {
   content: "";
   position: absolute;
   top: 50%;
@@ -229,5 +303,497 @@
     min-height: 48px;
     background: none;
     border: 0;
+  }
+}
+
+/* Inline version: the button stays inside the pill on phones too. For a short entry
+   (a work email) with a short button, on a coloured panel where a stacked accent
+   button would sink into the background. */
+.action-field-inline {
+  flex-direction: row;
+  gap: 0;
+  padding: 5px;
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-raised);
+}
+
+.action-field-inline .action-field-choice {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: 0;
+}
+
+.action-field-inline .action-field-choice input {
+  padding: 0 6px 0 16px;
+}
+
+/* Phones: the button drops its arrow and tightens to leave the entry room. */
+.action-field-inline .btn {
+  flex-shrink: 0;
+  padding-inline: 16px;
+}
+
+.action-field-inline .btn svg {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .action-field-inline .action-field-choice input {
+    padding: 0 24px;
+  }
+
+  .action-field-inline .btn {
+    padding-inline: 24px;
+  }
+
+  .action-field-inline .btn svg {
+    display: revert;
+  }
+}
+
+/* ---------- Choice chips ----------
+   One choice from a short set, such as a contract length. Each chip is a label around
+   a visually hidden radio, so the group works with arrow keys and screen readers.
+   White pill with a Grey 200 line; the chosen chip is solid Near Black. 48px tall. */
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  align-content: flex-start;
+  gap: 8px;
+}
+
+.chip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  min-height: 48px;
+  padding: 0 20px;
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-pill);
+  color: var(--near-black);
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast),
+    color var(--duration-fast),
+    border-color var(--duration-fast);
+}
+
+.chip input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.chip:hover {
+  border-color: var(--near-black);
+}
+
+.chip:has(input:checked) {
+  background: var(--near-black);
+  border-color: var(--near-black);
+  color: var(--white);
+}
+
+.chip:has(input:focus-visible) {
+  outline: 2px solid var(--near-black);
+  outline-offset: 2px;
+}
+
+/* ---------- Step slider ----------
+   A choice along an ordered scale with a few fixed stops, such as a contract length
+   from 30 days to 15 years. A native range input, so keys and screen readers work.
+   The handle is round, like the pills of the buttons and fields. The filled part
+   of the track is Near Black. Labels sit under their stops and can be clicked.
+   Set --steps (number of stops) and --value (0-based) on .step-slider. */
+
+.step-slider {
+  --thumb: 22px;
+  --fill: calc(var(--value) / (var(--steps) - 1) * (100% - var(--thumb)) + var(--thumb) / 2);
+  position: relative;
+}
+
+.step-slider input {
+  display: block;
+  width: 100%;
+  height: 48px;
+  margin: 0;
+  background: none;
+  appearance: none;
+  cursor: pointer;
+}
+
+.step-slider input:focus {
+  outline: none;
+}
+
+.step-slider input::-webkit-slider-runnable-track {
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(to right, var(--near-black) var(--fill), var(--grey-200) var(--fill));
+}
+
+.step-slider input::-moz-range-track {
+  height: 6px;
+  border-radius: var(--radius-pill);
+  background: linear-gradient(to right, var(--near-black) var(--fill), var(--grey-200) var(--fill));
+}
+
+.step-slider input::-webkit-slider-thumb {
+  width: var(--thumb);
+  height: var(--thumb);
+  margin-top: calc((6px - var(--thumb)) / 2);
+  background: var(--near-black);
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  box-shadow: var(--shadow-raised);
+  appearance: none;
+  transition: transform var(--duration-fast) var(--ease-out);
+}
+
+.step-slider input::-moz-range-thumb {
+  width: var(--thumb);
+  height: var(--thumb);
+  box-sizing: border-box;
+  background: var(--near-black);
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  box-shadow: var(--shadow-raised);
+}
+
+.step-slider input:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+}
+
+.step-slider input:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--near-black);
+  outline-offset: 2px;
+}
+
+.step-slider input:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--near-black);
+  outline-offset: 2px;
+}
+
+/* Stop labels, each centred under its stop; the first and last align to the ends. */
+.step-slider-marks {
+  position: relative;
+  height: 32px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.step-slider-marks button {
+  position: absolute;
+  top: 0;
+  left: calc(var(--i) / (var(--steps) - 1) * (100% - var(--thumb)) + var(--thumb) / 2);
+  min-height: 32px;
+  padding: 0 4px;
+  background: none;
+  border: 0;
+  color: var(--grey-600);
+  font: inherit;
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+  white-space: nowrap;
+  transform: translateX(-50%);
+  cursor: pointer;
+}
+
+.step-slider-marks li:first-child button {
+  left: 0;
+  transform: none;
+}
+
+.step-slider-marks li:last-child button {
+  left: auto;
+  right: 0;
+  transform: none;
+}
+
+.step-slider-marks button[aria-current="true"] {
+  color: var(--near-black);
+  font-weight: 600;
+}
+
+/* Phones: only the end labels, so they never collide. Put the chosen value in words
+   next to the field's label. */
+.step-slider-marks li:not(:first-child, :last-child) {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .step-slider-marks li:not(:first-child, :last-child) {
+    display: list-item;
+  }
+}
+
+/* ---------- Option tiles ----------
+   One choice from two to four options that read better as pictures, such as a type of
+   site. Each tile is a label around a visually hidden radio: an icon tile and a name.
+   The chosen tile gets a Near Black outline and its icon tile turns Near Black. */
+
+.option-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 8px;
+}
+
+.option-tile {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 64px;
+  padding: 8px 16px 8px 8px;
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-m);
+  color: var(--near-black);
+  font-weight: 500;
+  line-height: 1.3;
+  cursor: pointer;
+  transition:
+    border-color var(--duration-fast),
+    box-shadow var(--duration-fast);
+}
+
+.option-tile input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.option-tile-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-s);
+  background: var(--warm-white);
+  color: var(--near-black);
+  transition:
+    background-color var(--duration-fast),
+    color var(--duration-fast);
+}
+
+.option-tile:hover {
+  border-color: var(--near-black);
+}
+
+.option-tile:has(input:checked) {
+  border-color: var(--near-black);
+  box-shadow: inset 0 0 0 1px var(--near-black);
+}
+
+.option-tile:has(input:checked) .option-tile-icon {
+  background: var(--near-black);
+  color: var(--white);
+}
+
+.option-tile:has(input:focus-visible) {
+  outline: 2px solid var(--near-black);
+  outline-offset: 2px;
+}
+
+/* ---------- Arrow link ----------
+   A text link to the next page, with a Nucleo arrow that nudges right on hover.
+   Use for "See every plan", "Read story" and the like; not for the main action. */
+
+.link-arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  color: inherit;
+  font-weight: 600;
+  text-underline-offset: 4px;
+}
+
+.link-arrow svg {
+  flex-shrink: 0;
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.link-arrow:hover svg {
+  transform: translateX(3px);
+}
+
+/* ---------- Tag ----------
+   A small label for a content type or a group, such as Guide or Hotels and resorts.
+   Sentence case, never uppercase. Not interactive; for choices use chips. */
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  padding: 0 10px;
+  background: var(--warm-white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-pill);
+  color: var(--near-black);
+  font-size: var(--text-small-size);
+  line-height: 1;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+/* ---------- Accordion ----------
+   Questions that open one at a time, built on <details>, so it works without script.
+   The Nucleo plus turns into a cross when open. */
+
+.accordion {
+  border-top: 1px solid var(--grey-200);
+}
+
+.accordion details {
+  border-bottom: 1px solid var(--grey-200);
+}
+
+.accordion summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  min-height: 64px;
+  padding: 16px 0;
+  font-weight: 600;
+  list-style: none;
+  cursor: pointer;
+}
+
+.accordion summary::-webkit-details-marker {
+  display: none;
+}
+
+.accordion-icon {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--grey-200);
+  border-radius: 50%;
+  transition:
+    transform var(--duration-slow) var(--ease-out),
+    background-color var(--duration-fast);
+}
+
+.accordion summary:hover .accordion-icon {
+  background: var(--warm-white);
+}
+
+.accordion details[open] .accordion-icon {
+  transform: rotate(45deg);
+}
+
+.accordion-answer {
+  max-width: 68ch;
+  padding-bottom: 24px;
+  color: var(--grey-600);
+}
+
+/* ---------- Media placeholder ----------
+   Holds the place of a photo, illustration or product screen until the real one
+   arrives: a design system gradient, a Nucleo icon and a plain note on what goes
+   there. Default is Daylight; add -dawn, -violet or -dark. */
+
+.placeholder {
+  position: relative;
+  display: grid;
+  place-items: center;
+  align-content: center;
+  gap: 12px;
+  min-height: 200px;
+  padding: 24px;
+  overflow: hidden;
+  background: var(--gradient-daylight);
+  border-radius: var(--radius-l);
+  color: var(--near-black);
+  text-align: center;
+}
+
+.placeholder-dawn {
+  background: var(--gradient-dawn);
+}
+
+.placeholder-violet {
+  background: var(--gradient-violet);
+}
+
+.placeholder-dark {
+  background: var(--violet-900);
+  color: var(--warm-white);
+}
+
+.placeholder-icon {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--white) 55%, transparent);
+}
+
+.placeholder-dark .placeholder-icon {
+  background: color-mix(in srgb, var(--white) 12%, transparent);
+}
+
+.placeholder-note {
+  position: relative;
+  max-width: 36ch;
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+}
+
+/* ---------- Rolling figure ----------
+   A number whose digits roll to a new value (RollingFigure.jsx). Each digit is a 0–9 reel
+   one line tall, moved by --digit; reels settle left to right, --order apart. Digits use
+   tabular widths so the figure doesn't shift while rolling. */
+
+.rolling-figure {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.rolling-figure-chars {
+  display: inline-flex;
+}
+
+/* Spaces and symbols keep their width inside the flex row. */
+.rolling-char {
+  white-space: pre;
+}
+
+.rolling-digit {
+  display: inline-block;
+  height: 1lh;
+  overflow: hidden;
+}
+
+.rolling-reel {
+  display: flex;
+  flex-direction: column;
+  transform: translateY(calc(var(--digit) * -1lh));
+  transition: transform var(--duration-roll) var(--ease-out);
+  transition-delay: calc(var(--duration-fast) * var(--order) / 5);
+}
+
+.rolling-reel > span {
+  height: 1lh;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rolling-reel {
+    transition: none;
   }
 }

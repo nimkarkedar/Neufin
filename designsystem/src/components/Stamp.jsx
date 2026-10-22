@@ -52,3 +52,29 @@ export function Stamp({ size = 160, title, ringClassName, ...rest }) {
     </svg>
   );
 }
+
+// Ring stamp: a line of text running round a circle, with anything in the centre (an
+// emblem, a mark), like an ink stamp. For proof such as a licence ("Licensed by CERC").
+// One colour (currentColor); the text is set in the display font, sentence case.
+// Tilt it slightly where it is laid over other things, as a stamp would land.
+/** @param {{ text: string, size?: number | string, children?: import('react').ReactNode, className?: string, style?: import('react').CSSProperties }} props */
+export function RingStamp({ text, size = 140, children, className, style }) {
+  const id = `ring-${text.replace(/[^a-z0-9]/gi, '').toLowerCase()}`;
+  return (
+    <span className={className} style={{ position: 'relative', display: 'inline-grid', placeItems: 'center', width: size, height: size, ...style }}>
+      <svg viewBox="0 0 200 200" width="100%" height="100%" style={{ position: 'absolute', inset: 0 }} aria-hidden="true">
+        <defs>
+          <path id={id} d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0" />
+        </defs>
+        <circle cx="100" cy="100" r="97" fill="none" stroke="currentColor" strokeWidth="3" />
+        <circle cx="100" cy="100" r="56" fill="none" stroke="currentColor" strokeWidth="2" />
+        {/* Text on a circle of radius 76 (478 long), spread evenly to fill it, with room
+            to both rings. */}
+        <text fill="currentColor" dominantBaseline="central" style={{ fontFamily: 'var(--font-display)', fontSize: 18, fontWeight: 700 }}>
+          <textPath href={`#${id}`} textLength="472" lengthAdjust="spacing">{text}</textPath>
+        </text>
+      </svg>
+      <span style={{ position: 'relative', display: 'grid', placeItems: 'center', width: '50%', height: '50%' }}>{children}</span>
+    </span>
+  );
+}

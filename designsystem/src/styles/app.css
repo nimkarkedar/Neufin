@@ -409,3 +409,4 @@ img { max-width: 100%; display: block; }
 .web-shadows { display: flex; flex-wrap: wrap; gap: 24px; padding: 32px; background: var(--surface); border-radius: var(--radius); margin-bottom: 20px; }
 .web-shadow { width: 180px; padding: 24px; background: var(--white); border-radius: var(--radius-m); font-size: 16px; }
 
+.rolling-demo { font-family: var(--font-display); font-size: var(--text-h1-size); line-height: var(--text-h1-lh); font-weight: var(--text-h1-weight); }

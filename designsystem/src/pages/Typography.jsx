@@ -67,7 +67,7 @@ export default function Typography() {
         </div>
       </Section>
 
-      <Section title="Type scale" intro="Sentence case everywhere. Uppercase only for labels of one or two words.">
+      <Section title="Type scale" intro="Sentence case everywhere, labels included. No uppercase labels or spaced-out capitals.">
         <div className="type-scale">
           {scale.map((s) => (
             <div key={s.name} className="type-row">

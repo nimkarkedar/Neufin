@@ -124,7 +124,7 @@ export default function Iconography() {
       <Section title="Rules">
         <div className="rows">
           <div className="row"><span className="row-key">One family per set</span><p>Icons shown together come from one family and one fill. Glyph may stand in for outline only to show a selected state.</p></div>
-          <div className="row"><span className="row-key">Colour</span><p>Use one of the three tones: light (violet), neutral (Near Black and Grey 600) or dark. Navigation menus use neutral, so icons don't compete with the content. Flags and card logos keep their own colours.</p></div>
+          <div className="row"><span className="row-key">Colour</span><p>Use one of the three tones: light (violet), neutral (Near Black, one colour) or dark. The website uses only neutral: every icon on the site is one colour, the text colour (Near Black, or Warm White on the dark band), never violet and never two-tone. Flags and card logos keep their own colours.</p></div>
           <div className="row"><span className="row-key">Size</span><p>Use the family's own grid, or a multiple of it. Don't change stroke widths.</p></div>
           <div className="row"><span className="row-key">With text</span><p>An icon sits next to its label, never in place of it, unless the meaning is universal (close, menu, search).</p></div>
           <div className="row"><span className="row-key">Accessibility</span><p>Icons next to a label are hidden from screen readers. An icon on its own gets a <code>title</code>.</p></div>

@@ -10,6 +10,6 @@ export const icons = nucleoIcons;
 // secondary parts (Nucleo's color-2).
 export const iconColours = {
   light: { main: hexOf('violet-900'), accent: hexOf('violet-500') },
-  neutral: { main: hexOf('near-black'), accent: hexOf('grey-600') },
+  neutral: { main: hexOf('near-black'), accent: hexOf('near-black') },
   dark: { main: hexOf('warm-white'), accent: hexOf('violet-400') },
 };

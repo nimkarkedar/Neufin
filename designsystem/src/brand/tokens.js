@@ -55,11 +55,13 @@ export const fonts = {
 
 // Type scale. `size` is desktop px (from the desktop breakpoint up); `mobile` is the
 // size below it, where a style steps down on small screens.
+// Headings open up step by step as they get smaller (Display 1.05 to H3 1.25), so the
+// descenders of one line clear the capitals of the next, even at Display size.
 export const typeScale = [
-  { name: 'Display', token: 'display', font: 'display', size: 72, mobile: 44, lh: 0.95, weight: 800, track: '-0.02em' },
-  { name: 'H1', token: 'h1', font: 'display', size: 48, mobile: 36, lh: 1.0, weight: 700, track: '-0.015em' },
-  { name: 'H2', token: 'h2', font: 'display', size: 32, mobile: 28, lh: 1.1, weight: 700, track: '-0.01em' },
-  { name: 'H3', token: 'h3', font: 'display', size: 22, mobile: 20, lh: 1.2, weight: 700, track: '0' },
+  { name: 'Display', token: 'display', font: 'display', size: 72, mobile: 44, lh: 1.05, weight: 800, track: '-0.02em' },
+  { name: 'H1', token: 'h1', font: 'display', size: 48, mobile: 36, lh: 1.1, weight: 700, track: '-0.015em' },
+  { name: 'H2', token: 'h2', font: 'display', size: 32, mobile: 28, lh: 1.15, weight: 700, track: '-0.01em' },
+  { name: 'H3', token: 'h3', font: 'display', size: 22, mobile: 20, lh: 1.25, weight: 700, track: '0' },
   { name: 'Body L', token: 'body-l', font: 'body', size: 20, mobile: 18, lh: 1.5, weight: 400, track: '0' },
   { name: 'Body', token: 'body', font: 'body', size: 16, lh: 1.55, weight: 400, track: '0' },
   { name: 'Small', token: 'small', font: 'body', size: 13, lh: 1.45, weight: 400, track: '0.01em' },
@@ -94,6 +96,10 @@ export const scrim = `rgb(${ink} / 0.24)`;
 // Motion. Most UI changes use `base`; menus opening use `slow` with ease-out.
 // `spin` is one full turn of the stamp's ring, slow enough to read the words.
 // `draw` is a line or shape drawing itself in once, such as a chart's trend line.
+// `marquee` is one loop of a sliding logo strip: slow enough to read every logo.
+// `roll` is a figure's digits rolling to a new value (RollingFigure).
+// `current` is one loop of the current flashing along the power lines in a photo:
+// the flash takes the first tenth, the rest is the pause before the next.
 export const motion = {
   easeOut: 'cubic-bezier(0.16, 1, 0.3, 1)',
   fast: '0.15s',
@@ -101,6 +107,9 @@ export const motion = {
   slow: '0.4s',
   spin: '16s',
   draw: '1.2s',
+  marquee: '60s',
+  current: '4s',
+  roll: '0.7s',
 };
 
 // Colours that are not Neufin's but appear inside third-party marks only.
@@ -134,6 +143,9 @@ export function allTokens() {
   t['--duration-slow'] = motion.slow;
   t['--duration-spin'] = motion.spin;
   t['--duration-draw'] = motion.draw;
+  t['--duration-marquee'] = motion.marquee;
+  t['--duration-current'] = motion.current;
+  t['--duration-roll'] = motion.roll;
   externalColours.forEach((c) => (t[`--${c.token}`] = c.hex));
   return t;
 }

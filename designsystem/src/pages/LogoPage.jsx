@@ -1,6 +1,6 @@
 import { asset } from '../brand/asset.js';
 import { Logo } from '../components/Logo.jsx';
-import { Stamp } from '../components/Stamp.jsx';
+import { RingStamp, Stamp } from '../components/Stamp.jsx';
 import { ClearSpace, Placement } from '../components/LogoRules.jsx';
 import { PageHeader, Section, DoDont, Figure } from '../components/ui.jsx';
 
@@ -155,6 +155,23 @@ export default function LogoPage() {
           <div className="row"><span className="row-key">Size</span><p>At least 96px across, so the lettering stays readable.</p></div>
           <div className="row"><span className="row-key">Motion</span><p>On the web, the ring may turn slowly while hovered (<code>--duration-spin</code>, one turn in 16s). The symbol stays upright. No motion when reduced motion is on.</p></div>
           <div className="row"><span className="row-key">Code</span><p><code>{'<Stamp size={160} ringClassName="…" />'}</code> in <code>src/components/Stamp.jsx</code>. SVG download: <a href={asset('/assets/stamp/neufin-stamp.svg')} download>neufin-stamp.svg</a>.</p></div>
+        </div>
+      </Section>
+
+      <Section title="Ring stamp" intro="A line of text round a circle with an emblem or mark in the centre, like an ink stamp. For proof, such as a licence, laid over the thing it vouches for.">
+        <div className="tile">
+          <div className="tile-stage stage-light stamp-demo">
+            <RingStamp text="Licensed by CERC · Power trading licence · " size={160} style={{ color: 'var(--electric-violet)', transform: 'rotate(-10deg)' }}>
+              <Stamp size={48} style={{ color: 'var(--electric-violet)' }} />
+            </RingStamp>
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Where</span><p>Proof points on the website, such as the home page's CERC licence (the regulator's emblem in the centre).</p></div>
+          <div className="row"><span className="row-key">Text</span><p>Sentence case, a short phrase or two separated by a middle dot, written to fill the ring.</p></div>
+          <div className="row"><span className="row-key">Colour</span><p>One colour: Electric Violet on light backgrounds. The centre keeps its own colours.</p></div>
+          <div className="row"><span className="row-key">Placement</span><p>Tilted about 10° when laid over something, as a stamp would land. At least 120px across.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>{'<RingStamp text="…" size={140}>{centre}</RingStamp>'}</code> in <code>src/components/Stamp.jsx</code>.</p></div>
         </div>
       </Section>
 
