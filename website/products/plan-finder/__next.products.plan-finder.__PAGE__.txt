@@ -1,0 +1,41 @@
+2:"$Sreact.fragment"
+3:"/Neufin/website/_next/static/chunks/33dr9n3cjyqp0.js"
+4:"/Neufin/website/_next/static/chunks/3xz4zcrosa-hk.js"
+5:"/Neufin/website/_next/static/chunks/2f3df4mw9wpvi.js"
+6:I[87180,["$3","$4","$5"],"default"]
+7:I[42045,["$3","$4","$5"],"default"]
+e:"/Neufin/website/_next/static/chunks/1ce5pt6s27yjn.js"
+f:I[54249,["$3","$4","$5","$e"],""]
+10:I[69263,["$3","$4","$5","$e"],"PlanList"]
+18:"ViewportBoundary"
+19:I[19400,["$3","$4","$5"],"$18"]
+1a:"MetadataBoundary"
+1b:I[19400,["$3","$4","$5"],"$1a"]
+1c:"$Sreact.suspense"
+1d:I[18516,["$3","$4","$5"],"IconMark"]
+9:X
+9:C
+a:X
+d:[["children",{"s":"__PAGE__","h":160,"d":{"r":["$","$2","c",{"children":[[["$","section",null,{"className":"DbtZbq_hero","children":[["$","script",null,{"type":"application/ld+json","dangerouslySetInnerHTML":{"__html":"{\"@context\":\"https://schema.org\",\"@type\":\"BreadcrumbList\",\"itemListElement\":[{\"@type\":\"ListItem\",\"position\":1,\"name\":\"Home\",\"item\":\"https://neufin.energy/\"},{\"@type\":\"ListItem\",\"position\":2,\"name\":\"Products\"},{\"@type\":\"ListItem\",\"position\":3,\"name\":\"Plan finder\"}]}"}}],["$","div",null,{"className":"container DbtZbq_inner","data-media":true,"children":[["$","div",null,{"className":"DbtZbq_text","children":[["$","nav",null,{"aria-label":"Breadcrumb","children":["$","ol",null,{"className":"DbtZbq_crumbs","children":[["$","li","Home",{"children":["$","$Lf",null,{"href":"/","children":"Home"}]}],["$","li","Products",{"children":["$","span",null,{"children":"Products"}]}],["$","li","Plan finder",{"children":["$","span",null,{"aria-current":"page","children":"Plan finder"}]}]]}]}],["$","h1",null,{"className":"DbtZbq_title","children":"Every energy plan, in one place"}],["$","p",null,{"className":"DbtZbq_lead","children":"All our plans with a price band. Filter by state, source and contract length, then get a quote for the one that fits."}],["$","div",null,{"className":"DbtZbq_actions","children":["$","$Lf",null,{"href":"/contact","className":"btn btn-accent","children":"Get a quote"}]}]]}],["$","div",null,{"className":"DbtZbq_media","children":["$","div",null,{"className":"DbtZbq_art","style":{"background":"var(--white)"},"children":[["$","div",null,{"className":"DbtZbq_stripe","children":["$","svg",null,{"viewBox":"0 0 800 600","preserveAspectRatio":"xMidYMid slice","style":{"display":"block","width":"100%","height":"100%","background":"transparent"},"aria-hidden":"true","children":["$","polygon",null,{"points":"-1,150 170,150 566.455223880597,400 801,400 801,520 531.6552238805971,520 135.2,270 -1,270","fill":"var(--violet-800)"}]}]}],["$","div",null,{"className":"placeholder placeholder-dawn DbtZbq_artPhoto","style":{},"role":"img","aria-label":"Placeholder: Illustration: plans laid out on a map of India","children":[["$","span",null,{"className":"placeholder-icon","children":["$","svg",null,{"xmlns":"http://www.w3.org/2000/svg","viewBox":"0 0 24 24","width":24,"height":24,"aria-hidden":true,"dangerouslySetInnerHTML":{"__html":"<path d=\"M15.5 6V21.5\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-color=\"color-2\" data-cap=\"butt\" fill=\"none\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" stroke-linecap=\"var(--nucleo-stroke-linecap-butt, butt)\"></path> <path d=\"M8.5 2.51807V18\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" data-color=\"color-2\" data-cap=\"butt\" fill=\"none\" stroke-linejoin=\"var(--nucleo-stroke-linejoin, miter)\" stroke-linecap=\"var(--nucleo-stroke-linecap-butt, butt)\"></path> <path d=\"M2 5L8.5 2.5L15.5 6L22 3.5V19L15.5 21.5L8.5 18L2 20.5V5Z\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" fill=\"none\"></path>"}}]}],["$","span",null,{"className":"placeholder-note","children":"Illustration: plans laid out on a map of India"}]]}]]}]}]]}]]}],["$","section",null,{"id":"plans","className":"EAugdq_section","data-tone":"plain","aria-labelledby":"plans-title","children":["$","div",null,{"className":"container","children":[["$","div",null,{"className":"EAugdq_head","data-narrow":true,"children":[["$","h2",null,{"id":"plans-title","className":"EAugdq_title","children":"Find your plan"}],"$undefined"]}],["$","$L10",null,{}]]}]}],["$","section",null,{"id":"not-sure","className":"EAugdq_section","data-tone":"white","aria-labelledby":"not-sure-title","children":["$","div",null,{"className":"container","children":[["$","div",null,{"className":"EAugdq_head","children":[["$","h2",null,{"id":"not-sure-title","className":"EAugdq_title","children":"Not sure which plan fits?"}],"$L11"]}],"$L12"]}]}]],["$L13","$L14","$L15"],"$L16"]}],"p":"$@17","v":null,"s":"$a"}}]]
+b:[["children",{"s":"plan-finder","h":96,"d":{"r":["$","$2","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}]}]]}],"p":"$@c","v":"$9","s":"$a"},"c":"$Qd"}]]
+1:[["children",{"s":"products","h":64,"d":{"r":["$","$2","c",{"children":[null,["$","$L6",null,{"parallelRouterKey":"children","template":["$","$L7",null,{}]}]]}],"p":"$@8","v":"$9","s":"$a"},"c":"$Qb"}]]
+0:{"t":{"t":{"s":"","h":16,"c":"$Q1"},"h":{"r":["$","$2","h",{"children":[null,["$","$L19",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}],["$","meta","2",{"name":"theme-color","content":"#F7F5FA"}]]}],["$","$L1b",null,{"children":[["$","div",null,{"hidden":true,"children":["$","$1c",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Plan finder: every energy plan, with prices | Neufin Energy"}],["$","meta","1",{"name":"description","content":"Every Neufin energy plan in one place, with a price band per unit. Filter by state, source and contract length."}],["$","meta","2",{"name":"application-name","content":"Neufin Energy"}],["$","meta","3",{"name":"robots","content":"noindex, nofollow"}],["$","link","4",{"rel":"canonical","href":"https://neufin.energy/products/plan-finder/"}],["$","meta","5",{"property":"og:title","content":"Plan finder: every energy plan, with prices"}],["$","meta","6",{"property":"og:description","content":"Every Neufin energy plan in one place, with a price band per unit. Filter by state, source and contract length."}],["$","meta","7",{"property":"og:url","content":"https://neufin.energy/products/plan-finder/"}],["$","meta","8",{"name":"twitter:card","content":"summary_large_image"}],["$","meta","9",{"name":"twitter:title","content":"Plan finder: every energy plan, with prices"}],["$","meta","10",{"name":"twitter:description","content":"Every Neufin energy plan in one place, with a price band per unit. Filter by state, source and contract length."}],["$","link","11",{"rel":"icon","href":"/Neufin/website/icon.svg?icon.0cxpjb_-ixjbr.svg","sizes":"any","type":"image/svg+xml"}],["$","$L1d","12",{}]]}]}],null]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"p":"$@1e","v":null,"s":"$a"}},"a":"$@1f","u":"$@20","b":"yXOuWeyCRZAW-wcd3o2UZ"}
+21:I[69263,["$3","$4","$5","$e"],"PlanSuggest"]
+22:I[19400,["$3","$4","$5"],"OutletBoundary"]
+:HL["/Neufin/website/_next/static/chunks/32gu8bdbmaecc.css","style"]
+:HL["/Neufin/website/_next/static/chunks/1lh_6tg_mnkf9.css","style"]
+11:["$","div",null,{"className":"EAugdq_aside","children":[["$","p",null,{"className":"EAugdq_lead","children":"Answer two questions and we suggest a plan. A specialist checks it against your bill before you sign."}],"$undefined"]}]
+12:["$","$L21",null,{}]
+13:["$","link","0",{"rel":"stylesheet","href":"/Neufin/website/_next/static/chunks/32gu8bdbmaecc.css","precedence":"next"}]
+14:["$","link","1",{"rel":"stylesheet","href":"/Neufin/website/_next/static/chunks/1lh_6tg_mnkf9.css","precedence":"next"}]
+15:["$","script","script-0",{"src":"/Neufin/website/_next/static/chunks/1ce5pt6s27yjn.js","async":true}]
+16:["$","$L22",null,{"children":["$","$1c",null,{"name":"Next.MetadataOutlet","children":"$@23"}]}]
+20:true
+a:300
+23:null
+a:C
+1f:0
+c:"$undefined"
+8:"$undefined"
+1e:"$undefined"
+17:"$undefined"
