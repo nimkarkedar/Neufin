@@ -1,0 +1,179 @@
+/* Home page numbers, from Kedar's mock. The title (H2), then one surface: the figures
+   (H1 size) in a row, and below a hairline the sources on the left and the licence on
+   the right. Phones: figures two a row, the two proof points stacked. */
+
+/* No bottom padding: the plan finder below brings its own top space. */
+.section {
+  padding-top: 64px;
+}
+
+.title {
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-lh);
+  font-weight: var(--text-h2-weight);
+  letter-spacing: var(--text-h2-track);
+}
+
+/* The card has no padding: each part pads itself, so the line between them runs edge
+   to edge, like the divider in the plan finder card. Same title gap and part padding
+   as the plan finder. */
+.card {
+  margin-top: 16px;
+}
+
+.figures,
+.bottom {
+  padding: 24px 20px;
+}
+
+.figures {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px var(--grid-gutter);
+  margin: 0;
+}
+
+.figure {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+}
+
+.value {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h1-size);
+  line-height: var(--text-h1-lh);
+  font-weight: var(--text-h1-weight);
+  letter-spacing: var(--text-h1-track);
+}
+
+.label {
+  margin-top: 4px;
+  color: var(--ink-2);
+}
+
+.bottom {
+  display: grid;
+  gap: 28px;
+  border-top: 1px solid var(--line);
+}
+
+.sources,
+.licence {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Phones: graphic on top, line below (the licence's stamp comes after its line in the
+   markup, so it is reversed). */
+.sources {
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.licence {
+  flex-direction: column-reverse;
+  align-items: flex-start;
+}
+
+.text {
+  max-width: 40ch;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+.text strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* Round tiles overlapping like a row of faces: White with a Grey 200 line, icons in the
+   text colour like every icon on the site. */
+.stack {
+  display: flex;
+  flex-shrink: 0;
+}
+
+.disc {
+  display: grid;
+  place-items: center;
+  width: 52px;
+  height: 52px;
+  border: 1px solid var(--grey-200);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--ink);
+}
+
+.disc + .disc {
+  margin-left: -12px;
+}
+
+/* The ring stamp lands over the emblem at a slight tilt, as a stamp would. */
+.stamp {
+  flex-shrink: 0;
+  color: var(--electric-violet);
+  transform: rotate(-10deg);
+}
+
+.emblem {
+  width: auto;
+  height: 60%;
+  /* Undo the stamp's tilt, and sit a little high so the emblem's own lettering clears
+     the inner ring. */
+  transform: translateY(-6%) rotate(10deg);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-top: 88px;
+  }
+
+  .figures,
+  .bottom {
+    padding: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .section {
+    padding-top: 104px;
+  }
+
+  .card {
+    margin-top: 20px;
+  }
+
+  .figures,
+  .bottom {
+    padding: 40px;
+  }
+
+  .figures {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .bottom {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+  }
+
+  .sources {
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .licence {
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .licence .text {
+    max-width: 26ch;
+    text-align: right;
+  }
+}

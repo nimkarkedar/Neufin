@@ -1,0 +1,101 @@
+/* Phones: the chips scroll sideways in one row instead of wrapping into many. */
+.scroller {
+  margin-inline: calc(-1 * var(--grid-margin));
+  padding-inline: var(--grid-margin);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.scroller :global(.chips) {
+  flex-wrap: nowrap;
+}
+
+.panel {
+  display: grid;
+  margin-top: 24px;
+  overflow: hidden;
+}
+
+.text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 28px 24px;
+}
+
+.title {
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-lh);
+  font-weight: var(--text-h2-weight);
+  letter-spacing: var(--text-h2-track);
+  text-wrap: balance;
+}
+
+.line {
+  margin-top: 12px;
+  color: var(--ink-2);
+}
+
+.figures {
+  display: flex;
+  gap: 40px;
+  margin: 24px 0 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.figures div {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.figures dd {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h1-size);
+  line-height: var(--text-h1-lh);
+  font-weight: var(--text-h1-weight);
+}
+
+.figures dt {
+  color: var(--ink-2);
+  font-size: var(--text-small-size);
+}
+
+.clients {
+  margin: 20px 0 8px;
+  color: var(--ink-2);
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.photo {
+  min-height: 240px;
+  border-radius: 0;
+}
+
+@media (min-width: 1024px) {
+  .panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .text {
+    padding: 48px;
+  }
+
+  .photo {
+    min-height: 420px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .scroller {
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+
+  .scroller :global(.chips) {
+    flex-wrap: wrap;
+  }
+}

@@ -1,0 +1,16 @@
+/* The logo bar sits close under the hero. */
+.logos {
+  margin-top: 36px;
+}
+
+@media (min-width: 768px) {
+  .logos {
+    margin-top: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .logos {
+    margin-top: 52px;
+  }
+}

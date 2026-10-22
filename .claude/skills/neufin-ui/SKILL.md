@@ -1,0 +1,58 @@
+---
+name: neufin-ui
+description: Checklist to run before building or changing anything visual for Neufin — a website section, component, control, icon, colour, shadow or layout on neufin.energy (website/) or in the design system (designsystem/). Use whenever a task touches UI, even a small tweak.
+---
+
+# Neufin UI checklist
+
+Kedar's standing rules. Run through all of them before writing UI code, and again before showing the result.
+
+## 1. Icons are Nucleo, every time
+
+Neufin owns the full Nucleo licence: every family except Pixel, Isometric and Arcade.
+
+- Find icons with the `nucleo-icons` skill or the local catalogue in `~/.nucleo/skills/<family>/icons.json`. Never hand-draw an SVG icon, use emoji, or use another icon set.
+- Pick the family by job, as on the design system's Iconography page:
+  - Core outline 24px is the default for marketing pages and menu tiles.
+  - UI outline or outline-duo 18px is for product-style UI: fields, buttons, tables.
+  - Keep one family per set, so a row or a menu never mixes styles.
+- To add one: put it in `designsystem/src/brand/icon-list.json`, run `npm run icons` in `designsystem/`, then use `<Icon>` or `<IconSvg icon={icons[name]}>`.
+- Every icon on the website is one colour: the text colour (Near Black, Warm White on the dark band). Never Electric Violet, never two-tone (no outline-duo, no second tone). Never hex.
+- If you find a hand-drawn icon in the code, flag it and offer to swap it for Nucleo.
+
+## 2. The design system first: contest hard before adding anything
+
+Before writing CSS or a component, list what already exists and use it:
+
+- **Tokens** (`designsystem/src/brand/tokens.js`): colours, gradients, type scale, layout, breakpoints, radii, shadows (`raised`, `overlay`), `scrim`, motion.
+- **Classes** (`designsystem/src/styles/ui.css`):
+  - Buttons: `.btn` with `-primary`, `-secondary` or `-accent` (accent once per page), plus `.btn-badge`.
+  - Fields: `.text-field`, `.action-field` (select or input), `.select-field` (with `.select-field-icon`).
+  - Choice controls: `.chips`/`.chip`, `.step-slider`, `.option-tiles`.
+  - Blocks: `.surface`, the one style for every large content block.
+- **Components** (`designsystem/src/components/`): `Logo`, `Icon`/`IconSvg`, `Stripe` (`stripeEdgeClipPath`, `markBand`, `STRIPE_SLOPE`), `Stamp`, `WhatsAppBadge`, `PhotoFilters`.
+
+Only when nothing fits:
+
+1. Write down why the existing piece can't do the job. Prefer a variant or an option on it over a new piece.
+2. If it's really needed, add it to the design system: a token in `tokens.js`, a class in `ui.css` or a component in `components/`.
+3. Document it on its design system page (Web components, Colour, Iconography…).
+4. Only then use it in the website.
+
+Never hard-code a hex value, `rgb()`, font, type size, radius, shadow or duration in `website/`.
+
+## 3. Page-level checks (from Kedar's reviews)
+
+- **References:** the client likes https://ramp.com/ and https://reel.energy/. They are light, calm and product-like. Check each section against them.
+- **Height:** a simple section fits one screen at 1440 × 900, heading included.
+- **Shape:** one shape language. Fields and buttons are pills, tiles use soft radii, nothing sharp mixed in.
+- **Colour:** judge it against the whole page, not the section. Avoid heavy dark panels for simple interactions, and don't let violet take over.
+- **Large blocks** all use `.surface`, so they sit at the same height.
+- **Consistency with neighbours:** before showing, put the section next to the ones above and below it and compare: title size (always H2), title-to-block gap, section padding, card padding, and lines inside cards (edge to edge, never inset in one card and full in another).
+- **Stripes:** at most two per layout. On the home page the footer edge and the hero slider's price line already use them.
+- **Copy:** plain words with no industry terms in nav, flyouts or footer, and headlines as plain sentences, never "X. Y." slogans.
+- **No uppercase labels:** no small spaced-out capitals or "eyebrow" captions over headings, anywhere. Labels are sentence case.
+- **Mocks:** build Kedar's mock as drawn and raise concerns as questions.
+- **Before showing:** screenshot at 390px and 1440px.
+
+Record any new decision in `website/CLAUDE.md` (Built so far and the Decisions log).

@@ -1,0 +1,28 @@
+/* Phones: the chips scroll sideways in one row instead of wrapping into many. */
+.scroller {
+  margin-inline: calc(-1 * var(--grid-margin));
+  padding-inline: var(--grid-margin);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.scroller :global(.chips) {
+  flex-wrap: nowrap;
+}
+
+.count {
+  margin: 20px 0 16px;
+  color: var(--ink-2);
+}
+
+@media (min-width: 1024px) {
+  .scroller {
+    margin-inline: 0;
+    padding-inline: 0;
+    overflow: visible;
+  }
+
+  .scroller :global(.chips) {
+    flex-wrap: wrap;
+  }
+}

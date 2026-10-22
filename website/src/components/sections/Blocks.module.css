@@ -1,0 +1,485 @@
+/* Shared content blocks. Mobile first: one column on phones, two on tablets, the
+   block's own --cols from desktop up. */
+
+.features,
+.linkCards,
+.steps {
+  display: grid;
+  gap: var(--grid-gutter);
+  list-style: none;
+  padding: 0;
+}
+
+@media (min-width: 768px) {
+  .features,
+  .linkCards,
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .features,
+  .linkCards,
+  .steps {
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  }
+}
+
+/* ---------- Cards ----------
+   Feature and link cards use the design system's .card (White, line, radius). Link
+   cards lift on hover. */
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 24px;
+}
+
+.iconTile {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  margin-bottom: 20px;
+  border-radius: var(--radius-m);
+  background: var(--warm-white);
+  border: 1px solid var(--line);
+  color: var(--near-black);
+}
+
+.cardTitle {
+  display: block;
+  font-family: var(--font-display);
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  font-weight: var(--text-h3-weight);
+  color: var(--near-black);
+}
+
+.cardText {
+  display: block;
+  margin-top: 8px;
+  color: var(--grey-600);
+}
+
+.cardLink {
+  margin-top: auto;
+  padding-top: 12px;
+  color: var(--near-black);
+}
+
+/* Link cards lift on hover, as the design system says cards do. */
+.linkCards > li {
+  display: flex;
+}
+
+.linkCard {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding: 10px;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    transform var(--duration-slow) var(--ease-out),
+    box-shadow var(--duration-slow) var(--ease-out);
+}
+
+.linkCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-raised);
+}
+
+.linkCard:hover .cardLink svg {
+  transform: translateX(3px);
+}
+
+.cover {
+  border-radius: var(--radius-m);
+}
+
+.linkBody {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  padding: 14px 14px 4px;
+}
+
+.linkBody :global(.tag) {
+  margin-bottom: 8px;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  margin-top: 12px;
+  color: var(--grey-600);
+  font-size: var(--text-small-size);
+}
+
+.meta strong {
+  color: var(--near-black);
+  font-family: var(--font-display);
+  font-size: var(--text-h3-size);
+  font-weight: var(--text-h3-weight);
+}
+
+/* ---------- Steps ---------- */
+
+.step {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  border-top: 2px solid var(--ink);
+}
+
+.stepNo {
+  color: var(--electric-violet);
+  font-family: var(--font-mono);
+  font-size: var(--text-small-size);
+  font-weight: 500;
+}
+
+.stepTitle {
+  margin-top: 12px;
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  font-weight: var(--text-h3-weight);
+  text-wrap: balance;
+}
+
+.step .cardText {
+  color: var(--ink-2);
+}
+
+.stepVisual {
+  margin-top: 20px;
+  min-height: 0;
+}
+
+/* ---------- Stats ---------- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px var(--grid-gutter);
+  margin: 0;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+.statValue {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h1-size);
+  line-height: var(--text-h1-lh);
+  font-weight: var(--text-h1-weight);
+  letter-spacing: var(--text-h1-track);
+}
+
+.statLabel {
+  margin-top: 6px;
+  color: var(--ink-2);
+}
+
+@media (min-width: 1024px) {
+  .stats {
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  }
+}
+
+/* ---------- Logo row ---------- */
+
+.logoLabel {
+  margin-bottom: 16px;
+  color: var(--ink-2);
+  font-size: var(--text-small-size);
+  font-weight: 600;
+}
+
+.logoRow[data-center] .logoLabel {
+  text-align: center;
+}
+
+/* Logos flow in rows and wrap; --logo-size is the side of a square mark. */
+.logos {
+  --logo-size: 36px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 20px 36px;
+  list-style: none;
+  padding: 0;
+}
+
+.logoRow[data-center] .logos {
+  justify-content: center;
+}
+
+.logo,
+.logoName {
+  display: flex;
+  align-items: center;
+  min-height: 48px;
+}
+
+/* The logo file is a mask, so the mark takes the text colour (light on dark bands). */
+.logoMark {
+  width: calc(var(--logo-size) * var(--logo-w));
+  height: calc(var(--logo-size) * var(--logo-h));
+  max-width: 100%;
+  background: currentColor;
+  mask-position: center;
+  mask-size: contain;
+  mask-repeat: no-repeat;
+}
+
+.logoName {
+  color: var(--ink-2);
+  font-family: var(--font-display);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+@media (min-width: 1024px) {
+  .logos {
+    --logo-size: 44px;
+    gap: 28px 48px;
+  }
+
+  .logoName {
+    font-size: var(--text-body-l-size);
+  }
+}
+
+/* ---------- FAQ ---------- */
+
+.faq summary {
+  font-size: var(--text-body-l-size);
+  line-height: var(--text-body-l-lh);
+}
+
+/* ---------- Split ---------- */
+
+.split {
+  display: grid;
+  gap: 32px;
+  align-items: center;
+}
+
+@media (min-width: 1024px) {
+  .split {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+  }
+
+  .splitText {
+    grid-column: 1 / span 5;
+  }
+
+  .splitVisual {
+    grid-column: 7 / -1;
+  }
+
+  .split[data-flip] .splitText {
+    grid-column: 8 / -1;
+    grid-row: 1;
+  }
+
+  .split[data-flip] .splitVisual {
+    grid-column: 1 / span 6;
+    grid-row: 1;
+  }
+}
+
+/* ---------- Checklist ---------- */
+
+.checks {
+  display: grid;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+}
+
+.checks li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 500;
+}
+
+/* Energy Mint with Near Black: the design system's pairing for a positive mark. */
+.check {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--energy-mint);
+  color: var(--near-black);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .linkCard {
+    transition: none;
+  }
+
+  .linkCard:hover {
+    transform: none;
+  }
+}
+
+/* ---------- Table ---------- */
+
+.tableWrap {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  min-width: 560px;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--grey-200);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table tr:last-child th,
+.table tr:last-child td {
+  border-bottom: 0;
+}
+
+.table thead th {
+  color: var(--grey-600);
+  font-size: var(--text-small-size);
+  font-weight: 600;
+}
+
+.table tbody th {
+  font-weight: 600;
+}
+
+.table td {
+  color: var(--grey-600);
+}
+
+/* Neufin's column: Violet 100 behind it, Near Black text. */
+.table [data-hl] {
+  background: var(--violet-100);
+  color: var(--near-black);
+  font-weight: 500;
+}
+
+.table thead [data-hl] {
+  color: var(--violet-800);
+}
+
+@media (min-width: 1024px) {
+  .table th,
+  .table td {
+    padding: 18px 28px;
+  }
+}
+
+/* ---------- People ---------- */
+
+.people {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 32px var(--grid-gutter);
+  list-style: none;
+  padding: 0;
+}
+
+.person {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.portrait {
+  min-height: 0;
+  padding: 12px;
+}
+
+.personName {
+  margin-top: 14px;
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.personRole {
+  color: var(--ink-2);
+  font-size: var(--text-small-size);
+}
+
+.personLink {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--near-black);
+}
+
+@media (min-width: 768px) {
+  .people {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Gallery ---------- */
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--grid-gutter);
+  list-style: none;
+  padding: 0;
+}
+
+.gallery li:first-child {
+  grid-column: 1 / -1;
+}
+
+.galleryItem {
+  height: 100%;
+  min-height: 180px;
+}
+
+@media (min-width: 1024px) {
+  .gallery {
+    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-rows: 220px 220px;
+  }
+
+  .gallery li:first-child {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .gallery li:last-child {
+    grid-column: 2 / -1;
+  }
+}

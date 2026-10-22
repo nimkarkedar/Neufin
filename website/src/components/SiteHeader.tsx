@@ -178,7 +178,9 @@ export function SiteHeader() {
         <nav ref={navRef} aria-label="Main" className={styles.desktopNav}>
           <ul className={styles.desktopList}>
             {mainNav.map((item) => {
-              const current = inSection(pathname, item);
+              // Only one item is current: a page can sit in two menus (Energy plans is
+              // also Buy cheaper power), so the first menu that holds it wins.
+              const current = mainNav.find((n) => inSection(pathname, n)) === item;
               if (!item.menu) {
                 return (
                   <li key={item.href}>

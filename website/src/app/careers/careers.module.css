@@ -1,0 +1,21 @@
+.letter {
+  display: grid;
+  gap: 16px;
+  margin-top: 20px;
+  color: var(--ink-2);
+  font-size: var(--text-body-l-size);
+  line-height: var(--text-body-l-lh);
+}
+
+.sign {
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 700;
+}
+
+.write {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+}

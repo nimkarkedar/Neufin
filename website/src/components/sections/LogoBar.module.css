@@ -1,0 +1,89 @@
+/* Logo bar. The label is one line above the row. Phones: the row runs edge to edge.
+   Desktop: the row spans the full content width. Logos are in the secondary text
+   colour (Grey 600 on light, Grey 400 on the dark band). */
+
+.bar {
+  display: grid;
+  gap: 12px;
+}
+
+.label {
+  color: var(--ink-2);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-lh);
+  text-wrap: balance;
+}
+
+/* The row fades in and out at both ends. The mask's colours only set opacity. */
+.viewport {
+  margin-inline: calc(-1 * var(--grid-margin));
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+/* The design system's loop time is for nine logos; longer rows take longer, so every
+   bar moves at the same speed. */
+.track {
+  display: flex;
+  width: max-content;
+  animation: logobar calc(var(--duration-marquee) * var(--items) / 9) linear infinite;
+}
+
+.viewport:hover .track {
+  animation-play-state: paused;
+}
+
+.list {
+  --logo-size: 40px;
+  display: flex;
+  align-items: center;
+  gap: 48px;
+  padding: 0 24px;
+  list-style: none;
+  color: var(--ink-2);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  min-height: 64px;
+}
+
+/* Two identical rows side by side: moving left by one row's width loops seamlessly. */
+@keyframes logobar {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .viewport {
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .track {
+    animation: none;
+  }
+
+  .list[aria-hidden] {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .bar {
+    gap: 16px;
+  }
+
+  .viewport {
+    margin-inline: 0;
+  }
+
+  .list {
+    --logo-size: 52px;
+    gap: 64px;
+    padding-inline: 32px;
+  }
+}

@@ -6,7 +6,7 @@ export type IconName = keyof typeof icons;
 export type NavLink = { label: string; href: string };
 export type MenuItem = NavLink & { description?: string; icon?: IconName };
 // A column is either all icon items (icon, label, note) or all plain links, never mixed.
-// Column titles are one or two words: they are set as uppercase labels.
+// Column titles are short labels in sentence case.
 export type MenuColumn = { title: string; items: MenuItem[] };
 // The Warm White panel on the right of a flyout: one thing to point at.
 export type MenuAside = { label: string; title: string; text: string; link: NavLink };
@@ -39,7 +39,7 @@ export const site = {
 };
 
 // Menu, from the "Neufin website structure" doc (the source of truth for content).
-const solutions = {
+export const solutions = {
   buy: { label: "Buy cheaper power", href: "/solutions/buy-cheaper-power" },
   run: { label: "Run and optimise my power", href: "/solutions/run-and-optimise" },
   advisory: { label: "Renewable energy advisory", href: "/solutions/renewable-energy-advisory" },
@@ -47,8 +47,13 @@ const solutions = {
   sell: { label: "Sell energy", href: "/solutions/sell-energy" },
 };
 
+export const sellEnergyHref = solutions.sell.href;
+
+// From the home page wireframe (Kedar, 2026-10-22): manufacturing split into its three biggest trades.
 export const industries: NavLink[] = [
-  { label: "Manufacturing", href: "/industries/manufacturing" },
+  { label: "Auto", href: "/industries/auto" },
+  { label: "Plastics", href: "/industries/plastics" },
+  { label: "Steel", href: "/industries/steel" },
   { label: "Hotels and resorts", href: "/industries/hotels-and-resorts" },
   { label: "Real estate and malls", href: "/industries/real-estate-and-malls" },
   { label: "Offices and coworking", href: "/industries/offices-and-coworking" },
@@ -71,20 +76,22 @@ export const services: NavLink[] = [
 const energyPlans: NavLink = { label: "Energy plans", href: solutions.buy.href };
 const supplyMap: NavLink = { label: "Plan finder", href: "/products/plan-finder" };
 const lumen: NavLink = { label: "Lumen", href: solutions.run.href };
-const lumenModules: NavLink[] = [
+export const lumenModules: NavLink[] = [
   { label: "Bill management", href: "/products/lumen/bill-management" },
   { label: "Solar and battery tracking", href: "/products/lumen/solar-and-battery-tracking" },
   { label: "Contract tracking", href: "/products/lumen/contract-tracking" },
   { label: "Automatic source switching", href: "/products/lumen/source-switching" },
 ];
 
-const blogs: NavLink = { label: "Blogs", href: "/blog" };
-const publications: NavLink = { label: "Publications", href: "/publications" };
-const tariffCalculator: NavLink = { label: "Savings calculator", href: "/tools/savings-calculator" };
-const stateGuides: NavLink = { label: "State guides", href: "/tools/state-guides" };
-const customerStories: NavLink = { label: "Customer stories", href: "/customer-stories" };
-const about: NavLink = { label: "About", href: "/about" };
-const careers: NavLink = { label: "Careers", href: "/careers" };
+export const blogs: NavLink = { label: "Blogs", href: "/blog" };
+export const publications: NavLink = { label: "Publications", href: "/publications" };
+export const tariffCalculator: NavLink = { label: "Savings calculator", href: "/tools/savings-calculator" };
+export const stateGuides: NavLink = { label: "State guides", href: "/tools/state-guides" };
+export const customerStories: NavLink = { label: "Customer stories", href: "/customer-stories" };
+export const about: NavLink = { label: "About", href: "/about" };
+export const careers: NavLink = { label: "Careers", href: "/careers" };
+
+export const planFinderHref = supplyMap.href;
 
 export const contactLink: NavLink = { label: "Contact us", href: "/contact" };
 

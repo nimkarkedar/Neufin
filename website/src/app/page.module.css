@@ -1,5 +1,0 @@
-/* Deliberate empty room between the hero and the footer, so the page scrolls while
-   the next blocks are designed. Shrink or remove as blocks are added. */
-.upcoming {
-  min-height: 800px;
-}

@@ -194,7 +194,7 @@ export function ComparePanel() {
     <figure className={styles.figure}>
       <div
         ref={stage}
-        className={styles.panel}
+        className={`surface ${styles.panel}`}
         data-dragging={dragging || undefined}
         style={{ ["--pos" as string]: `${pos}%` }}
         onPointerDown={(e) => {

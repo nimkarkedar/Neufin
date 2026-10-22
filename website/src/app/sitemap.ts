@@ -5,7 +5,19 @@ import { site } from "@/lib/site";
 export const dynamic = "force-static";
 
 // Add each page here as it is built. Blog posts will be added from Sanity.
-const routes = ["/"];
+const routes = [
+  "/",
+  "/solutions/buy-cheaper-power/",
+  "/solutions/run-and-optimise/",
+  "/solutions/renewable-energy-advisory/",
+  "/solutions/services/",
+  "/solutions/sell-energy/",
+  "/products/plan-finder/",
+  "/customer-stories/",
+  "/about/",
+  "/careers/",
+  "/contact/",
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return routes.map((path) => ({ url: `${site.url}${path}` }));

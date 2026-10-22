@@ -10,7 +10,8 @@
     "sync": "node scripts/sync-ds-assets.mjs",
     "predev": "npm run sync",
     "prebuild": "npm run sync",
-    "deploy": "BASE_PATH=/Neufin/website npm run build && touch out/.nojekyll && gh-pages -d out -e website -t"
+    "deploy": "BASE_PATH=/Neufin/website npm run build && touch out/.nojekyll && gh-pages -d out -e website -t",
+    "logos": "node scripts/mono-logos.mjs"
   },
   "dependencies": {
     "next": "16.4.0",

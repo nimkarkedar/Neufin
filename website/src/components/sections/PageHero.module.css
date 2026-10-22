@@ -1,0 +1,117 @@
+/* Inner page hero. Phones: text, then art. Desktop: text on columns 1–6, art on 7–12. */
+
+.hero {
+  padding-block: 32px 56px;
+}
+
+.inner {
+  display: grid;
+  gap: 40px;
+}
+
+.crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 8px;
+  list-style: none;
+  padding: 0;
+  color: var(--ink-2);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+}
+
+.crumbs li + li::before {
+  content: "/";
+  margin-right: 8px;
+  color: var(--grey-400);
+}
+
+.crumbs a {
+  text-decoration: none;
+}
+
+.crumbs a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.crumbs [aria-current] {
+  color: var(--ink);
+}
+
+.title {
+  margin-top: 16px;
+  font-size: var(--text-h1-size);
+  line-height: var(--text-h1-lh);
+  font-weight: var(--text-h1-weight);
+  letter-spacing: var(--text-h1-track);
+  text-wrap: balance;
+}
+
+.lead {
+  max-width: 48ch;
+  margin-top: 16px;
+  color: var(--ink-2);
+  font-size: var(--text-body-l-size);
+  line-height: var(--text-body-l-lh);
+  text-wrap: pretty;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 28px;
+}
+
+/* ---------- Art: the Stripe with a placeholder over it ---------- */
+
+.art {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  border-radius: var(--radius-l);
+}
+
+.stripe {
+  position: absolute;
+  inset: 0;
+}
+
+.artPhoto {
+  position: absolute;
+  right: 7%;
+  bottom: 9%;
+  width: 62%;
+  min-height: 0;
+  aspect-ratio: 4 / 3;
+  border-radius: var(--radius-m);
+  box-shadow: var(--shadow-raised);
+}
+
+@media (min-width: 768px) {
+  .hero {
+    padding-block: 48px 72px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .hero {
+    padding-block: 56px 96px;
+  }
+
+  .inner[data-media] {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+    align-items: center;
+  }
+
+  .inner[data-media] .text {
+    grid-column: 1 / span 6;
+  }
+
+  .media {
+    grid-column: 7 / -1;
+  }
+}

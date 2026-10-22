@@ -35,7 +35,7 @@
 }
 
 /* Icon tile shared by the flyout and the phone menu: the design system's default
-   icon (Core outline, 24px) in the neutral tone (Near Black, Grey 600 second tone)
+   icon (Core outline, 24px) in the neutral tone (Near Black, one colour)
    on a Warm White tile with a Grey 200 line, so it holds on the hover tint too. */
 .iconTile {
   display: grid;
@@ -408,18 +408,16 @@
     border-left: 1px solid var(--line);
   }
 
-  /* Column labels: one or two words, so uppercase is allowed. The line beneath sets
-     them apart from the links. */
+  /* Column labels in sentence case (no uppercase labels anywhere, Kedar). The line
+     beneath sets them apart from the links. */
   .flyoutTitle {
     margin-bottom: 16px;
     padding-bottom: 12px;
     border-bottom: 1px solid var(--line);
     color: var(--ink-2);
-    font-size: var(--text-label-size);
-    line-height: var(--text-label-lh);
-    font-weight: var(--text-label-weight);
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+    font-size: var(--text-small-size);
+    line-height: var(--text-small-lh);
+    font-weight: 600;
   }
 
   .flyoutList {

@@ -1,0 +1,87 @@
+/* Section band and heading row. Mobile first. */
+
+.section {
+  padding-block: 64px;
+}
+
+.section[data-tone="white"] {
+  background: var(--white);
+}
+
+/* The one dark band per page: Violet 900, with the site's colour roles flipped so
+   every component inside reads correctly. */
+.section[data-tone="dark"] {
+  --ink: var(--warm-white);
+  --ink-2: var(--grey-400);
+  --line: color-mix(in srgb, var(--white) 16%, transparent);
+  background: var(--violet-900);
+  color: var(--ink);
+}
+
+.head {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.title {
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-lh);
+  font-weight: var(--text-h2-weight);
+  letter-spacing: var(--text-h2-track);
+  text-wrap: balance;
+}
+
+.aside {
+  display: grid;
+  justify-items: start;
+  gap: 4px;
+}
+
+.lead {
+  color: var(--ink-2);
+  font-size: var(--text-body-l-size);
+  line-height: var(--text-body-l-lh);
+  text-wrap: pretty;
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: 88px;
+  }
+}
+
+/* A section with no heading (such as a logo row) takes less room. */
+.section[data-compact] {
+  padding-block: 40px;
+}
+
+/* Desktop: title on columns 1–7, the line or link on 8–12, aligned to the bottom. */
+@media (min-width: 1024px) {
+  .section {
+    padding-block: 104px;
+  }
+
+  .section[data-compact] {
+    padding-block: 48px;
+  }
+
+  .head {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+    align-items: end;
+    margin-bottom: 20px;
+  }
+
+  .title {
+    grid-column: 1 / span 7;
+  }
+
+  .head[data-narrow] .title {
+    grid-column: 1 / span 6;
+  }
+
+  .aside {
+    grid-column: 8 / -1;
+  }
+}

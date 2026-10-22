@@ -16,9 +16,6 @@
   position: relative;
   overflow: hidden;
   height: 520px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-l);
-  box-shadow: var(--shadow-raised);
   touch-action: pan-y;
   user-select: none;
   cursor: ew-resize;
@@ -71,11 +68,9 @@
 .eyebrow {
   display: block;
   font-family: var(--font-body);
-  font-size: var(--text-label-size);
-  line-height: var(--text-label-lh);
-  font-weight: var(--text-label-weight);
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+  font-weight: 600;
 }
 
 /* Each side's figures and mix stay on their own half, so the other layer never

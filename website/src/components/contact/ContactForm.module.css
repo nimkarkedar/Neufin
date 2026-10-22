@@ -1,0 +1,94 @@
+.card {
+  padding: 24px 20px;
+}
+
+.title {
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  font-weight: var(--text-h3-weight);
+}
+
+.grid {
+  display: grid;
+  gap: 16px;
+  margin-top: 20px;
+}
+
+.field {
+  display: grid;
+  gap: 6px;
+  min-width: 0;
+}
+
+.label {
+  color: var(--ink-2);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+  font-weight: 600;
+}
+
+.error {
+  color: var(--electric-coral);
+  font-size: var(--text-small-size);
+}
+
+.submit {
+  width: 100%;
+  margin-top: 24px;
+}
+
+.small {
+  margin-top: 12px;
+  color: var(--ink-2);
+  font-size: var(--text-small-size);
+  text-align: center;
+}
+
+.small a {
+  color: var(--ink);
+}
+
+.done {
+  display: grid;
+  justify-items: start;
+  gap: 12px;
+}
+
+.tick {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--energy-mint);
+  color: var(--near-black);
+}
+
+.note {
+  color: var(--ink-2);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 20px;
+  margin-top: 8px;
+}
+
+.row button {
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .card {
+    padding: 36px;
+  }
+
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
