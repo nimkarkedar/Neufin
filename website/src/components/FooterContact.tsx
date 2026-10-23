@@ -1,12 +1,15 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useRef, useState, type FormEvent } from "react";
 import face1 from "@/assets/placeholder-faces/face-1.jpg";
 import face2 from "@/assets/placeholder-faces/face-2.jpg";
 import face3 from "@/assets/placeholder-faces/face-3.jpg";
 import face4 from "@/assets/placeholder-faces/face-4.jpg";
+import { IconSvg } from "@ds/components/Icon.jsx";
 import { WhatsAppBadge } from "@ds/components/WhatsAppBadge.jsx";
+import { icons } from "@ds/brand/icons.js";
 import { formatIndianMobile, normaliseIndianMobile } from "@/lib/phone";
 import { site, telHref, whatsappHref } from "@/lib/site";
 import styles from "./FooterContact.module.css";
@@ -122,7 +125,8 @@ function CallBack() {
 
 // The contact card above the dark footer, in three blocks on one soft gradient: send a
 // bill on WhatsApp (the main ask, the only solid button), request a call back, or
-// write or call.
+// write or call. A fourth block across the bottom points suppliers to us, with a link
+// rather than a button so the buyer asks stay first.
 export function FooterContact() {
   return (
     <section className={styles.card} aria-label="Contact Neufin">
@@ -153,6 +157,16 @@ export function FooterContact() {
           <a href={`mailto:${site.email}`}>{site.email}</a>
           <a href={telHref}>{site.phone}</a>
         </address>
+      </div>
+
+      <div className={`${styles.col} ${styles.row}`}>
+        <h2 className={styles.title}>
+          Are you a supplier? <span className="muted">Sell energy with Neufin.</span>
+        </h2>
+        <Link href="/contact" className="link-arrow">
+          Get in touch
+          <IconSvg icon={icons.arrow} size={20} />
+        </Link>
       </div>
     </section>
   );

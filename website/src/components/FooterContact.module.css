@@ -1,9 +1,7 @@
-/* One contact card above the dark footer, in three blocks divided by lines.
-   Each block has its own layer of the design system's Violet gradient, resting
-   at 20% opacity. Hovering a block (or keyboard focus inside it) fades that
-   block's gradient to 50% and raises the block out of the card with the design
-   system's raised shadow. Phones and tablets: stacked. Desktop: side by side,
-   with the buttons lined up along the bottom. */
+/* One contact card above the dark footer: White blocks divided by lines. Hovering a
+   block (or keyboard focus inside it) raises it out of the card with the design
+   system's overlay shadow. Phones and tablets: stacked. Desktop: side by side, with the
+   buttons lined up along the bottom, and the supplier block across the bottom. */
 
 .card {
   /* Inner corners, so blocks meet the card's rounded edge exactly. */
@@ -22,13 +20,11 @@
   align-items: flex-start;
   gap: 12px;
   position: relative;
-  isolation: isolate;
   padding: 28px 20px;
   background: var(--white);
   transition:
     transform var(--duration-slow) var(--ease-out),
-    box-shadow var(--duration-slow) var(--ease-out),
-    border-radius var(--duration-slow) var(--ease-out);
+    box-shadow var(--duration-slow) var(--ease-out);
 }
 
 /* Outer corners follow the card; stacked first, side by side from desktop. */
@@ -40,12 +36,12 @@
   border-radius: 0 0 var(--inner-r) var(--inner-r);
 }
 
-/* Raised: the block lifts 4px with every corner rounded, above its neighbours. */
+/* Raised: the block lifts 4px above its neighbours with the overlay shadow (soft, but a
+   clear lift), keeping its corners. */
 .col:hover,
 .col:focus-within {
   z-index: 1;
-  border-radius: var(--radius-m);
-  box-shadow: var(--shadow-raised);
+  box-shadow: var(--shadow-overlay);
   transform: translateY(-4px);
 }
 
@@ -54,24 +50,6 @@
   .col:focus-within {
     transform: none;
   }
-}
-
-/* The gradient sits on its own layer so only it fades, not the text. */
-.col::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  border-radius: inherit;
-  background: var(--gradient-violet);
-  opacity: 0.2;
-  /* Ease-in-out so the whole fade is seen; ease-out finishes almost at once. */
-  transition: opacity var(--duration-slow) ease-in-out;
-}
-
-.col:hover::before,
-.col:focus-within::before {
-  opacity: 0.5;
 }
 
 .col + .col {
@@ -195,16 +173,34 @@
   }
 
   .col:first-child {
-    border-radius: var(--inner-r) 0 0 var(--inner-r);
+    border-radius: var(--inner-r) 0 0 0;
+  }
+
+  .col:nth-child(3) {
+    border-radius: 0 var(--inner-r) 0 0;
+  }
+
+  /* The supplier block runs across all three, title left and link right, on one line. */
+  .row {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+    padding-block: 24px;
+  }
+
+  .row > :nth-last-child(2) {
+    margin-bottom: 0;
+  }
+
+  .col.row {
+    border-left: 0;
+    border-top: 1px solid var(--line);
   }
 
   .col:last-child {
-    border-radius: 0 var(--inner-r) var(--inner-r) 0;
-  }
-
-  .col:hover,
-  .col:focus-within {
-    border-radius: var(--radius-m);
+    border-radius: 0 0 var(--inner-r) var(--inner-r);
   }
 
   .action,

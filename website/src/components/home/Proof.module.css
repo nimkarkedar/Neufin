@@ -2,9 +2,9 @@
    (H1 size) in a row, and below a hairline the sources on the left and the licence on
    the right. Phones: figures two a row, the two proof points stacked. */
 
-/* No bottom padding: the plan finder below brings its own top space. */
+/* Bottom padding matches the top, now that the plan finder below is its own band. */
 .section {
-  padding-top: 64px;
+  padding-block: var(--section-space);
 }
 
 .title {
@@ -127,9 +127,6 @@
 }
 
 @media (min-width: 768px) {
-  .section {
-    padding-top: 88px;
-  }
 
   .figures,
   .bottom {
@@ -138,9 +135,6 @@
 }
 
 @media (min-width: 1024px) {
-  .section {
-    padding-top: 104px;
-  }
 
   .card {
     margin-top: 20px;

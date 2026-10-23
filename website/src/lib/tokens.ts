@@ -23,8 +23,14 @@ export function tokensCss(fontVars: { display: string; body: string; mono: strin
     // The Stripe's angle as rise over run, for CSS that draws its edge.
     "--stripe-slope": String(STRIPE_SLOPE),
   };
-  const tablet: Record<string, string> = { "--grid-margin": `${layout.margin.tablet}px` };
-  const desktop: Record<string, string> = { "--grid-margin": `${layout.margin.desktop}px` };
+  const tablet: Record<string, string> = {
+    "--grid-margin": `${layout.margin.tablet}px`,
+    "--section-space": `${layout.section.tablet}px`,
+  };
+  const desktop: Record<string, string> = {
+    "--grid-margin": `${layout.margin.desktop}px`,
+    "--section-space": `${layout.section.desktop}px`,
+  };
 
   // Type styles with a phone size use it below the desktop breakpoint.
   for (const s of typeScale) {

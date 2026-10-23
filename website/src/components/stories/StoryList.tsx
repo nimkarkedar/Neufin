@@ -27,15 +27,13 @@ export function StoryList() {
   const shown = stories.filter((s) => current === "All" || s.ind === current);
   return (
     <div>
-      <div className={styles.scroller}>
-        <div className="chips" role="radiogroup" aria-label="Industry">
-          {filters.map((f) => (
-            <label key={f} className="chip">
-              <input type="radio" name="story-industry" checked={current === f} onChange={() => setCurrent(f)} />
-              {f}
-            </label>
-          ))}
-        </div>
+      <div className="chips chips-row" role="radiogroup" aria-label="Industry">
+        {filters.map((f) => (
+          <label key={f} className="chip">
+            <input type="radio" name="story-industry" checked={current === f} onChange={() => setCurrent(f)} />
+            {f}
+          </label>
+        ))}
       </div>
       <p className={styles.count} aria-live="polite">
         {shown.length} {shown.length === 1 ? "story" : "stories"}

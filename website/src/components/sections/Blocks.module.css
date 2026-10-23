@@ -100,6 +100,13 @@
   border-radius: var(--radius-m);
 }
 
+/* A real photo cover: the placeholder's shape, cropped to fill. */
+.coverImg {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+}
+
 .linkBody {
   display: flex;
   flex: 1;
@@ -236,6 +243,7 @@
 
 /* The logo file is a mask, so the mark takes the text colour (light on dark bands). */
 .logoMark {
+  display: block;
   width: calc(var(--logo-size) * var(--logo-w));
   height: calc(var(--logo-size) * var(--logo-h));
   max-width: 100%;

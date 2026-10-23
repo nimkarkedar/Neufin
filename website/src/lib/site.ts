@@ -47,7 +47,6 @@ export const solutions = {
   sell: { label: "Sell energy", href: "/solutions/sell-energy" },
 };
 
-export const sellEnergyHref = solutions.sell.href;
 
 // From the home page wireframe (Kedar, 2026-10-22): manufacturing split into its three biggest trades.
 export const industries: NavLink[] = [
@@ -76,11 +75,13 @@ export const services: NavLink[] = [
 const energyPlans: NavLink = { label: "Energy plans", href: solutions.buy.href };
 const supplyMap: NavLink = { label: "Plan finder", href: "/products/plan-finder" };
 const lumen: NavLink = { label: "Lumen", href: solutions.run.href };
-export const lumenModules: NavLink[] = [
-  { label: "Bill management", href: "/products/lumen/bill-management" },
-  { label: "Solar and battery tracking", href: "/products/lumen/solar-and-battery-tracking" },
-  { label: "Contract tracking", href: "/products/lumen/contract-tracking" },
-  { label: "Automatic source switching", href: "/products/lumen/source-switching" },
+// Lumen's modules, with the icon and line the Products menu and the home page's Lumen
+// block both show.
+export const lumenModules: (MenuItem & { icon: IconName; description: string })[] = [
+  { label: "Bill management", href: "/products/lumen/bill-management", icon: "bill", description: "Every bill fetched and checked, at every site." },
+  { label: "Solar and battery tracking", href: "/products/lumen/solar-and-battery-tracking", icon: "battery", description: "Output, upkeep and faults, caught early." },
+  { label: "Contract tracking", href: "/products/lumen/contract-tracking", icon: "contract", description: "Bills checked against your power contract." },
+  { label: "Automatic source switching", href: "/products/lumen/source-switching", icon: "nodes", description: "Uses grid, solar, wind, diesel or battery, whichever is cheapest." },
 ];
 
 export const blogs: NavLink = { label: "Blogs", href: "/blog" };
@@ -137,10 +138,7 @@ export const mainNav: NavItem[] = [
           title: "Software",
           items: [
             { ...lumen, icon: "meter", description: "Track and run every site's power in one place." },
-            { ...lumenModules[0], icon: "bill", description: "Every bill fetched and checked, at every site." },
-            { ...lumenModules[1], icon: "battery", description: "Output, upkeep and faults, caught early." },
-            { ...lumenModules[2], icon: "contract", description: "Bills checked against your power contract." },
-            { ...lumenModules[3], icon: "nodes", description: "Uses grid, solar, wind, diesel or battery, whichever is cheapest." },
+            ...lumenModules,
           ],
         },
       ],

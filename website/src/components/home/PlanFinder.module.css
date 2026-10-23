@@ -1,9 +1,11 @@
 /* Plan finder: a heading row, then one light card that fits a laptop screen with the
    heading. Left 4 columns: the four dropdowns. Right 8 columns: the answer as a bill.
-   Both halves White, divided by a line. */
+   Both halves White, divided by a line, on a Dawn gradient band. */
 
+/* A band of the design system's Dawn gradient, edge to edge, under the White card. */
 .section {
-  padding-block: 64px;
+  padding-block: var(--section-space);
+  background: var(--gradient-dawn);
 }
 
 /* ---------- Heading row ---------- */
@@ -139,9 +141,18 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* The drop arrow stays on the figure's line, even in a narrow phone column. */
 .table .neufin {
   color: var(--ink);
   font-weight: 600;
+  white-space: nowrap;
+}
+
+/* The drop arrow sits just before the figure, in the text colour like every icon. */
+.drop {
+  display: inline-flex;
+  margin-right: 6px;
+  vertical-align: -2px;
 }
 
 .table thead .neufin {
@@ -183,26 +194,12 @@
   text-align: right;
 }
 
-.savingLabel {
-  color: var(--ink-2);
-  font-size: var(--text-small-size);
-  line-height: var(--text-small-lh);
-}
-
 .savingFigure {
   font-family: var(--font-display);
   font-size: var(--text-h2-size);
   line-height: var(--text-h2-lh);
   font-weight: var(--text-h2-weight);
   letter-spacing: var(--text-h2-track);
-}
-
-.per {
-  color: var(--ink-2);
-  font-family: var(--font-body);
-  font-size: var(--text-body-size);
-  font-weight: 400;
-  letter-spacing: 0;
 }
 
 .savingNote {
@@ -237,12 +234,7 @@
   transform: translateX(3px);
 }
 
-
-
 @media (min-width: 768px) {
-  .section {
-    padding-block: 88px;
-  }
 
   .inputs,
   .bill {
@@ -277,9 +269,6 @@
 
 /* Desktop: heading and line side by side; the card splits 4 / 8 on the page grid. */
 @media (min-width: 1024px) {
-  .section {
-    padding-block: 104px;
-  }
 
   .card {
     grid-template-columns: 4fr 8fr;

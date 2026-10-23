@@ -1,11 +1,17 @@
 /* Section band and heading row. Mobile first. */
 
 .section {
-  padding-block: 64px;
+  padding-block: var(--section-space);
 }
 
 .section[data-tone="white"] {
   background: var(--white);
+}
+
+/* A White band that ends the page runs into the footer's White band, which brings
+   its own top padding. */
+:global(main) > .section[data-tone="white"]:last-child {
+  padding-bottom: 0;
 }
 
 /* The one dark band per page: Violet 900, with the site's colour roles flipped so
@@ -45,12 +51,6 @@
   text-wrap: pretty;
 }
 
-@media (min-width: 768px) {
-  .section {
-    padding-block: 88px;
-  }
-}
-
 /* A section with no heading (such as a logo row) takes less room. */
 .section[data-compact] {
   padding-block: 40px;
@@ -58,10 +58,6 @@
 
 /* Desktop: title on columns 1–7, the line or link on 8–12, aligned to the bottom. */
 @media (min-width: 1024px) {
-  .section {
-    padding-block: 104px;
-  }
-
   .section[data-compact] {
     padding-block: 48px;
   }

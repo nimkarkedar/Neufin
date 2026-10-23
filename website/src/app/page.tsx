@@ -3,108 +3,78 @@ import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
 import { Hero } from "@/components/home/Hero";
 import { Industries } from "@/components/home/Industries";
+import { Lumen } from "@/components/home/Lumen";
 import { PlanFinder } from "@/components/home/PlanFinder";
 import { Proof } from "@/components/home/Proof";
-import { Checks, Faq, LinkCards, LogoRow, Split } from "@/components/sections/Blocks";
+import { Faq, LinkCards } from "@/components/sections/Blocks";
 import { LogoBar } from "@/components/sections/LogoBar";
-import { Placeholder } from "@/components/sections/Placeholder";
 import { Section } from "@/components/sections/Section";
-import { allSolutions, latest, resourcesLink } from "@/lib/content";
-import { investorLogos } from "@/lib/logos";
-import { customerStories, lumenModules, sellEnergyHref, solutions } from "@/lib/site";
+import { otherSolutions } from "@/lib/content";
+import { contactLink } from "@/lib/site";
 import styles from "./home.module.css";
 
-// Home page. The hero holds the page's h1. Order agreed from Kedar's wireframe:
-// hero, customers, plan finder, why Neufin, what we do, Lumen, industries,
-// investors and press, latest, FAQ. The footer contact card is the final step.
+// Home page. The hero holds the page's h1. Order: hero, customer logos, numbers, plan
+// finder with the other solutions, industries, Lumen, FAQ. The footer contact card is
+// the final step.
 
-// Everything below the plan finder is hidden for now (Kedar, 2026-10-22): an empty page to think
-// in. Set to true to bring the sections back as they were.
-const showSections = false;
+// Every band on the page flat on the Warm White page for now (Kedar, 2026-10-23: to see
+// the page and think), except the hero's violet panel and the footer's contact card.
+// Set to false to bring back the Dawn, Daylight and White bands and the top fade.
+const plainBackgrounds = true;
 
 export default function Home() {
   return (
-    <>
+    <div className={plainBackgrounds ? styles.plain : undefined}>
       <Hero />
       <div className={`container ${styles.logos}`}>
         <LogoBar label="Trusted by businesses, partners and investors across India" />
       </div>
 
       <Proof />
-      <PlanFinder />
+      <PlanFinder>
+        {/* After the price, how Neufin delivers it: the other three solutions. */}
+        <div className={styles.next}>
+          <h2 className={styles.nextTitle}>How we keep your price low</h2>
+          <LinkCards items={otherSolutions("buy")} />
+        </div>
+      </PlanFinder>
 
-      {/* Clean empty space while the sections are hidden. */}
-      {!showSections && <div aria-hidden="true" style={{ height: "70vh" }} />}
-
-      {showSections && (
-      <>
-
-      <Section
-        id="what-we-do"
-        title="One partner for all your power"
-        lead="Buyers come with different needs. Start with yours."
-        link={{ label: "Selling power? Sell with Neufin", href: sellEnergyHref }}
-      >
-        <LinkCards items={allSolutions} columns={4} />
-      </Section>
-
-      <Section id="lumen" tone="dark">
-        <Split
-          visual={<Placeholder note="Product screen: Lumen across all your sites, bills and alerts" icon="chart" tone="violet" ratio="4 / 3" />}
-        >
-          <h2 className="text-h2">Lumen: pay less for the power you already use</h2>
-          <p style={{ marginTop: 16, color: "var(--ink-2)", fontSize: "var(--text-body-l-size)" }}>
-            Lumen tracks every site, bill and agreement, and acts when there&apos;s money to save.
-          </p>
-          <div style={{ marginTop: 28 }}>
-            <Checks items={lumenModules.map((m) => m.label)} />
-          </div>
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "12px 24px", alignItems: "center", marginTop: 32 }}>
-            {/* TODO: link to the demo scheduling flow once it exists. */}
-            <Link href="/contact" className="btn btn-secondary">
-              Book a demo
-            </Link>
-            <Link href={solutions.run.href} className="link-arrow">
-              About Lumen
-              <IconSvg icon={icons.arrow} size={20} />
-            </Link>
-          </div>
-        </Split>
-      </Section>
-
-      <Section
-        id="industries"
-        title="Built for how your business uses power"
-        lead="Each industry uses power differently. See what we do for yours."
-        link={{ label: "All customer stories", href: customerStories.href }}
-      >
+      <Section id="industries" title="Built for how your business uses energy">
         <Industries />
       </Section>
 
-      <Section id="backers" tone="white" title="Backed by leading investors" narrowHead>
-        {/* TODO: press logos; the doc allows dropping press if there is none yet. */}
-        <LogoBar label="Investors" logos={investorLogos} />
-        <div style={{ marginTop: 32 }}>
-          <LogoRow label="In the press" names={["Publication", "Publication", "Publication", "Publication"]} />
+      <Lumen />
+
+      {/* FAQs: two columns on desktop, the title (and a way to ask more) on the page
+          background on the left, the questions in a White box on the right. */}
+      <section id="faq" className={styles.faqSection} aria-labelledby="faq-title">
+        <div className={`container ${styles.faq}`}>
+          <div className={styles.faqSide}>
+            <h2 id="faq-title" className={styles.faqTitle}>
+              Questions businesses ask us
+            </h2>
+            <Link href={contactLink.href} className="link-arrow">
+              Ask us something else
+              <IconSvg icon={icons.arrow} size={20} />
+            </Link>
+          </div>
+          {/* TODO: Neufin to answer the open questions and confirm the rest. */}
+          <div className={`surface surface-flat ${styles.faqBox}`}>
+            <Faq
+              items={[
+                { q: "How much can my business save?", a: "Businesses pay up to 40% less per unit than their electricity board rate. See your own price in the plan finder above." },
+                { q: "What is the smallest site you work with?", a: "Plans start from 0.5 MWp, for businesses on a high-tension (HT) connection." },
+                { q: "Which states do you cover?", a: "We supply across 16 states. Pick yours in the plan finder above to see plans." },
+                { q: "How long does it take to switch?", a: "About 3 months from signing to the first unit of clean power, depending on your state's approvals." },
+                { q: "Do I need a new meter?", a: "Clean power needs a two-way (ABT) meter. If you don't have one, we supply, install and get it approved." },
+                { q: "What happens if the plant makes less power than planned?" },
+                { q: "How much do you charge?" },
+                { q: "Do you supply homes?", a: "No. We work with businesses: factories, hotels, offices, malls and retail chains." },
+              ]}
+            />
+          </div>
         </div>
-      </Section>
-
-      <Section id="latest" title="Latest from Neufin" link={resourcesLink}>
-        <LinkCards items={latest} />
-      </Section>
-
-      <Section id="faq" tone="white" title="Questions businesses ask us" narrowHead>
-        <Faq
-          items={[
-            { q: "How much do you charge?" },
-            { q: "What is the smallest site you work with?", a: "Plans start from 0.5 MWp, for businesses on a high-tension (HT) connection." },
-            { q: "Do you supply homes?", a: "No. We work with businesses: factories, hotels, offices, malls and retail chains." },
-            { q: "Which states do you cover?", a: "We supply across 16 states. Pick yours in the plan finder above to see plans." },
-          ]}
-        />
-      </Section>
-      </>
-      )}
-    </>
+      </section>
+    </div>
   );
 }

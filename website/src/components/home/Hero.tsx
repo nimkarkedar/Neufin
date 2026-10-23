@@ -4,7 +4,6 @@ import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
 import { stripeEdgeClipPath } from "@ds/components/Stripe.jsx";
 import pylon from "@ds/../public/assets/photos/pylon-dusk-hero.jpg";
-// import { ComparePanel } from "./ComparePanel";
 import styles from "./Hero.module.css";
 
 // The Electric Violet panel's top edge is the Stripe: high on the left, stepping down at
@@ -83,12 +82,6 @@ export function Hero() {
           </Form>
         </div>
       </div>
-
-      {/* Before-and-after slider, hidden for now (Kedar, 2026-10-22). Bring back with:
-      <div className={styles.preview}>
-        <ComparePanel />
-      </div>
-      */}
     </section>
   );
 }

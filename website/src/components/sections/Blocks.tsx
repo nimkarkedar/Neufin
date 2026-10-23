@@ -1,3 +1,4 @@
+import type { StaticImageData } from "next/image";
 import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { IconSvg } from "@ds/components/Icon.jsx";
@@ -165,7 +166,8 @@ export type LinkCard = {
   text?: string;
   href: string;
   tag?: string;
-  cover?: { note: string; icon?: IconName; tone?: PlaceholderTone };
+  // A real photo when there is one (`image`, described by `note`); a placeholder until then.
+  cover?: { note: string; icon?: IconName; tone?: PlaceholderTone; image?: StaticImageData };
   meta?: { value: string; label: string }[];
   linkLabel?: string;
 };
@@ -176,7 +178,11 @@ export function LinkCards({ items, columns = 3 }: { items: LinkCard[]; columns?:
       {items.map((c, i) => (
         <li key={`${c.title}-${i}`}>
           <Link href={c.href} className={`card ${styles.linkCard}`}>
-            {c.cover && <Placeholder note={c.cover.note} icon={c.cover.icon} tone={c.cover.tone} ratio="16 / 10" className={styles.cover} />}
+            {c.cover?.image ? (
+              <img src={c.cover.image.src} alt={c.cover.note} className={`${styles.cover} ${styles.coverImg}`} />
+            ) : (
+              c.cover && <Placeholder note={c.cover.note} icon={c.cover.icon} tone={c.cover.tone} ratio="16 / 10" className={styles.cover} />
+            )}
             <span className={styles.linkBody}>
               {c.tag && <span className="tag">{c.tag}</span>}
               <span className={styles.cardTitle}>{c.title}</span>

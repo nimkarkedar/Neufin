@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { IconSvg } from "@ds/components/Icon.jsx";
 import { Logo } from "@ds/components/Logo.jsx";
 import { RollingFigure } from "@ds/components/RollingFigure.jsx";
@@ -75,6 +75,14 @@ const plans: Plan[][] = [
   ],
 ];
 
+// A small down arrow before each of Neufin's figures: the price drops against the board's.
+const Drop = () => (
+  <span className={styles.drop}>
+    <IconSvg icon={icons.drop} size={16} />
+    <span className="visually-hidden">Lower: </span>
+  </span>
+);
+
 const inr = (n: number) => `₹${Math.round(n).toLocaleString("en-IN")}`;
 const rate = (n: number) => `₹${n.toFixed(2)}`;
 const lakh = (n: number) => `₹${(n / 1_00_000).toLocaleString("en-IN", { maximumFractionDigits: 1 })} lakh`;
@@ -111,7 +119,7 @@ function Choice({
   );
 }
 
-export function PlanFinder() {
+export function PlanFinder({ children }: { children?: ReactNode }) {
   const [term, setTerm] = useState(1);
   const [use, setUse] = useState(1);
   const [site, setSite] = useState(0);
@@ -191,6 +199,7 @@ export function PlanFinder() {
                     <RollingFigure value={rate(board)} />
                   </td>
                   <td className={styles.neufin}>
+                    <Drop />
                     <RollingFigure value={rate(best.price)} />
                   </td>
                 </tr>
@@ -200,6 +209,7 @@ export function PlanFinder() {
                     <RollingFigure value={inr(boardBill)} />
                   </td>
                   <td className={styles.neufin}>
+                    <Drop />
                     <RollingFigure value={inr(neufinBill)} />
                   </td>
                 </tr>
@@ -207,12 +217,12 @@ export function PlanFinder() {
             </table>
 
             <div className={styles.saving}>
-              <p className={styles.savingLabel}>You save</p>
+              {/* Two styles only: the saving as one large line, the detail as one small line. */}
               <p className={styles.savingFigure}>
-                <RollingFigure value={inr(saved)} /> <span className={styles.per}>a month</span>
+                You save <RollingFigure value={inr(saved)} />
               </p>
               <p className={styles.savingNote}>
-                <RollingFigure value={lakh(saved * 12)} /> a year · <RollingFigure value={`${percent}%`} /> less
+                a month · <RollingFigure value={lakh(saved * 12)} /> a year · <RollingFigure value={`${percent}%`} /> less
               </p>
             </div>
 
@@ -230,6 +240,9 @@ export function PlanFinder() {
         </div>
 
         {/* TODO: the prices are illustrative; Neufin to supply real bands before launch. */}
+
+        {/* Optional follow-on content inside the same band (the home page's next steps). */}
+        {children}
       </div>
     </section>
   );

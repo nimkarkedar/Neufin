@@ -1,101 +1,88 @@
-/* Phones: the chips scroll sideways in one row instead of wrapping into many. */
-.scroller {
-  margin-inline: calc(-1 * var(--grid-margin));
-  padding-inline: var(--grid-margin);
-  overflow-x: auto;
-  scrollbar-width: none;
-}
-
-.scroller :global(.chips) {
-  flex-wrap: nowrap;
-}
+/* Industries: chips, then one flat surface. Phones: text, then the photo below.
+   Desktop: text on the left, the photo inset on the right. Type is kept to the card
+   styles used above: H3 title, body line, small grey labels. */
 
 .panel {
   display: grid;
-  margin-top: 24px;
-  overflow: hidden;
+  gap: 8px;
+  margin-top: 16px;
+  padding: 8px;
 }
 
 .text {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 28px 24px;
+  padding: 16px 12px 12px;
 }
 
 .title {
-  font-size: var(--text-h2-size);
-  line-height: var(--text-h2-lh);
-  font-weight: var(--text-h2-weight);
-  letter-spacing: var(--text-h2-track);
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  font-weight: var(--text-h3-weight);
   text-wrap: balance;
 }
 
 .line {
-  margin-top: 12px;
+  max-width: 44ch;
+  margin-top: 8px;
   color: var(--ink-2);
+  text-wrap: pretty;
 }
 
-.figures {
-  display: flex;
-  gap: 40px;
-  margin: 24px 0 0;
-  padding-top: 20px;
-  border-top: 1px solid var(--line);
-}
-
-.figures div {
-  display: flex;
-  flex-direction: column-reverse;
-}
-
-.figures dd {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: var(--text-h1-size);
-  line-height: var(--text-h1-lh);
-  font-weight: var(--text-h1-weight);
-}
-
-.figures dt {
+.footLabel {
   color: var(--ink-2);
   font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
 }
 
-.clients {
-  margin: 20px 0 8px;
+/* Customers and the link sit at the foot of the text column. */
+.foot {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+.logos {
+  --logo-size: 52px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 40px;
+  min-height: 56px;
+  padding: 0;
+  list-style: none;
   color: var(--ink-2);
-  font-family: var(--font-display);
-  font-weight: 700;
 }
 
+/* Every photo is the same 3:2 shape, cropped to fill the space. */
 .photo {
+  width: 100%;
+  height: 100%;
   min-height: 240px;
-  border-radius: 0;
+  border-radius: var(--radius-m);
+  object-fit: cover;
 }
 
 @media (min-width: 1024px) {
   .panel {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 5fr 7fr;
+    gap: 16px;
+    margin-top: 20px;
+    padding: 12px;
   }
 
   .text {
-    padding: 48px;
+    padding: 28px 24px 24px 28px;
+  }
+
+  .foot {
+    margin-top: auto;
+    padding-top: 40px;
   }
 
   .photo {
-    min-height: 420px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .scroller {
-    margin-inline: 0;
-    padding-inline: 0;
-    overflow: visible;
-  }
-
-  .scroller :global(.chips) {
-    flex-wrap: wrap;
+    min-height: 440px;
   }
 }

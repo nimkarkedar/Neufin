@@ -14,3 +14,120 @@
     margin-top: 52px;
   }
 }
+
+/* Next steps under the plan finder: a section of its own, so an H2 a full section gap
+   (twice the section padding) below the card, then the three solution cards. */
+.next {
+  margin-top: calc(2 * var(--section-space));
+}
+
+.nextTitle {
+  margin-bottom: 16px;
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-lh);
+  font-weight: var(--text-h2-weight);
+  letter-spacing: var(--text-h2-track);
+  text-wrap: balance;
+}
+
+@media (min-width: 1024px) {
+  .nextTitle {
+    margin-bottom: 20px;
+  }
+}
+
+/* FAQs: section padding as every section (--section-space). Phones: title, link, then
+   the questions. Desktop: title and link on columns 1–4 (staying in view while the
+   list scrolls), the questions on columns 6–12. */
+/* The FAQ ends the page, so it runs into the footer's band, which brings its own top
+   padding. */
+.faqSection:last-child .faq {
+  padding-bottom: 0;
+}
+
+/* The questions in a White box: the accordion's lines run edge to edge inside it (no
+   top line, no last line), rows pad in by the card part padding, and the hover and
+   open fill is Warm White so it shows on White. */
+.faqBox {
+  --accordion-fill: var(--warm-white);
+  overflow: hidden;
+}
+
+.faqBox :global(.accordion) {
+  --accordion-bleed: 20px;
+  margin-inline: 0;
+  border-top: 0;
+}
+
+.faqBox :global(.accordion details:last-child) {
+  border-bottom: 0;
+}
+
+@media (min-width: 768px) {
+  .faqBox :global(.accordion) {
+    --accordion-bleed: 32px;
+  }
+}
+
+.faq {
+  display: grid;
+  gap: 16px;
+  padding-block: var(--section-space);
+}
+
+.faqSide {
+  display: grid;
+  justify-items: start;
+  align-content: start;
+  gap: 8px;
+}
+
+.faqTitle {
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-lh);
+  font-weight: var(--text-h2-weight);
+  letter-spacing: var(--text-h2-track);
+  text-wrap: balance;
+}
+
+@media (min-width: 1024px) {
+  .faq {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+  }
+
+  .faqSide {
+    position: sticky;
+    top: calc(var(--header-h) + 32px);
+    grid-column: 1 / span 4;
+  }
+
+  .faq > :last-child {
+    grid-column: 6 / -1;
+  }
+
+  .faqBox :global(.accordion) {
+    --accordion-bleed: 40px;
+  }
+}
+
+/* Plain backgrounds (see plainBackgrounds in page.tsx): every section band flat on the
+   page's Warm White, no top fade, and the footer's band too. The hero's violet panel,
+   the White boxes and the footer's contact card keep their colour. */
+.plain section {
+  background: none;
+}
+
+/* With no footer band to run into, the FAQ keeps its bottom padding, so the contact
+   card sits a full section gap below it like every other section. */
+.plain .faqSection:last-child .faq {
+  padding-bottom: var(--section-space);
+}
+
+:global(body):has(.plain) {
+  background: var(--bg);
+}
+
+:global(main):has(.plain) ~ :global(footer) {
+  background: none;
+}

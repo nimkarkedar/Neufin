@@ -2,6 +2,10 @@
 // Wording follows the "Neufin website structure" doc and the prototype in plain words.
 import type { LinkCard } from "@/components/sections/Blocks";
 import { blogs, publications, solutions, tariffCalculator } from "./site";
+import electrician from "@ds/../public/assets/photos/electrician.jpg";
+import meters from "@ds/../public/assets/photos/meters.jpg";
+import solarSite from "@ds/../public/assets/photos/solar-site.jpg";
+import windHills from "@ds/../public/assets/photos/wind-hills.jpg";
 
 // Company numbers from the doc. TODO: confirm before launch.
 export const numbers = [
@@ -13,37 +17,38 @@ export const numbers = [
 ];
 
 // The four ways to cut power cost, as cards. Each page drops its own.
+// Covers are design system library photos until Neufin's own arrive (TODO); the note
+// describes the photo for screen readers.
 const solutionCards: Record<"buy" | "run" | "advisory" | "services", LinkCard> = {
   buy: {
     title: "Buy cheaper power",
     text: "Clean power at a lower price, from 30 days to 15 years, delivered in about 3 months.",
     href: solutions.buy.href,
-    cover: { note: "Photo: a solar plant supplying a factory", icon: "sun", tone: "daylight" },
+    cover: { note: "A solar plant being built", icon: "sun", tone: "daylight", image: solarSite },
   },
   run: {
     title: "Run and optimise",
-    text: "Pay less for the power you already use. Lumen checks every bill and runs every source.",
+    text: "Improve generation and find hidden ways to save on energy cost, with Lumen.",
     href: solutions.run.href,
-    cover: { note: "Product screen: Lumen across all your sites", icon: "chart", tone: "violet" },
+    cover: { note: "A wall of electricity meters", icon: "chart", tone: "plain", image: meters },
   },
   advisory: {
     title: "Renewable energy advisory",
-    text: "We plan, carry out and track your move to clean power, for your sites and your suppliers.",
+    text: "We plan, carry out and help you meet your clean energy targets, for your sites and your suppliers.",
     href: solutions.advisory.href,
-    cover: { note: "Illustration: a roadmap from today to 100% clean power", icon: "route", tone: "dawn" },
+    cover: { note: "Wind turbines on green hills", icon: "route", tone: "plain", image: windHills },
   },
   services: {
     title: "Services",
     text: "Meter installs, load changes and electricity board approvals, done for you.",
     href: solutions.services.href,
-    cover: { note: "Photo: a technician installing a meter", icon: "wrench", tone: "daylight" },
+    cover: { note: "An electrician working on a meter", icon: "wrench", tone: "plain", image: electrician },
   },
 };
 
 export const otherSolutions = (exclude: keyof typeof solutionCards) =>
   (Object.keys(solutionCards) as (keyof typeof solutionCards)[]).filter((k) => k !== exclude).map((k) => solutionCards[k]);
 
-export const allSolutions = Object.values(solutionCards);
 
 // Latest from Neufin. TODO: real posts once the blog is on Sanity.
 export const latest: LinkCard[] = [

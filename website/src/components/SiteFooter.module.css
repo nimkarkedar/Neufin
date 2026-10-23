@@ -2,8 +2,12 @@
    down at the top right along the Stripe's edge. The diagonal always ends at the
    content's right edge: --kink = content right edge − drop ÷ --stripe-slope (from the design system). */
 
+/* Every page ends on White: the contact card on a White band, then the dark footer.
+   A page whose last section is already White runs straight on (Section drops that
+   section's bottom padding); otherwise the White starts one section gap above the card. */
 .footer {
-  margin-top: 64px;
+  padding-top: var(--section-space);
+  background: var(--white);
 }
 
 .contactRow {
@@ -152,10 +156,6 @@
 
 /* Desktop: the step takes columns 11–12; seven groups and the stamp in four columns of three. */
 @media (min-width: 1024px) {
-  .footer {
-    margin-top: 96px;
-  }
-
   .contactRow {
     padding-bottom: 40px;
   }
