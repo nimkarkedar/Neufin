@@ -1,9 +1,9 @@
-:HL["/Neufin/website/_next/static/chunks/34gn_leg8f6d8.css","style"]
+:HL["/Neufin/website/_next/static/chunks/1mo-94rvnppaq.css","style"]
 :HL["/Neufin/website/_next/static/media/03fc1b4a8d284b5e-s.p.0wiir8udbzjvx.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/media/75affa71d1e2f6a7-s.p.17-aodiw50953.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/media/99e609270109b47d-s.p.40sczeszzbjw1.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/media/effe91970fc4db64-s.p.0oace-s_gkfks.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/Neufin/website/_next/static/chunks/1lh_6tg_mnkf9.css","style"]
+:HL["/Neufin/website/_next/static/chunks/2qyib3_664ajg.css","style"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"customer-stories","h":64,"c":"$Q2"}]]
-0:{"b":"yXOuWeyCRZAW-wcd3o2UZ","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"f7NrNXZQQaRy9jdrWVwkp","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
