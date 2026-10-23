@@ -115,7 +115,8 @@ export default function WebComponents() {
         <div className="rows spec-inline">
           <div className="row"><span className="row-key">Use</span><p>One choice from a short set (up to about six), shown all at once, such as a contract length. Longer lists use the select field.</p></div>
           <div className="row"><span className="row-key">Shape</span><p>White pill, 48px tall, Grey 200 line. The chosen chip is solid Near Black with white text.</p></div>
-          <div className="row"><span className="row-key">Code</span><p><code>.chips</code> around <code>.chip</code> labels, each holding a radio input. Arrow keys move the choice.</p></div>
+          <div className="row"><span className="row-key">Tabs</span><p>For a set of tabs, such as industries or teams, add <code>.chips-row</code>: always one line, scrolling sideways when the chips don't fit, never wrapping onto a second line. Add <code>.chips-row-hint</code> to fade its right edge on phones and tablets, so people can see it scrolls.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>.chips</code> (plus <code>.chips-row</code> for tabs) around <code>.chip</code> labels, each holding a radio input. Arrow keys move the choice.</p></div>
         </div>
       </Section>
 
@@ -183,6 +184,7 @@ export default function WebComponents() {
         </div>
         <div className="rows spec-inline">
           <div className="row"><span className="row-key">Use</span><p>Questions and answers, such as a page's FAQ.</p></div>
+          <div className="row"><span className="row-key">Hover</span><p>The whole item (question and open answer) is White on hover and while open, filling exactly the space between its lines with square edges. The list and its lines reach past the text by the same amount the rows pad in (16px; to the screen edges on phones), so questions stay aligned. The round icon's line darkens on hover.</p></div>
           <div className="row"><span className="row-key">Code</span><p><code>.accordion</code> around <code>details</code>; each <code>summary</code> ends with an <code>.accordion-icon</code> holding the Nucleo plus, which turns into a cross when open. Answer in <code>.accordion-answer</code>.</p></div>
         </div>
       </Section>
@@ -197,7 +199,7 @@ export default function WebComponents() {
         </div>
         <div className="rows spec-inline">
           <div className="row"><span className="row-key">Use</span><p>Holds the place of a photo, illustration or product screen until the real one arrives. The note says what goes there, in plain words.</p></div>
-          <div className="row"><span className="row-key">Colour</span><p>A design system gradient: Daylight (default) for places and clean energy, Dawn for people, Violet for product screens, Violet 900 (<code>-dark</code>) for illustrations on brand moments.</p></div>
+          <div className="row"><span className="row-key">Colour</span><p>A design system gradient: Daylight (default) for places and clean energy, Dawn for people, Violet for product screens, Violet 900 (<code>-dark</code>) for illustrations on brand moments. Plain (<code>-plain</code>, flat Warm White, the note only and no icon) where the placeholder sits on a gradient or among other colour.</p></div>
           <div className="row"><span className="row-key">Code</span><p><code>.placeholder</code> with <code>.placeholder-icon</code> (a Nucleo icon) and <code>.placeholder-note</code>.</p></div>
         </div>
       </Section>
@@ -235,6 +237,7 @@ export default function WebComponents() {
           <div><span>Columns</span><strong>{layout.columns.desktop} desktop, {layout.columns.tablet} tablet, {layout.columns.phone} phone</strong></div>
           <div><span>Gutter</span><strong>{layout.gutter}px</strong></div>
           <div><span>Side margin</span><strong>{layout.margin.phone} / {layout.margin.tablet} / {layout.margin.desktop}px</strong></div>
+          <div><span>Section space</span><strong>{layout.section.phone} / {layout.section.tablet} / {layout.section.desktop}px</strong></div>
           <div><span>Page background</span><strong>Warm White. The top fades from the navigation's White into Warm White over the first 80% of the screen</strong></div>
           <div><span>Breakpoints</span><strong>Tablet {breakpoints.tablet}, desktop {breakpoints.desktop}, wide {breakpoints.wide}px</strong></div>
         </div>

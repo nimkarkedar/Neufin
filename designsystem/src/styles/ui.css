@@ -367,12 +367,46 @@
   gap: 8px;
 }
 
+/* Row version, for a set of tabs (industries, teams): always one line. When the chips
+   don't fit, the row scrolls sideways (no scrollbar) instead of wrapping onto a second
+   line; on phones it runs to the screen edges so the cut-off chip shows there's more. */
+.chips-row {
+  flex-wrap: nowrap;
+  margin-inline: calc(-1 * var(--grid-margin));
+  padding-inline: var(--grid-margin);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.chips-row::-webkit-scrollbar {
+  display: none;
+}
+
+.chips-row .chip {
+  flex-shrink: 0;
+}
+
+/* Add .chips-row-hint to fade the right edge on phones and tablets, so a row that runs
+   past the screen shows there is more to scroll to. */
+@media (max-width: 1023px) {
+  .chips-row-hint {
+    mask-image: linear-gradient(to right, black calc(100% - 48px), transparent);
+  }
+}
+
+@media (min-width: 1024px) {
+  .chips-row {
+    margin-inline: 0;
+    padding-inline: 0;
+  }
+}
+
 .chip {
   position: relative;
   display: inline-flex;
   align-items: center;
   min-height: 48px;
-  padding: 0 20px;
+  padding: 0 18px;
   background: var(--white);
   border: 1px solid var(--grey-200);
   border-radius: var(--radius-pill);
@@ -649,14 +683,36 @@
 
 /* ---------- Accordion ----------
    Questions that open one at a time, built on <details>, so it works without script.
-   The Nucleo plus turns into a cross when open. */
+   The Nucleo plus turns into a cross when open. An item is White on hover and while
+   open. */
 
+/* The list reaches past its column by --accordion-bleed on both sides, and every row
+   pads in by the same amount, so the questions line up with the content above while
+   the lines and the hover fill share the same edges. Phones: to the screen edges.
+   From tablets: 16px. */
 .accordion {
+  --accordion-bleed: var(--grid-margin);
+  margin-inline: calc(-1 * var(--accordion-bleed));
   border-top: 1px solid var(--grey-200);
+}
+
+@media (min-width: 768px) {
+  .accordion {
+    --accordion-bleed: 16px;
+  }
 }
 
 .accordion details {
   border-bottom: 1px solid var(--grey-200);
+  transition: background-color var(--duration-fast);
+}
+
+/* The whole item, question and open answer together, is White on hover and while
+   open, filling exactly the space between its lines. On a White band, set
+   --accordion-fill to Warm White so the fill still shows. */
+.accordion details:hover,
+.accordion details[open] {
+  background: var(--accordion-fill, var(--white));
 }
 
 .accordion summary {
@@ -665,7 +721,7 @@
   align-items: center;
   gap: 24px;
   min-height: 64px;
-  padding: 16px 0;
+  padding: 20px var(--accordion-bleed);
   font-weight: 600;
   list-style: none;
   cursor: pointer;
@@ -689,7 +745,7 @@
 }
 
 .accordion summary:hover .accordion-icon {
-  background: var(--warm-white);
+  border-color: var(--near-black);
 }
 
 .accordion details[open] .accordion-icon {
@@ -698,14 +754,16 @@
 
 .accordion-answer {
   max-width: 68ch;
-  padding-bottom: 24px;
+  padding: 0 var(--accordion-bleed) 24px;
+  margin-top: -4px;
   color: var(--grey-600);
 }
 
 /* ---------- Media placeholder ----------
    Holds the place of a photo, illustration or product screen until the real one
    arrives: a design system gradient, a Nucleo icon and a plain note on what goes
-   there. Default is Daylight; add -dawn, -violet or -dark. */
+   there. Default is Daylight; add -dawn, -violet, -dark, or -plain (flat Warm White,
+   note only, no icon, for a placeholder sitting on a gradient or among other colour). */
 
 .placeholder {
   position: relative;
@@ -728,6 +786,11 @@
 
 .placeholder-violet {
   background: var(--gradient-violet);
+}
+
+.placeholder-plain {
+  background: var(--warm-white);
+  color: var(--ink-2, var(--grey-600));
 }
 
 .placeholder-dark {

@@ -28,6 +28,8 @@ export const neutrals = [
   { name: 'Grey 600', token: 'grey-600', hex: '#5F5A68', role: 'Secondary text on light.' },
   { name: 'Grey 800', token: 'grey-800', hex: '#3A3443', role: 'Chips and active states on dark.' },
   { name: 'Grey 900', token: 'grey-900', hex: '#2A2631', role: 'Lines and hover states on dark.' },
+  { name: 'Neutral 100', token: 'neutral-100', hex: '#F4F4F5', role: 'Device chrome in product shots: browser bars. A true grey, so the frame adds no violet.' },
+  { name: 'Neutral 300', token: 'neutral-300', hex: '#D9D9DC', role: 'Device chrome in product shots: window dots, phone speaker.' },
 ];
 
 export const accentColours = [
@@ -70,12 +72,15 @@ export const typeScale = [
 
 // Web layout. 12 columns of 88px with 20px gutters on desktop (1276px of content),
 // 8 columns on tablets and 4 on phones. Margins are the space either side of the content.
+// Section is the space above and below every page section, so two sections sit twice
+// that apart.
 export const breakpoints = { tablet: 768, desktop: 1024, wide: 1280 };
 export const layout = {
   maxWidth: 1276,
   gutter: 20,
   columns: { phone: 4, tablet: 8, desktop: 12 },
   margin: { phone: 20, tablet: 32, desktop: 40 },
+  section: { phone: 48, tablet: 64, desktop: 80 },
 };
 
 // Corner radii. Pill (999px) is for buttons and fields.
@@ -134,6 +139,7 @@ export function allTokens() {
   t['--grid-max'] = `${layout.maxWidth}px`;
   t['--grid-gutter'] = `${layout.gutter}px`;
   t['--grid-margin'] = `${layout.margin.phone}px`;
+  t['--section-space'] = `${layout.section.phone}px`;
   Object.entries(radii).forEach(([k, v]) => (t[`--radius-${k}`] = `${v}px`));
   Object.entries(shadows).forEach(([k, v]) => (t[`--shadow-${k}`] = v));
   t['--scrim'] = scrim;

@@ -248,6 +248,14 @@ export const nucleoIcons = {
   "viewBox": "0 0 18 18",
   "body": "<line x1=\"5.75\" y1=\"3.25\" x2=\"5.75\" y2=\"1.25\" fill=\"none\" stroke=\"var(--icon-color-2, currentColor)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"var(--nucleo-stroke-width, 1.5)\" data-color=\"color-2\"></line><line x1=\"12.25\" y1=\"3.25\" x2=\"12.25\" y2=\"1.25\" fill=\"none\" stroke=\"var(--icon-color-2, currentColor)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"var(--nucleo-stroke-width, 1.5)\" data-color=\"color-2\"></line><rect x=\"2.25\" y=\"3.25\" width=\"13.5\" height=\"12.5\" rx=\"2\" ry=\"2\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"var(--nucleo-stroke-width, 1.5)\"></rect><line x1=\"2.25\" y1=\"6.75\" x2=\"15.75\" y2=\"6.75\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"var(--nucleo-stroke-width, 1.5)\"></line>"
  },
+ "drop": {
+  "family": "ui",
+  "label": "arrow-down",
+  "fill": "outline",
+  "size": "18px",
+  "viewBox": "0 0 18 18",
+  "body": "<line x1=\"9\" y1=\"15.25\" x2=\"9\" y2=\"2.75\" fill=\"none\" stroke=\"var(--icon-color-2, currentColor)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"var(--nucleo-stroke-width, 1.5)\" data-color=\"color-2\"></line><polyline points=\"13.25 11 9 15.25 4.75 11\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"var(--nucleo-stroke-width, 1.5)\"></polyline>"
+ },
  "plus": {
   "family": "core",
   "label": "plus",
