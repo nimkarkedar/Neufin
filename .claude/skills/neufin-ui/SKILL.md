@@ -11,7 +11,7 @@ Kedar's standing rules. Run through all of them before writing UI code, and agai
 
 Kedar caught a confident answer that skipped part of the story: "How we keep your price low" was built with three cards, and buying in bulk, the main lever, was left out. Before you build, answer, count or recommend anything about Neufin, read the sources. Never answer from memory or from the page you happen to be looking at.
 
-1. **Goal and objective.** The site sells clean, cheaper power to Indian businesses (C&I buyers) and earns trust: what Neufin is, proof at scale, try your own price, how it's done, who it's for, the product, then questions. Every section has to serve that story, in that order.
+1. **Goal and objective.** The site sells clean, cheaper power to Indian businesses (C&I buyers) and earns trust: what Neufin is, proof at scale, try your own price, how it's done, who it's for, then questions. Every section has to serve that story, in that order.
 2. **The brief.** The "Neufin website structure" Google Doc (docs.google.com/document/d/1mLphIMEQlN_s88qfLivp_tzssxTZOliUTyKe8GRTWBs) is the source of truth for content: sitemap, menu, solutions, page sections and copy. `website/src/lib/site.ts` and `content.ts` mirror it. Check both before saying how many of anything there are.
 3. **Tone of voice.** `designsystem/src/pages/ToneOfVoice.jsx`: plain, factual, numbers over adjectives, no slogans or "X. Y." headlines, sentence case.
 4. **Design system.** Tokens, classes and components (section 2 below) and its pages (Colour, Typography, Iconography, Photography, Illustration, Graphic device, Web components).
@@ -40,9 +40,9 @@ Before writing CSS or a component, list what already exists and use it:
 - **Classes** (`designsystem/src/styles/ui.css`):
   - Buttons: `.btn` with `-primary`, `-secondary` or `-accent` (accent once per page), plus `.btn-badge`.
   - Fields: `.text-field`, `.action-field` (select or input), `.select-field` (with `.select-field-icon`).
-  - Choice controls: `.chips`/`.chip`, `.step-slider`, `.option-tiles`. On a dark panel add `.step-slider-inverse` / `.option-tiles-inverse`, and set the panel's own shades with `--on-dark-surface`, `--on-dark-line`, `--on-dark-muted` (greys by default).
+  - Choice controls: for one choice that switches what's shown, the `Segmented` component (light, `small` in forms, `inverse` on dark bands); it is what the site uses everywhere now. Also `.chips`/`.chip` (`.chips-small`, `.chips-inverse`), `.step-slider`, `.option-tiles`, kept in the design system. On a dark panel add `.step-slider-inverse` / `.option-tiles-inverse`, and set the panel's own shades with `--on-dark-surface`, `--on-dark-line`, `--on-dark-muted` (greys by default).
   - Blocks: `.surface`, the one style for every large content block.
-- **Components** (`designsystem/src/components/`): `Logo`, `Icon`/`IconSvg`, `Stripe` (`stripeEdgeClipPath`, `markBand`, `STRIPE_SLOPE`), `Stamp` and `RingStamp` (round text stamp, e.g. the CERC and transparent pricing stamps), `RollingFigure` (figures that roll when they change), `WhatsAppBadge`, `PhotoFilters`.
+- **Components** (`designsystem/src/components/`): `Logo`, `Icon`/`IconSvg`, `Stripe` (`stripeEdgeClipPath`, `markBand`, `STRIPE_SLOPE`), `Stamp` and `RingStamp` (round text stamp, e.g. the CERC and transparent pricing stamps), `RollingFigure` (figures that roll when they change), `Segmented` (Apple-style segmented control with a gliding thumb, for a choice that switches what's shown below; `inverse` on dark bands), `WhatsAppBadge`, `PhotoFilters`.
 
 Only when nothing fits:
 

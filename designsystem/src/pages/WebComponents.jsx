@@ -3,11 +3,19 @@ import { breakpoints, layout, motion, radii } from '../brand/tokens.js';
 import { PageHeader, Section } from '../components/ui.jsx';
 import { RollingFigure } from '../components/RollingFigure.jsx';
 import { WhatsAppBadge } from '../components/WhatsAppBadge.jsx';
+import { Segmented } from '../components/Segmented.jsx';
 import { IconSvg } from '../components/Icon.jsx';
 import { icons } from '../brand/icons.js';
 import { asset } from '../brand/asset.js';
 
 const terms = ['30 days', '1 year', '3 years', '5 years', '15 years'];
+
+const industriesDemo = ['Auto', 'Plastics', 'Steel', 'Hotels and resorts', 'Real estate and malls'];
+
+function SegmentedDemo({ inverse = false }) {
+  const [v, setV] = useState(0);
+  return <Segmented name={inverse ? 'seg-dark' : 'seg-light'} label="Example industry" options={industriesDemo} value={v} onChange={setV} inverse={inverse} />;
+}
 
 function StepSliderDemo({ inverse = false }) {
   const [v, setV] = useState(1);
@@ -117,7 +125,33 @@ export default function WebComponents() {
           <div className="row"><span className="row-key">Use</span><p>One choice from a short set (up to about six), shown all at once, such as a contract length. Longer lists use the select field.</p></div>
           <div className="row"><span className="row-key">Shape</span><p>White pill, 48px tall, Grey 200 line. The chosen chip is solid Near Black with white text.</p></div>
           <div className="row"><span className="row-key">Tabs</span><p>For a set of tabs, such as industries or teams, add <code>.chips-row</code>: always one line, scrolling sideways when the chips don't fit, never wrapping onto a second line. Add <code>.chips-row-hint</code> to fade its right edge on phones and tablets, so people can see it scrolls.</p></div>
-          <div className="row"><span className="row-key">Code</span><p><code>.chips</code> (plus <code>.chips-row</code> for tabs) around <code>.chip</code> labels, each holding a radio input. Arrow keys move the choice.</p></div>
+          <div className="row"><span className="row-key">Small</span><p>Add <code>.chips-small</code> for a compact form with several sets of choices (the plan finder) or a tab row (industries): 32px tall, Small text, quieter. Unchosen chips are Warm White with Grey 600 text and no line; the chosen one is solid Near Black with White text. Pair with <code>.chips-row</code> so each set stays on one line.</p></div>
+          <div className="row"><span className="row-key">On dark</span><p>On a Violet 900 or Near Black band add <code>.chips-inverse</code>: unchosen chips are see-through with a faint White line and Violet 100 text; the chosen one is solid White with Near Black text (a black chip would sink into the band). The home page's industries row.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>.chips</code> (plus <code>.chips-row</code> for tabs, <code>.chips-small</code> for compact forms, <code>.chips-inverse</code> on dark) around <code>.chip</code> labels, each holding a radio input. Arrow keys move the choice.</p></div>
+        </div>
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo">
+            <div className="chips chips-row chips-small" role="radiogroup" aria-label="Example contract length, small">
+              {['30 days', '1 year', '3 years', '5 years', '15 years'].map((t) => (
+                <label key={t} className="chip"><input type="radio" name="demo-term-s" defaultChecked={t === '1 year'} />{t}</label>
+              ))}
+            </div>
+          </div>
+        </div>
+      </Section>
+
+      <Section title="Segmented control">
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo"><SegmentedDemo /></div>
+        </div>
+        <div className="tile">
+          <div className="tile-stage stage-dark web-demo"><SegmentedDemo inverse /></div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Use</span><p>One choice from a short set that switches what's shown, such as the home page's industries, the plan finder's choices, and the filters on Customer stories, Careers and the plan list. Calmer than a row of outlined chips: one track, plain text, one solid thumb.</p></div>
+          <div className="row"><span className="row-key">Interaction</span><p>The thumb glides to the new choice (slow, ease-out) and the label's colour follows; hovering an option darkens (light) or whitens (inverse) its label. Arrow keys move the choice. When the set is wider than its space the track scrolls sideways and the chosen option scrolls into view. No slide with reduced motion.</p></div>
+          <div className="row"><span className="row-key">Shape</span><p>Pill track with 4px inset, options 40px tall (<code>small</code>: 32px, Small text, 14px either side and 2px apart, for forms with several sets such as the plan finder). Light: Near Black 5% track (shows on White and Warm White), Near Black thumb, Grey 600 labels, White when chosen. Inverse (on Violet 900 or Near Black): White 10% track, White thumb, Violet 100 labels, Near Black when chosen.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>&lt;Segmented name label options value onChange inverse small /&gt;</code> (label optional when a visible legend names the group) from <code>components/Segmented.jsx</code>; styles <code>.segmented</code>, <code>.segmented-inverse</code> in ui.css.</p></div>
         </div>
       </Section>
 

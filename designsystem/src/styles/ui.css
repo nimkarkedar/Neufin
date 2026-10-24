@@ -435,6 +435,197 @@
   outline-offset: 2px;
 }
 
+/* Small version, for compact forms with several sets of choices (the plan finder) and
+   tab rows (industries): 32px tall, Small text, and quieter. Unchosen chips are Warm White
+   with Grey 600 text and no line; the chosen one is solid Near Black with White text, as
+   in the full-size chips (Kedar). Pair with .chips-row so a set stays on one line. */
+.chips-small {
+  gap: 6px;
+}
+
+.chips-small .chip {
+  min-height: 32px;
+  padding: 0 12px;
+  background: var(--warm-white);
+  border-color: transparent;
+  color: var(--grey-600);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+}
+
+.chips-small .chip:hover {
+  border-color: var(--grey-200);
+  color: var(--near-black);
+}
+
+.chips-small .chip:has(input:checked) {
+  background: var(--near-black);
+  border-color: var(--near-black);
+  color: var(--white);
+}
+
+/* On a dark band (Violet 900, Near Black): add .chips-inverse. Unchosen chips are
+   see-through with a White 32% line and Violet 100 text; the chosen one is solid White with
+   Near Black text, so it stands out instead of sinking into the band. Works with the full
+   and small sizes. */
+.chips-inverse .chip {
+  background: none;
+  border-color: color-mix(in srgb, var(--white) 32%, transparent);
+  color: var(--violet-100);
+}
+
+.chips-inverse .chip:hover {
+  border-color: var(--white);
+  color: var(--white);
+}
+
+.chips-inverse .chip:has(input:checked) {
+  background: var(--white);
+  border-color: var(--white);
+  color: var(--near-black);
+}
+
+.chips-inverse .chip:has(input:focus-visible) {
+  outline-color: var(--white);
+}
+
+/* ---------- Segmented control ----------
+   One choice from a short set, Apple-style (component: Segmented.jsx). A soft pill track
+   holds the options as plain text; one solid thumb sits behind the chosen option and
+   glides to the next (slow, ease-out), the label's colour following. Light: Near Black 5%
+   track, Near Black thumb, Grey 600 labels, White when chosen (a White thumb on the pale
+   track was too faint: Kedar).
+   Inverse (on Violet 900 or Near Black): White 10% track, White thumb, Violet 100 labels,
+   Near Black when chosen. Scrolls sideways when wider than its space. No slide with
+   reduced motion. */
+
+.segmented {
+  position: relative;
+  display: inline-flex;
+  justify-self: start; /* hugs its options, also as a grid item */
+  max-width: 100%;
+  padding: 4px;
+  overflow-x: auto;
+  border-radius: var(--radius-pill);
+  /* A faint Near Black tint, so the track shows on White and on Warm White alike. */
+  background: color-mix(in srgb, var(--near-black) 5%, transparent);
+  scrollbar-width: none;
+  isolation: isolate;
+}
+
+.segmented::-webkit-scrollbar {
+  display: none;
+}
+
+.segmented-thumb {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 0;
+  z-index: -1;
+  width: var(--w);
+  border-radius: var(--radius-pill);
+  background: var(--near-black);
+  translate: var(--x) 0;
+  transition:
+    translate var(--duration-slow) var(--ease-out),
+    width var(--duration-slow) var(--ease-out);
+}
+
+.segmented-option {
+  position: relative;
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  min-height: 40px;
+  padding: 0 18px;
+  border-radius: var(--radius-pill);
+  color: var(--grey-600);
+  font-weight: 500;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color var(--duration-base) var(--ease-out);
+}
+
+.segmented-option input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.segmented-option:hover {
+  color: var(--near-black);
+}
+
+.segmented-option:has(input:checked) {
+  color: var(--white);
+}
+
+/* Before the thumb is measured (or without JavaScript), the chosen option fills itself. */
+.segmented:not(.segmented-ready) .segmented-option:has(input:checked) {
+  background: var(--near-black);
+}
+
+.segmented-inverse:not(.segmented-ready) .segmented-option:has(input:checked) {
+  background: var(--white);
+}
+
+.segmented-option:has(input:focus-visible) {
+  outline: 2px solid var(--near-black);
+  outline-offset: -2px;
+}
+
+.segmented-option:has(input:checked:focus-visible) {
+  outline-color: var(--electric-violet);
+}
+
+/* Small: for forms with several sets (the plan finder). 32px options, Small text, 14px
+   either side and 2px apart, so the options breathe without getting loud (Kedar). */
+.segmented-small {
+  gap: 2px;
+}
+
+.segmented-small .segmented-option {
+  min-height: 32px;
+  padding: 0 14px;
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+}
+
+.segmented-inverse {
+  background: color-mix(in srgb, var(--white) 10%, transparent);
+}
+
+.segmented-inverse .segmented-thumb {
+  background: var(--white);
+}
+
+.segmented-inverse .segmented-option {
+  color: var(--violet-100);
+}
+
+.segmented-inverse .segmented-option:hover {
+  color: var(--white);
+}
+
+.segmented-inverse .segmented-option:has(input:checked) {
+  color: var(--near-black);
+}
+
+.segmented-inverse .segmented-option:has(input:focus-visible) {
+  outline-color: var(--white);
+}
+
+.segmented-inverse .segmented-option:has(input:checked:focus-visible) {
+  outline-color: var(--electric-violet);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .segmented-thumb {
+    transition: none;
+  }
+}
+
 /* ---------- Step slider ----------
    A choice along an ordered scale with a few fixed stops, such as a contract length
    from 30 days to 15 years. A native range input, so keys and screen readers work.
