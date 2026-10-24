@@ -49,7 +49,7 @@ export default function WebComponents() {
             <button type="button" className="btn btn-accent">See my options<IconSvg icon={icons.arrow} size={20} /></button>
             <button type="button" className="btn btn-primary">Call me back</button>
             <button type="button" className="btn btn-secondary">Request a call back</button>
-            <button type="button" className="btn btn-primary btn-badge"><WhatsAppBadge />Send your bill on WhatsApp</button>
+            <button type="button" className="btn btn-primary btn-badge"><WhatsAppBadge />Contact us on WhatsApp</button>
           </div>
         </div>
         <div className="rows spec-inline">
@@ -290,7 +290,7 @@ export default function WebComponents() {
         <div className="spec-list spec-inline">
           <div><span>Radius</span><strong>{Object.entries(radii).map(([k, v]) => `${k} ${v}`).join(', ')}</strong></div>
           <div><span>Raised shadow</span><strong>Surfaces (large content blocks) at rest; cards and tiles on hover, lifted 4px</strong></div>
-          <div><span>Surface</span><strong><code>.surface</code>: White, Grey 200 line, radius l, raised shadow. Every large content block on a page uses it. Every card on the home page carries the raised shadow. <code>.surface-flat</code> drops it (the plan finder on Buy cheaper power)</strong></div>
+          <div><span>Surface</span><strong><code>.surface</code>: White, Grey 200 line, radius l, raised shadow. Every large content block on a page uses it. Every card carries the raised shadow.</strong></div>
           <div><span>Card</span><strong><code>.card</code>: White, Grey 200 line, radius l, no shadow. For smaller blocks in a row: features, links to pages, plans</strong></div>
           <div><span>Overlay shadow</span><strong>Menus that float over the page</strong></div>
           <div><span>Scrim</span><strong>Near Black at 24% over the page behind an open menu (the header's mega menu)</strong></div>

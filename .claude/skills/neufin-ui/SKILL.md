@@ -7,6 +7,18 @@ description: Checklist to run before building or changing anything visual for Ne
 
 Kedar's standing rules. Run through all of them before writing UI code, and again before showing the result.
 
+## 0. Ground every answer in the sources. Don't bluff.
+
+Kedar caught a confident answer that skipped part of the story: "How we keep your price low" was built with three cards, and buying in bulk, the main lever, was left out. Before you build, answer, count or recommend anything about Neufin, read the sources. Never answer from memory or from the page you happen to be looking at.
+
+1. **Goal and objective.** The site sells clean, cheaper power to Indian businesses (C&I buyers) and earns trust: what Neufin is, proof at scale, try your own price, how it's done, who it's for, the product, then questions. Every section has to serve that story, in that order.
+2. **The brief.** The "Neufin website structure" Google Doc (docs.google.com/document/d/1mLphIMEQlN_s88qfLivp_tzssxTZOliUTyKe8GRTWBs) is the source of truth for content: sitemap, menu, solutions, page sections and copy. `website/src/lib/site.ts` and `content.ts` mirror it. Check both before saying how many of anything there are.
+3. **Tone of voice.** `designsystem/src/pages/ToneOfVoice.jsx`: plain, factual, numbers over adjectives, no slogans or "X. Y." headlines, sentence case.
+4. **Design system.** Tokens, classes and components (section 2 below) and its pages (Colour, Typography, Iconography, Photography, Illustration, Graphic device, Web components).
+5. **Decisions already made.** `website/CLAUDE.md` (rules, Built so far, Decisions log).
+
+Then check that the answer holds together as one brand: the same story, voice, shapes and colours from section to section and page to page. If a source is missing or unclear, or two of them disagree, say so and ask. Don't fill the gap with a confident guess. When you count or list things ("three ways", "four solutions"), name the source you counted from.
+
 ## 1. Icons are Nucleo, every time
 
 Neufin owns the full Nucleo licence: every family except Pixel, Isometric and Arcade.

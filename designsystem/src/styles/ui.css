@@ -109,12 +109,6 @@
   border-radius: var(--radius-l);
 }
 
-/* Flat version: the line only, no shadow. For a surface that holds information rather
-   than something to act on, such as the home page's numbers. */
-.surface-flat {
-  box-shadow: none;
-}
-
 /* ---------- Text field ----------
    A white pill, 48px tall, with an optional fixed prefix (such as +91). Numbers are
    set in IBM Plex Mono. The border turns Near Black on focus and Electric Coral when
