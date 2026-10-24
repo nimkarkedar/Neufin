@@ -1,0 +1,54 @@
+/* How we keep your price low: the H2 title, then three image cards, side by side from
+   tablets, stacked on phones. Section padding above and below, as every section, so it
+   sits a full section gap from its neighbours. */
+
+.section {
+  padding-block: var(--section-space);
+}
+
+.title {
+  margin-bottom: 16px;
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-lh);
+  font-weight: var(--text-h2-weight);
+  letter-spacing: var(--text-h2-track);
+  text-wrap: balance;
+}
+
+.cards {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+@media (min-width: 768px) {
+  .cards {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* Tablets and small desktops (768–1279px): the three cards are narrow, so they grow
+   taller (2:3, more sky over the art) and their titles step down to H3. */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .cards :global(.image-card) {
+    aspect-ratio: 2 / 3;
+  }
+
+  .cards :global(.image-card-title) {
+    font-size: var(--text-h3-size);
+    line-height: var(--text-h3-lh);
+    letter-spacing: var(--text-h3-track);
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    margin-bottom: 20px;
+  }
+
+  .cards {
+    gap: var(--grid-gutter);
+  }
+}

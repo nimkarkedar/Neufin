@@ -1,9 +1,14 @@
-/* Lumen block: one flat surface laid out like the industries card. Phones: the modules
+/* Lumen block: one White surface laid out like the industries card. Phones: the modules
    and actions, then the product shot below. Desktop: text on the left (5fr), the shot on
    the right (7fr), cut by the card's right and bottom edges.
    Same paddings as the industries card; body semibold names with small grey lines. */
 
 .panel {
+  /* The light colour roles inside the White card, on the dark band. */
+  --ink: var(--near-black);
+  --ink-2: var(--grey-600);
+  --line: var(--grey-200);
+  color: var(--ink);
   display: grid;
   gap: 8px;
   padding: 8px;

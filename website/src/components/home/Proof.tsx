@@ -1,8 +1,11 @@
+import Link from "next/link";
 import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
 import { RingStamp } from "@ds/components/Stamp.jsx";
 import cerc from "@/assets/cerc.svg";
+import pylon from "@/assets/pylon-neon.png";
 import { numbers } from "@/lib/content";
+import { customerStories } from "@/lib/site";
 import styles from "./Proof.module.css";
 
 // Every source Neufin supplies, as a stack of round icon tiles.
@@ -14,9 +17,11 @@ const sources = [
   { icon: "chart", name: "Exchange power" },
 ] as const;
 
-// Home page numbers, from Kedar's mock: the title, then one surface holding the figures
-// in a row and, below a hairline, the sources (left) and the CERC licence (right), with
-// a ring stamp laid over the regulator's emblem.
+// The home page's numbers block, from Kedar's mock: the title over two raised White
+// boxes that fill one screen on desktop. Left: the five figures and the CERC licence in a
+// grid of six, then the sources. Right: the saving in one line, a link to the customer
+// stories, and the pylon illustration cut by the box's edges. No animation (Kedar).
+// TODO: Neufin to confirm the 15% figure.
 export function Proof() {
   return (
     <section id="numbers" className={`container ${styles.section}`} aria-labelledby="numbers-title">
@@ -24,41 +29,47 @@ export function Proof() {
         Cheaper energy. Proven at scale.
       </h2>
 
-      <div className={`surface surface-flat ${styles.card}`}>
-        <dl className={styles.figures}>
-          {numbers.map((n) => (
-            <div key={n.label} className={styles.figure}>
-              <dt className={styles.label}>{n.label}</dt>
-              <dd className={styles.value}>{n.value}</dd>
+      <div className={styles.cards}>
+        <div className={`surface ${styles.facts}`}>
+          <dl className={styles.grid}>
+            {numbers.map((n) => (
+              <div key={n.label} className={styles.cell}>
+                <dt className={styles.label}>{n.label}</dt>
+                <dd className={styles.value}>{n.value}</dd>
+              </div>
+            ))}
+            <div className={`${styles.cell} ${styles.licence}`}>
+              <dt className={styles.licenceName}>Licensed by CERC</dt>
+              <dd>
+                <RingStamp text="Licensed by CERC · Power trading licence · " size={112} className={styles.stamp}>
+                  {/* The regulator's emblem, in its own colours. */}
+                  <img src={cerc.src} alt="Central Electricity Regulatory Commission emblem" className={styles.emblem} />
+                </RingStamp>
+              </dd>
             </div>
-          ))}
-        </dl>
+          </dl>
 
-        <div className={styles.bottom}>
           <div className={styles.sources}>
             <span className={styles.stack} role="img" aria-label={sources.map((s) => s.name).join(", ")}>
               {sources.map((s) => (
                 <span key={s.name} className={styles.disc}>
-                  <IconSvg icon={icons[s.icon]} size={22} />
+                  <IconSvg icon={icons[s.icon]} size={20} />
                 </span>
               ))}
             </span>
             <p className={styles.text}>
-              <strong>Sources pan-India:</strong> solar, wind, hybrid, biomass, battery and exchange power, across 16
-              states.
+              <strong className={styles.textTitle}>Sources pan-India across 16 states</strong>
+              Solar, wind, hybrid, biomass, battery and exchange power
             </p>
           </div>
+        </div>
 
-          <div className={styles.licence}>
-            <p className={styles.text}>
-              <strong>Licensed by CERC:</strong> a power trader licensed by the Central Electricity Regulatory
-              Commission.
-            </p>
-            <RingStamp text="Licensed by CERC · Power trading licence · " size={136} className={styles.stamp}>
-              {/* The regulator's emblem, in its own colours. */}
-              <img src={cerc.src} alt="Central Electricity Regulatory Commission emblem" className={styles.emblem} />
-            </RingStamp>
-          </div>
+        <div className={`surface ${styles.saving}`}>
+          <p className={styles.statement}>Neufin has already lowered the cost of energy per kWh by 15%</p>
+          <Link href={customerStories.href} className={`btn btn-primary ${styles.action}`}>
+            Read our case studies
+          </Link>
+          <img src={pylon.src} alt="" className={styles.art} />
         </div>
       </div>
     </section>

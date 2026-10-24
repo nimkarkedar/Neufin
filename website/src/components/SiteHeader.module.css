@@ -21,8 +21,47 @@
 .logo {
   display: block;
   height: 34px;
-  color: var(--near-black);
+  color: inherit;
   flex-shrink: 0;
+}
+
+/* Menus keep the text colour when the bar turns White on a dark mode below. */
+.flyout,
+.panel {
+  color: var(--ink);
+}
+
+/* ---------- Over a photo ----------
+   A page whose hero is a photo puts data-header="overlay" on any element inside it (the
+   home page does): the bar is transparent with White text over the photo at the top of
+   the page, back to White once the page scrolls. Whenever a menu or flyout is open the
+   bar is White, so the menus read as they always do. */
+
+:global(body:has([data-header~="overlay"])) .header {
+  transition:
+    border-color var(--duration-base) ease,
+    background-color var(--duration-base) ease,
+    color var(--duration-base) ease;
+}
+
+:global(body:has([data-header~="overlay"])) .header:not([data-scrolled], [data-menu-open], :has(.flyout[data-open])) {
+  background: transparent;
+  color: var(--white);
+}
+
+/* The whole logo White, the symbol included. */
+:global(body:has([data-header~="overlay"])) .header:not([data-scrolled], [data-menu-open], :has(.flyout[data-open])) .logo path {
+  fill: currentColor;
+}
+
+:global(body:has([data-header~="overlay"])) .header:not([data-scrolled], [data-menu-open], :has(.flyout[data-open])) .topLink:hover {
+  background: color-mix(in srgb, var(--white) 16%, transparent);
+}
+
+/* The Contact button turns White with Near Black text. */
+:global(body:has([data-header~="overlay"])) .header:not([data-scrolled], [data-menu-open], :has(.flyout[data-open])) .contact {
+  background: var(--white);
+  color: var(--near-black);
 }
 
 .chevron {
@@ -75,7 +114,7 @@
   display: block;
   width: 22px;
   height: 2px;
-  background: var(--near-black);
+  background: currentColor;
   border-radius: 2px; /* rounded ends of the menu icon's bars */
   transition: transform var(--duration-slow) var(--ease-out);
 }

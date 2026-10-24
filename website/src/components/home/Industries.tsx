@@ -75,7 +75,7 @@ const content: Record<string, { title: string; text: string; photo: { image: Sta
 };
 
 // Industries on the home page: the design system's choice chips pick an industry (the
-// row fades at the edge on phones to show it scrolls), and one flat surface shows what
+// row fades at the edge on phones to show it scrolls), and one White surface shows what
 // Neufin does for it (left) next to its photo (right), with the customers from that
 // industry and a link to the industry's own page.
 export function Industries() {
@@ -94,7 +94,7 @@ export function Industries() {
           ))}
       </div>
 
-      <div className={`surface surface-flat ${styles.panel}`} aria-live="polite">
+      <div className={`surface ${styles.panel}`} aria-live="polite">
         <div className={styles.text}>
           <h3 className={styles.title}>{c.title}</h3>
           <p className={styles.line}>{c.text}</p>

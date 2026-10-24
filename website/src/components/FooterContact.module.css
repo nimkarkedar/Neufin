@@ -5,12 +5,13 @@
 
 .card {
   /* Inner corners, so blocks meet the card's rounded edge exactly. */
-  --inner-r: calc(var(--radius-m) - 1px);
+  --inner-r: calc(var(--radius-l) - 1px);
 
   display: grid;
   border: 1px solid var(--line);
-  border-radius: var(--radius-m);
+  border-radius: var(--radius-l);
   background: var(--white);
+  box-shadow: var(--shadow-raised);
   color: var(--near-black);
 }
 
@@ -50,6 +51,13 @@
   .col:focus-within {
     transform: none;
   }
+}
+
+/* A page can switch card motion off with data-calm on any element in it (the home page does). */
+:global(body:has([data-calm])) .col:hover,
+:global(body:has([data-calm])) .col:focus-within {
+  box-shadow: none;
+  transform: none;
 }
 
 .col + .col {

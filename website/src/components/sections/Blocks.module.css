@@ -92,6 +92,12 @@
   box-shadow: var(--shadow-raised);
 }
 
+/* A page can switch card motion off with data-calm on any element in it (the home page does). */
+:global(body:has([data-calm])) .linkCard:hover {
+  transform: none;
+  box-shadow: none;
+}
+
 .linkCard:hover .cardLink svg {
   transform: translateX(3px);
 }

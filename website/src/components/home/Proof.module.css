@@ -1,9 +1,17 @@
-/* Home page numbers, from Kedar's mock. The title (H2), then one surface: the figures
-   (H1 size) in a row, and below a hairline the sources on the left and the licence on
-   the right. Phones: figures two a row, the two proof points stacked. */
+/* The home page's numbers block, from Kedar's mock. The H2 title, then two raised White boxes (.surface), side by side
+   on desktop and stacked on phones. Desktop: the boxes take the screen's height less the
+   header, the section's padding and the title (between 580 and 640px), so the block fills
+   one screen at 1440 × 900.
 
-/* Bottom padding matches the top, now that the plan finder below is its own band. */
+   The facts box is one grid: three equal columns, the same padding in every cell, and
+   lines between them running edge to edge. Every label has room for two lines, so the
+   figures in a row share one baseline whatever their labels wrap to, and the sources row
+   follows the same columns (the icons under the first, the text from the second). */
+
 .section {
+  --pad: 24px;
+  display: flex;
+  flex-direction: column;
   padding-block: var(--section-space);
 }
 
@@ -12,31 +20,66 @@
   line-height: var(--text-h2-lh);
   font-weight: var(--text-h2-weight);
   letter-spacing: var(--text-h2-track);
+  text-wrap: balance;
 }
 
-/* The card has no padding: each part pads itself, so the line between them runs edge
-   to edge, like the divider in the plan finder card. Same title gap and part padding
-   as the plan finder. */
-.card {
-  margin-top: 16px;
+.cards {
+  position: relative;
+  display: grid;
+  gap: var(--grid-gutter);
+  margin-top: 20px;
 }
 
-.figures,
-.bottom {
-  padding: 24px 20px;
+/* The page colour (--page: Violet 100, set on the home page) comes down from the hero, behind the logo
+   bar and this title, and fades into the Warm White page by the boxes' upper third, so
+   the rest of the page is Warm White (Kedar). One layer behind the boxes, reaching up
+   past the section and out to the screen's edges (border-image outset adds no sideways
+   scroll). */
+.cards::before {
+  content: "";
+  position: absolute;
+  inset: -2000px 0 66% 0;
+  z-index: -1;
+  border-image: linear-gradient(var(--page, var(--violet-100)) calc(100% - 520px), var(--warm-white)) fill 0 / 0 / 0 100vw;
+  pointer-events: none;
 }
 
-.figures {
+/* ---------- Facts: six cells, then the sources ---------- */
+
+.facts {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* The cells sit on the line colour with a 1px gap, so the lines between them run edge
+   to edge. Two a row on phones, three on tablets and up. */
+.grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 28px var(--grid-gutter);
+  grid-auto-rows: 1fr;
+  gap: 1px;
+  flex: 1;
   margin: 0;
+  background: var(--line);
 }
 
-.figure {
+/* Figure on top, label under it (the label comes first in the markup, for the list's
+   meaning), the pair centred in the cell. */
+.cell {
   display: flex;
   flex-direction: column-reverse;
-  justify-content: flex-end;
+  justify-content: center;
+  padding: var(--pad);
+  background: var(--white);
+  transition: background-color var(--duration-slow) ease-out;
+}
+
+/* Under the pointer a cell fills with soft Violet 100, then fades back as the pointer
+   moves on (Kedar: a little cool factor). Colour only: the cells never move. */
+.cell:hover {
+  background: var(--violet-100);
+  transition-duration: var(--duration-fast);
 }
 
 .value {
@@ -46,74 +89,32 @@
   line-height: var(--text-h1-lh);
   font-weight: var(--text-h1-weight);
   letter-spacing: var(--text-h1-track);
+  white-space: nowrap;
 }
 
+/* Two lines of room for every label, so the figures line up across a row. */
 .label {
+  min-height: 2lh;
   margin-top: 4px;
   color: var(--ink-2);
 }
 
-.bottom {
-  display: grid;
-  gap: 28px;
-  border-top: 1px solid var(--line);
-}
-
-.sources,
+/* The licence: the ring stamp over the regulator's emblem, its name under it, centred. */
 .licence {
-  display: flex;
   align-items: center;
-  gap: 20px;
+  text-align: center;
 }
 
-/* Phones: graphic on top, line below (the licence's stamp comes after its line in the
-   markup, so it is reversed). */
-.sources {
-  flex-direction: column;
-  align-items: flex-start;
+.licence dd {
+  margin: 0;
 }
 
-.licence {
-  flex-direction: column-reverse;
-  align-items: flex-start;
+.licenceName {
+  min-height: 0;
+  margin-top: 12px;
 }
 
-.text {
-  max-width: 40ch;
-  color: var(--ink-2);
-  text-wrap: pretty;
-}
-
-.text strong {
-  color: var(--ink);
-  font-weight: 600;
-}
-
-/* Round tiles overlapping like a row of faces: White with a Grey 200 line, icons in the
-   text colour like every icon on the site. */
-.stack {
-  display: flex;
-  flex-shrink: 0;
-}
-
-.disc {
-  display: grid;
-  place-items: center;
-  width: 52px;
-  height: 52px;
-  border: 1px solid var(--grey-200);
-  border-radius: 50%;
-  background: var(--white);
-  color: var(--ink);
-}
-
-.disc + .disc {
-  margin-left: -12px;
-}
-
-/* The ring stamp lands over the emblem at a slight tilt, as a stamp would. */
 .stamp {
-  flex-shrink: 0;
   color: var(--electric-violet);
   transform: rotate(-10deg);
 }
@@ -126,48 +127,141 @@
   transform: translateY(-6%) rotate(10deg);
 }
 
-@media (min-width: 768px) {
-
-  .figures,
-  .bottom {
-    padding: 32px;
-  }
+/* Phones: icons over the text. From tablets: the grid's three columns, the icons under
+   the first and the text across the other two, each padded like a cell. */
+.sources {
+  display: grid;
+  gap: 20px;
+  padding: var(--pad);
+  border-top: 1px solid var(--line);
 }
 
-@media (min-width: 1024px) {
+/* Round tiles overlapping like a row of faces, icons in the text colour. */
+.stack {
+  display: flex;
+}
 
-  .card {
-    margin-top: 20px;
+.disc {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--grey-200);
+  border-radius: 50%;
+  background: var(--white);
+  color: var(--ink);
+}
+
+.disc + .disc {
+  margin-left: -10px;
+}
+
+.text {
+  max-width: 40ch;
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+/* The small title over the list of sources: body size, semibold, the text colour. */
+.textTitle {
+  display: block;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+/* ---------- Saving: the line, the link, the illustration ---------- */
+
+.saving {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+  padding: var(--pad) var(--pad) 0;
+}
+
+.statement {
+  max-width: 22ch;
+  font-family: var(--font-display);
+  font-size: var(--text-h1-size);
+  line-height: var(--text-h1-lh);
+  font-weight: var(--text-h1-weight);
+  letter-spacing: var(--text-h1-track);
+  text-wrap: balance;
+}
+
+.statement,
+.action {
+  position: relative;
+  z-index: 1;
+}
+
+.action {
+  margin-top: 28px;
+}
+
+/* Kedar's illustration as supplied: the pylon in its bottom left, the wires running to
+   its bottom right, open above. It spans the box's full width on its bottom edge. On
+   phones it follows the text. */
+.art {
+  display: block;
+  width: calc(100% + 2 * var(--pad));
+  max-width: none;
+  height: auto;
+  margin: auto 0 0 calc(-1 * var(--pad));
+  /* Decoration only: on desktop its open top lies over the button, so it must never take
+     the pointer. */
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .section {
+    --pad: 32px;
   }
 
-  .figures,
-  .bottom {
-    padding: 40px;
-  }
-
-  .figures {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-
-  .bottom {
-    grid-template-columns: 1fr auto;
-    align-items: center;
+  .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .sources {
-    flex-direction: row;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     align-items: center;
-    gap: 24px;
+    column-gap: 1px;
+    padding-inline: 0;
   }
 
-  .licence {
-    flex-direction: row;
-    align-items: center;
-    gap: 24px;
+  .stack {
+    padding-inline: var(--pad);
   }
 
-  .licence .text {
-    max-width: 26ch;
-    text-align: right;
+  .text {
+    grid-column: 2 / -1;
+    padding-inline: var(--pad);
+  }
+}
+
+/* Desktop: the boxes side by side, as tall as one screen allows; the illustration sits
+   on the saving box's bottom edge, behind nothing (its top is open sky). */
+@media (min-width: 1024px) {
+  .cards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    height: clamp(580px, calc(100svh - var(--header-h) - 2 * var(--section-space) - 80px), 640px);
+    margin-top: 24px;
+  }
+
+  .saving {
+    position: relative;
+    padding: 48px;
+  }
+
+  /* Sunk a little, so the box's bottom edge crops the tower's feet (as in the mock) and
+     its tip stays clear of the button. */
+  .art {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    margin: 0;
+    translate: 0 10%;
   }
 }

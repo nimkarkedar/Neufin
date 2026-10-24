@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
-import { PlanFinder } from "@/components/home/PlanFinder";
+import { PlanFinder } from "@/components/sections/PlanFinder";
 import { Checks, Faq, Features, LinkCards, Steps, Table } from "@/components/sections/Blocks";
 import { HeroArt, PageHero, stripeCombos } from "@/components/sections/PageHero";
 import { Section } from "@/components/sections/Section";

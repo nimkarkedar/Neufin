@@ -56,7 +56,8 @@
   padding-block: 40px;
 }
 
-/* Desktop: title on columns 1–7, the line or link on 8–12, aligned to the bottom. */
+/* Desktop: title on columns 1–7, the line or link on 8–12, aligned to the bottom. A title
+   with nothing beside it runs across the full width, on one line (Kedar, 2026-10-24). */
 @media (min-width: 1024px) {
   .section[data-compact] {
     padding-block: 48px;
@@ -73,11 +74,20 @@
     grid-column: 1 / span 7;
   }
 
+  .head:not(:has(.aside)) .title {
+    grid-column: 1 / -1;
+  }
+
   .head[data-narrow] .title {
     grid-column: 1 / span 6;
   }
 
   .aside {
     grid-column: 8 / -1;
+  }
+
+  /* A link alone sits at the right end of the row. */
+  .aside:not(:has(.lead)) {
+    justify-items: end;
   }
 }
