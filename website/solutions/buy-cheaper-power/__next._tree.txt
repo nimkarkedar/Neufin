@@ -3,7 +3,7 @@
 :HL["/Neufin/website/_next/static/media/75affa71d1e2f6a7-s.p.17-aodiw50953.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/media/99e609270109b47d-s.p.40sczeszzbjw1.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/media/effe91970fc4db64-s.p.0oace-s_gkfks.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/Neufin/website/_next/static/chunks/3zh0ux12re2cj.css","style"]
+:HL["/Neufin/website/_next/static/chunks/3kymlkwgkv3sh.css","style"]
 :HL["/Neufin/website/_next/static/chunks/2u184_8igo4d2.css","style"]
 :HL["/Neufin/website/_next/static/media/meters.11duybu5ev6kp.jpg","image"]
 :HL["/Neufin/website/_next/static/media/wind-hills.05y-45-165zo8.jpg","image"]
@@ -11,4 +11,4 @@
 3:[["children",{"s":"__PAGE__","h":160}]]
 2:[["children",{"s":"buy-cheaper-power","h":96,"c":"$Q3"}]]
 1:[["children",{"s":"solutions","h":64,"c":"$Q2"}]]
-0:{"b":"7UfQwdvGnqlAUu9deihXW","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"qVV_u9px3rDZok4zHCX4P","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
