@@ -12,6 +12,7 @@ import retail from "@ds/../public/assets/photos/industry-retail.jpg";
 import steel from "@ds/../public/assets/photos/industry-steel.jpg";
 import { useState } from "react";
 import { IconSvg } from "@ds/components/Icon.jsx";
+import { Segmented } from "@ds/components/Segmented.jsx";
 import { icons } from "@ds/brand/icons.js";
 import { LogoMark } from "@/components/sections/Blocks";
 import { customerLogos, type BrandLogo } from "@/lib/logos";
@@ -25,8 +26,8 @@ const byName = (...names: string[]) => customerLogos.filter((l) => names.include
 // TODO: Neufin to confirm the lines and which customer sits where, and send their own photos.
 const content: Record<string, { title: string; text: string; photo: { image: StaticImageData; alt: string }; logos: BrandLogo[] }> = {
   Auto: {
-    title: "Fixed power cost for round-the-clock production",
-    text: "Lock your price for 1 to 15 years, so a board rate revision doesn't move your cost per vehicle.",
+    title: "Clean power for every shift, at a fixed price",
+    text: "Solar, wind and battery cover day and night, with your price per unit fixed for 1 to 15 years.",
     photo: { image: auto, alt: "Workers on a factory floor" },
     logos: byName("Mahindra", "Benteler"),
   },
@@ -85,14 +86,16 @@ export function Industries() {
 
   return (
     <div>
-      <div className="chips chips-row chips-row-hint" role="radiogroup" aria-label="Industry">
-        {industries.map((i, n) => (
-          <label key={i.href} className="chip">
-            <input type="radio" name="industry" checked={current === n} onChange={() => setCurrent(n)} />
-            {i.label}
-          </label>
-          ))}
-      </div>
+      {/* The design system's segmented control on the dark band: the White thumb glides to
+          the chosen industry (Kedar: more contemporary than outlined chips). */}
+      <Segmented
+        name="industry"
+        label="Industry"
+        options={industries.map((i) => i.label)}
+        value={current}
+        onChange={setCurrent}
+        inverse
+      />
 
       <div className={`surface ${styles.panel}`} aria-live="polite">
         <div className={styles.text}>

@@ -3,6 +3,11 @@
    styles used above: H3 title, body line, small grey labels. */
 
 .panel {
+  /* The light colour roles inside the White card, on the page's Violet 900 band. */
+  --ink: var(--near-black);
+  --ink-2: var(--grey-600);
+  --line: var(--grey-200);
+  color: var(--ink);
   display: grid;
   gap: 8px;
   margin-top: 16px;

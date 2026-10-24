@@ -1,23 +1,20 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import { states } from "@/lib/plans";
+import { useEffect, useRef, useState, type CSSProperties } from "react";
 import styles from "./Proof.module.css";
 
-// The numbers block's saving chart, from the client's Fuse reference: the electricity
-// board's average rate across the plan finder's states, and Neufin's, 15% lower (the
-// statement above it). Computed from the plan finder's data, so the two never disagree.
-// Bars from ₹0 (an honest baseline), each named inside the bar with its price beside it,
-// so it reads without colour or a legend. When the chart first comes into view the bars
-// reveal from ₹0 and the prices fade in, once (Kedar); the card itself stays still. Without JavaScript or
+// The numbers block's saving chart, from the client's Fuse reference: the price per unit
+// as a share of the electricity board's rate (100%), and Neufin's, 15% lower (the
+// statement above it). Shares, not rupee amounts (Kedar), as rates vary by state.
+// No figures on the chart (Kedar): the board's bar runs the full width, Neufin's is
+// shorter by the saving, named inside, with "X% less" inside its end. When the chart first comes into view the bars
+// reveal from 0% and the prices fade in, once (Kedar); the card itself stays still. Without JavaScript or
 // with reduced motion the bars simply show.
-const board = states.reduce((sum, s) => sum + s.board, 0) / states.length;
+const saving = 15; // TODO: Neufin to confirm (the statement above uses it too).
 const bars = [
-  { name: "Electricity board", value: board, brand: false },
-  { name: "With Neufin", value: board * 0.85, brand: true },
+  { name: "Electricity board", value: 100, brand: false },
+  { name: "With Neufin", value: 100 - saving, brand: true },
 ];
-const scaleMax = 10;
-const ticks = [0, 3, 6, 9];
 
 export function SavingChart() {
   const ref = useRef<HTMLElement>(null);
@@ -43,27 +40,22 @@ export function SavingChart() {
 
   return (
     <figure ref={ref} className={styles.chart} data-state={state}>
-      <div className={styles.plot}>
-        <ol className={styles.ticks} aria-hidden="true">
-          {ticks.map((t) => (
-            <li key={t} style={{ left: `${(t / scaleMax) * 100}%` }}>
-              ₹{t}
-            </li>
-          ))}
-        </ol>
-        <dl className={styles.bars}>
-          {bars.map((b) => (
-            <div key={b.name} className={styles.bar} data-brand={b.brand || undefined}>
-              {/* The bar itself, its name inside (Kedar). */}
-              <dt className={styles.fill} style={{ width: `${(b.value / scaleMax) * 100}%` }}>
-                {b.name}
-              </dt>
-              <dd className={styles.price}>₹{b.value.toFixed(2)}</dd>
-            </div>
-          ))}
-        </dl>
-      </div>
-      <figcaption className={styles.caption}>Average price per unit across our plan finder&apos;s states. Illustrative.</figcaption>
+      <dl className={styles.bars}>
+        {bars.map((b) => (
+          <div key={b.name} className={styles.bar} data-brand={b.brand || undefined}>
+            {/* The bar itself, its name inside (Kedar). */}
+            <dt className={styles.fill} style={{ width: `${b.value}%` }}>
+              {b.name}
+            </dt>
+            {b.brand && (
+              <dd className={styles.price} style={{ "--end": `${b.value}%` } as CSSProperties}>
+                {saving}% less
+              </dd>
+            )}
+          </div>
+        ))}
+      </dl>
+      <figcaption className={styles.caption}>Price per unit, compared with the electricity board&apos;s rate.</figcaption>
     </figure>
   );
 }

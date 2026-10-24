@@ -4,7 +4,6 @@ import { icons } from "@ds/brand/icons.js";
 import { Hero } from "@/components/home/Hero";
 import { HowWeDoIt } from "@/components/home/HowWeDoIt";
 import { Industries } from "@/components/home/Industries";
-import { Lumen } from "@/components/home/Lumen";
 import { PlanFinder } from "@/components/sections/PlanFinder";
 import { Proof } from "@/components/home/Proof";
 import { Faq } from "@/components/sections/Blocks";
@@ -14,7 +13,7 @@ import { contactLink } from "@/lib/site";
 import styles from "./home.module.css";
 
 // Home page, in order: the photo hero (the page's h1), customer logos, numbers, plan
-// finder, how we keep your price low, industries, Lumen, FAQ. The footer contact card is
+// finder, how we keep your price low, industries, FAQ. The footer contact card is
 // the final step. The page's top is Violet 100, fading to Warm White behind the numbers
 // block (Proof). The header is see-through over the hero photo (data-header="overlay").
 // No card motion (Kedar: irritating): data-calm turns off the cards' hover lift.
@@ -32,11 +31,9 @@ export default function Home() {
 
       <HowWeDoIt />
 
-      <Section id="industries" title="Built for how your business uses power">
+      <Section id="industries" title="Built for how your business uses power" tone="dark">
         <Industries />
       </Section>
-
-      <Lumen />
 
       {/* FAQs: two columns on desktop, easier to read (Kedar): the title and a way to ask
           more on the left (staying in view; an illustration will go under them), the

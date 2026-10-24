@@ -199,41 +199,13 @@
 }
 
 /* ---------- The saving chart ----------
-   Recessive chrome (dashed Grey 200 gridlines, small grey tick labels), thin bars that
-   grow from the ₹0 line with a 4px rounded end, the board in Grey 400 and Neufin in
-   Electric Violet; names and prices in the text colours, never the bar colour. */
+   Two bars and no figures (Kedar): the board's in Grey 400 across the full width, Neufin's
+   in Electric Violet shorter by the saving, each named inside, with "X% less" inside the
+   end of Neufin's bar (it fits there at every width). */
 .chart {
-  --price-w: 72px; /* the price column beside the bars */
   align-self: stretch;
   margin: auto 0 0;
   padding-top: 24px;
-}
-
-.plot {
-  position: relative;
-  padding-top: 24px;
-}
-
-/* The ticks span the bar track only (the price column sits outside the scale). */
-.ticks {
-  position: absolute;
-  inset: 0 calc(var(--price-w) + 12px) 0 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  pointer-events: none;
-}
-
-.ticks li {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  padding-left: 6px;
-  border-left: 1px dashed var(--grey-200);
-  color: var(--ink-2);
-  font-size: var(--text-small-size);
-  line-height: var(--text-small-lh);
-  font-variant-numeric: tabular-nums;
 }
 
 .bars {
@@ -244,18 +216,18 @@
   padding: 8px 0 4px;
 }
 
-/* One row: the bar on the scale's track, its price in the column beside it. */
+/* One row: the bar; for Neufin, "X% less" sits inside its end (--end: the bar's width). */
 .bar {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--price-w);
+  position: relative;
+  display: flex;
   align-items: center;
-  gap: 12px;
 }
 
-/* The bar, named inside: 44px tall, a rounded end, square at the ₹0 line. The board's
+/* The bar, named inside: 44px tall, a rounded end, square at the 0% line. The board's
    Grey 400 carries Near Black text (White would fail contrast); Neufin's Electric Violet
    carries White. */
 .fill {
+  flex-shrink: 0;
   display: flex;
   align-items: center;
   min-height: 44px;
@@ -274,13 +246,18 @@
 }
 
 .price {
+  position: absolute;
+  top: 50%;
+  left: var(--end);
   margin: 0;
+  color: var(--white);
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
+  translate: calc(-100% - 14px) -50%;
 }
 
-/* Reveal on first view (SavingChart sets data-state): clipped to ₹0 while armed, then the
+/* Reveal on first view (SavingChart sets data-state): clipped to 0% while armed, then the
    board bar opens out, Neufin's a beat later, each price fading in as its bar lands. A clip,
    not a stretch, so the names inside never squash. Only the way in is animated. */
 .chart[data-state="armed"] .fill {

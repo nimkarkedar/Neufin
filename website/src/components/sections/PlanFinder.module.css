@@ -40,26 +40,18 @@
 .inputs {
   display: grid;
   align-content: start;
-  gap: 20px;
+  gap: 32px; /* air between the small choices */
   padding: var(--pad);
   border-bottom: 1px solid var(--line);
 }
 
 .field {
   display: grid;
-  gap: 8px;
+  gap: 12px;
   min-width: 0;
   margin: 0;
   padding: 0;
   border: 0;
-}
-
-/* The label, with the chosen value in words on the right (sliders). */
-.fieldHead {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 12px;
 }
 
 .label {
@@ -67,25 +59,16 @@
   font-weight: 600;
 }
 
-.fieldValue {
-  color: var(--ink-2);
-  font-size: var(--text-small-size);
-  line-height: var(--text-small-lh);
-  text-align: right;
-}
-
 /* The legend sits in the grid like the other labels. */
 fieldset.field > legend {
   float: left;
   width: 100%;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
-/* One tile a row up to 1279px, so each site type's name has room; side by side from
-   1280px (below). */
-.tiles {
+/* The choice starts under the floated legend. */
+.choice {
   clear: both;
-  grid-template-columns: minmax(0, 1fr);
 }
 
 /* ---------- The bill ---------- */
@@ -97,22 +80,8 @@ fieldset.field > legend {
   padding: var(--pad);
 }
 
-.billHead {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 4px 16px;
-}
-
 .billTitle {
   font-weight: 600;
-}
-
-.billMeta {
-  color: var(--ink-2);
-  font-size: var(--text-small-size);
-  line-height: var(--text-small-lh);
 }
 
 /* One hairline under the column heads, one under the last row. */
@@ -154,7 +123,14 @@ fieldset.field > legend {
 
 .table td + td,
 .table th + th {
-  padding-left: 16px;
+  padding-left: 8px; /* phones: tight, so Neufin's figure fits beside its arrow */
+}
+
+@media (min-width: 768px) {
+  .table td + td,
+  .table th + th {
+    padding-left: 16px;
+  }
 }
 
 .table tbody th {
@@ -164,9 +140,30 @@ fieldset.field > legend {
 
 /* The board's figures read as the "before", in the secondary colour; Neufin's in White. */
 .table td {
-  width: 32%;
   color: var(--ink-2);
   font-variant-numeric: tabular-nums;
+}
+
+/* Phones: the table in Small text, so Neufin's figure and its arrow fit beside the
+   board's. */
+@media (max-width: 767px) {
+  .table tbody {
+    font-size: var(--text-small-size);
+    line-height: var(--text-small-lh);
+  }
+
+  .drop svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+/* Tablets and up: the two figure columns share the width evenly. Phones let them size to
+   their figures (the labels column wraps instead). */
+@media (min-width: 768px) {
+  .table td {
+    width: 32%;
+  }
 }
 
 .table .neufin {
@@ -177,24 +174,17 @@ fieldset.field > legend {
 
 .drop {
   display: inline-flex;
-  margin-right: 6px;
+  margin-right: 4px;
   vertical-align: -2px;
 }
 
 .logo {
   max-width: none;
   margin-left: auto;
-  margin-bottom: 4px;
 }
 
 .logoWide {
   display: none !important;
-}
-
-.planName {
-  display: block;
-  color: var(--ink-2);
-  font-weight: 400;
 }
 
 /* ---------- Saving and actions ---------- */
@@ -294,8 +284,10 @@ fieldset.field > legend {
    compact. */
 .stamp {
   position: absolute;
-  right: -56px;
-  bottom: -64px;
+  /* 20% smaller than before (Kedar), still cut by the box's corner, nudged 5px up and
+     10px left of where the smaller ring would sit. */
+  right: -35px;
+  bottom: -72px;
   display: none;
   color: var(--violet-100);
   transform: rotate(-10deg);
@@ -323,12 +315,12 @@ fieldset.field > legend {
 
 }
 
-/* Desktop: the box splits 5 / 7, so the choices column is wide enough for the two site
-   tiles side by side from 1280px, keeping the box about 100px shorter (Kedar). */
+/* Desktop: the choices take 40% of the box (a little narrower than 5 / 12, Kedar), still
+   wide enough at 1280px for every set on one line. */
 @media (min-width: 1024px) {
   .card {
     --pad: 40px;
-    grid-template-columns: 5fr 7fr;
+    grid-template-columns: 2fr 3fr;
     margin-top: 24px;
   }
 
@@ -337,22 +329,6 @@ fieldset.field > legend {
     border-right: 1px solid var(--line);
   }
 
-}
-
-/* Wide screens: the two site tiles side by side, a name wrapping to two lines beside its
-   icon at most, so the tile stays its usual height. */
-@media (min-width: 1280px) {
-  .tiles {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-/* Small desktops (1024–1279px): the choices column is too narrow for every stop label,
-   so only the end labels show, as on phones; the chosen value is beside each label. */
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .inputs :global(.step-slider-marks li:not(:first-child, :last-child)) {
-    display: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

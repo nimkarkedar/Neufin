@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useId, useState } from "react";
 import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
+import { Segmented } from "@ds/components/Segmented.jsx";
 import styles from "./PlanList.module.css";
 
 // Plan finder: filter every plan by state, site type, source and term.
@@ -34,19 +35,13 @@ const terms: { label: string; key: Term | null }[] = [
   { label: "Over 5 years", key: "long" },
 ];
 
+// One choice as the design system's segmented control, under a visible legend.
 function Chips<T extends string>({ legend, options, value, onChange }: { legend: string; options: T[]; value: T; onChange: (v: T) => void }) {
   const name = useId();
   return (
     <fieldset className={styles.field}>
       <legend className={styles.label}>{legend}</legend>
-      <div className="chips">
-        {options.map((o) => (
-          <label key={o} className="chip">
-            <input type="radio" name={name} checked={value === o} onChange={() => onChange(o)} />
-            {o}
-          </label>
-        ))}
-      </div>
+      <Segmented name={name} options={options} value={options.indexOf(value)} onChange={(i: number) => onChange(options[i])} />
     </fieldset>
   );
 }

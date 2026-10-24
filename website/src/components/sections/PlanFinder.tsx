@@ -1,11 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useState, type CSSProperties } from "react";
+import { useState } from "react";
 import { IconSvg } from "@ds/components/Icon.jsx";
 import { Logo } from "@ds/components/Logo.jsx";
 import { RingStamp } from "@ds/components/Stamp.jsx";
 import { RollingFigure } from "@ds/components/RollingFigure.jsx";
+import { Segmented } from "@ds/components/Segmented.jsx";
 import { hexOf } from "@ds/brand/tokens.js";
 import { icons } from "@ds/brand/icons.js";
 import { plans, sites, states, terms, uses } from "@/lib/plans";
@@ -14,23 +15,21 @@ import styles from "./PlanFinder.module.css";
 
 // The plan finder, the same on every page that shows it (home, Buy cheaper power), from
 // Kedar's directional mock: a full-width Electric Violet band holding the title and one
-// White box. Left: the state as a dropdown, the type of site as option tiles with icons,
-// monthly use and contract length as step sliders. Right: the answer laid out like an
+// White box. Left: the state as a dropdown, then type of site, monthly use and contract
+// length as the design system's small segmented control, each set on one line (Kedar). Right: the answer laid out like an
 // electricity bill, the board's column next to Neufin's, then the saving with its
 // percentage as a Signal Yellow badge that pops whenever a choice changes.
 // Prices from src/lib/plans.ts (illustrative).
 
-// Short stop labels for the use slider, in lakh units; the full band shows beside the
-// field's label.
-const useMarks = ["Under 1", "1–5", "5–20", "Over 20"];
-
 const inr = (n: number) => `₹${Math.round(n).toLocaleString("en-IN")}`;
+// The saving in words (Kedar): ₹35 lakh, ₹2.85 lakh, ₹1.2 crore; under a lakh in rupees.
+const short = (n: number) => {
+  const fmt = (v: number) => v.toLocaleString("en-IN", { maximumFractionDigits: 2 });
+  if (n >= 1_00_00_000) return `₹${fmt(n / 1_00_00_000)} crore`;
+  if (n >= 1_00_000) return `₹${fmt(n / 1_00_000)} lakh`;
+  return inr(n);
+};
 const rate = (n: number) => `₹${n.toFixed(2)}`;
-// A yearly amount in lakh, or in crore from ₹1 crore (never "₹1,200 lakh").
-const lakh = (n: number) =>
-  n >= 1_00_00_000
-    ? `₹${(n / 1_00_00_000).toLocaleString("en-IN", { maximumFractionDigits: 1 })} crore`
-    : `₹${(n / 1_00_000).toLocaleString("en-IN", { maximumFractionDigits: 1 })} lakh`;
 
 // A small down arrow before each of Neufin's figures: the price drops against the board's.
 const Drop = () => (
@@ -40,62 +39,26 @@ const Drop = () => (
   </span>
 );
 
-function Slider({
-  id,
+// One choice as the design system's small segmented control (the thumb glides to the
+// choice), under a visible legend; scrolls sideways where a screen is too narrow.
+function Choice({
+  name,
   label,
-  marks,
-  valueText,
+  options,
   value,
   onChange,
 }: {
-  id: string;
+  name: string;
   label: string;
-  marks: string[];
-  valueText: string;
+  options: string[];
   value: number;
   onChange: (i: number) => void;
 }) {
   return (
-    <div className={styles.field}>
-      <div className={styles.fieldHead}>
-        <label htmlFor={id} className={styles.label}>
-          {label}
-        </label>
-        <span className={styles.fieldValue} aria-hidden="true">
-          {valueText}
-        </span>
-      </div>
-      <div
-        className="step-slider"
-        style={{ "--steps": marks.length, "--value": value } as CSSProperties}
-      >
-        <input
-          id={id}
-          type="range"
-          min={0}
-          max={marks.length - 1}
-          step={1}
-          value={value}
-          onChange={(e) => onChange(Number(e.target.value))}
-          aria-valuetext={valueText}
-        />
-        <ol className="step-slider-marks" aria-hidden="true">
-          {marks.map((m, i) => (
-            <li key={m}>
-              <button
-                type="button"
-                tabIndex={-1}
-                style={{ "--i": i } as CSSProperties}
-                aria-current={i === value}
-                onClick={() => onChange(i)}
-              >
-                {m}
-              </button>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </div>
+    <fieldset className={styles.field}>
+      <legend className={styles.label}>{label}</legend>
+      <Segmented name={name} options={options} value={value} onChange={onChange} small className={styles.choice} />
+    </fieldset>
   );
 }
 
@@ -145,47 +108,13 @@ export function PlanFinder() {
                 </select>
               </span>
             </label>
-
-            <fieldset className={styles.field}>
-              <legend className={styles.label}>Type of site</legend>
-              <div className={`option-tiles ${styles.tiles}`}>
-                {sites.map((s, i) => (
-                  <label key={s.label} className="option-tile">
-                    <input type="radio" name="v4-site" checked={site === i} onChange={() => change(setSite)(i)} />
-                    <span className="option-tile-icon">
-                      <IconSvg icon={icons[s.icon]} size={24} />
-                    </span>
-                    {s.label}
-                  </label>
-                ))}
-              </div>
-            </fieldset>
-
-            <Slider
-              id="v4-use"
-              label="Monthly power use"
-              marks={useMarks}
-              valueText={uses[use].label}
-              value={use}
-              onChange={change(setUse)}
-            />
-            <Slider
-              id="v4-term"
-              label="Contract length"
-              marks={terms}
-              valueText={terms[term]}
-              value={term}
-              onChange={change(setTerm)}
-            />
+            <Choice name="pf-site" label="Type of site" options={sites.map((x) => x.label)} value={site} onChange={change(setSite)} />
+            <Choice name="pf-use" label="Monthly power use, in units" options={uses.map((x) => x.label)} value={use} onChange={change(setUse)} />
+            <Choice name="pf-term" label="Contract length" options={terms} value={term} onChange={change(setTerm)} />
           </form>
 
           <div className={styles.bill} aria-live="polite">
-            <div className={styles.billHead}>
-              <p className={styles.billTitle}>Your monthly power bill</p>
-              <p className={styles.billMeta}>
-                <RollingFigure value={units.toLocaleString("en-IN")} /> units · {states[state].name}
-              </p>
-            </div>
+            <p className={styles.billTitle}>Your monthly power bill</p>
 
             <table className={styles.table}>
               <thead>
@@ -210,9 +139,6 @@ export function PlanFinder() {
                       title="With Neufin Energy"
                       className={`${styles.logo} ${styles.logoNarrow}`}
                     />
-                    <span className={styles.planName}>
-                      {best.name} · {best.fixed ? "fixed price" : "no lock-in"}
-                    </span>
                   </th>
                 </tr>
               </thead>
@@ -247,15 +173,12 @@ export function PlanFinder() {
                 <p className={styles.savingFigure}>
                   You save{" "}
                   <span className={styles.amount}>
-                    <RollingFigure value={inr(saved)} />
+                    <RollingFigure value={short(saved)} />
                     <span aria-hidden="true">/mon</span>
                     <span className="visually-hidden"> a month</span>
                   </span>
                 </p>
                 <p className={styles.savingNote}>
-                  <span>
-                    <RollingFigure value={lakh(saved * 12)} /> a year
-                  </span>
                   {/* Keyed on the change count, so the badge pops again on every change. */}
                   <span key={changes} className={styles.badge} data-pop={changes > 0 || undefined}>
                     {percent}% less
@@ -279,8 +202,8 @@ export function PlanFinder() {
                 block: the bill icon in the middle. Still, no motion.
                 TODO: Neufin to confirm "No hidden charges". */}
             <span className={styles.stamp} role="img" aria-label="Transparent pricing, no hidden charges">
-              <RingStamp text="Transparent pricing · No hidden charges · " size={232}>
-                <IconSvg icon={icons.bill} size={64} />
+              <RingStamp text="Transparent pricing · No hidden charges · " size={186}>
+                <IconSvg icon={icons.bill} size={52} />
               </RingStamp>
             </span>
           </div>

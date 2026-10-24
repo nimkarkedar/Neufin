@@ -1,5 +1,3 @@
-import type { icons } from "@ds/brand/icons.js";
-
 // The plan finder's prices: contract lengths, monthly use bands, site types, electricity
 // board rates by state and Neufin's plans. A plain module, so the plan finder (a client
 // component) and the numbers block's saving chart (server) share one source.
@@ -8,18 +6,19 @@ import type { icons } from "@ds/brand/icons.js";
 
 export const terms = ["30 days", "1 year", "3 years", "5 years", "15 years"];
 
-// Each band is billed at a typical monthly use inside it.
+// Monthly use bands in lakh units (the field's label says "in units"), each billed at a
+// typical monthly use inside it.
 export const uses = [
-  { label: "Under 1 lakh units", units: 75_000, discount: 0 },
-  { label: "1 to 5 lakh units", units: 3_00_000, discount: 0 },
-  { label: "5 to 20 lakh units", units: 10_00_000, discount: 0.1 },
-  { label: "Over 20 lakh units", units: 25_00_000, discount: 0.2 },
+  { label: "Under 1 lakh", units: 75_000, discount: 0 },
+  { label: "1–5 lakh", units: 3_00_000, discount: 0 },
+  { label: "5–20 lakh", units: 10_00_000, discount: 0.1 },
+  { label: "Over 20 lakh", units: 25_00_000, discount: 0.2 },
 ];
 
-// Each type of site with its option tile icon.
-export const sites: { label: string; icon: keyof typeof icons; boardExtra: number }[] = [
-  { label: "Factory or plant", icon: "plant", boardExtra: 0 },
-  { label: "Office, hotel, mall or shop", icon: "office", boardExtra: 0.8 },
+// Each type of site, with what the board adds per unit for it.
+export const sites: { label: string; boardExtra: number }[] = [
+  { label: "Factory or plant", boardExtra: 0 },
+  { label: "Office, hotel, mall or shop", boardExtra: 0.8 },
 ];
 
 // Electricity board rate per unit for an industrial site, by state.

@@ -25,11 +25,15 @@
    the header; --fx places the spare width (the pylons on the right, open sky on the left
    for the headline). The pulses are drawn in the photo's pixels, so they stay on the wires
    at every size. */
+/* --lift ends the photo that far above the hero's foot, so the whole picture sits higher
+   and its lower towers and wires show above the panel instead of behind it (Kedar). It
+   must stay less than the panel's lowest edge on the right (its height less --drop), or a
+   gap would open there. */
 .photo {
   --fx: 0.6;
   position: absolute;
   top: 0;
-  bottom: 0;
+  bottom: var(--lift, 0);
   left: 50%;
   width: 100%;
   overflow: hidden;
@@ -139,6 +143,10 @@
 }
 
 @media (min-width: 768px) {
+  .photo {
+    --lift: 64px;
+  }
+
   .panel {
     --drop: 72px;
     --kink: 64%;
@@ -156,6 +164,7 @@
 
   .photo {
     --fx: 0.5;
+    --lift: 96px;
   }
 
   .head {

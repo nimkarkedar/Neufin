@@ -1,11 +1,12 @@
 "use client";
 
 import { useState } from "react";
+import { Segmented } from "@ds/components/Segmented.jsx";
 import { LinkCards } from "@/components/sections/Blocks";
 import { customerStories, industries } from "@/lib/site";
 import styles from "./StoryList.module.css";
 
-// Customer stories filtered by industry with the design system's chips.
+// Customer stories filtered by industry with the design system's segmented control.
 // TODO: real clients, figures and story pages (one template: client and sites,
 // the problem, what we did, result in numbers, client quote).
 const stories = [
@@ -27,14 +28,7 @@ export function StoryList() {
   const shown = stories.filter((s) => current === "All" || s.ind === current);
   return (
     <div>
-      <div className="chips chips-row" role="radiogroup" aria-label="Industry">
-        {filters.map((f) => (
-          <label key={f} className="chip">
-            <input type="radio" name="story-industry" checked={current === f} onChange={() => setCurrent(f)} />
-            {f}
-          </label>
-        ))}
-      </div>
+      <Segmented name="story-industry" label="Industry" options={filters} value={filters.indexOf(current)} onChange={(i: number) => setCurrent(filters[i])} />
       <p className={styles.count} aria-live="polite">
         {shown.length} {shown.length === 1 ? "story" : "stories"}
       </p>
