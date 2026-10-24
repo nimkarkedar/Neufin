@@ -74,7 +74,7 @@ function CallBack() {
   if (state === "unavailable") {
     return (
       <p className={styles.done} role="status">
-        Call-back requests aren&apos;t connected in this preview yet. Send your bill on WhatsApp or email us instead.
+        Call-back requests aren&apos;t connected in this preview yet. Contact us on WhatsApp or email us instead.
       </p>
     );
   }
@@ -136,7 +136,7 @@ export function FooterContact() {
         </h2>
         <a href={whatsappHref} className={`btn btn-primary btn-badge ${styles.action}`} target="_blank" rel="noopener">
           <WhatsAppBadge />
-          Send your bill on WhatsApp
+          Contact us on WhatsApp
         </a>
       </div>
 

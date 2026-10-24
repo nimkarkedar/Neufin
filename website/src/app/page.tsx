@@ -5,7 +5,7 @@ import { Hero } from "@/components/home/Hero";
 import { HowWeDoIt } from "@/components/home/HowWeDoIt";
 import { Industries } from "@/components/home/Industries";
 import { Lumen } from "@/components/home/Lumen";
-import { PlanFinder } from "@/components/home/PlanFinder";
+import { PlanFinder } from "@/components/sections/PlanFinder";
 import { Proof } from "@/components/home/Proof";
 import { Faq } from "@/components/sections/Blocks";
 import { LogoBar } from "@/components/sections/LogoBar";
@@ -32,7 +32,7 @@ export default function Home() {
 
       <HowWeDoIt />
 
-      <Section id="industries" title="Built for how your business uses energy">
+      <Section id="industries" title="Built for how your business uses power">
         <Industries />
       </Section>
 

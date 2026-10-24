@@ -75,7 +75,10 @@ export function Hero() {
 
       <div className={styles.panel} style={{ clipPath: edge }}>
         <div className="container">
-          <p className={styles.lead}>Choose your tenure, tariff and capacity.</p>
+          {/* One sentence per line, as in the headline. */}
+          <p className={styles.lead}>
+            <span>Businesses pay up to 40% less per unit.</span> <span>We&apos;ll send your quote within 48 hours.</span>
+          </p>
 
           {/* TODO: /contact takes the email; connect it to the forms backend. */}
           <Form action="/contact" className={`action-field action-field-inline ${styles.signup}`}>
@@ -84,7 +87,7 @@ export function Hero() {
               <input type="email" name="email" placeholder="Enter your work email" autoComplete="email" required />
             </label>
             <button type="submit" className="btn btn-primary">
-              Get started
+              Get my quote
               <IconSvg icon={icons.arrow} size={20} />
             </button>
           </Form>

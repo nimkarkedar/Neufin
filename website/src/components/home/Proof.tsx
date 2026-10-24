@@ -26,7 +26,7 @@ export function Proof() {
   return (
     <section id="numbers" className={`container ${styles.section}`} aria-labelledby="numbers-title">
       <h2 id="numbers-title" className={styles.title}>
-        Cheaper energy. Proven at scale.
+        Lower power costs for 30+ businesses
       </h2>
 
       <div className={styles.cards}>
@@ -58,16 +58,16 @@ export function Proof() {
               ))}
             </span>
             <p className={styles.text}>
-              <strong className={styles.textTitle}>Sources pan-India across 16 states</strong>
+              <strong className={styles.textTitle}>We buy power across 16 states</strong>
               Solar, wind, hybrid, biomass, battery and exchange power
             </p>
           </div>
         </div>
 
         <div className={`surface ${styles.saving}`}>
-          <p className={styles.statement}>Neufin has already lowered the cost of energy per kWh by 15%</p>
+          <p className={styles.statement}>Our customers already pay 15% less per unit</p>
           <Link href={customerStories.href} className={`btn btn-primary ${styles.action}`}>
-            Read our case studies
+            Read customer stories
           </Link>
           <img src={pylon.src} alt="" className={styles.art} />
         </div>

@@ -9,23 +9,24 @@ import { solutions } from "@/lib/site";
 import styles from "./HowWeDoIt.module.css";
 
 // How Neufin keeps the price low, after the plan finder: the three solutions besides
-// buying power, as the design system's image cards, from Kedar's mock. Smart tech (Lumen
-// and the software), advisory (market knowledge and supplier connections), and service
-// end to end, so a business gets one partner and its operations don't pause. On hover
+// buying power, as the design system's image cards, from Kedar's mock: Lumen (the
+// software), advisory (market knowledge and 30+ suppliers) and services, so a business
+// gets one partner and its site keeps running. Copy follows the Tone of voice page (no
+// "smart" or "end to end"; a number where there is one). On hover
 // each card's text slides up and its call to action appears (Kedar).
 // TODO: Neufin to confirm the lines.
 const cards = [
   {
-    title: "Smart energy",
-    text: "Lumen and our software track every site and bill, and show where to save.",
+    title: "Lumen",
+    text: "Lumen checks every bill at every site and shows where you're overpaying.",
     href: solutions.run.href,
-    cta: "Explore Lumen",
+    cta: "See how Lumen works",
     image: laptop,
     kind: "photo",
   },
   {
     title: "Energy advisory",
-    text: "We know the market and the suppliers, so we source the right power for you.",
+    text: "We compare 30+ suppliers and tell you which power suits each site.",
     href: solutions.advisory.href,
     cta: "Plan your energy mix",
     image: landscape,
@@ -33,7 +34,7 @@ const cards = [
   },
   {
     title: "Services",
-    text: "Meters, approvals and paperwork, done end to end without pausing your work.",
+    text: "Meters, approvals and paperwork, done for you while your site keeps running.",
     href: solutions.services.href,
     cta: "See what we handle",
     image: electrician,

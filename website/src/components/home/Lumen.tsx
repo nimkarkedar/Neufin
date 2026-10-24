@@ -17,7 +17,7 @@ export function Lumen() {
     <Section id="lumen" title="Lumen: pay less for the power you already use" tone="dark">
       <div className={`surface ${styles.panel}`}>
         <div className={styles.text}>
-          <p className={styles.lead}>Lumen tracks every site, bill and agreement, and acts when there&apos;s money to save.</p>
+          <p className={styles.lead}>Lumen tracks every site&apos;s bills, contracts and solar output, and switches to the cheapest source on its own.</p>
 
           <ul className={styles.modules}>
             {lumenModules.map((m) => (

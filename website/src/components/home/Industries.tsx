@@ -115,7 +115,7 @@ export function Industries() {
             )}
             {/* TODO: the industry pages don't exist yet. */}
             <Link href={ind.href} className="link-arrow">
-              See how we work with {ind.label.toLowerCase()}
+              See our work in {ind.label.toLowerCase()}
               <IconSvg icon={icons.arrow} size={20} />
             </Link>
           </div>
