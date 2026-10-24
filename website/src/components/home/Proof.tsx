@@ -3,9 +3,9 @@ import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
 import { RingStamp } from "@ds/components/Stamp.jsx";
 import cerc from "@/assets/cerc.svg";
-import pylon from "@/assets/pylon-neon.png";
 import { numbers } from "@/lib/content";
 import { customerStories } from "@/lib/site";
+import { SavingChart } from "./SavingChart";
 import styles from "./Proof.module.css";
 
 // Every source Neufin supplies, as a stack of round icon tiles.
@@ -19,8 +19,8 @@ const sources = [
 
 // The home page's numbers block, from Kedar's mock: the title over two raised White
 // boxes that fill one screen on desktop. Left: the five figures and the CERC licence in a
-// grid of six, then the sources. Right: the saving in one line, a link to the customer
-// stories, and the pylon illustration cut by the box's edges. No animation (Kedar).
+// grid of six, then the sources. Right: the saving, a bar chart of the price per unit
+// (the client's Fuse reference) and a link to the customer stories. No animation (Kedar).
 // TODO: Neufin to confirm the 15% figure.
 export function Proof() {
   return (
@@ -66,10 +66,14 @@ export function Proof() {
 
         <div className={`surface ${styles.saving}`}>
           <p className={styles.statement}>Our customers already pay 15% less per unit</p>
-          <Link href={customerStories.href} className={`btn btn-primary ${styles.action}`}>
+          <p className={styles.sub}>Compared with their electricity board rate.</p>
+
+          <SavingChart />
+
+          <Link href={customerStories.href} className={`link-arrow ${styles.action}`}>
             Read customer stories
+            <IconSvg icon={icons.arrow} size={20} />
           </Link>
-          <img src={pylon.src} alt="" className={styles.art} />
         </div>
       </div>
     </section>

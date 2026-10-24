@@ -8,6 +8,7 @@ import { RingStamp } from "@ds/components/Stamp.jsx";
 import { RollingFigure } from "@ds/components/RollingFigure.jsx";
 import { hexOf } from "@ds/brand/tokens.js";
 import { icons } from "@ds/brand/icons.js";
+import { plans, sites, states, terms, uses } from "@/lib/plans";
 import { planFinderHref } from "@/lib/site";
 import styles from "./PlanFinder.module.css";
 
@@ -17,66 +18,7 @@ import styles from "./PlanFinder.module.css";
 // monthly use and contract length as step sliders. Right: the answer laid out like an
 // electricity bill, the board's column next to Neufin's, then the saving with its
 // percentage as a Signal Yellow badge that pops whenever a choice changes.
-// TODO: every figure below is illustrative; replace with Neufin's price bands per state,
-// contract length and site type, and the full list of 16 states.
-
-export const terms = ["30 days", "1 year", "3 years", "5 years", "15 years"];
-
-// Each band is billed at a typical monthly use inside it.
-export const uses = [
-  { label: "Under 1 lakh units", units: 75_000, discount: 0 },
-  { label: "1 to 5 lakh units", units: 3_00_000, discount: 0 },
-  { label: "5 to 20 lakh units", units: 10_00_000, discount: 0.1 },
-  { label: "Over 20 lakh units", units: 25_00_000, discount: 0.2 },
-];
-
-// Each type of site with its option tile icon.
-export const sites: { label: string; icon: keyof typeof icons; boardExtra: number }[] = [
-  { label: "Factory or plant", icon: "plant", boardExtra: 0 },
-  { label: "Office, hotel, mall or shop", icon: "office", boardExtra: 0.8 },
-];
-
-// Electricity board rate per unit for an industrial site, by state.
-export const states: { name: string; board: number }[] = [
-  { name: "Maharashtra", board: 9.4 },
-  { name: "Karnataka", board: 8.6 },
-  { name: "Tamil Nadu", board: 8.9 },
-  { name: "Gujarat", board: 8.2 },
-  { name: "Telangana", board: 8.8 },
-  { name: "Haryana", board: 8.5 },
-  { name: "Rajasthan", board: 8.7 },
-  { name: "Uttar Pradesh", board: 8.9 },
-];
-
-export type Plan = { name: string; price: number; fixed: boolean };
-
-export const plans: Plan[][] = [
-  [
-    { name: "Daily market power", price: 7.4, fixed: false },
-    { name: "Short-term solar and wind", price: 7.7, fixed: true },
-    { name: "Short-term solar", price: 7.9, fixed: true },
-  ],
-  [
-    { name: "1-year solar", price: 6.9, fixed: true },
-    { name: "1-year wind", price: 7.2, fixed: true },
-    { name: "Daily market power", price: 7.4, fixed: false },
-  ],
-  [
-    { name: "3-year solar", price: 6.4, fixed: true },
-    { name: "3-year solar and wind", price: 6.7, fixed: true },
-    { name: "Solar with battery", price: 7.3, fixed: true },
-  ],
-  [
-    { name: "5-year solar and wind", price: 6.2, fixed: true },
-    { name: "5-year solar", price: 6.3, fixed: true },
-    { name: "Solar with battery", price: 7.1, fixed: true },
-  ],
-  [
-    { name: "15-year solar", price: 5.6, fixed: true },
-    { name: "15-year solar and wind", price: 5.9, fixed: true },
-    { name: "Solar with battery", price: 6.8, fixed: true },
-  ],
-];
+// Prices from src/lib/plans.ts (illustrative).
 
 // Short stop labels for the use slider, in lakh units; the full band shows beside the
 // field's label.
