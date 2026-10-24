@@ -62,7 +62,7 @@ export const fonts = {
 export const typeScale = [
   { name: 'Display', token: 'display', font: 'display', size: 72, mobile: 44, lh: 1.05, weight: 800, track: '-0.02em' },
   { name: 'H1', token: 'h1', font: 'display', size: 48, mobile: 36, lh: 1.1, weight: 700, track: '-0.015em' },
-  { name: 'H2', token: 'h2', font: 'display', size: 32, mobile: 28, lh: 1.15, weight: 700, track: '-0.01em' },
+  { name: 'H2', token: 'h2', font: 'display', size: 36, mobile: 28, lh: 1.15, weight: 800, track: '-0.01em' },
   { name: 'H3', token: 'h3', font: 'display', size: 22, mobile: 20, lh: 1.25, weight: 700, track: '0' },
   { name: 'Body L', token: 'body-l', font: 'body', size: 20, mobile: 18, lh: 1.5, weight: 400, track: '0' },
   { name: 'Body', token: 'body', font: 'body', size: 16, lh: 1.55, weight: 400, track: '0' },
@@ -86,12 +86,13 @@ export const layout = {
 // Corner radii. Pill (999px) is for buttons and fields.
 export const radii = { xs: 4, s: 8, m: 12, l: 16, pill: 999 };
 
-// Shadows, drawn in Near Black. Raised: cards and tiles on hover. Overlay: menus and
-// popovers that float over the page.
+// Shadows, drawn in Near Black. Raised: every card at rest, a quiet lift (a hairline
+// contact shadow, then a soft, wide falloff). Overlay: menus and popovers that float over
+// the page, and a clickable card under the pointer.
 const rgbOf = (hex) => [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16)).join(' ');
 const ink = rgbOf(coreColours.find((c) => c.token === 'near-black').hex);
 export const shadows = {
-  raised: `0 1px 2px rgb(${ink} / 0.04), 0 12px 32px -8px rgb(${ink} / 0.16)`,
+  raised: `0 1px 2px rgb(${ink} / 0.04), 0 4px 12px -4px rgb(${ink} / 0.06), 0 16px 32px -16px rgb(${ink} / 0.12)`,
   overlay: `0 1px 2px rgb(${ink} / 0.04), 0 8px 24px -6px rgb(${ink} / 0.08), 0 32px 64px -16px rgb(${ink} / 0.14)`,
 };
 

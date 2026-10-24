@@ -20,6 +20,11 @@ export const photos = [
   { id: 'spinning-mill', src: '/assets/photos/spinning-mill.jpg', alt: 'Worker tending a machine in a spinning mill', align: 'xMidYMid' },
   { id: 'pylon-lattice', src: '/assets/photos/pylon-lattice.jpg', alt: 'Looking up through the steel lattice of a pylon', align: 'xMidYMid' },
   { id: 'pylon-dusk', src: '/assets/photos/pylon-dusk.jpg', alt: 'Transmission tower and power lines against a violet and peach dusk sky', align: 'xMinYMid' },
+  // Supplied by Kedar; cropped above the trees and fields for the website's home hero.
+  { id: 'pylon-blue-hour', src: '/assets/photos/pylon-blue-hour.jpg', alt: 'A line of transmission towers and poles under a clear blue evening sky', align: 'xMaxYMid' },
+  // Supplied by Kedar for the home page's How we keep your price low cards (cropped 4:5).
+  { id: 'laptop-software', src: '/assets/photos/laptop-software.jpg', alt: 'Person working in energy software on a laptop', align: 'xMidYMid' },
+  { id: 'electrician-rack', src: '/assets/photos/electrician-rack.jpg', alt: 'Technician in a high-visibility vest wiring an electrical cabinet', align: 'xMinYMid' },
 ];
 
 export const treatments = [

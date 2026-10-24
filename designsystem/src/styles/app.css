@@ -95,6 +95,7 @@ img { max-width: 100%; display: block; }
 .tile-stage { display: grid; place-items: center; min-height: 180px; padding: 32px; }
 .tile-stage.tall { min-height: 240px; }
 .stage-light { background: var(--surface); }
+.stage-dark { background: var(--grey-900); color: var(--white); }
 .stripe-stage { padding: 0; position: relative; }
 .tile-meta { padding: 14px 16px; font-size: 16px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 0; }
 .tile-meta strong { font-weight: 600; }

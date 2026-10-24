@@ -5,13 +5,14 @@ import { RollingFigure } from '../components/RollingFigure.jsx';
 import { WhatsAppBadge } from '../components/WhatsAppBadge.jsx';
 import { IconSvg } from '../components/Icon.jsx';
 import { icons } from '../brand/icons.js';
+import { asset } from '../brand/asset.js';
 
 const terms = ['30 days', '1 year', '3 years', '5 years', '15 years'];
 
-function StepSliderDemo() {
+function StepSliderDemo({ inverse = false }) {
   const [v, setV] = useState(1);
   return (
-    <div className="step-slider web-action" style={{ '--steps': terms.length, '--value': v }}>
+    <div className={`step-slider web-action${inverse ? ' step-slider-inverse' : ''}`} style={{ '--steps': terms.length, '--value': v }}>
       <input type="range" min={0} max={terms.length - 1} step={1} value={v} onChange={(e) => setV(+e.target.value)} aria-label="Example contract length" aria-valuetext={terms[v]} />
       <ol className="step-slider-marks">
         {terms.map((t, i) => (
@@ -22,12 +23,12 @@ function StepSliderDemo() {
   );
 }
 
-function OptionTilesDemo() {
+function OptionTilesDemo({ inverse = false }) {
   return (
-    <div className="option-tiles web-action" role="radiogroup" aria-label="Example type of site">
+    <div className={`option-tiles web-action${inverse ? ' option-tiles-inverse' : ''}`} role="radiogroup" aria-label="Example type of site">
       {[['plant', 'Factory or plant'], ['office', 'Office, hotel, mall or shop']].map(([icon, label], i) => (
         <label key={label} className="option-tile">
-          <input type="radio" name="demo-site" defaultChecked={i === 0} />
+          <input type="radio" name={inverse ? 'demo-site-dark' : 'demo-site'} defaultChecked={i === 0} />
           <span className="option-tile-icon"><IconSvg icon={icons[icon]} size={24} /></span>
           {label}
         </label>
@@ -124,10 +125,14 @@ export default function WebComponents() {
         <div className="tile">
           <div className="tile-stage stage-light web-demo"><StepSliderDemo /></div>
         </div>
+        <div className="tile">
+          <div className="tile-stage stage-dark web-demo"><StepSliderDemo inverse /></div>
+        </div>
         <div className="rows spec-inline">
           <div className="row"><span className="row-key">Use</span><p>A choice along an ordered scale with a few fixed stops, such as a contract length or a monthly use band.</p></div>
           <div className="row"><span className="row-key">Shape</span><p>6px pill track, filled in Near Black up to the handle. The handle is a 22px circle with a white edge and the raised shadow, matching the pill shapes of buttons and fields. Labels under each stop; the chosen one is Near Black and bold. On phones only the end labels show, so put the chosen value in words beside the field's label.</p></div>
           <div className="row"><span className="row-key">Code</span><p><code>.step-slider</code> with <code>--steps</code> and <code>--value</code>, around a range input and <code>.step-slider-marks</code> (buttons with <code>--i</code>). Arrow keys step; labels can be clicked.</p></div>
+          <div className="row"><span className="row-key">On dark</span><p>On Grey 900 or darker, add <code>.step-slider-inverse</code>: White fill and handle on a Grey 800 track, labels in Grey 400 with the chosen one White. On a coloured dark panel, set <code>--on-dark-surface</code> (the panel's colour), <code>--on-dark-line</code> and <code>--on-dark-muted</code> on the panel (Violet 900, 800 and 300 on Violet 900).</p></div>
         </div>
       </Section>
 
@@ -135,10 +140,14 @@ export default function WebComponents() {
         <div className="tile">
           <div className="tile-stage stage-light web-demo"><OptionTilesDemo /></div>
         </div>
+        <div className="tile">
+          <div className="tile-stage stage-dark web-demo"><OptionTilesDemo inverse /></div>
+        </div>
         <div className="rows spec-inline">
           <div className="row"><span className="row-key">Use</span><p>One choice from two to four options that read better as pictures, such as a type of site.</p></div>
           <div className="row"><span className="row-key">Shape</span><p>White tile, 64px tall, Grey 200 line, 48px icon tile in Warm White. Chosen: Near Black outline and a Near Black icon tile with a white icon.</p></div>
           <div className="row"><span className="row-key">Code</span><p><code>.option-tiles</code> around <code>.option-tile</code> labels, each holding a radio input and an <code>.option-tile-icon</code>.</p></div>
+          <div className="row"><span className="row-key">On dark</span><p>On Grey 900 or darker, add <code>.option-tiles-inverse</code>: see-through tiles with a Grey 800 line and White text. Chosen: a White outline and a White icon tile with a Near Black icon.</p></div>
         </div>
       </Section>
 
@@ -186,6 +195,36 @@ export default function WebComponents() {
           <div className="row"><span className="row-key">Use</span><p>Questions and answers, such as a page's FAQ.</p></div>
           <div className="row"><span className="row-key">Hover</span><p>The whole item (question and open answer) is White on hover and while open, filling exactly the space between its lines with square edges. The list and its lines reach past the text by the same amount the rows pad in (16px; to the screen edges on phones), so questions stay aligned. The round icon's line darkens on hover.</p></div>
           <div className="row"><span className="row-key">Code</span><p><code>.accordion</code> around <code>details</code>; each <code>summary</code> ends with an <code>.accordion-icon</code> holding the Nucleo plus, which turns into a cross when open. Answer in <code>.accordion-answer</code>.</p></div>
+        </div>
+      </Section>
+
+      <Section title="Image card">
+        <div className="tile">
+          <div className="tile-stage stage-light" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 20, alignItems: 'start' }}>
+            <a href="#image-card" className="image-card image-card-wash" onClick={(e) => e.preventDefault()}>
+              <img src={asset('/assets/photos/laptop-software.jpg')} alt="" />
+              <span className="image-card-body">
+                <span className="image-card-title">Smart energy</span>
+                <span className="image-card-text">Photo, Violet wash, text at the bottom.</span>
+                <span className="image-card-cta" aria-hidden="true">Explore Lumen<IconSvg icon={icons.arrow} size={18} /></span>
+              </span>
+            </a>
+            <a href="#image-card" className="image-card image-card-art image-card-top" style={{ '--image-card-bg': 'var(--electric-coral)', '--image-card-art-crop': '16%' }} onClick={(e) => e.preventDefault()}>
+              <img src={asset('/assets/illustrations/energy-landscape.jpg')} alt="" />
+              <span className="image-card-body">
+                <span className="image-card-title">Energy advisory</span>
+                <span className="image-card-text">Illustration anchored low, text at the top.</span>
+                <span className="image-card-cta" aria-hidden="true">Plan your energy mix<IconSvg icon={icons.arrow} size={18} /></span>
+              </span>
+            </a>
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Use</span><p>A row of tall cards that each lead to a page, where the picture carries the message (the home page's How we keep your price low). Title and one short line, centred, with lots of air, in the manner of Apple's cards. Three to a row on desktop, stacked on phones.</p></div>
+          <div className="row"><span className="row-key">Hover</span><p>The card stays still (no lift, tilt or fade): its raised shadow deepens to the overlay shadow and the picture inside eases in by 4% over 0.8s, and the call to action (<code>.image-card-cta</code>, a White pill with an arrow) fades in; with the text at the bottom, the text slides up to make room. Same on keyboard focus. Touch screens always show the pill. Reduced motion: no zoom or slide, only the fade.</p></div>
+          <div className="row"><span className="row-key">Photo</span><p><code>.image-card-wash</code> adds the Violet wash (Violet 300 multiplied at 45%). Text sits at the bottom over a soft Near Black shade so White text reads.</p></div>
+          <div className="row"><span className="row-key">Illustration</span><p><code>.image-card-art .image-card-top</code>: the art anchored to the bottom, its foot cropped by <code>--image-card-art-crop</code> (a share of the card's height) on its own sky colour (<code>--image-card-bg</code>, a token, e.g. Electric Coral), so the sky runs up behind the text at the top.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>a.image-card</code> holding an <code>img</code> (alt empty: the title names the link) and <code>.image-card-body</code> with <code>.image-card-title</code> (H2 size), <code>.image-card-text</code> and <code>.image-card-cta</code> (aria-hidden: a cue, not a second link). Shape 4:5, radius L, padding 24 / 40px.</p></div>
         </div>
       </Section>
 
@@ -251,7 +290,7 @@ export default function WebComponents() {
         <div className="spec-list spec-inline">
           <div><span>Radius</span><strong>{Object.entries(radii).map(([k, v]) => `${k} ${v}`).join(', ')}</strong></div>
           <div><span>Raised shadow</span><strong>Surfaces (large content blocks) at rest; cards and tiles on hover, lifted 4px</strong></div>
-          <div><span>Surface</span><strong><code>.surface</code>: White, Grey 200 line, radius l, raised shadow. Every large content block on a page uses it. Add <code>.surface-flat</code> to drop the shadow on a block that only holds information (the home page's numbers)</strong></div>
+          <div><span>Surface</span><strong><code>.surface</code>: White, Grey 200 line, radius l, raised shadow. Every large content block on a page uses it. Every card on the home page carries the raised shadow. <code>.surface-flat</code> drops it (the plan finder on Buy cheaper power)</strong></div>
           <div><span>Card</span><strong><code>.card</code>: White, Grey 200 line, radius l, no shadow. For smaller blocks in a row: features, links to pages, plans</strong></div>
           <div><span>Overlay shadow</span><strong>Menus that float over the page</strong></div>
           <div><span>Scrim</span><strong>Near Black at 24% over the page behind an open menu (the header's mega menu)</strong></div>

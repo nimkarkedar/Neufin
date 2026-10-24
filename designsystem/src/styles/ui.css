@@ -639,6 +639,78 @@
   outline-offset: 2px;
 }
 
+/* ---------- Choice controls on dark ----------
+   For a Grey 900 or darker panel. Add .step-slider-inverse
+   to a step slider: White fill and handle on a Grey 800 track, labels in Grey 400 with
+   the chosen one White. Add .option-tiles-inverse to option tiles: see-through tiles
+   with a Grey 800 line and White text; the chosen tile gets a White outline and a White
+   icon tile with a Near Black icon. On a coloured dark panel (such as Violet 900), set
+   --on-dark-surface (the panel's colour, for the handle's edge; default Grey 900),
+   --on-dark-line (default Grey 800) and --on-dark-muted (default Grey 400) on the panel. */
+
+.step-slider-inverse input::-webkit-slider-runnable-track {
+  background: linear-gradient(to right, var(--white) var(--fill), var(--on-dark-line, var(--grey-800)) var(--fill));
+}
+
+.step-slider-inverse input::-moz-range-track {
+  background: linear-gradient(to right, var(--white) var(--fill), var(--on-dark-line, var(--grey-800)) var(--fill));
+}
+
+.step-slider-inverse input::-webkit-slider-thumb {
+  background: var(--white);
+  border-color: var(--on-dark-surface, var(--grey-900));
+}
+
+.step-slider-inverse input::-moz-range-thumb {
+  background: var(--white);
+  border-color: var(--on-dark-surface, var(--grey-900));
+}
+
+.step-slider-inverse input:focus-visible::-webkit-slider-thumb {
+  outline-color: var(--white);
+}
+
+.step-slider-inverse input:focus-visible::-moz-range-thumb {
+  outline-color: var(--white);
+}
+
+.step-slider-inverse .step-slider-marks button {
+  color: var(--on-dark-muted, var(--grey-400));
+}
+
+.step-slider-inverse .step-slider-marks button[aria-current="true"] {
+  color: var(--white);
+}
+
+.option-tiles-inverse .option-tile {
+  background: none;
+  border-color: var(--on-dark-line, var(--grey-800));
+  color: var(--white);
+}
+
+.option-tiles-inverse .option-tile-icon {
+  background: var(--on-dark-line, var(--grey-800));
+  color: var(--white);
+}
+
+.option-tiles-inverse .option-tile:hover {
+  border-color: var(--on-dark-muted, var(--grey-400));
+}
+
+.option-tiles-inverse .option-tile:has(input:checked) {
+  border-color: var(--white);
+  box-shadow: inset 0 0 0 1px var(--white);
+}
+
+.option-tiles-inverse .option-tile:has(input:checked) .option-tile-icon {
+  background: var(--white);
+  color: var(--near-black);
+}
+
+.option-tiles-inverse .option-tile:has(input:focus-visible) {
+  outline-color: var(--white);
+}
+
 /* ---------- Arrow link ----------
    A text link to the next page, with a Nucleo arrow that nudges right on hover.
    Use for "See every plan", "Read story" and the like; not for the main action. */
@@ -757,6 +829,196 @@
   padding: 0 var(--accordion-bleed) 24px;
   margin-top: -4px;
   color: var(--grey-600);
+}
+
+/* ---------- Image card ----------
+   A tall card filled edge to edge by a photo or an illustration, with its title and one
+   short line centred over it, Apple-style: lots of air, no box chrome. The whole card is
+   the link (an <a class="image-card">). Photos take the design system's Violet wash
+   (.image-card-wash) and a soft Near Black shade under the text at the bottom, so White
+   text reads. An illustration (.image-card-art) sits on its own sky colour, set as the
+   card's background (--image-card-bg), anchored to the bottom with its foot cropped by
+   --image-card-art-crop (a share of the card's height), so its sky runs up behind the text
+   at the top; a taller card simply shows more sky. Raised shadow at rest. Under the
+   pointer (or with keyboard focus) the card itself stays still: its shadow deepens to
+   the overlay shadow and the picture inside eases in by 4%, so it reads as a link
+   without moving (no lift or tilt; no zoom with reduced motion).
+
+   The text sits in .image-card-body with a call to action, .image-card-cta: a small White
+   pill with an arrow (a cue, not a second link). Where the pointer can hover, the pill is
+   hidden at rest; on hover or focus it fades in, and on a card with its text at the bottom
+   the text slides up to make room (its space is held below the card's edge at rest, so
+   nothing jumps). Touch screens always show the pill. Reduced motion: it fades, nothing
+   slides. */
+
+.image-card {
+  --image-card-pad: 24px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  padding: var(--image-card-pad);
+  border-radius: var(--radius-l);
+  background: var(--image-card-bg, var(--near-black));
+  box-shadow: var(--shadow-raised);
+  color: var(--white);
+  text-align: center;
+  text-decoration: none;
+  isolation: isolate;
+  transition: box-shadow var(--duration-slow) var(--ease-out);
+}
+
+.image-card:hover,
+.image-card:focus-visible {
+  box-shadow: var(--shadow-overlay);
+}
+
+.image-card-top {
+  justify-content: flex-start;
+}
+
+.image-card > img {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: scale calc(var(--duration-slow) * 2) var(--ease-out);
+}
+
+.image-card:hover > img,
+.image-card:focus-visible > img {
+  scale: 1.04;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image-card:hover > img,
+  .image-card:focus-visible > img {
+    scale: none;
+  }
+}
+
+/* The illustration eases in from its foot, so its horizon stays put under the text. */
+.image-card-art > img {
+  inset: auto 0 calc(-1 * var(--image-card-art-crop, 0%));
+  height: auto;
+  transform-origin: 50% 100%;
+}
+
+/* The Violet wash (Violet 300 multiplied at 45%) and, for text at the bottom, a shade
+   rising from the foot of the card. */
+.image-card-wash::before,
+.image-card:not(.image-card-top)::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.image-card-wash::before {
+  background: var(--violet-300);
+  opacity: 0.45;
+  mix-blend-mode: multiply;
+}
+
+.image-card:not(.image-card-top)::after {
+  top: 45%;
+  background: linear-gradient(transparent, color-mix(in srgb, var(--near-black) 64%, transparent));
+}
+
+.image-card-title {
+  font-family: var(--font-display);
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-lh);
+  font-weight: var(--text-h2-weight);
+  letter-spacing: var(--text-h2-track);
+  text-wrap: balance;
+}
+
+.image-card-text {
+  max-width: 32ch;
+  margin: 8px auto 0;
+  text-wrap: pretty;
+}
+
+.image-card-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: translate var(--duration-slow) var(--ease-out);
+}
+
+.image-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+  margin-top: 20px;
+  padding: 0 18px;
+  border-radius: var(--radius-pill);
+  background: var(--white);
+  color: var(--near-black);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+  transition:
+    opacity var(--duration-slow) var(--ease-out),
+    translate var(--duration-slow) var(--ease-out);
+}
+
+.image-card-cta svg {
+  flex-shrink: 0;
+  transition: translate var(--duration-base) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .image-card-cta {
+    opacity: 0;
+    translate: 0 8px;
+  }
+
+  /* Text at the bottom: the pill's room (40px pill + 20px gap) waits below the edge. */
+  .image-card:not(.image-card-top) .image-card-body {
+    translate: 0 60px;
+  }
+
+  .image-card:hover .image-card-body,
+  .image-card:focus-visible .image-card-body {
+    translate: none;
+  }
+
+  .image-card:hover .image-card-cta,
+  .image-card:focus-visible .image-card-cta {
+    opacity: 1;
+    translate: none;
+  }
+
+  .image-card:hover .image-card-cta svg {
+    translate: 3px 0;
+  }
+}
+
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
+  .image-card:not(.image-card-top) .image-card-body,
+  .image-card-cta,
+  .image-card:hover .image-card-cta svg {
+    translate: none;
+  }
+}
+
+.image-card:focus-visible {
+  outline: 2px solid var(--electric-violet);
+  outline-offset: 3px;
+}
+
+@media (min-width: 1024px) {
+  .image-card {
+    --image-card-pad: 40px;
+  }
 }
 
 /* ---------- Media placeholder ----------
