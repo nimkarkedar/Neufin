@@ -13,6 +13,7 @@ This folder holds everything for the brand and the website. Read this file, then
 | Design system (brand, tokens, components, docs site) | `designsystem/` | [designsystem/CLAUDE.md](designsystem/CLAUDE.md), [designsystem/README.md](designsystem/README.md) |
 | Website (neufin.energy, Next.js) | `website/` | [website/CLAUDE.md](website/CLAUDE.md): rules, stack, Built so far, and the full Decisions log |
 | UI checklist skill (run before any UI task) | `.claude/skills/neufin-ui/` | [SKILL.md](.claude/skills/neufin-ui/SKILL.md) |
+| Pre-commit pass (run before every commit or push; a hook enforces it) | `.claude/skills/neufin-push/` | [SKILL.md](.claude/skills/neufin-push/SKILL.md) |
 | Illustration prompt skill | `.claude/skills/illustration-prompt/` | [SKILL.md](.claude/skills/illustration-prompt/SKILL.md) |
 | Screenshot and contrast tools | `tools/screenshots/` | [README.md](tools/screenshots/README.md) |
 | Client logos (source SVGs) | `Logos/` | processed by `website/scripts/mono-logos.mjs` |
@@ -37,7 +38,7 @@ cd website && npm install && npm run dev        # http://localhost:3000 (reads .
 ```
 
 - Check before showing: `cd website && npx tsc --noEmit && npx eslint src`, then screenshots at 390 and 1440 (tools/screenshots). Before pushing, `npx next build` in `website/` and `npx vite build` in `designsystem/`.
-- Git: one repo, github.com/nimkarkedar/Neufin, branch `main`. Kedar asks before anything is pushed. Commits are split like the history: "Design system: …" and "Website: …".
+- Git: one repo, github.com/nimkarkedar/Neufin, branch `main`. Kedar asks before anything is pushed. Every commit goes through the `neufin-push` skill first: a hook (`.claude/settings.json` running `tools/checks/commit-gate.mjs`) blocks the commit until the skill stamps the changes. Commits are split like the history: "Design system: …" and "Website: …".
 - Previews (GitHub Pages, `gh-pages` branch): `npm run deploy` inside `website/` and inside `designsystem/`. Pushing to git does not update the previews; when Kedar says "push", also deploy both, then check the live page (it takes a minute or two).
   - Website: https://nimkarkedar.github.io/Neufin/website/ (hidden from search engines until launch)
   - Design system: https://nimkarkedar.github.io/Neufin/designsystem/

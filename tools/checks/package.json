@@ -1,0 +1,14 @@
+{
+  "name": "neufin-checks",
+  "private": true,
+  "description": "Pre-push checks for the Neufin website and design system (see .claude/skills/neufin-push).",
+  "type": "module",
+  "scripts": {
+    "audit": "node audit.mjs",
+    "a11y": "node a11y.mjs"
+  },
+  "dependencies": {
+    "axe-core": "4.10.2",
+    "playwright-core": "1.48.2"
+  }
+}

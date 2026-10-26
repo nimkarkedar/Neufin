@@ -4,3 +4,5 @@ dist
 *.log
 .claude/*
 !.claude/skills/
+!.claude/settings.json
+tools/checks/.push-check.json

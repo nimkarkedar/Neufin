@@ -9,6 +9,7 @@ Standing rules and preferences, gathered from his reviews. Most are also in `web
 - He wants pages "slick, cool, modern", "clean as we have been so far", with "the same finish and love" as the home page and Careers. Not "the first obvious option".
 - Leave clear pockets where you need his input (placeholders marked TODO) and list them at the end.
 - He decides; give a recommendation, not a survey. When he asks "what does this mean / just tell, don't make", answer only.
+- Before every commit, run the `neufin-push` skill: remove what's unused, snap everything to the design system, check spacing, accessibility and type variations, document decisions (Kedar, 2026-10-27).
 - He asks before anything goes to git. "Push" means commit, push and deploy both previews, then check the live page.
 - When he says "keep it on local", don't commit or deploy.
 
