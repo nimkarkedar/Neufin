@@ -1,21 +1,96 @@
+/* Careers. Mobile first. The shared cards (sections/Cards), one section head, the
+   Warm White page with one Violet 900 band (How we work) and Violet 100 for Open roles.
+   Each section fits one laptop screen (1440 × 900); rows that don't fit scroll sideways. */
+
+/* ---------- Mission: one sentence, Display size, the text colour ---------- */
+
+.mission {
+  padding-block: var(--section-space);
+}
+
+.missionText {
+  max-width: 20ch;
+  font-family: var(--font-display);
+  font-size: var(--text-display-size);
+  line-height: var(--text-display-lh);
+  font-weight: var(--text-display-weight);
+  letter-spacing: var(--text-display-track);
+  text-wrap: balance;
+}
+
+/* ---------- Why we started Neufin: the founders' photo card beside the letter ---------- */
+
+.story {
+  display: grid;
+  gap: 32px;
+}
+
+.founders :global(.image-card) {
+  aspect-ratio: 1 / 1;
+}
+
 .letter {
   display: grid;
+  align-content: center;
   gap: 16px;
-  margin-top: 20px;
-  color: var(--ink-2);
   font-size: var(--text-body-l-size);
   line-height: var(--text-body-l-lh);
+  text-wrap: pretty;
 }
 
 .sign {
-  color: var(--ink);
+  display: grid;
+  margin-top: 8px;
   font-family: var(--font-display);
   font-weight: 700;
 }
+
+.sign span {
+  color: var(--ink-2);
+  font-family: var(--font-body);
+  font-size: var(--text-small-size);
+  font-weight: 400;
+}
+
+/* ---------- Hiring: the art cards climb, one step higher each, at the Stripe's angle ---------- */
+
+.climb {
+  --drop: 24px;
+}
+
+.climb :global(.scroll-row) {
+  align-items: start;
+}
+
+/* Step 1 sits lowest; each next card starts --drop higher. */
+.step {
+  margin-top: calc((var(--n) - 1 - var(--i)) * var(--drop));
+}
+
+/* ---------- Write to us ---------- */
 
 .write {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   gap: 12px 24px;
+}
+
+@media (min-width: 1024px) {
+  .story {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+  }
+
+  .founders {
+    grid-column: 1 / span 5;
+  }
+
+  .letter {
+    grid-column: 7 / -1;
+  }
+
+  .climb {
+    --drop: 40px;
+  }
 }

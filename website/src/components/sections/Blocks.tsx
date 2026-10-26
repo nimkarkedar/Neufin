@@ -283,39 +283,3 @@ export function Table({
     </div>
   );
 }
-
-// ---------- People: portrait, name, role, LinkedIn ----------
-
-export function People({ items }: { items: { name: string; role: string; href?: string }[] }) {
-  return (
-    <ul className={styles.people}>
-      {items.map((p, i) => (
-        <li key={`${p.name}-${i}`} className={styles.person}>
-          {/* TODO: team photos. */}
-          <Placeholder note="Portrait" icon="people" tone="dawn" ratio="1 / 1" className={styles.portrait} />
-          <span className={styles.personName}>{p.name}</span>
-          <span className={styles.personRole}>{p.role}</span>
-          {p.href && (
-            <a href={p.href} target="_blank" rel="noopener" className={styles.personLink} aria-label={`${p.name} on LinkedIn`}>
-              <IconSvg icon={icons.linkedin} size={20} />
-            </a>
-          )}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-// ---------- Gallery: a row of photo placeholders, the first one wide ----------
-
-export function Gallery({ notes }: { notes: string[] }) {
-  return (
-    <ul className={styles.gallery}>
-      {notes.map((n, i) => (
-        <li key={n}>
-          <Placeholder note={`Photo: ${n}`} icon="image" tone={i % 2 ? "dawn" : "daylight"} className={styles.galleryItem} />
-        </li>
-      ))}
-    </ul>
-  );
-}

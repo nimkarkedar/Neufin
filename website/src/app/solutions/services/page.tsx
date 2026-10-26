@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { Faq, Features, LinkCards, LogoRow, Steps, type Feature } from "@/components/sections/Blocks";
 import { LogoBar } from "@/components/sections/LogoBar";
-import { HeroArt, PageHero, stripeCombos } from "@/components/sections/PageHero";
+import { StripeHeader } from "@/components/sections/StripeHeader";
+// TODO: Neufin's own photo; a library photo stands in.
+import electricianPhoto from "@ds/../public/assets/photos/electrician.jpg";
 import { Section } from "@/components/sections/Section";
 import { otherSolutions } from "@/lib/content";
 import { customerLogos } from "@/lib/logos";
@@ -29,7 +31,7 @@ const details: Omit<Feature, "title" | "link">[] = [
 export default function Services() {
   return (
     <>
-      <PageHero
+      <StripeHeader
         crumbs={[{ label: "Solutions" }, { label: solutions.services.label }]}
         title="Site and electricity board work, done for you"
         lead="From clean power meters to board approvals, we do the site work and the paperwork. Open to businesses that don't buy power from us."
@@ -43,7 +45,7 @@ export default function Services() {
             </Link>
           </>
         }
-        media={<HeroArt combo={stripeCombos.coralOnViolet900} note="Photo: a technician installing a meter" icon="wrench" />}
+        photo={electricianPhoto}
       />
 
       <Section tone="white">

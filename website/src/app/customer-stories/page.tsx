@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { HeroArt, PageHero, stripeCombos } from "@/components/sections/PageHero";
+import { StripeHeader } from "@/components/sections/StripeHeader";
+// TODO: Neufin's own photo; a library photo stands in.
+import factoryFloorPhoto from "@ds/../public/assets/photos/factory-floor.jpg";
 import { Section } from "@/components/sections/Section";
 import { StoryList } from "@/components/stories/StoryList";
 import { pageMeta } from "@/lib/meta";
@@ -14,7 +16,7 @@ export const metadata = pageMeta(
 export default function CustomerStories() {
   return (
     <>
-      <PageHero
+      <StripeHeader
         crumbs={[{ label: customerStories.label }]}
         // TODO: total saved, in crore, for the headline.
         title="₹X crore saved by 30+ businesses that switched"
@@ -24,7 +26,7 @@ export default function CustomerStories() {
             See plans and prices
           </Link>
         }
-        media={<HeroArt combo={stripeCombos.coralOnViolet900} note="Photo: a client's team at their site" icon="people" tone="dawn" />}
+        photo={factoryFloorPhoto}
       />
       <Section id="stories" title="Stories by industry" narrowHead>
         <StoryList />

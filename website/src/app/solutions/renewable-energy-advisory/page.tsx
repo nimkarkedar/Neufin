@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { Checks, Faq, Features, LinkCards, Split, Steps, Table } from "@/components/sections/Blocks";
 import { EmailAction } from "@/components/sections/EmailAction";
-import { HeroArt, PageHero, stripeCombos } from "@/components/sections/PageHero";
+import { StripeHeader } from "@/components/sections/StripeHeader";
+// TODO: Neufin's own photo; a library photo stands in.
+import windHillsPhoto from "@ds/../public/assets/photos/wind-hills.jpg";
 import { Placeholder } from "@/components/sections/Placeholder";
 import { Section } from "@/components/sections/Section";
 import { otherSolutions, publicationsLink } from "@/lib/content";
@@ -17,7 +19,7 @@ export const metadata = pageMeta(
 export default function Advisory() {
   return (
     <>
-      <PageHero
+      <StripeHeader
         crumbs={[{ label: "Solutions" }, { label: solutions.advisory.label }]}
         title="Get a clear plan to move your business to clean power"
         lead="We plan, carry out and track your move to clean power, for your sites and your suppliers."
@@ -29,7 +31,7 @@ export default function Advisory() {
             </Link>
           </>
         }
-        media={<HeroArt combo={stripeCombos.blackOnCoral} note="Illustration: a roadmap from today to 100% clean power" icon="route" tone="dawn" />}
+        photo={windHillsPhoto}
       />
 
       <Section id="problem" tone="white" title="Making a clean power plan is hard" lead="Targets are set at the top. The detail sits in every site and every supplier.">

@@ -1,11 +1,14 @@
+import Image from "next/image";
 import { IconSvg } from "@ds/components/Icon.jsx";
+import face1 from "@/assets/placeholder-faces/face-1.jpg";
 import { icons } from "@ds/brand/icons.js";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { PageHero } from "@/components/sections/PageHero";
-import { Placeholder } from "@/components/sections/Placeholder";
+import { StripeHeader } from "@/components/sections/StripeHeader";
+// TODO: Neufin's own photo; Bengaluru at dusk (Unsplash) stands in.
+import bengaluru from "@ds/../public/assets/photos/bengaluru-night.jpg";
 import { Section } from "@/components/sections/Section";
 import { pageMeta } from "@/lib/meta";
-import { contactLink, site, telHref } from "@/lib/site";
+import { contactLink, office, officeMapEmbed, officeMapHref, site, telHref } from "@/lib/site";
 import styles from "./contact.module.css";
 
 export const metadata = pageMeta(
@@ -17,11 +20,20 @@ export const metadata = pageMeta(
 export default function Contact() {
   return (
     <>
-      <PageHero
+      <StripeHeader
         crumbs={[{ label: "Contact" }]}
-        title="Let's cut your power cost"
-        lead="Buy cheaper power, run it better or plan your clean power targets. One team, across 16 states."
-        actions={
+        title="Cut Energy Cost. On Your Terms."
+        lead="Start paying less for energy today. Reach out to us for a quote."
+        photo={bengaluru}
+        focus="50% 50%"
+        over
+      />
+
+      <section className={styles.reach}>
+        <div className="container grid">
+          <div className={styles.form}>
+            <ContactForm />
+          </div>
           <div className={styles.direct}>
             <p className={styles.directTitle}>Prefer to talk now?</p>
             <a href={telHref} className={styles.line}>
@@ -32,35 +44,55 @@ export default function Contact() {
               <IconSvg icon={icons.envelope} size={20} />
               {site.email}
             </a>
-            <p className={styles.reply}>A named person from our team calls you back, within one business day.</p>
+            <p className={styles.reply}>We reply within one business day.</p>
+            {/* TODO: the named sales lead's photo, name and role; placeholder until Neufin sends them. */}
+            <div className={styles.lead}>
+              <Image src={face1} alt="" width={56} height={56} className={styles.leadPhoto} />
+              <p>
+                <span className={styles.leadName}>Name Surname</span>
+                <span className={styles.leadRole}>Sales lead, Neufin Energy</span>
+              </p>
+            </div>
           </div>
-        }
-        media={<ContactForm />}
-      />
+        </div>
+      </section>
 
-      <Section id="offices" tone="white" title="Where to find us" narrowHead>
-        {/* TODO: office addresses, phone and email per office, and map links. */}
-        <ul className={styles.offices}>
-          {[
-            { name: "Bengaluru (head office)", phone: site.phone, email: site.email },
-            { name: "City", phone: "Phone", email: "Email" },
-          ].map((o) => (
-            <li key={o.name} className={`surface ${styles.office}`}>
-              <Placeholder note="Map" icon="map" tone="daylight" ratio="16 / 9" className={styles.map} />
-              <div className={styles.officeBody}>
-                <h3 className={styles.officeName}>Neufin Energy, {o.name}</h3>
-                <p className={styles.address}>Street address, City, PIN</p>
-                <p className={styles.address}>
-                  {o.phone} · {o.email}
-                </p>
-                <a href="#" className="link-arrow">
-                  View on Google Maps
-                  <IconSvg icon={icons["arrow-up-right"]} size={20} />
+      <Section id="office" tone="white" title="Where to find us">
+        <div className={`surface ${styles.office}`}>
+          <div className={styles.officeBody}>
+            <h3 className={styles.officeName}>Neufin Energy, {office.name}</h3>
+            <address className={styles.address}>
+              {office.address.map((line) => (
+                <span key={line}>{line}</span>
+              ))}
+            </address>
+            <ul className={styles.details}>
+              <li>
+                <a href={telHref}>
+                  <IconSvg icon={icons.phone} size={20} />
+                  {site.phone}
                 </a>
-              </div>
-            </li>
-          ))}
-        </ul>
+              </li>
+              <li>
+                <a href={`mailto:${site.email}`}>
+                  <IconSvg icon={icons.envelope} size={20} />
+                  {site.email}
+                </a>
+              </li>
+            </ul>
+            <a href={officeMapHref} target="_blank" rel="noopener" className="link-arrow">
+              View on Google Maps
+              <IconSvg icon={icons["arrow-up-right"]} size={20} />
+            </a>
+          </div>
+          <iframe
+            className={styles.map}
+            src={officeMapEmbed}
+            title={`Map of Neufin Energy's ${office.name}`}
+            loading="lazy"
+            referrerPolicy="no-referrer-when-downgrade"
+          />
+        </div>
       </Section>
     </>
   );

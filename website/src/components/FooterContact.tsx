@@ -116,8 +116,13 @@ function CallBack() {
           {state === "sending" ? "Sending…" : "Call me back"}
         </button>
       </form>
-      <p id="callback-error" className={styles.error} role="alert">
-        {error}
+      <p id="callback-error" className={`form-field-error ${styles.error}`} role="alert">
+        {error && (
+          <>
+            <IconSvg icon={icons["field-error"]} size={16} />
+            {error}
+          </>
+        )}
       </p>
     </div>
   );

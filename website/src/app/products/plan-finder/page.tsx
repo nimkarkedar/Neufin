@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { PlanList, PlanSuggest } from "@/components/plans/PlanList";
-import { HeroArt, PageHero, stripeCombos } from "@/components/sections/PageHero";
+import { StripeHeader } from "@/components/sections/StripeHeader";
+// TODO: Neufin's own photo; a library photo stands in.
+import pylonLatticePhoto from "@ds/../public/assets/photos/pylon-lattice.jpg";
 import { Section } from "@/components/sections/Section";
 import { pageMeta } from "@/lib/meta";
 import { planFinderHref } from "@/lib/site";
@@ -14,7 +16,7 @@ export const metadata = pageMeta(
 export default function PlanFinderPage() {
   return (
     <>
-      <PageHero
+      <StripeHeader
         crumbs={[{ label: "Products" }, { label: "Plan finder" }]}
         title="Every energy plan, in one place"
         lead="All our plans with a price band. Filter by state, source and contract length, then get a quote for the one that fits."
@@ -23,7 +25,7 @@ export default function PlanFinderPage() {
             Get a quote
           </Link>
         }
-        media={<HeroArt combo={stripeCombos.violet800OnWhite} note="Illustration: plans laid out on a map of India" icon="map" tone="dawn" />}
+        photo={pylonLatticePhoto}
       />
 
       <Section id="plans" title="Find your plan" narrowHead>

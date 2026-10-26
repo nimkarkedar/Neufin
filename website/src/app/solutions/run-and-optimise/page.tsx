@@ -2,7 +2,9 @@ import Link from "next/link";
 import { ModuleTabs } from "@/components/lumen/ModuleTabs";
 import { Faq, LinkCards, Steps } from "@/components/sections/Blocks";
 import { LogoBar } from "@/components/sections/LogoBar";
-import { HeroArt, PageHero, stripeCombos } from "@/components/sections/PageHero";
+import { StripeHeader } from "@/components/sections/StripeHeader";
+// TODO: Neufin's own photo; a library photo stands in.
+import metersPhoto from "@ds/../public/assets/photos/meters.jpg";
 import { Section } from "@/components/sections/Section";
 import { otherSolutions } from "@/lib/content";
 import { customerLogos } from "@/lib/logos";
@@ -21,7 +23,7 @@ const lumenIndustries = ["Hotels and resorts", "Auto", "Offices and coworking", 
 export default function RunAndOptimise() {
   return (
     <>
-      <PageHero
+      <StripeHeader
         crumbs={[{ label: "Solutions" }, { label: solutions.run.label }]}
         title="Pay less for the power you already use"
         lead="Lumen is our software. It tracks every site, bill and agreement, and acts when there's money to save."
@@ -36,7 +38,7 @@ export default function RunAndOptimise() {
             </Link>
           </>
         }
-        media={<HeroArt combo={stripeCombos.warmWhiteOnViolet} note="Product screen: Lumen with every site, bill and alert" icon="chart" tone="dawn" />}
+        photo={metersPhoto}
       />
 
       <Section tone="white">

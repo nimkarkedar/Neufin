@@ -8,33 +8,24 @@
   font-weight: var(--text-h3-weight);
 }
 
-.grid {
-  display: grid;
-  gap: 16px;
-  margin-top: 20px;
-}
-
-.field {
-  display: grid;
-  gap: 6px;
-  min-width: 0;
-}
-
-.label {
+/* "All fields are required", under the title. */
+.required {
+  margin-top: 4px;
   color: var(--ink-2);
   font-size: var(--text-small-size);
   line-height: var(--text-small-lh);
-  font-weight: 600;
 }
 
-.error {
-  color: var(--electric-coral);
-  font-size: var(--text-small-size);
+/* 24px between rows, so each label sits with its own field; 16px between columns. */
+.grid {
+  display: grid;
+  gap: 24px 16px;
+  margin-top: 24px;
 }
 
 .submit {
   width: 100%;
-  margin-top: 24px;
+  margin-top: 32px;
 }
 
 .small {
@@ -46,6 +37,12 @@
 
 .small a {
   color: var(--ink);
+}
+
+@media (min-width: 1024px) {
+  .card {
+    padding: 40px;
+  }
 }
 
 .done {
@@ -85,7 +82,7 @@
 
 @media (min-width: 768px) {
   .card {
-    padding: 36px;
+    padding: 32px;
   }
 
   .grid {

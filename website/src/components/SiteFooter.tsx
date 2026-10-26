@@ -3,7 +3,7 @@ import { Logo } from "@ds/components/Logo.jsx";
 import { Stamp } from "@ds/components/Stamp.jsx";
 import { stripeEdgeClipPath } from "@ds/components/Stripe.jsx";
 import { footerGroups, legalLinks, site, socialLinks } from "@/lib/site";
-import { FooterContact } from "./FooterContact";
+import { FooterContactRow } from "./FooterContactRow";
 import styles from "./SiteFooter.module.css";
 
 const year = new Date().getFullYear();
@@ -17,9 +17,7 @@ const isExternal = (href: string) => href.startsWith("http");
 export function SiteFooter() {
   return (
     <footer className={styles.footer}>
-      <div className={`container ${styles.contactRow}`}>
-        <FooterContact />
-      </div>
+      <FooterContactRow className={styles.contactRow} />
 
       <div className={styles.dark}>
         <div className={styles.field} style={{ clipPath: edge }} aria-hidden="true" />

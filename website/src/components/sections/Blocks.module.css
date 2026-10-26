@@ -152,7 +152,7 @@
 }
 
 .stepNo {
-  color: var(--electric-violet);
+  color: var(--ink-2);
   font-family: var(--font-mono);
   font-size: var(--text-small-size);
   font-weight: 500;
@@ -409,91 +409,5 @@
   .table th,
   .table td {
     padding: 18px 28px;
-  }
-}
-
-/* ---------- People ---------- */
-
-.people {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 32px var(--grid-gutter);
-  list-style: none;
-  padding: 0;
-}
-
-.person {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
-.portrait {
-  min-height: 0;
-  padding: 12px;
-}
-
-.personName {
-  margin-top: 14px;
-  font-family: var(--font-display);
-  font-weight: 700;
-}
-
-.personRole {
-  color: var(--ink-2);
-  font-size: var(--text-small-size);
-}
-
-.personLink {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  display: grid;
-  place-items: center;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: var(--white);
-  color: var(--near-black);
-}
-
-@media (min-width: 768px) {
-  .people {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-}
-
-/* ---------- Gallery ---------- */
-
-.gallery {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: var(--grid-gutter);
-  list-style: none;
-  padding: 0;
-}
-
-.gallery li:first-child {
-  grid-column: 1 / -1;
-}
-
-.galleryItem {
-  height: 100%;
-  min-height: 180px;
-}
-
-@media (min-width: 1024px) {
-  .gallery {
-    grid-template-columns: 2fr 1fr 1fr;
-    grid-template-rows: 220px 220px;
-  }
-
-  .gallery li:first-child {
-    grid-column: 1;
-    grid-row: 1 / span 2;
-  }
-
-  .gallery li:last-child {
-    grid-column: 2 / -1;
   }
 }

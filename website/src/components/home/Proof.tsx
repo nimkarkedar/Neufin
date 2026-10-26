@@ -21,10 +21,12 @@ const sources = [
 // boxes that fill one screen on desktop. Left: the five figures and the CERC licence in a
 // grid of six, then the sources. Right: the saving, a bar chart of the price per unit
 // (the client's Fuse reference) and a link to the customer stories. No animation (Kedar).
+// `fade` (on by default) brings the home page's Violet 100 top down behind the block; About
+// shows the same block without it.
 // TODO: Neufin to confirm the 15% figure.
-export function Proof() {
+export function Proof({ fade = true }: { fade?: boolean }) {
   return (
-    <section id="numbers" className={`container ${styles.section}`} aria-labelledby="numbers-title">
+    <section id="numbers" className={`container ${styles.section}`} data-fade={fade || undefined} aria-labelledby="numbers-title">
       <h2 id="numbers-title" className={styles.title}>
         Lower power costs for 30+ businesses
       </h2>

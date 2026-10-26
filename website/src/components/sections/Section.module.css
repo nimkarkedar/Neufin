@@ -8,6 +8,12 @@
   background: var(--white);
 }
 
+/* Violet 100, with Violet 200 lines (Grey 200 reads dirty on it). */
+.section[data-tone="tint"] {
+  --line: var(--violet-200);
+  background: var(--violet-100);
+}
+
 /* A White band that ends the page runs into the footer's White band, which brings
    its own top padding. */
 :global(main) > .section[data-tone="white"]:last-child {
@@ -56,8 +62,8 @@
   padding-block: 40px;
 }
 
-/* Desktop: title on columns 1–7, the line or link on 8–12, aligned to the bottom. A title
-   with nothing beside it runs across the full width, on one line (Kedar, 2026-10-24). */
+/* Desktop: a title with nothing beside it runs across the full width, on one line (Kedar,
+   2026-10-24); a link alone sits on columns 8–12 at the right end of the title's row. */
 @media (min-width: 1024px) {
   .section[data-compact] {
     padding-block: 48px;
@@ -76,6 +82,16 @@
 
   .head:not(:has(.aside)) .title {
     grid-column: 1 / -1;
+  }
+
+  /* A line goes under the title on the left, never in the right pocket, where it looked
+     hanging (Kedar, 2026-10-26, as in the inner page header). */
+  .head:has(.lead) .title {
+    grid-column: 1 / -1;
+  }
+
+  .head:has(.lead) .aside {
+    grid-column: 1 / span 7;
   }
 
   .head[data-narrow] .title {

@@ -1,40 +1,94 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
 import { normaliseIndianMobile } from "@/lib/phone";
 import { legalLinks, planFinderHref } from "@/lib/site";
 import styles from "./ContactForm.module.css";
 
-// The quote and call-back form. Built from the design system's text and select fields.
+// The quote and call-back form. Built from the design system's form field, text and select
+// fields. What and where come first, then who and how to reach them, two to a row from
+// tablets. Errors show when the form is sent (focus moves to the first one), then update as
+// the person types; each is one line saying how to fix it.
 // TODO: send to the forms backend (see src/lib/callback.ts); for now it only shows the
 // thank-you state.
 const states = ["Maharashtra", "Karnataka", "Tamil Nadu", "Gujarat", "Telangana", "Haryana", "Rajasthan", "Uttar Pradesh", "More than one state"];
 const needs = ["Buy cheaper power", "A Lumen demo", "Renewable energy advisory", "A services quote", "Sell power", "Something else"];
 
+type Key = "name" | "company" | "email" | "phone";
+const order: Key[] = ["name", "company", "email", "phone"];
+
+const check: Record<Key, (v: string) => string> = {
+  name: (v) => (v.trim().length < 2 ? "Enter your full name." : ""),
+  company: (v) => (v.trim().length < 2 ? "Enter your company name." : ""),
+  email: (v) => (!v.trim() ? "Enter your work email." : /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v.trim()) ? "" : "Enter an email like you@company.com."),
+  phone: (v) => (!v.trim() ? "Enter your mobile number." : normaliseIndianMobile(v) ? "" : "Enter a 10-digit Indian mobile number."),
+};
+
+function Field({ id, label, error, children }: { id: string; label: string; error?: string; children: ReactNode }) {
+  return (
+    <div className="form-field">
+      <label htmlFor={id} className="form-field-label">
+        {label}
+      </label>
+      {children}
+      {error && (
+        <p id={`${id}-error`} className="form-field-error">
+          <IconSvg icon={icons["field-error"]} size={16} />
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
+
 export function ContactForm() {
   const [sent, setSent] = useState<string | null>(null);
-  const [phoneError, setPhoneError] = useState(false);
-  const emailRef = useRef<HTMLInputElement>(null);
+  const [errors, setErrors] = useState<Partial<Record<Key, string>>>({});
+  const [tried, setTried] = useState(false);
+  const form = useRef<HTMLFormElement>(null);
   const privacy = legalLinks.find((l) => l.label.startsWith("Privacy"))!;
 
   // Carry over an email typed into a "Talk to us" or "Get a quote" field elsewhere.
   useEffect(() => {
     const email = new URLSearchParams(window.location.search).get("email");
-    if (email && emailRef.current && !emailRef.current.value) emailRef.current.value = email;
+    const input = form.current?.elements.namedItem("email") as HTMLInputElement | null;
+    if (email && input && !input.value) input.value = email;
   }, []);
+
+  // After the first send, a field's message updates as the person types or leaves it.
+  const recheck = (key: Key, value: string) => {
+    if (tried) setErrors((e) => ({ ...e, [key]: check[key](value) }));
+  };
 
   const submit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
-    if (!normaliseIndianMobile(String(data.get("phone") ?? ""))) {
-      setPhoneError(true);
+    const found = Object.fromEntries(order.map((k) => [k, check[k](String(data.get(k) ?? ""))])) as Record<Key, string>;
+    setErrors(found);
+    setTried(true);
+    const first = order.find((k) => found[k]);
+    if (first) {
+      (e.currentTarget.elements.namedItem(first) as HTMLInputElement).focus();
       return;
     }
     setSent(String(data.get("need")));
   };
+
+  // Props shared by the text inputs: the error wiring for screen readers.
+  const wire = (key: Key) => ({
+    id: `contact-${key}`,
+    name: key,
+    className: "text-field-input",
+    required: true,
+    "aria-invalid": errors[key] ? true : undefined,
+    "aria-describedby": errors[key] ? `contact-${key}-error` : undefined,
+    onChange: (ev: React.ChangeEvent<HTMLInputElement>) => recheck(key, ev.target.value),
+    onBlur: (ev: React.FocusEvent<HTMLInputElement>) => recheck(key, ev.target.value),
+  });
+  const invalid = (key: Key) => (errors[key] ? true : undefined);
 
   if (sent) {
     return (
@@ -57,73 +111,54 @@ export function ContactForm() {
   }
 
   return (
-    <form className={`surface ${styles.card}`} onSubmit={submit} noValidate={false}>
+    <form ref={form} className={`surface ${styles.card}`} onSubmit={submit} noValidate>
       <h2 className={styles.title}>Tell us what you need</h2>
+      <p className={styles.required}>All fields are required.</p>
       <div className={styles.grid}>
-        <label className={styles.field}>
-          <span className={styles.label}>Name</span>
-          <span className="text-field">
-            <input className="text-field-input" name="name" autoComplete="name" placeholder="Full name" required />
-          </span>
-        </label>
-        <label className={styles.field}>
-          <span className={styles.label}>Company</span>
-          <span className="text-field">
-            <input className="text-field-input" name="company" autoComplete="organization" placeholder="Company name" required />
-          </span>
-        </label>
-        <label className={styles.field}>
-          <span className={styles.label}>Work email</span>
-          <span className="text-field">
-            <input ref={emailRef} className="text-field-input" type="email" name="email" autoComplete="email" placeholder="you@company.com" required />
-          </span>
-        </label>
-        <label className={styles.field}>
-          <span className={styles.label}>Mobile</span>
-          <span className="text-field" data-invalid={phoneError || undefined}>
-            <span className="text-field-prefix">+91</span>
-            <input
-              className="text-field-input"
-              type="tel"
-              inputMode="numeric"
-              name="phone"
-              autoComplete="tel-national"
-              placeholder="98765 43210"
-              aria-invalid={phoneError}
-              aria-describedby={phoneError ? "phone-error" : undefined}
-              onChange={() => setPhoneError(false)}
-              required
-            />
-          </span>
-          {phoneError && (
-            <span id="phone-error" className={styles.error}>
-              Enter a 10-digit Indian mobile number.
-            </span>
-          )}
-        </label>
-        <label className={styles.field}>
-          <span className={styles.label}>State</span>
+        <Field id="contact-need" label="What do you need?">
           <span className="select-field">
-            <span className="select-field-icon">
-              <IconSvg icon={icons["field-location"]} size={18} />
-            </span>
-            <select name="state" defaultValue={states[0]}>
-              {states.map((s) => (
-                <option key={s}>{s}</option>
-              ))}
-            </select>
-          </span>
-        </label>
-        <label className={styles.field}>
-          <span className={styles.label}>What do you need?</span>
-          <span className="select-field">
-            <select name="need" defaultValue={needs[0]}>
+            <select id="contact-need" name="need" defaultValue={needs[0]}>
               {needs.map((n) => (
                 <option key={n}>{n}</option>
               ))}
             </select>
           </span>
-        </label>
+        </Field>
+        <Field id="contact-state" label="State">
+          <span className="select-field">
+            <span className="select-field-icon">
+              <IconSvg icon={icons["field-location"]} size={18} />
+            </span>
+            <select id="contact-state" name="state" defaultValue={states[0]}>
+              {states.map((s) => (
+                <option key={s}>{s}</option>
+              ))}
+            </select>
+          </span>
+        </Field>
+        <Field id="contact-name" label="Name" error={errors.name}>
+          <span className="text-field" data-invalid={invalid("name")}>
+            <input {...wire("name")} autoComplete="name" placeholder="Full name" />
+          </span>
+        </Field>
+        <Field id="contact-company" label="Company" error={errors.company}>
+          <span className="text-field" data-invalid={invalid("company")}>
+            <input {...wire("company")} autoComplete="organization" placeholder="Company name" />
+          </span>
+        </Field>
+        <Field id="contact-email" label="Work email" error={errors.email}>
+          <span className="text-field" data-invalid={invalid("email")}>
+            <input {...wire("email")} type="email" autoComplete="email" placeholder="you@company.com" />
+          </span>
+        </Field>
+        <Field id="contact-phone" label="Mobile" error={errors.phone}>
+          <span className="text-field" data-invalid={invalid("phone")}>
+            <span className="text-field-prefix" aria-hidden="true">
+              +91
+            </span>
+            <input {...wire("phone")} type="tel" inputMode="numeric" autoComplete="tel-national" placeholder="98765 43210" />
+          </span>
+        </Field>
       </div>
       <button type="submit" className={`btn btn-accent ${styles.submit}`}>
         Get a call back

@@ -3,7 +3,9 @@ import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
 import { PlanFinder } from "@/components/sections/PlanFinder";
 import { Checks, Faq, Features, LinkCards, Steps, Table } from "@/components/sections/Blocks";
-import { HeroArt, PageHero, stripeCombos } from "@/components/sections/PageHero";
+import { StripeHeader } from "@/components/sections/StripeHeader";
+// TODO: Neufin's own photo; a library photo stands in.
+import pylonSkyPhoto from "@ds/../public/assets/photos/pylon-sky.jpg";
 import { Section } from "@/components/sections/Section";
 import { latest, otherSolutions, resourcesLink } from "@/lib/content";
 import { pageMeta } from "@/lib/meta";
@@ -18,7 +20,7 @@ export const metadata = pageMeta(
 export default function BuyCheaperPower() {
   return (
     <>
-      <PageHero
+      <StripeHeader
         crumbs={[{ label: "Solutions" }, { label: solutions.buy.label }]}
         title="Cut your power bill by up to 40%"
         lead="Pick your contract length, source and size. We find the plan, sign it and get power flowing in about 3 months."
@@ -36,7 +38,7 @@ export default function BuyCheaperPower() {
             </Link>
           </>
         }
-        media={<HeroArt combo={stripeCombos.yellowOnViolet900} note="Photo: a solar plant at a factory, with a live price card" icon="sun" />}
+        photo={pylonSkyPhoto}
       />
 
       <Section

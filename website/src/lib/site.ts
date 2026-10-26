@@ -28,7 +28,7 @@ export const site = {
   description:
     "Neufin finds the right power deal for your business, gets it running and keeps the numbers in check.",
   // Email and phone from the website structure doc.
-  email: "contact@neufin.co",
+  email: "contact@neufin.energy",
   phone: "+91 98251 30769",
   // TODO: dummy WhatsApp number and social links; replace before launch.
   // WhatsApp number in international format, digits only.
@@ -37,6 +37,15 @@ export const site = {
   instagram: "https://www.instagram.com/neufin.energy",
   x: "https://x.com/neufinenergy",
 };
+
+// Neufin's one office, from its Google Maps listing (Kedar, 2026-10-25).
+export const office = {
+  name: "Mumbai office",
+  address: ["Lodha Supremus, 710 A", "near Lodha New Cuffe Parade, Wadala", "Mumbai, Maharashtra 400037"],
+};
+const officeQuery = encodeURIComponent(`Neufin Energy, ${office.address.join(", ")}, India`);
+export const officeMapHref = `https://www.google.com/maps/search/?api=1&query=${officeQuery}`;
+export const officeMapEmbed = `https://www.google.com/maps?q=${officeQuery}&output=embed`;
 
 // Menu, from the "Neufin website structure" doc (the source of truth for content).
 export const solutions = {

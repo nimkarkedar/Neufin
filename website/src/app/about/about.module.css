@@ -1,62 +1,204 @@
-.prose {
-  display: grid;
-  gap: 16px;
-  margin-top: 20px;
+/* About. Mobile first. The shared cards (sections/Cards) and the standard section head,
+   on the Warm White page with a White investors band, the one Violet 900 band (the
+   licence); the footer's contact card closes the page. */
+
+/* A small label over a group, the same as the logo bar's. */
+.groupLabel {
+  margin-bottom: 12px;
   color: var(--ink-2);
-  font-size: var(--text-body-l-size);
-  line-height: var(--text-body-l-lh);
 }
+
+/* ---------- Investors: angels in one White box, a cell each, lines edge to edge ---------- */
 
 .angels {
+  margin-top: 40px;
+}
+
+.angelGrid {
+  --logo-size: 32px;
   display: grid;
-  gap: 8px 32px;
-  margin-top: 28px;
-  list-style: none;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
   padding: 0;
+  list-style: none;
+  overflow: hidden;
+}
+
+.angel {
+  display: grid;
+  align-content: start;
+  gap: 20px;
+  padding: 24px 20px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
   color: var(--ink-2);
 }
 
-.angels strong {
-  margin-right: 6px;
+.angelName {
+  display: block;
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.angelRole {
+  display: block;
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+}
+
+/* ---------- Licence: one White box on the band, the facts beside the CERC seal ---------- */
+
+/* The box keeps the light colour roles on the dark band. */
+.licence {
+  --ink: var(--near-black);
+  --ink-2: var(--grey-600);
+  --line: var(--grey-200);
+  position: relative;
+  display: grid;
+  overflow: hidden;
   color: var(--ink);
 }
 
-.licence {
+.licenceBody {
   display: grid;
+  align-content: start;
   gap: 24px;
-  align-items: start;
+  padding: 24px 20px;
 }
 
-.licenceIcon {
-  display: grid;
-  place-items: center;
-  width: 72px;
-  height: 72px;
-  border-radius: var(--radius-l);
-  background: var(--signal-yellow);
-  color: var(--near-black);
-}
-
-.licenceText {
-  max-width: 56ch;
-  margin: 12px 0 8px;
-  color: var(--ink-2);
+.licenceLead {
+  max-width: 48ch;
   font-size: var(--text-body-l-size);
   line-height: var(--text-body-l-lh);
+  text-wrap: pretty;
+}
+
+.facts {
+  display: grid;
+  border-top: 1px solid var(--line);
+}
+
+.facts div {
+  display: grid;
+  gap: 2px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.facts dt {
+  color: var(--ink-2);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+}
+
+.facts dd {
+  margin: 0;
+  font-weight: 600;
+}
+
+/* The CERC seal: the numbers block's ring stamp, large, in Electric Violet, tilted and cut
+   by the box's edge, as the plan finder's stamp is: the bottom on phones, the right side
+   from desktop. */
+.seal {
+  position: relative;
+  min-height: 200px;
+  color: var(--electric-violet);
+}
+
+.sealPos {
+  position: absolute;
+  right: -32px;
+  bottom: -150px;
+  rotate: -10deg;
+}
+
+.emblem {
+  width: 42%;
+  height: auto;
+}
+
+/* ---------- Press: a list like Open roles ---------- */
+
+.press {
+  margin-top: 40px;
+}
+
+.pressList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  overflow: hidden;
+}
+
+.pressItem {
+  display: grid;
+  gap: 16px;
+  padding: 20px;
+  border-bottom: 1px solid var(--line);
+}
+
+.pressItem:last-child {
+  border-bottom: 0;
+}
+
+.pressTitle {
+  margin-top: 10px;
+  font-family: var(--font-display);
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  font-weight: var(--text-h3-weight);
+}
+
+.pressMeta {
+  margin-top: 4px;
+  color: var(--ink-2);
 }
 
 @media (min-width: 768px) {
-  .angels {
-    grid-template-columns: repeat(3, max-content);
+  .angelGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .licence {
-    grid-template-columns: auto 1fr;
-    gap: 32px;
+  .angel {
+    padding: 32px;
+  }
+
+  .licenceBody {
+    padding: 32px;
+  }
+
+  .pressItem {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    padding: 24px 32px;
   }
 }
 
-.logoGroups {
-  display: grid;
-  gap: 28px;
+@media (min-width: 1024px) {
+  .angelGrid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .angel {
+    padding: 32px 28px;
+  }
+
+  .licence {
+    grid-template-columns: 7fr 5fr;
+  }
+
+  .licenceBody {
+    padding: 40px;
+  }
+
+  .seal {
+    min-height: 0;
+  }
+
+  .sealPos {
+    top: 50%;
+    right: -88px;
+    bottom: auto;
+    translate: 0 -50%;
+  }
 }

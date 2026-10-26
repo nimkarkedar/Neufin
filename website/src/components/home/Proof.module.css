@@ -35,7 +35,7 @@
    the rest of the page is Warm White (Kedar). One layer behind the boxes, reaching up
    past the section and out to the screen's edges (border-image outset adds no sideways
    scroll). */
-.cards::before {
+.section[data-fade] .cards::before {
   content: "";
   position: absolute;
   inset: -2000px 0 66% 0;

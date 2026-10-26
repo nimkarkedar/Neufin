@@ -1,7 +1,9 @@
 import Link from "next/link";
 import { Faq, Features, Stats, Steps } from "@/components/sections/Blocks";
 import { LogoBar } from "@/components/sections/LogoBar";
-import { HeroArt, PageHero, stripeCombos } from "@/components/sections/PageHero";
+import { StripeHeader } from "@/components/sections/StripeHeader";
+// TODO: Neufin's own photo; a library photo stands in.
+import solarSitePhoto from "@ds/../public/assets/photos/solar-site.jpg";
 import { Section } from "@/components/sections/Section";
 import { customerLogos, supplierLogos } from "@/lib/logos";
 import { pageMeta } from "@/lib/meta";
@@ -17,7 +19,7 @@ export const metadata = pageMeta(
 export default function SellEnergy() {
   return (
     <>
-      <PageHero
+      <StripeHeader
         crumbs={[{ label: "Solutions" }, { label: solutions.sell.label }]}
         title="Sell your power to businesses that need it"
         lead="For power producers, solar and wind developers, builders and channel partners. We bring credit-checked business buyers and sign under our own trading licence."
@@ -26,7 +28,7 @@ export default function SellEnergy() {
             Talk to us
           </Link>
         }
-        media={<HeroArt combo={stripeCombos.yellowOnViolet} note="Photo: a solar or wind plant" icon="solar-panel" />}
+        photo={solarSitePhoto}
       />
 
       <Section id="proof" tone="dark" title="Developers sell to businesses across India through Neufin">

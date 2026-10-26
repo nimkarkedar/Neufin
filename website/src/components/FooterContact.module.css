@@ -142,22 +142,9 @@
   font-weight: 500;
 }
 
-.error {
-  font-size: var(--text-small-size);
-}
-
+/* The design system's .form-field-error; space only when there is a message. */
 .error:not(:empty) {
-  margin-top: 12px;
-}
-
-.error:not(:empty)::before {
-  content: "";
-  display: inline-block;
-  width: 8px;
-  height: 8px;
-  margin-right: 8px;
-  background: var(--electric-coral);
-  vertical-align: 1px;
+  margin-top: 8px;
 }
 
 @media (min-width: 768px) {

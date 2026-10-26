@@ -5,7 +5,8 @@ import { Segmented } from "@ds/components/Segmented.jsx";
 import { site } from "@/lib/site";
 import styles from "./Roles.module.css";
 
-// Open roles, filtered by team with the design system's segmented control.
+// Open roles, grouped by team and filtered with the design system's segmented control.
+// Each role shows its team, title, experience, place and type, with View role and Apply.
 // TODO: real roles (title, experience, place, type) and their pages.
 const teams = ["Engineering", "Business development", "Commercial", "Trading", "Product", "Marketing", "Finance"];
 
@@ -25,6 +26,10 @@ export function Roles() {
               <p className={styles.meta}>N+ years · Bengaluru · Full-time</p>
             </div>
             <div className={styles.actions}>
+              {/* TODO: link to the role's own page once roles exist. */}
+              <a href="#roles" className="link-arrow">
+                View role
+              </a>
               <a href={`mailto:${site.email}?subject=${encodeURIComponent(`Application: ${t} role`)}`} className="btn btn-primary">
                 Apply
               </a>
