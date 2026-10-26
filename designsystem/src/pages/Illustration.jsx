@@ -14,10 +14,9 @@ const spots = [
   { file: 'value-customer.png', label: 'Power lines running into a factory: customer obsession' },
   { file: 'value-solution.png', label: 'Lines winding round a block to reach a building: a solution mindset' },
   { file: 'value-respect.png', label: 'Two flyovers meeting at one point: respect' },
-  { file: 'hire-call.png', label: 'A video call at a desk: screening call' },
-  { file: 'hire-case.png', label: 'Working through charts at a laptop: case study' },
-  { file: 'hire-deep-dive.png', label: 'Presenting charts to a small room: deep-dive interview' },
-  { file: 'hire-founders.png', label: 'Three people talking at a table: founders round' },
+  { file: 'hire-call.png', label: 'A phone handset: screening call' },
+  { file: 'hire-case.png', label: 'A notepad: case study' },
+  { file: 'hire-deep-dive.png', label: 'A presentation board with a chart: deep-dive interview' },
   { file: 'step-bill.png', label: 'A power bill on bands of power: share your bills' },
   { file: 'step-quote.png', label: 'A bill with a 48-hour timer: get a quote' },
   { file: 'step-agreement.png', label: 'A pen signing a page: sign the agreement' },
@@ -97,7 +96,7 @@ export default function Illustration() {
         </div>
       </Section>
 
-      <Section title="Spot illustrations" intro="Round spots on Electric Coral, one idea each, for cards that carry a single thought. In use on the website's Careers page: How we work (one per value, on Electric Coral) Our hiring process (one per step, on Signal Yellow), and Buy cheaper power's steps (on Electric Coral). Transparent PNG, shown at 160 to 200px.">
+      <Section title="Spot illustrations" intro="Round spots on Electric Coral, one idea each, for cards that carry a single thought. In use on the website's Careers page: How we work (one per value, on Electric Coral) Our hiring process (icon-like, Signal Yellow on Electric Violet), and Buy cheaper power's steps (on Electric Coral). Transparent PNG, shown at 160 to 200px.">
         <div className="insp-grid">
           {spots.map((s) => (
             <figure key={s.file} className="insp-item">

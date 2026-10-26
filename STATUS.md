@@ -2,6 +2,10 @@
 
 Where the project stands on 2026-10-26, when the work moved from Kedar's personal Claude account to the company account. Update this file when a page's state changes.
 
+## Phase 1 (Kedar, 2026-10-27)
+
+Only these pages: Home, Solutions (Buy cheaper energy, Run and optimise, RE advisory, Services, Sell energy), Energy plans, Blog, Publications, Customer stories, About, Careers, Contact us. The nav and footer link only to these. Energy plans is `/products/plan-finder`; Blog and Publications are still to build.
+
 ## Pages
 
 | Page | Route | State |
@@ -9,10 +13,10 @@ Where the project stands on 2026-10-26, when the work moved from Kedar's persona
 | Home | `/` | Locked (2026-10-24). Change only on Kedar's request. |
 | Contact | `/contact` | Locked: text-on-photo header (Bengaluru at dusk), form with validation, one office card with map. |
 | Careers | `/careers` | Built from the brief as one family. Photos and illustrations from Kedar; placeholders for Life at Neufin and Events. |
-| About | `/about` | Built from the brief: story art cards, home numbers block, team row, investors, licence band, partners and press, posts. Ends on the footer contact card. |
+| About | `/about` | Built from the brief: story art cards, home numbers block, team row, the four institutional investors, partners and press, posts. Licence section removed. Ends on the footer contact card. |
 | Customer stories | `/customer-stories` | Header done (mill photo, brief copy). Story cards still the old style (pastel placeholders, hover lift): next to rebuild on the shared cards, keeping the industry filter. |
-| Buy cheaper power | `/solutions/buy-cheaper-power` | Built from the brief, with Kedar's plan and step illustrations. |
-| Run and optimise | `/solutions/run-and-optimise` | Built from the brief: module rows, Lumen industries block, how-it-works picture. Lumen screens are placeholders. |
+| Buy cheaper power | `/solutions/buy-cheaper-power` | Built from the brief: plans panel and 2 × 2 illustrated cards, plan finder (no energy charges row), story cards shared with Customer stories, steps with duration tags, FAQ, other solutions. |
+| Run and optimise | `/solutions/run-and-optimise` | Built from the brief: module rows, Lumen industries block, animated how-it-works diagram on coral (LumenFlow). Lumen screens are placeholders. |
 | Renewable energy advisory | `/solutions/renewable-energy-advisory` | Old template (StripeHeader with the photo under the text, old blocks). To rebuild from the brief. |
 | Services | `/solutions/services` | Old template. To rebuild. |
 | Sell energy | `/solutions/sell-energy` | Old template. To rebuild. |
@@ -29,7 +33,7 @@ The pattern for rebuilding a page: read its brief table, reuse the shared blocks
 - **Accent button twice on Buy cheaper power** (header View prices and plan finder Get a quote): rule is one per page.
 - **Footer contact card vs briefs' final CTAs:** briefs ask for View prices, Book a demo or an email field in the close; the shared card has none of them. Any addition goes into the shared card for every page.
 - **Wording:** "Spot, from the exchange" (jargon; maybe "Daily market power"); two-beat titles kept from the brief ("India's energy decade. Your opportunity.", "On the ground. At the table.", "₹X crore saved. 30+ businesses already switched.", "Generate more. Pay less."); "How we work: our values".
-- **Content from Neufin:** real numbers (₹X crore, X% per industry, 225 GW source), customer stories, team portraits and LinkedIn links, which investor logos are funds vs angels' companies and the angels' names, licence number, validity and PDF, press coverage, blog posts, FAQ answers, the named sales and supply lead, Lumen screens, Neufin's own photos for every header, roles for Careers.
+- **Content from Neufin:** real numbers (₹X crore, X% per industry, 225 GW source), customer stories, team portraits and LinkedIn links, angel investors' names (their logos stay off the site until then), licence number, validity and PDF, press coverage, blog posts, FAQ answers, the named sales and supply lead, Lumen screens, Neufin's own photos for every header, roles for Careers.
 - **Infrastructure:** forms and call-backs are not connected (`website/src/lib/callback.ts`), Book a demo has no scheduling flow, Solutions and Products breadcrumbs have no hub pages.
 - **Accessibility gap:** field borders (Grey 200) are 1.3:1 against White, under WCAG 1.4.11's 3:1.
 - **Image sizes:** several supplied illustrations and the founders' photo are small (252–372px); larger exports would be sharper on retina screens.

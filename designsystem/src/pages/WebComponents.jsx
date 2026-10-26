@@ -217,11 +217,12 @@ export default function WebComponents() {
             <a className="link-arrow" href="#arrow" onClick={(e) => e.preventDefault()}>See every plan<IconSvg icon={icons.arrow} size={20} /></a>
             <span className="tag">Guide</span>
             <span className="tag">Hotels and resorts</span>
+            <span className="tag">30 minutes<span className="tag-dot" /></span>
           </div>
         </div>
         <div className="rows spec-inline">
           <div className="row"><span className="row-key">Arrow link</span><p>A text link to the next page, with the Nucleo arrow that nudges right on hover. Never the main action. <code>.link-arrow</code>.</p></div>
-          <div className="row"><span className="row-key">Tag</span><p>A small label for a content type or a group. Sentence case, never uppercase, not clickable. <code>.tag</code>.</p></div>
+          <div className="row"><span className="row-key">Tag</span><p>A small label for a content type, a group, a step or a duration. It hugs its text, and can take a 14px icon or a live dot (<code>.tag-dot</code>, Energy Mint with a soft pulsing glow, still with reduced motion) for a duration. Sentence case, never uppercase, not clickable. <code>.tag</code>.</p></div>
         </div>
       </Section>
 
