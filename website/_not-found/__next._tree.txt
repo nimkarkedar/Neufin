@@ -1,4 +1,4 @@
-:HL["/Neufin/website/_next/static/chunks/1gsext7k5q-59.css","style"]
+:HL["/Neufin/website/_next/static/chunks/0rwgd84n2_aru.css","style"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"/_not-found","h":64,"c":"$Q2"}]]
-0:{"b":"ewiCKCsD02zlLg1kZI6hk","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"U1ir7odiESt0XQwclqRv-","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
