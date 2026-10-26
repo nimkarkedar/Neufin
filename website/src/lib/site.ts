@@ -69,15 +69,16 @@ export const industries: NavLink[] = [
   { label: "Retail chains", href: "/industries/retail-chains" },
 ];
 
+// The services, in the brief's order and with its names (Solutions: Services, All services).
+// TODO: the service pages (and one per state, for search) don't exist yet.
 export const services: NavLink[] = [
-  { label: "Clean power meters (ABT)", href: "/solutions/services/abt-metering" },
-  { label: "Meter installation", href: "/solutions/services/meter-installation" },
-  { label: "Meter shifting", href: "/solutions/services/meter-shifting" },
-  { label: "Connection name change", href: "/solutions/services/name-change" },
-  { label: "Load increase or decrease", href: "/solutions/services/load-change" },
-  { label: "Maximum demand change", href: "/solutions/services/contract-demand-change" },
-  { label: "Clean power approvals", href: "/solutions/services/open-access-approvals" },
-  { label: "Rooftop solar net metering", href: "/solutions/services/net-metering" },
+  { label: "ABT metering", href: "/solutions/services/abt-metering" },
+  { label: "Smart meter installation", href: "/solutions/services/smart-meter-installation" },
+  { label: "Move your existing meter", href: "/solutions/services/meter-shifting" },
+  { label: "Electricity bill name change", href: "/solutions/services/name-change" },
+  { label: "Contract demand change", href: "/solutions/services/contract-demand-change" },
+  { label: "Open access approvals", href: "/solutions/services/open-access-approvals" },
+  { label: "Net metering", href: "/solutions/services/net-metering" },
 ];
 
 // Energy plans: every plan in one place (the plan finder page). Phase 1 (Kedar, 2026-10-27).
@@ -93,7 +94,6 @@ export const lumenModules: (MenuItem & { icon: IconName; description: string })[
 
 export const blogs: NavLink = { label: "Blog", href: "/blog" };
 export const publications: NavLink = { label: "Publications", href: "/publications" };
-export const tariffCalculator: NavLink = { label: "Savings calculator", href: "/tools/savings-calculator" };
 export const customerStories: NavLink = { label: "Customer stories", href: "/customer-stories" };
 export const about: NavLink = { label: "About", href: "/about" };
 export const careers: NavLink = { label: "Careers", href: "/careers" };

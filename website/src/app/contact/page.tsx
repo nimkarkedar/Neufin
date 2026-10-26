@@ -1,8 +1,6 @@
-import Image from "next/image";
 import { IconSvg } from "@ds/components/Icon.jsx";
-import face1 from "@/assets/placeholder-faces/face-1.jpg";
 import { icons } from "@ds/brand/icons.js";
-import { ContactForm } from "@/components/contact/ContactForm";
+import { ContactReach } from "@/components/contact/ContactReach";
 import { StripeHeader } from "@/components/sections/StripeHeader";
 // TODO: Neufin's own photo; Bengaluru at dusk (Unsplash) stands in.
 import bengaluru from "@ds/../public/assets/photos/bengaluru-night.jpg";
@@ -30,30 +28,8 @@ export default function Contact() {
       />
 
       <section className={styles.reach}>
-        <div className="container grid">
-          <div className={styles.form}>
-            <ContactForm />
-          </div>
-          <div className={styles.direct}>
-            <p className={styles.directTitle}>Prefer to talk now?</p>
-            <a href={telHref} className={styles.line}>
-              <IconSvg icon={icons.phone} size={20} />
-              {site.phone}
-            </a>
-            <a href={`mailto:${site.email}`} className={styles.line}>
-              <IconSvg icon={icons.envelope} size={20} />
-              {site.email}
-            </a>
-            <p className={styles.reply}>We reply within one business day.</p>
-            {/* TODO: the named sales lead's photo, name and role; placeholder until Neufin sends them. */}
-            <div className={styles.lead}>
-              <Image src={face1} alt="" width={56} height={56} className={styles.leadPhoto} />
-              <p>
-                <span className={styles.leadName}>Name Surname</span>
-                <span className={styles.leadRole}>Sales lead, Neufin Energy</span>
-              </p>
-            </div>
-          </div>
+        <div className="container">
+          <ContactReach />
         </div>
       </section>
 

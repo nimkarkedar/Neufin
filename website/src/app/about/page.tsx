@@ -2,12 +2,14 @@ import { ScrollRow } from "@ds/components/ScrollRow.jsx";
 // TODO: Neufin's own photo; a library photo stands in (credit in the design system's photo list).
 import pylonMist from "@ds/../public/assets/photos/pylon-mist-delhi.jpg";
 import { Proof } from "@/components/home/Proof";
-import { ArtCard, PhotoCard, cardLayouts } from "@/components/sections/Cards";
+import { VerticalCard, cardLayouts } from "@/components/sections/Cards";
 import { LogoBar } from "@/components/sections/LogoBar";
 import { Section } from "@/components/sections/Section";
 import { StripeHeader } from "@/components/sections/StripeHeader";
 import { investorLogos, supplierLogos } from "@/lib/logos";
+import { angels, team } from "@/lib/people";
 import { pageMeta } from "@/lib/meta";
+import { posts } from "@/lib/content";
 import { about, blogs } from "@/lib/site";
 import styles from "./about.module.css";
 
@@ -19,46 +21,19 @@ export const metadata = pageMeta(
 
 // About tells Neufin's story in the brief's order (the "Neufin website structure" doc,
 // About), with the same finish as Careers and the home page: the text-on-photo header, the
-// standard H2 head, the shared photo and art cards, the home page's numbers block as it is,
+// standard H2 head, the shared vertical cards, the home page's numbers block as it is,
 // then the footer's contact card as the last step, as on
 // the home page.
-
-// Our story, told in three beats from the brief's paragraph. TODO: Kedar's spot illustrations.
-const story = [
-  {
-    title: "Demand for power is soaring",
-    text: "Data centres, factories and fast-growing industry have sharply raised India’s appetite for energy.",
-    note: "Illustration: demand rising",
-  },
-  {
-    title: "Businesses can’t keep up",
-    text: "Markets and technology have moved on, but businesses still can’t buy and sell power at the market’s speed.",
-    note: "Illustration: a gap opening",
-  },
-  {
-    title: "Our software closes the gap",
-    text: "We give businesses of every size the choice of how and when they buy power.",
-    note: "Illustration: bands meeting",
-  },
-];
-
-// TODO: the team: a portrait, name, role and LinkedIn link for each person.
-const team: { name: string; role: string; linkedin?: string }[] = [
-  { name: "Rahool Gadkari", role: "Co-founder" },
-  { name: "Rushil Noronha", role: "Co-founder" },
-  ...Array.from({ length: 4 }, () => ({ name: "Name", role: "Role" })),
-];
-
 
 // TODO: press coverage: publication, headline, date and link.
 const press = [1, 2, 3].map(() => ({ outlet: "Publication", headline: "Headline of the article about Neufin", date: "Month 2026" }));
 
-// TODO: company posts from the blog (Sanity).
-const posts = [
-  { title: "Why we started Neufin", text: "Company · Month 2026", note: "Cover image" },
-  { title: "Funding news", text: "News · Month 2026", note: "Cover image" },
-  { title: "A new partnership", text: "News · Month 2026", note: "Cover image" },
-];
+const initials = (name: string) =>
+  name
+    .split(" ")
+    .map((w) => w[0])
+    .slice(0, 2)
+    .join("");
 
 export default function About() {
   return (
@@ -72,14 +47,17 @@ export default function About() {
         over
       />
 
-      <Section id="story" title="Our story" lead="We launched Neufin Energy in September 2024 to make energy work for businesses.">
-        <ul className={cardLayouts.three}>
-          {story.map((s) => (
-            <li key={s.title}>
-              <ArtCard {...s} />
-            </li>
-          ))}
-        </ul>
+      {/* The brief's story paragraph in plain words, read as one story (Kedar, 2026-10-27).
+          The founders' sentence leads The people behind Neufin below. */}
+      <Section id="story" title="Our story">
+        <div className={styles.story}>
+          <p className={styles.storyText}>
+            We launched Neufin Energy in September 2024 to make energy work for businesses. Data centres, factories and fast-growing
+            industry have sharply raised India’s appetite for power. Markets and technology have moved on, but most businesses still
+            can’t buy and sell power at the market’s speed. Our software closes that gap, so businesses of every size choose how and
+            when they buy power.
+          </p>
+        </div>
       </Section>
 
       <Proof fade={false} />
@@ -90,15 +68,29 @@ export default function About() {
         lead="Founded in Bengaluru by childhood friends Rahool Gadkari and Rushil Noronha, who have built and grown businesses from the ground up."
       >
         <ScrollRow label="The team" className={cardLayouts.row}>
-          {team.map((p, i) => (
-            <PhotoCard key={i} note="Portrait" title={p.name} text={p.role} href={p.linkedin} cta="LinkedIn" />
+          {team.map((p) => (
+            <VerticalCard key={p.name} look="photo" image={p.photo} focus={p.focus} title={p.name} text={p.role} href={p.linkedin} label="on LinkedIn" />
           ))}
         </ScrollRow>
       </Section>
 
       <Section id="investors" tone="white" title="Backed by leading investors">
-        {/* Institutional investors. Angel investors appear only with their names (TODO: Neufin to send). */}
-        <LogoBar logos={investorLogos} />
+        <LogoBar label="Institutional investors" logos={investorLogos} />
+        {/* Angels by name and company, never by company logo alone (Neufin, 2026-10-27). */}
+        <div className={styles.angels}>
+          <p className={styles.groupLabel}>Angel investors</p>
+          <ul className={styles.angelList}>
+            {angels.map((a) => (
+              <li key={a.name} className={styles.angel}>
+                <span className="avatar">{a.photo ? <img src={a.photo.src} alt="" /> : initials(a.name)}</span>
+                <span>
+                  <span className={styles.angelName}>{a.name}</span>
+                  <span className={styles.angelRole}>{a.role}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
       </Section>
 
       <Section id="partners" title="Partners and press">
@@ -125,9 +117,9 @@ export default function About() {
 
       <Section id="latest" title="Neu from Neufin Energy" link={{ label: "All posts", href: blogs.href }}>
         <ul className={cardLayouts.three}>
-          {posts.map((p) => (
+          {[posts.story, posts.preSeed, posts.greentrade].map((p) => (
             <li key={p.title}>
-              <PhotoCard {...p} href={blogs.href} cta="Read the post" />
+              <VerticalCard {...p} />
             </li>
           ))}
         </ul>

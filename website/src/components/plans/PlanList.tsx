@@ -1,62 +1,108 @@
 "use client";
 
 import Link from "next/link";
-import { useId, useState } from "react";
+import { useId } from "react";
 import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
 import { Segmented } from "@ds/components/Segmented.jsx";
+import { usePlanChoices } from "@/lib/planChoices";
 import styles from "./PlanList.module.css";
 
-// Plan finder: filter every plan by state, site type, source and term.
-// TODO: Neufin's real plan list with price bands per state; the eight states.
+// Energy plans (/products/plan-finder): every plan, filtered by state, business type, yearly
+// use, term and investment, from the brief's Energy plans table.
 
 type IconName = keyof typeof icons;
 type Source = "Solar" | "Wind" | "Solar and wind" | "Battery" | "Daily market";
-type Term = "short" | "mid" | "long";
+type Term = "spot" | "short" | "mid" | "long";
 
-const plans: { name: string; source: Source; icon: IconName; bestFor: string; term: string; t: Term; min: string; feature: string }[] = [
-  { name: "30-day market power", source: "Daily market", icon: "chart", bestFor: "short or changing needs", term: "From 30 days", t: "short", min: "0.5 MWp", feature: "No lock-in" },
-  { name: "1-year solar", source: "Solar", icon: "sun", bestFor: "plants that run by day", term: "1 year", t: "mid", min: "0.5 MWp", feature: "Fixed daytime price" },
-  { name: "1-year wind", source: "Wind", icon: "wind", bestFor: "sites that run round the clock", term: "1 year", t: "mid", min: "0.5 MWp", feature: "Evening and night power" },
-  { name: "3-year solar", source: "Solar", icon: "sun", bestFor: "plants and offices that run by day", term: "3 years", t: "mid", min: "0.5 MWp", feature: "Fixed for 3 years" },
-  { name: "5-year solar and wind", source: "Solar and wind", icon: "leaf", bestFor: "sites with steady day and night use", term: "5 years", t: "mid", min: "X MWp", feature: "Solar and wind together" },
-  { name: "Solar with battery", source: "Battery", icon: "battery", bestFor: "sites with high evening use", term: "5 to 15 years", t: "long", min: "X MWp", feature: "Evening peak covered" },
-  { name: "15-year solar", source: "Solar", icon: "sun", bestFor: "the lowest fixed price over the long run", term: "15 years", t: "long", min: "X MWp", feature: "Lowest fixed price" },
-  { name: "15-year solar and wind", source: "Solar and wind", icon: "leaf", bestFor: "round-the-clock sites that want a steady price", term: "15 years", t: "long", min: "X MWp", feature: "Round-the-clock supply" },
+// The source's picture: a solar panel, a windmill, a battery, the market's chart. A plan with
+// more than one source shows each, overlapping (Kedar, 2026-10-27).
+const sourceIcons: Record<Source, IconName[]> = {
+  Solar: ["solar-panel"],
+  Wind: ["windmill"],
+  "Solar and wind": ["solar-panel", "windmill"],
+  Battery: ["solar-panel", "battery"],
+  "Daily market": ["chart"],
+};
+
+// Each plan carries what the brief lists: name, who it suits, the landed price per unit, the
+// term, the smallest size, the smallest yearly use and whether it needs an investment.
+// TODO: Neufin's real plans (the brief's "exact plans" list), with landed prices per state,
+// minimum yearly units (`minYearly`, in units; null until known, so the use filter shows every
+// plan) and which plans need an investment (a guess for now: the 15-year plans).
+const plans: { name: string; source: Source; bestFor: string; term: string; t: Term; min: string; minYearly: number | null; investment: boolean }[] = [
+  { name: "30-day market power", source: "Daily market", bestFor: "Short or changing needs", term: "30 days", t: "spot", min: "0.5 MWp", minYearly: null, investment: false },
+  { name: "1-year solar", source: "Solar", bestFor: "Plants that run by day", term: "1 year", t: "mid", min: "0.5 MWp", minYearly: null, investment: false },
+  { name: "1-year wind", source: "Wind", bestFor: "Sites that run in the evening and at night", term: "1 year", t: "mid", min: "0.5 MWp", minYearly: null, investment: false },
+  { name: "3-year solar", source: "Solar", bestFor: "Plants and offices that run by day", term: "3 years", t: "mid", min: "0.5 MWp", minYearly: null, investment: false },
+  { name: "5-year solar and wind", source: "Solar and wind", bestFor: "Sites with steady day and night use", term: "5 years", t: "mid", min: "X MWp", minYearly: null, investment: false },
+  { name: "Solar with battery", source: "Battery", bestFor: "Sites with a high evening peak", term: "5 to 15 years", t: "long", min: "X MWp", minYearly: null, investment: false },
+  { name: "15-year solar", source: "Solar", bestFor: "The lowest fixed price over the long run", term: "15 years", t: "long", min: "X MWp", minYearly: null, investment: true },
+  { name: "15-year solar and wind", source: "Solar and wind", bestFor: "Round-the-clock sites that want a steady price", term: "15 years", t: "long", min: "X MWp", minYearly: null, investment: true },
 ];
 
 const states = ["Maharashtra", "Karnataka", "Tamil Nadu", "Gujarat", "Telangana", "Haryana", "Rajasthan", "Uttar Pradesh"];
-const siteTypes = ["Factory or plant", "Office, hotel, mall or shop"];
-const sources: ("All" | Source)[] = ["All", "Solar", "Wind", "Solar and wind", "Battery", "Daily market"];
-const terms: { label: string; key: Term | null }[] = [
-  { label: "Any length", key: null },
-  { label: "Under 1 year", key: "short" },
-  { label: "1 to 5 years", key: "mid" },
-  { label: "Over 5 years", key: "long" },
+// The brief's two business types; the value is what goes in the link.
+const types: { value: string; label: string; icon: IconName }[] = [
+  { value: "industrial", label: "Industrial: factories, plants", icon: "plant" },
+  { value: "commercial", label: "Commercial: offices, hotels, malls", icon: "office" },
+];
+// Yearly use, the home plan finder's monthly bands times twelve. `max` in units.
+const uses = [
+  { value: "any", label: "Any amount", max: Infinity },
+  { value: "under-12l", label: "Under 12 lakh units", max: 12_00_000 },
+  { value: "12l-60l", label: "12 to 60 lakh units", max: 60_00_000 },
+  { value: "60l-2.4cr", label: "60 lakh to 2.4 crore units", max: 2_40_00_000 },
+  { value: "over-2.4cr", label: "Over 2.4 crore units", max: Infinity },
+];
+const terms: { value: Term | "all"; label: string }[] = [
+  { value: "all", label: "All" },
+  { value: "spot", label: "Spot" },
+  { value: "short", label: "Under 1 year" },
+  { value: "mid", label: "1–5 years" },
+  { value: "long", label: "5+ years" },
+];
+const investments = [
+  { value: "any", label: "Any" },
+  { value: "none", label: "None needed" },
+  { value: "yes", label: "With investment" },
 ];
 
-// One choice as the design system's segmented control, under a visible legend.
-function Chips<T extends string>({ legend, options, value, onChange }: { legend: string; options: T[]; value: T; onChange: (v: T) => void }) {
+const icon = (name: IconName, size = 20) => <IconSvg icon={icons[name]} size={size} />;
+const pick = <T extends { value: string }>(list: T[], value: string | undefined) => list.find((o) => o.value === value) ?? list[0];
+
+// One choice as the design system's segmented control, stacked in the sidebar on desktop.
+function Choice({ legend, options, value, onChange }: { legend: string; options: { value: string; label: string; icon?: IconName }[]; value: string; onChange: (v: string) => void }) {
   const name = useId();
   return (
     <fieldset className={styles.field}>
       <legend className={styles.label}>{legend}</legend>
-      <Segmented name={name} options={options} value={options.indexOf(value)} onChange={(i: number) => onChange(options[i])} />
+      <Segmented
+        name={name}
+        options={options.map((o) => o.label)}
+        value={Math.max(0, options.findIndex((o) => o.value === value))}
+        onChange={(i: number) => onChange(options[i].value)}
+        icons={options.some((o) => o.icon) ? options.map((o) => o.icon && <IconSvg key={o.icon} icon={icons[o.icon]} size={18} />) : undefined}
+        small
+        stacked
+      />
     </fieldset>
   );
 }
 
-function Select({ label, icon, options, value, onChange }: { label: string; icon: IconName; options: string[]; value: string; onChange: (v: string) => void }) {
+function Select({ label, icon: name, options, value, onChange }: { label: string; icon: IconName; options: { value: string; label: string }[]; value: string; onChange: (v: string) => void }) {
   return (
     <label className={styles.field}>
       <span className={styles.label}>{label}</span>
       <span className="select-field">
         <span className="select-field-icon">
-          <IconSvg icon={icons[icon]} size={18} />
+          <IconSvg icon={icons[name]} size={18} />
         </span>
         <select value={value} onChange={(e) => onChange(e.target.value)}>
           {options.map((o) => (
-            <option key={o}>{o}</option>
+            <option key={o.value} value={o.value}>
+              {o.label}
+            </option>
           ))}
         </select>
       </span>
@@ -64,101 +110,118 @@ function Select({ label, icon, options, value, onChange }: { label: string; icon
   );
 }
 
-export function PlanList() {
-  const [state, setState] = useState(states[0]);
-  const [site, setSite] = useState(siteTypes[0]);
-  const [source, setSource] = useState<(typeof sources)[number]>("All");
-  const [term, setTerm] = useState(terms[0].label);
-
-  const termKey = terms.find((t) => t.label === term)?.key;
-  const shown = plans.filter((p) => (source === "All" || p.source === source) && (!termKey || p.t === termKey));
-
-  return (
-    <div>
-      <div className={`surface ${styles.filters}`}>
-        <div className={styles.selects}>
-          <Select label="Your state" icon="field-location" options={states} value={state} onChange={setState} />
-          <Select label="Type of site" icon={site === siteTypes[0] ? "field-plant" : "field-office"} options={siteTypes} value={site} onChange={setSite} />
-        </div>
-        <Chips legend="Source" options={sources} value={source} onChange={setSource} />
-        <Chips legend="Contract length" options={terms.map((t) => t.label)} value={term} onChange={setTerm} />
-      </div>
-
-      <p className={styles.count} aria-live="polite">
-        {shown.length} {shown.length === 1 ? "plan" : "plans"} for a {site.toLowerCase()} in {state}. Prices are indicative bands; your quote has the final price.
-      </p>
-
-      {shown.length ? (
-        <ul className={styles.list}>
-          {shown.map((p) => (
-            <li key={p.name} className={`card ${styles.plan}`}>
-              <div className={styles.planHead}>
-                <span className={styles.planIcon}>
-                  <IconSvg icon={icons[p.icon]} size={24} />
-                </span>
-                <span className="tag">{p.source}</span>
-              </div>
-              <h3 className={styles.planName}>{p.name}</h3>
-              <p className={styles.bestFor}>Best for {p.bestFor}.</p>
-              <dl className={styles.facts}>
-                <div>
-                  <dt>Term</dt>
-                  <dd>{p.term}</dd>
-                </div>
-                <div>
-                  <dt>Smallest size</dt>
-                  <dd>{p.min}</dd>
-                </div>
-                <div>
-                  <dt>Price per unit</dt>
-                  <dd className={styles.price}>₹X.XX to ₹Y.YY</dd>
-                </div>
-                <div>
-                  <dt>Key feature</dt>
-                  <dd>{p.feature}</dd>
-                </div>
-              </dl>
-              <Link href="/contact" className={`btn btn-secondary ${styles.planCta}`}>
-                Get a quote
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className={styles.empty}>No plans match these filters. Try another source or contract length.</p>
-      )}
-    </div>
-  );
+// The page title, naming the state once the visitor has given one (brief: "When state is
+// known: Every energy plan in [state], with the price").
+export function PlanTitle() {
+  const [choices] = usePlanChoices();
+  return <>{choices.state ? `Every energy plan in ${choices.state}, with the price` : "Every energy plan, with the price"}</>;
 }
 
-// "Not sure?": two questions, one suggested plan.
-const usesForSuggest = ["Under 50,000 units a month", "50,000 to 2 lakh units a month", "Over 2 lakh units a month"];
-const runs = [
-  { label: "Daytime only", plan: "Solar", why: "Daytime power at a fixed price matches when your site runs." },
-  { label: "Round the clock", plan: "Solar and wind", why: "Wind keeps power coming in the evening and at night." },
-  { label: "High use in the evening", plan: "Solar with battery", why: "A battery stores solar for your evening peak." },
-];
+// The plan list: filters in a narrow sticky column on the left from desktop, the plans on the
+// right as full-width rows whose figures line up, so they can be compared down the page. On
+// phones the filters come first and each plan is a card. Filters start from the visitor's
+// link or last visit (usePlanChoices). Get a quote shows on the first plan, and on the others
+// while hovered or focused (always on touch screens).
+export function PlanList() {
+  const [choices, choose] = usePlanChoices();
+  const state = states.includes(choices.state ?? "") ? choices.state! : states[0];
+  const type = pick(types, choices.type);
+  const use = pick(uses, choices.use);
+  const term = pick(terms, choices.term);
+  const investment = pick(investments, choices.investment);
 
-export function PlanSuggest() {
-  const [use, setUse] = useState(usesForSuggest[1]);
-  const [run, setRun] = useState(runs[0].label);
-  const pick = runs.find((r) => r.label === run)!;
-  const term = use === usesForSuggest[0] ? "a 1-year" : "a 3 to 5-year";
+  const shown = plans.filter(
+    (p) =>
+      (term.value === "all" || p.t === term.value) &&
+      (investment.value === "any" || p.investment === (investment.value === "yes")) &&
+      (p.minYearly === null || p.minYearly <= use.max),
+  );
+  const quote = `/contact/?${new URLSearchParams({ state, ...(choices.email ? { email: choices.email } : {}) })}`;
+
   return (
-    <div className={`surface ${styles.suggest}`}>
-      <div className={styles.suggestInputs}>
-        <Select label="Monthly use" icon="field-gauge" options={usesForSuggest} value={use} onChange={setUse} />
-        <Select label="When does your site run?" icon="clock" options={runs.map((r) => r.label)} value={run} onChange={setRun} />
-      </div>
-      <div className={styles.suggestAnswer} aria-live="polite">
-        <p className={styles.label}>We suggest</p>
-        <p className={styles.suggestPlan}>
-          {pick.plan}, on {term} plan
+    <div className={styles.layout}>
+      <aside className={styles.filters} aria-label="Filter plans">
+        <Select label="Your state" icon="field-location" options={states.map((s) => ({ value: s, label: s }))} value={state} onChange={(v) => choose({ state: v })} />
+        <Choice legend="Business type" options={types} value={type.value} onChange={(v) => choose({ type: v })} />
+        <Select label="Yearly use" icon="field-gauge" options={uses} value={use.value} onChange={(v) => choose({ use: v })} />
+        <Choice legend="Contract length" options={terms} value={term.value} onChange={(v) => choose({ term: v })} />
+        <Choice legend="Investment" options={investments} value={investment.value} onChange={(v) => choose({ investment: v })} />
+      </aside>
+
+      <div className={styles.results}>
+        <p className={styles.count} aria-live="polite">
+          Showing {shown.length} {shown.length === 1 ? "plan" : "plans"}. Prices are indicative bands; your quote has the final price.
         </p>
-        <p className={styles.bestFor}>{pick.why}</p>
-        <Link href="/contact" className="btn btn-primary">
-          Get a quote for this plan
-        </Link>
+
+        {shown.length ? (
+          <ul className={styles.list}>
+            {shown.map((p) => (
+              <li key={p.name} className={`card ${styles.plan}`}>
+                <div className={styles.who}>
+                  <span className={styles.sources} aria-label={p.source} role="img">
+                    {sourceIcons[p.source].map((n) => (
+                      <span key={n} className={styles.sourceIcon}>
+                        {icon(n)}
+                      </span>
+                    ))}
+                  </span>
+                  <div>
+                    <h3 className={styles.name}>{p.name}</h3>
+                    <p className={styles.note}>{p.bestFor}</p>
+                  </div>
+                </div>
+                <dl className={styles.facts}>
+                  {/* Price above the term (Kedar): what it costs, then for how long. */}
+                  <div className={styles.pair}>
+                    <dt className="visually-hidden">Landed price per unit</dt>
+                    <dd className={styles.price}>
+                      <span className={styles.note}>From</span> ₹X.XX <span className={styles.note}>a unit</span>
+                    </dd>
+                    <dt className="visually-hidden">Contract length</dt>
+                    <dd className={styles.fact}>
+                      {icon("calendar")}
+                      {p.term}
+                    </dd>
+                  </div>
+                  {/* How big: the smallest plant, then the smallest yearly use. */}
+                  <div className={styles.pair}>
+                    <dt className="visually-hidden">Smallest size</dt>
+                    <dd className={styles.fact}>
+                      {icon("bolt")}
+                      <span>
+                        <span className={styles.note}>From</span> {p.min}
+                      </span>
+                    </dd>
+                    <dt className="visually-hidden">Smallest yearly use</dt>
+                    <dd className={styles.fact}>
+                      {icon("meter")}
+                      <span>
+                        X lakh units <span className={styles.note}>a year</span>
+                      </span>
+                    </dd>
+                  </div>
+                  <div className={styles.pair}>
+                    <dt className="visually-hidden">Investment</dt>
+                    <dd className={styles.fact}>
+                      {icon("coins")}
+                      {p.investment ? "Investment needed" : "No investment"}
+                    </dd>
+                  </div>
+                </dl>
+                <Link href={quote} className={`btn btn-secondary ${styles.cta}`}>
+                  Get a quote
+                </Link>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div className={`card ${styles.empty}`}>
+            <p>We don&apos;t have a plan that matches these filters yet. Send us your details and we&apos;ll find one for you.</p>
+            <Link href="#not-sure" className="btn btn-primary">
+              Get a quote
+            </Link>
+          </div>
+        )}
       </div>
     </div>
   );

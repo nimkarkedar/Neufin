@@ -8,6 +8,28 @@
   color: var(--ink-2);
 }
 
+/* ---------- Our story: one paragraph on columns 1–8, as Buy cheaper power's plans box ---------- */
+
+.storyText {
+  font-family: var(--font-display);
+  font-size: var(--text-h3-size);
+  line-height: var(--text-body-l-lh);
+  font-weight: 500;
+  text-wrap: pretty;
+}
+
+@media (min-width: 1024px) {
+  .story {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+  }
+
+  .storyText {
+    grid-column: 1 / span 8;
+  }
+}
+
 /* ---------- Press: a list like Open roles ---------- */
 
 .press {
@@ -53,3 +75,51 @@
   }
 }
 
+
+/* ---------- Angel investors: avatar, name and company, in a grid ---------- */
+
+.angels {
+  margin-top: 40px;
+}
+
+.angelList {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px var(--grid-gutter);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Phones: the avatar sits above the name, so names keep the column's width. */
+.angel {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.angelName {
+  display: block;
+  font-weight: 600;
+}
+
+.angelRole {
+  display: block;
+  color: var(--ink-2);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+}
+
+@media (min-width: 768px) {
+  .angelList {
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 24px var(--grid-gutter);
+  }
+
+  .angel {
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+  }
+}

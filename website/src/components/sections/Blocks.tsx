@@ -1,67 +1,13 @@
-import type { StaticImageData } from "next/image";
-import Link from "next/link";
 import type { CSSProperties, ReactNode } from "react";
 import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
 import type { BrandLogo } from "@/lib/logos";
-import { Placeholder, type IconName, type PlaceholderTone } from "./Placeholder";
 import styles from "./Blocks.module.css";
 
 // Content blocks shared by every page. Each is built from design system pieces:
 // tokens, .surface, .tag, .link-arrow, .accordion, Nucleo icons and placeholders.
 
 const cols = (n: number) => ({ "--cols": n }) as CSSProperties;
-
-const Arrow = () => <IconSvg icon={icons.arrow} size={20} />;
-
-// ---------- Feature cards: icon, title, a line, optional link ----------
-
-export type Feature = { icon: IconName; title: string; text: string; link?: { label: string; href: string } };
-
-export function Features({ items, columns = 3 }: { items: Feature[]; columns?: 2 | 3 | 4 }) {
-  return (
-    <ul className={styles.features} style={cols(columns)}>
-      {items.map((f) => (
-        <li key={f.title} className={`card ${styles.feature}`}>
-          <span className={styles.iconTile}>
-            <IconSvg icon={icons[f.icon]} size={24} />
-          </span>
-          <h3 className={styles.cardTitle}>{f.title}</h3>
-          <p className={styles.cardText}>{f.text}</p>
-          {f.link && (
-            <Link href={f.link.href} className={`link-arrow ${styles.cardLink}`}>
-              {f.link.label}
-              <Arrow />
-            </Link>
-          )}
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-// ---------- Numbered steps, optionally with a visual ----------
-
-export type Step = { title: string; text?: string; visual?: { note: string; icon?: IconName; tone?: PlaceholderTone } };
-
-export function Steps({ items }: { items: Step[] }) {
-  return (
-    <ol className={styles.steps} style={cols(items.length)}>
-      {items.map((s, i) => (
-        <li key={s.title} className={styles.step}>
-          <span className={styles.stepNo} aria-hidden="true">
-            {String(i + 1).padStart(2, "0")}
-          </span>
-          <h3 className={styles.stepTitle}>{s.title}</h3>
-          {s.text && <p className={styles.cardText}>{s.text}</p>}
-          {s.visual && (
-            <Placeholder note={s.visual.note} icon={s.visual.icon} tone={s.visual.tone} ratio="4 / 3" className={styles.stepVisual} />
-          )}
-        </li>
-      ))}
-    </ol>
-  );
-}
 
 // ---------- Big numbers ----------
 
@@ -158,57 +104,6 @@ export function Faq({ items }: { items: Qa[] }) {
     </div>
   );
 }
-
-// ---------- Link cards: other solutions, resources, stories ----------
-
-export type LinkCard = {
-  title: string;
-  text?: string;
-  href: string;
-  tag?: string;
-  // A real photo when there is one (`image`, described by `note`); a placeholder until then.
-  cover?: { note: string; icon?: IconName; tone?: PlaceholderTone; image?: StaticImageData };
-  meta?: { value: string; label: string }[];
-  linkLabel?: string;
-};
-
-export function LinkCards({ items, columns = 3 }: { items: LinkCard[]; columns?: 2 | 3 | 4 }) {
-  return (
-    <ul className={styles.linkCards} style={cols(columns)}>
-      {items.map((c, i) => (
-        <li key={`${c.title}-${i}`}>
-          <Link href={c.href} className={`card ${styles.linkCard}`}>
-            {c.cover?.image ? (
-              <img src={c.cover.image.src} alt={c.cover.note} className={`${styles.cover} ${styles.coverImg}`} />
-            ) : (
-              c.cover && <Placeholder note={c.cover.note} icon={c.cover.icon} tone={c.cover.tone} ratio="16 / 10" className={styles.cover} />
-            )}
-            <span className={styles.linkBody}>
-              {c.tag && <span className="tag">{c.tag}</span>}
-              <span className={styles.cardTitle}>{c.title}</span>
-              {c.text && <span className={styles.cardText}>{c.text}</span>}
-              {c.meta && (
-                <span className={styles.meta}>
-                  {c.meta.map((m) => (
-                    <span key={m.label}>
-                      <strong>{m.value}</strong> {m.label}
-                    </span>
-                  ))}
-                </span>
-              )}
-              <span className={`link-arrow ${styles.cardLink}`}>
-                {c.linkLabel ?? "Learn more"}
-                <Arrow />
-              </span>
-            </span>
-          </Link>
-        </li>
-      ))}
-    </ul>
-  );
-}
-
-// ---------- A two-column split: text and a visual ----------
 
 export function Split({ children, visual, flip = false }: { children: ReactNode; visual: ReactNode; flip?: boolean }) {
   return (

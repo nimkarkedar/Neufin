@@ -1,11 +1,12 @@
 // Content used on more than one page. Page-only content lives in the page file.
 // Wording follows the "Neufin website structure" doc and the prototype in plain words.
-import type { LinkCard } from "@/components/sections/Blocks";
-import { blogs, publications, solutions, tariffCalculator } from "./site";
-import electrician from "@ds/../public/assets/photos/electrician.jpg";
-import meters from "@ds/../public/assets/photos/meters.jpg";
-import solarSite from "@ds/../public/assets/photos/solar-site.jpg";
-import windHills from "@ds/../public/assets/photos/wind-hills.jpg";
+import type { VerticalCardProps } from "@/components/sections/Cards";
+import { blogs, publications } from "./site";
+import handbookCover from "@/assets/photos/posts/renewable-energy-handbook.jpg";
+import energyStackCover from "@/assets/photos/posts/india-energy-stack.jpg";
+import storyCover from "@/assets/photos/posts/neufin-story.jpg";
+import preSeedCover from "@/assets/photos/posts/pre-seed-round.jpg";
+import greentradeCover from "@/assets/photos/posts/greentrade.jpg";
 
 // Company numbers from the doc. TODO: confirm before launch.
 export const numbers = [
@@ -16,67 +17,44 @@ export const numbers = [
   { value: "4+ GW", label: "from 30+ suppliers" },
 ];
 
-// The four ways to cut power cost, as cards. Each page drops its own.
-// Covers are design system library photos until Neufin's own arrive (TODO); the note
-// describes the photo for screen readers.
-const solutionCards: Record<"buy" | "run" | "advisory" | "services", LinkCard> = {
-  buy: {
-    title: "Buy cheaper power",
-    text: "Clean power at a lower price, from 30 days to 15 years, delivered in about 3 months.",
-    href: solutions.buy.href,
-    cover: { note: "A solar plant being built", icon: "sun", tone: "daylight", image: solarSite },
+// Neufin's posts as panel cards (cover on top, the content type as the tag), with the covers
+// and titles from the current site (neufin.energy/about).
+// TODO: link each one once the blog and publications are on Sanity.
+export const posts: Record<"handbook" | "energyStack" | "story" | "preSeed" | "greentrade", VerticalCardProps> = {
+  handbook: {
+    title: "Guide to renewable energy for businesses in India",
+    href: publications.href,
+    tag: "Handbook",
+    image: handbookCover,
   },
-  run: {
-    title: "Run and optimise",
-    text: "Improve generation and find hidden ways to save on energy cost, with Lumen.",
-    href: solutions.run.href,
-    cover: { note: "A wall of electricity meters", icon: "chart", tone: "plain", image: meters },
+  energyStack: {
+    title: "The India Energy Stack: a digital infrastructure blueprint for businesses",
+    href: publications.href,
+    tag: "Research",
+    image: energyStackCover,
   },
-  advisory: {
-    title: "Renewable energy advisory",
-    text: "We plan, carry out and help you meet your clean energy targets, for your sites and your suppliers.",
-    href: solutions.advisory.href,
-    cover: { note: "Wind turbines on green hills", icon: "route", tone: "plain", image: windHills },
+  story: {
+    title: "The Neufin story",
+    href: blogs.href,
+    tag: "Blog",
+    image: storyCover,
   },
-  services: {
-    title: "Services",
-    text: "Meter installs, load changes and electricity board approvals, done for you.",
-    href: solutions.services.href,
-    cover: { note: "An electrician working on a meter", icon: "wrench", tone: "plain", image: electrician },
+  preSeed: {
+    title: "Pre-seed round: belief capital to support Neufin’s mission",
+    href: blogs.href,
+    tag: "Blog",
+    image: preSeedCover,
+  },
+  greentrade: {
+    title: "Neufin partners with GreenTrade to help European companies decarbonise India operations",
+    href: blogs.href,
+    tag: "Blog",
+    image: greentradeCover,
   },
 };
 
-export const otherSolutions = (exclude: keyof typeof solutionCards) =>
-  (Object.keys(solutionCards) as (keyof typeof solutionCards)[]).filter((k) => k !== exclude).map((k) => solutionCards[k]);
-
-
-// Latest from Neufin. TODO: real posts once the blog is on Sanity.
-export const latest: LinkCard[] = [
-  {
-    title: "Renewable energy handbook",
-    text: "A plain guide to buying clean power for your business.",
-    href: "/publications/renewable-energy-handbook",
-    tag: "Guide",
-    cover: { note: "Handbook cover", icon: "book", tone: "dawn" },
-    linkLabel: "Get the handbook",
-  },
-  {
-    title: tariffCalculator.label,
-    text: "Compare your electricity board rate with our plans.",
-    href: tariffCalculator.href,
-    tag: "Tool",
-    cover: { note: "Calculator screen", icon: "calculator", tone: "violet" },
-    linkLabel: "Try it",
-  },
-  {
-    title: "Blog post title",
-    text: "One line on what the post covers.",
-    href: blogs.href,
-    tag: "Blog",
-    cover: { note: "Blog cover image", icon: "news", tone: "daylight" },
-    linkLabel: "Read",
-  },
-];
+// Latest from Neufin, on the solution pages.
+export const latest: VerticalCardProps[] = [posts.handbook, posts.energyStack, posts.story];
 
 export const publicationsLink = { label: "All publications", href: publications.href };
 export const resourcesLink = { label: "All resources", href: blogs.href };

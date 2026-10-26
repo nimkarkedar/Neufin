@@ -1,20 +1,3 @@
-/* The logo bar sits close under the hero. */
-.logos {
-  margin-top: 36px;
-}
-
-@media (min-width: 768px) {
-  .logos {
-    margin-top: 48px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .logos {
-    margin-top: 52px;
-  }
-}
-
 /* The page's backgrounds: every section flat on the page (section bands and the footer's
    band switched off), the body Warm White. The page's top is Violet 100 (--page): the
    hero's panel takes it, and the numbers block fades it into the Warm White (Proof). The

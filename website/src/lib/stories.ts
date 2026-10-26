@@ -1,5 +1,6 @@
 // Customer stories, shared by the Customer stories page and the sections that point to it.
 // A plain module (not a client component), so server pages can read it.
+import type { VerticalCardProps } from "@/components/sections/Cards";
 import { customerStories } from "./site";
 
 // TODO: real clients, figures and story pages (one template: client and sites,
@@ -16,12 +17,12 @@ export const stories = [
   { ind: "Hotels and resorts", value: "X%", label: "lower power cost" },
 ];
 
-// One story as a card, the same everywhere stories show (Customer stories, Buy cheaper power).
-export const storyCard = (s: (typeof stories)[number], i: number) => ({
-  title: "Client name",
-  href: customerStories.href,
+// One story as a panel card (the shared VerticalCard), the same everywhere stories show:
+// the industry as the tag, the client as the title, the result as the line.
+// TODO: a photo of each client's site, with their logo.
+export const storyCard = (s: (typeof stories)[number]): VerticalCardProps => ({
   tag: s.ind,
-  cover: { note: `Photo: a ${s.ind.toLowerCase()} site, with the client's logo`, icon: "image" as const, tone: (i % 3 === 1 ? "dawn" : "daylight") as "dawn" | "daylight" },
-  meta: [{ value: s.value, label: s.label }],
-  linkLabel: "Read story",
+  title: "Client name",
+  text: `${s.value} ${s.label}`,
+  href: customerStories.href,
 });

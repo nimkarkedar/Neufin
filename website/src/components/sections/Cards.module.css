@@ -1,112 +1,9 @@
-/* The photo card and the art card, and the layouts they sit in. Mobile first. */
+/* The layouts vertical cards sit in. Mobile first. On desktop every card is the same size,
+   a third of the content width, so the title and line read the same everywhere (Kedar,
+   2026-10-27): three cards sit three across; more scroll sideways, three to a screen with
+   the next one peeking in. */
 
-/* ---------- Photo card placeholder: Grey 800 with the note in its middle ---------- */
-
-.emptyCard {
-  --image-card-bg: var(--grey-800);
-}
-
-.cardNote {
-  position: absolute;
-  inset: 0;
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 10px;
-  padding: 24px;
-  color: var(--grey-400);
-  font-size: var(--text-small-size);
-  line-height: var(--text-small-lh);
-  text-align: center;
-}
-
-/* With a title at the bottom, the note sits in the empty top half, clear of the text. */
-.emptyCard:has(:global(.image-card-body)) .cardNote {
-  bottom: 50%;
-}
-
-/* ---------- Art card: White, a round spot illustration, title and line ---------- */
-
-.artCard {
-  position: relative;
-  --ink: var(--near-black);
-  --ink-2: var(--grey-600);
-  display: grid;
-  align-content: start;
-  height: 100%;
-  min-height: 360px;
-  padding: 28px 24px 32px;
-  background: var(--white);
-  border-radius: var(--radius-l);
-  box-shadow: var(--shadow-raised);
-  color: var(--ink);
-}
-
-.cardArt {
-  display: block;
-  width: min(100%, 160px);
-  aspect-ratio: 1;
-  margin-bottom: 32px;
-  object-fit: contain;
-}
-
-.emptyArt {
-  display: grid;
-  place-content: center;
-  justify-items: center;
-  gap: 8px;
-  padding: 20px;
-  border-radius: 50%;
-  background: var(--warm-white);
-  color: var(--ink-2);
-  font-size: var(--text-small-size);
-  line-height: var(--text-small-lh);
-  text-align: center;
-}
-
-.centred {
-  --ink-2: var(--near-black);
-  justify-items: center;
-  text-align: center;
-}
-
-.centred .cardArt {
-  width: min(100%, 200px);
-  margin-top: 8px;
-}
-
-/* "Step N" just above the title (Kedar: 10px on desktop, 8px on phones). */
-.step {
-  margin-bottom: 8px;
-}
-
-/* The duration in the card's top right corner. The card's top padding grows so the
-   illustration starts below it and the two never touch. */
-.duration {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-}
-
-.artCard:has(.duration) {
-  padding-top: 56px;
-}
-
-.cardTitle {
-  font-size: var(--text-h3-size);
-  line-height: var(--text-h3-lh);
-  font-weight: var(--text-h3-weight);
-}
-
-.cardText {
-  margin-top: 8px;
-  color: var(--ink-2);
-  text-wrap: pretty;
-}
-
-/* ---------- Layouts ---------- */
-
-/* Three across from tablets, stacked on phones. */
+/* Three across from desktop; stacked on phones, two to a row on tablets. */
 .three {
   display: grid;
   gap: 16px;
@@ -115,27 +12,14 @@
   list-style: none;
 }
 
-/* Four cards (with ScrollRow): sideways on phones, 2 × 2 on tablets, four across from desktop. */
-.four :global(.scroll-row) {
-  --scroll-item: 78%;
-}
-
-/* Photo cards in a sideways row (with ScrollRow), the same size as three across. */
+/* More than three (with ScrollRow): sideways at every width. */
 .row :global(.scroll-row) {
-  --scroll-item: 78%;
+  --scroll-item: 82%;
 }
 
 @media (min-width: 768px) {
   .three {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .four :global(.scroll-row) {
-    grid-auto-flow: row;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    margin-inline: 0;
-    padding-inline: 0;
-    overflow: visible;
   }
 
   .row :global(.scroll-row) {
@@ -143,58 +27,12 @@
   }
 }
 
-/* As on the home page: from 768 to 1279px the photo cards grow taller and step down to H3. */
-@media (min-width: 768px) and (max-width: 1279px) {
-  .three :global(.image-card),
-  .row :global(.image-card) {
-    aspect-ratio: 2 / 3;
-  }
-
-  .three :global(.image-card-title),
-  .row :global(.image-card-title) {
-    font-size: var(--text-h3-size);
-    line-height: var(--text-h3-lh);
-    letter-spacing: var(--text-h3-track);
-  }
-}
-
 @media (min-width: 1024px) {
   .three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: var(--grid-gutter);
   }
 
-  .four :global(.scroll-row) {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-
-  .artCard {
-    min-height: 400px;
-    padding: 32px 28px 36px;
-  }
-
-  .step {
-    margin-bottom: 10px;
-  }
-
-  .duration {
-    top: 20px;
-    right: 20px;
-  }
-
-  .artCard:has(.duration) {
-    padding-top: 64px;
-  }
-
-  .cardArt {
-    margin-bottom: 48px;
-  }
-
-  .centred .cardArt {
-    margin-top: 24px;
-  }
-
-  /* Three photo cards to a screen, the next one peeking in, as wide as three across. */
   .row :global(.scroll-row) {
     --scroll-item: calc((100% - 2 * var(--grid-gutter)) / 3);
   }

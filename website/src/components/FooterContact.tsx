@@ -3,10 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useRef, useState, type FormEvent } from "react";
-import face1 from "@/assets/placeholder-faces/face-1.jpg";
-import face2 from "@/assets/placeholder-faces/face-2.jpg";
-import face3 from "@/assets/placeholder-faces/face-3.jpg";
-import face4 from "@/assets/placeholder-faces/face-4.jpg";
+import rahool from "@/assets/photos/team/rahool-gadkari.jpg";
+import rushil from "@/assets/photos/team/rushil-noronha.jpg";
+import nikita from "@/assets/photos/team/nikita-pawar.jpg";
+import gaurav from "@/assets/photos/team/gaurav-chauhan.jpg";
 import { IconSvg } from "@ds/components/Icon.jsx";
 import { WhatsAppBadge } from "@ds/components/WhatsAppBadge.jsx";
 import { icons } from "@ds/brand/icons.js";
@@ -14,8 +14,8 @@ import { formatIndianMobile, normaliseIndianMobile } from "@/lib/phone";
 import { site, telHref, whatsappHref } from "@/lib/site";
 import styles from "./FooterContact.module.css";
 
-// TODO: placeholder faces from Unsplash until the team photos arrive.
-const faces = [face1, face2, face3, face4];
+// The people who call back: the founders and business development.
+const faces = [rushil, rahool, nikita, gaurav];
 
 // Where call-back requests are sent. Unset in the GitHub Pages preview, which has no
 // server; see src/lib/callback.ts for how to connect it.
@@ -128,21 +128,18 @@ function CallBack() {
   );
 }
 
-// The contact card above the dark footer, in three blocks on one soft gradient: send a
-// bill on WhatsApp (the main ask, the only solid button), request a call back, or
-// write or call. A fourth block across the bottom points suppliers to us, with a link
-// rather than a button so the buyer asks stay first.
+// The contact card above the dark footer, in three blocks: the card's heading (the content
+// doc's line), request a call back, and contact us by email, phone or WhatsApp (the only
+// solid button; Kedar, 2026-10-27). A fourth block across the bottom points suppliers to us,
+// with a link rather than a button so the buyer asks stay first.
 export function FooterContact() {
   return (
     <section className={styles.card} aria-label="Contact Neufin">
       <div className={styles.col}>
+        {/* TODO: "30%" is the content doc's figure; the site also says up to 40% (one savings figure to settle). */}
         <h2 className={styles.title}>
-          Send us your latest power bill. <span className="muted">We&apos;ll show you where the money is going.</span>
+          Why wait? <span className="muted">Buy 30% cheaper energy starting today.</span>
         </h2>
-        <a href={whatsappHref} className={`btn btn-primary btn-badge ${styles.action}`} target="_blank" rel="noopener">
-          <WhatsAppBadge />
-          Contact us on WhatsApp
-        </a>
       </div>
 
       <div className={styles.col}>
@@ -162,6 +159,10 @@ export function FooterContact() {
           <a href={`mailto:${site.email}`}>{site.email}</a>
           <a href={telHref}>{site.phone}</a>
         </address>
+        <a href={whatsappHref} className={`btn btn-primary btn-badge ${styles.action}`} target="_blank" rel="noopener">
+          <WhatsAppBadge />
+          Contact us on WhatsApp
+        </a>
       </div>
 
       <div className={`${styles.col} ${styles.row}`}>

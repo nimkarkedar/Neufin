@@ -61,9 +61,7 @@ export default function RunAndOptimise() {
         over
       />
 
-      <div className={`container ${styles.logos}`}>
-        <LogoBar label="Used by businesses across India" logos={customerLogos} />
-      </div>
+      <LogoBar label="Used by businesses across India" logos={customerLogos} underHeader />
 
       <Section id="modules" title="Four ways Lumen cuts your energy cost">
         <div className={styles.modules}>

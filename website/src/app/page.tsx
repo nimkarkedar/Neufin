@@ -18,9 +18,7 @@ export default function Home() {
     <div className={styles.plain} data-header="overlay" data-calm>
       <Hero />
 
-      <div className={`container ${styles.logos}`}>
-        <LogoBar label="Trusted by businesses, partners and investors across India" />
-      </div>
+      <LogoBar label="Trusted by businesses, partners and investors across India" underHeader />
 
       <Proof />
       <PlanFinder />

@@ -1,0 +1,78 @@
+/* The form with the direct lines beside it from desktop (form on 1–7, lines on 9–12).
+   Shared by Contact and Energy plans. */
+.form,
+.direct {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 1024px) {
+  .form {
+    grid-column: 1 / span 7;
+  }
+
+  .direct {
+    grid-column: 9 / -1;
+    align-self: start;
+  }
+}
+
+.direct {
+  display: grid;
+  justify-items: start;
+  gap: 4px;
+}
+
+.directTitle {
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+.line {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  font-family: var(--font-display);
+  font-size: var(--text-h3-size);
+  font-weight: var(--text-h3-weight);
+  text-decoration: none;
+}
+
+.line:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.reply {
+  margin-top: 8px;
+  color: var(--ink-2);
+}
+
+/* The named sales lead: round photo beside name and role. */
+.lead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.leadPhoto {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.lead p {
+  display: grid;
+}
+
+.leadName {
+  font-weight: 600;
+}
+
+.leadRole {
+  color: var(--ink-2);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+}

@@ -30,6 +30,16 @@
   color: var(--ink);
 }
 
+/* Electric Violet, the brand colour, as the home plan finder's band: White text, Violet 100
+   secondary. Counts as the page's one coloured band. */
+.section[data-tone="violet"] {
+  --ink: var(--white);
+  --ink-2: var(--violet-100);
+  --line: color-mix(in srgb, var(--white) 24%, transparent);
+  background: var(--electric-violet);
+  color: var(--ink);
+}
+
 .head {
   display: grid;
   gap: 12px;

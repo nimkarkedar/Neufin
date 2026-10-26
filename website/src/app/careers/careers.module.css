@@ -1,20 +1,16 @@
 /* Careers. Mobile first. The shared cards (sections/Cards), one section head, the
-   Warm White page with one Violet 900 band (How we work) and Violet 100 for Open roles.
+   Warm White page with one Electric Violet band (How we work) and Violet 100 for Open roles.
    Each section fits one laptop screen (1440 × 900); rows that don't fit scroll sideways. */
 
-/* ---------- Mission: one sentence, Display size, the text colour ---------- */
-
-.mission {
-  padding-block: var(--section-space);
-}
+/* ---------- The mission, the letter's opening line: H2 size, the text colour ---------- */
 
 .missionText {
-  max-width: 20ch;
+  margin-bottom: 8px;
   font-family: var(--font-display);
-  font-size: var(--text-display-size);
-  line-height: var(--text-display-lh);
-  font-weight: var(--text-display-weight);
-  letter-spacing: var(--text-display-track);
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-lh);
+  font-weight: var(--text-h2-weight);
+  letter-spacing: var(--text-h2-track);
   text-wrap: balance;
 }
 
@@ -23,10 +19,6 @@
 .story {
   display: grid;
   gap: 32px;
-}
-
-.founders :global(.image-card) {
-  aspect-ratio: 1 / 1;
 }
 
 .letter {

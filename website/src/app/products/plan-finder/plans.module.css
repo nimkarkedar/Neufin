@@ -1,0 +1,5 @@
+/* Energy plans page. The header's facts line, under the line and above the link. */
+.facts {
+  flex-basis: 100%;
+  font-weight: 600;
+}

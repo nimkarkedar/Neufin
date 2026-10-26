@@ -4,116 +4,69 @@ import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
 import styles from "./Cards.module.css";
 
-// The two cards Careers and About are built from, so the pages read as one family
-// (Kedar, 2026-10-26). Lay them out with `cardLayouts`: three across, four across (sideways
-// on phones) or a sideways row of photo cards.
-export { styles as cardLayouts };
+// The site's one vertical card (Kedar, 2026-10-27), the design system's .vertical-card, and
+// the layouts it sits in (`cardLayouts`: three across, or a sideways row). Every card is 4:5
+// with a Card title (28px) and a Body line, each cut after two lines. Two looks:
+// - "photo": the picture fills the card, the text in White at the bottom;
+// - "panel": the picture across the top, stepping down along the Stripe into a White panel
+//   with an optional tag ("Step 3", an industry, a content type).
+// With `href` the whole card is a link and shows the round arrow; without, it stays still.
+// No picture yet: the media is plain Near Black (TODO in the page's data).
+// Each layout also carries the design system's .vertical-card-row, so the panels in a row
+// share one height (the tallest there) and the pictures line up.
+export const cardLayouts = {
+  three: `${styles.three} vertical-card-row`,
+  row: `${styles.row} vertical-card-row`,
+};
 
-// Photo card: the design system's image card, 4:5, title and line on the photo. Until a
-// photo arrives it is Grey 800 with a note (a neutral stand-in, so placeholders don't add
-// violet). With `href` the whole card is a link and its call to action shows on hover;
-// without, it stays still (`.image-card-static`).
-export function PhotoCard({
-  title,
-  text,
-  photo,
-  focus,
-  note,
-  href,
-  cta,
-}: {
+export type VerticalCardProps = {
+  look?: "photo" | "panel";
+  image?: StaticImageData;
+  focus?: string;
+  tag?: string;
   title?: string;
   text?: string;
-  photo?: StaticImageData;
-  focus?: string;
-  note?: string;
   href?: string;
-  cta?: string;
-}) {
-  const look = photo ? "image-card-wash" : styles.emptyCard;
-  // A still card keeps a real heading; inside a link the parts are spans.
-  const Body = href ? "span" : "div";
+  // Words read after the title on a link, for screen readers (e.g. "on LinkedIn").
+  label?: string;
+};
+
+export function VerticalCard({ look = "panel", image, focus, tag, title, text, href, label }: VerticalCardProps) {
+  // A still card keeps real headings; inside a link the parts are spans.
+  const Part = href ? "span" : "div";
   const Title = href ? "span" : "h3";
   const Text = href ? "span" : "p";
+  const className = `vertical-card ${look === "photo" ? "vertical-card-photo" : ""}`;
   const inner = (
     <>
-      {photo ? (
-        <img src={photo.src} alt="" style={{ objectPosition: focus }} />
-      ) : (
-        <span className={styles.cardNote} role="img" aria-label={`Placeholder: ${note}`}>
-          <IconSvg icon={icons.image} size={24} />
-          {note}
-        </span>
-      )}
-      {title && (
-        <Body className="image-card-body">
-          <Title className="image-card-title">{title}</Title>
-          {text && <Text className="image-card-text">{text}</Text>}
-          {href && cta && (
-            <span className="image-card-cta" aria-hidden="true">
-              {cta}
-              <IconSvg icon={icons.arrow} size={18} />
+      <Part className="vertical-card-media">{image && <img src={image.src} alt="" style={{ objectPosition: focus }} />}</Part>
+      {(title || tag) && (
+        <Part className="vertical-card-body">
+          <Part className="vertical-card-words">
+            {tag && <span className="tag">{tag}</span>}
+            {title && <Title className="vertical-card-title">{title}</Title>}
+            {text && <Text className="vertical-card-text">{text}</Text>}
+          </Part>
+          {href && (
+            <span className="vertical-card-go">
+              {label && <span className="visually-hidden">{label}</span>}
+              <IconSvg icon={icons.arrow} size={20} />
             </span>
           )}
-        </Body>
+        </Part>
       )}
     </>
   );
-  if (!href) return <div className={`image-card image-card-static ${look}`}>{inner}</div>;
+  if (!href) return <div className={className}>{inner}</div>;
   if (href.startsWith("http"))
     return (
-      <a href={href} className={`image-card ${look}`} target="_blank" rel="noopener noreferrer">
+      <a href={href} className={className} target="_blank" rel="noopener noreferrer">
         {inner}
       </a>
     );
   return (
-    <Link href={href} className={`image-card ${look}`}>
+    <Link href={href} className={className}>
       {inner}
     </Link>
-  );
-}
-
-// Art card: a White card with a round spot illustration, a title and a line. Left-aligned
-// with a 160px spot; `centred` gives a 200px spot over centred text (How we work, Kedar's
-// mock). Until the illustration arrives, a Warm White circle holds the note. For steps in
-// order, `step` puts a "Step N" tag just above the title, and `duration` a tag with a live
-// dot in the card's top right corner (the design system's .tag and .tag-dot).
-export function ArtCard({
-  art,
-  note,
-  title,
-  text,
-  step,
-  duration,
-  centred = false,
-}: {
-  art?: StaticImageData;
-  note?: string;
-  title: string;
-  text: string;
-  step?: number;
-  duration?: string;
-  centred?: boolean;
-}) {
-  return (
-    <div className={`${styles.artCard} ${centred ? styles.centred : ""}`}>
-      {duration && (
-        <span className={`tag ${styles.duration}`}>
-          {duration}
-          <span className="tag-dot" aria-hidden="true" />
-        </span>
-      )}
-      {art ? (
-        <img src={art.src} alt="" className={styles.cardArt} />
-      ) : (
-        <span className={`${styles.cardArt} ${styles.emptyArt}`} role="img" aria-label={`Placeholder: ${note}`}>
-          <IconSvg icon={icons.image} size={24} />
-          {note}
-        </span>
-      )}
-      {step && <span className={`tag ${styles.step}`}>Step {step}</span>}
-      <h3 className={styles.cardTitle}>{title}</h3>
-      <p className={styles.cardText}>{text}</p>
-    </div>
   );
 }

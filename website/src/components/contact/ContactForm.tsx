@@ -11,14 +11,16 @@ import styles from "./ContactForm.module.css";
 // The quote and call-back form. Built from the design system's form field, text and select
 // fields. What and where come first, then who and how to reach them, two to a row from
 // tablets. Errors show when the form is sent (focus moves to the first one), then update as
-// the person types; each is one line saying how to fix it.
+// the person types; each is one line saying how to fix it. `short` asks only for name, work
+// email and mobile (Energy plans, "Not sure which plan fits?"), with no title of its own.
 // TODO: send to the forms backend (see src/lib/callback.ts); for now it only shows the
 // thank-you state.
 const states = ["Maharashtra", "Karnataka", "Tamil Nadu", "Gujarat", "Telangana", "Haryana", "Rajasthan", "Uttar Pradesh", "More than one state"];
 const needs = ["Buy cheaper power", "A Lumen demo", "Renewable energy advisory", "A services quote", "Sell power", "Something else"];
 
 type Key = "name" | "company" | "email" | "phone";
-const order: Key[] = ["name", "company", "email", "phone"];
+const fullOrder: Key[] = ["name", "company", "email", "phone"];
+const shortOrder: Key[] = ["name", "email", "phone"];
 
 const check: Record<Key, (v: string) => string> = {
   name: (v) => (v.trim().length < 2 ? "Enter your full name." : ""),
@@ -44,7 +46,10 @@ function Field({ id, label, error, children }: { id: string; label: string; erro
   );
 }
 
-export function ContactForm() {
+// `topic` names what a short form is about in the thank-you note (Sell energy: "selling
+// your energy"); without it the note is about a plan and offers the energy plans.
+export function ContactForm({ short = false, topic }: { short?: boolean; topic?: string }) {
+  const order = short ? shortOrder : fullOrder;
   const [sent, setSent] = useState<string | null>(null);
   const [errors, setErrors] = useState<Partial<Record<Key, string>>>({});
   const [tried, setTried] = useState(false);
@@ -74,7 +79,7 @@ export function ContactForm() {
       (e.currentTarget.elements.namedItem(first) as HTMLInputElement).focus();
       return;
     }
-    setSent(String(data.get("need")));
+    setSent(short ? (topic ?? "a plan for your sites") : String(data.get("need")));
   };
 
   // Props shared by the text inputs: the error wiring for screen readers.
@@ -99,9 +104,11 @@ export function ContactForm() {
         <h2 className={styles.title}>Thanks, we&apos;ll call you back</h2>
         <p className={styles.note}>Someone from our team will call within one business day about {sent.toLowerCase()}.</p>
         <div className={styles.row}>
-          <Link href={planFinderHref} className="btn btn-secondary">
-            Browse energy plans
-          </Link>
+          {!topic && (
+            <Link href={planFinderHref} className="btn btn-secondary">
+              Browse energy plans
+            </Link>
+          )}
           <button type="button" className="link-arrow" onClick={() => setSent(null)}>
             Send another
           </button>
@@ -112,40 +119,46 @@ export function ContactForm() {
 
   return (
     <form ref={form} className={`surface ${styles.card}`} onSubmit={submit} noValidate>
-      <h2 className={styles.title}>Tell us what you need</h2>
+      {!short && <h2 className={styles.title}>Tell us what you need</h2>}
       <p className={styles.required}>All fields are required.</p>
       <div className={styles.grid}>
-        <Field id="contact-need" label="What do you need?">
-          <span className="select-field">
-            <select id="contact-need" name="need" defaultValue={needs[0]}>
-              {needs.map((n) => (
-                <option key={n}>{n}</option>
-              ))}
-            </select>
-          </span>
-        </Field>
-        <Field id="contact-state" label="State">
-          <span className="select-field">
-            <span className="select-field-icon">
-              <IconSvg icon={icons["field-location"]} size={18} />
-            </span>
-            <select id="contact-state" name="state" defaultValue={states[0]}>
-              {states.map((s) => (
-                <option key={s}>{s}</option>
-              ))}
-            </select>
-          </span>
-        </Field>
+        {!short && (
+          <>
+            <Field id="contact-need" label="What do you need?">
+              <span className="select-field">
+                <select id="contact-need" name="need" defaultValue={needs[0]}>
+                  {needs.map((n) => (
+                    <option key={n}>{n}</option>
+                  ))}
+                </select>
+              </span>
+            </Field>
+            <Field id="contact-state" label="State">
+              <span className="select-field">
+                <span className="select-field-icon">
+                  <IconSvg icon={icons["field-location"]} size={18} />
+                </span>
+                <select id="contact-state" name="state" defaultValue={states[0]}>
+                  {states.map((s) => (
+                    <option key={s}>{s}</option>
+                  ))}
+                </select>
+              </span>
+            </Field>
+          </>
+        )}
         <Field id="contact-name" label="Name" error={errors.name}>
           <span className="text-field" data-invalid={invalid("name")}>
             <input {...wire("name")} autoComplete="name" placeholder="Full name" />
           </span>
         </Field>
-        <Field id="contact-company" label="Company" error={errors.company}>
-          <span className="text-field" data-invalid={invalid("company")}>
-            <input {...wire("company")} autoComplete="organization" placeholder="Company name" />
-          </span>
-        </Field>
+        {!short && (
+          <Field id="contact-company" label="Company" error={errors.company}>
+            <span className="text-field" data-invalid={invalid("company")}>
+              <input {...wire("company")} autoComplete="organization" placeholder="Company name" />
+            </span>
+          </Field>
+        )}
         <Field id="contact-email" label="Work email" error={errors.email}>
           <span className="text-field" data-invalid={invalid("email")}>
             <input {...wire("email")} type="email" autoComplete="email" placeholder="you@company.com" />

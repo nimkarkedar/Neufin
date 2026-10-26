@@ -1,8 +1,6 @@
 /* Buy cheaper power. Mobile first. */
 
-/* ---------- Energy plans: what a plan is (left), the four kinds 2 × 2 (right) ----------
-   One fold at 1440 × 900 and 1280 × 800. Phones and tablets: the box, then the cards
-   sideways. */
+/* ---------- Energy plans: what a plan is, then the four kinds as cards in a row ---------- */
 
 .plans {
   display: grid;
@@ -28,72 +26,26 @@
   text-wrap: pretty;
 }
 
-/* A kind of plan: the design system's image card on its illustration, Energy Mint, the text
-   at the top in Near Black (White fails contrast on mint). */
-.plan {
-  --image-card-bg: var(--energy-mint);
-  --image-card-art-crop: var(--crop);
-  color: var(--near-black);
-}
-
-.plan :global(.image-card-title) {
-  font-size: var(--text-h3-size);
-  line-height: var(--text-h3-lh);
-  letter-spacing: var(--text-h3-track);
-}
-
-.plan :global(.image-card-text) {
-  max-width: 28ch;
-}
-
 @media (min-width: 768px) {
   .explain {
     padding: 32px;
   }
 }
 
-/* From 1024 to 1279px the cards stay 2 × 2 (four across is too narrow for the text). */
-@media (min-width: 1024px) and (max-width: 1279px) {
-  .kinds :global(.scroll-row) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-  }
-}
-
-/* Side by side from 1280px, where the cards are wide enough for the art under the text.
-   Below that, the box sits above the cards (2 × 2 from 768px). */
-@media (min-width: 1280px) {
-  .plans {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--grid-gutter);
-  }
-
+/* From desktop the paragraph and the button sit side by side. */
+@media (min-width: 1024px) {
   .explain {
-    grid-column: 1 / span 5;
-  }
-
-
-
-  .explain {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 48px;
     padding: 40px;
   }
 
-  /* 2 × 2, the same height as the box on the left (both halves of the row stretch). */
-  .kinds {
-    grid-column: 6 / -1;
-    display: grid;
+  .explainText {
+    max-width: 60ch;
   }
 
-  .kinds :global(.scroll-row) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-rows: repeat(2, minmax(0, 1fr));
-    padding-block: 0;
-    margin-block: 0;
-  }
-
-  .plan {
-    --image-card-art-crop: var(--crop-wide);
-    aspect-ratio: auto;
-    height: 100%;
-    min-height: 300px;
+  .explain :global(.btn) {
+    flex: none;
   }
 }

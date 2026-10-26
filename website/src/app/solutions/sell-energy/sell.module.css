@@ -1,0 +1,38 @@
+/* Sell energy. Mobile first. */
+
+/* Proof: one White box, the three figures, then the two logo bars under a line that runs
+   edge to edge, as in the home numbers box. */
+.proof {
+  display: grid;
+  padding: 24px 20px;
+}
+
+.logos {
+  display: grid;
+  gap: 28px;
+  margin: 28px -20px 0;
+  padding: 28px 20px 0;
+  border-top: 1px solid var(--line);
+}
+
+@media (min-width: 768px) {
+  .proof {
+    padding: 32px;
+  }
+
+  .logos {
+    margin: 32px -32px 0;
+    padding: 32px 32px 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .proof {
+    padding: 40px;
+  }
+
+  .logos {
+    margin: 40px -40px 0;
+    padding: 40px 40px 0;
+  }
+}

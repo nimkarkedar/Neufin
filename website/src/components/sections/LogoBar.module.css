@@ -7,6 +7,23 @@
   gap: 12px;
 }
 
+/* The bar close under a page's header. */
+.underHeader {
+  margin-top: 36px;
+}
+
+@media (min-width: 768px) {
+  .underHeader {
+    margin-top: 48px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .underHeader {
+    margin-top: 52px;
+  }
+}
+
 .label {
   color: var(--ink-2);
   font-size: var(--text-body-size);

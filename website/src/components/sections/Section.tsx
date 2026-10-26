@@ -4,12 +4,12 @@ import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
 import styles from "./Section.module.css";
 
-export type Tone = "plain" | "white" | "tint" | "dark";
+export type Tone = "plain" | "white" | "tint" | "dark" | "violet";
 
 // One page section: a heading row on the grid (title left, line or link right on
 // desktop), then the content. Tone sets the band: plain (the Warm White page), white,
 // tint (Violet 100, for the one block a page leads to, such as open roles) or dark
-// (Violet 900, at most one per page).
+// (Violet 900) or violet (Electric Violet); at most one dark or violet band per page.
 export function Section({
   id,
   title,

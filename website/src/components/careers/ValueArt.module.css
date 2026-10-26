@@ -1,0 +1,145 @@
+/* The value spot illustrations. Colours are design system tokens; motion uses the
+   current's duration so it matches the rest of the site. */
+
+.art {
+  display: block;
+  overflow: visible;
+}
+
+/* Electric Violet, the brand colour (Kedar, 2026-10-27; was Electric Coral). */
+.sky {
+  fill: var(--electric-violet);
+}
+
+/* The hiring steps: an Electric Coral circle (Kedar, 2026-10-27), Electric Violet accents and pulse. */
+.hire .sky {
+  fill: var(--electric-coral);
+}
+
+.accent {
+  fill: var(--electric-violet);
+}
+
+.hire .pulse {
+  stroke: var(--electric-violet);
+}
+
+.hire .glow {
+  animation-name: hire-glow;
+}
+
+@keyframes hire-glow {
+  0%,
+  55%,
+  100% {
+    fill: var(--violet-900);
+  }
+  70% {
+    fill: var(--electric-violet);
+  }
+}
+
+.band,
+.line,
+.lineDark,
+.pulse,
+.hidden {
+  fill: none;
+  stroke-linejoin: miter;
+  stroke-linecap: butt;
+}
+
+/* A band: Violet 900, with a White line down its centre. */
+.band {
+  stroke: var(--violet-900);
+  stroke-width: 16;
+}
+
+.line {
+  stroke: var(--white);
+  stroke-width: 4;
+}
+
+/* Show respect: the second path is the inverse, a White band with a Violet 900 line. */
+.hidden {
+  stroke: var(--white);
+  stroke-width: 16;
+}
+
+.lineDark {
+  stroke: var(--violet-900);
+  stroke-width: 4;
+}
+
+.solid {
+  fill: var(--violet-900);
+}
+
+.window,
+.whiteBar {
+  fill: var(--white);
+}
+
+/* A short Signal Yellow segment runs along each band in turn. */
+.pulse {
+  stroke: var(--signal-yellow);
+  stroke-width: 4;
+  stroke-dasharray: 18 400;
+  stroke-dashoffset: 18;
+  animation: value-pulse var(--duration-current) linear infinite;
+  animation-delay: calc(var(--i) * var(--duration-current) / 3);
+}
+
+@keyframes value-pulse {
+  to {
+    stroke-dashoffset: -260;
+  }
+}
+
+/* One small move each. */
+.arrow,
+.meet {
+  animation: value-rise var(--duration-current) var(--ease-out) infinite;
+}
+
+.meet {
+  animation-delay: calc(var(--duration-current) / 4);
+}
+
+@keyframes value-rise {
+  0%,
+  60%,
+  100% {
+    translate: 0 0;
+  }
+  75% {
+    translate: 0 -5px;
+  }
+}
+
+.glow {
+  animation: value-glow var(--duration-current) var(--ease-out) infinite;
+}
+
+@keyframes value-glow {
+  0%,
+  55%,
+  100% {
+    fill: var(--white);
+  }
+  70% {
+    fill: var(--signal-yellow);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pulse {
+    display: none;
+  }
+
+  .arrow,
+  .glow,
+  .meet {
+    animation: none;
+  }
+}

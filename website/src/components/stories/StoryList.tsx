@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { Segmented } from "@ds/components/Segmented.jsx";
-import { LinkCards } from "@/components/sections/Blocks";
+import { VerticalCard, cardLayouts } from "@/components/sections/Cards";
 import { industries } from "@/lib/site";
 import { stories, storyCard } from "@/lib/stories";
 import styles from "./StoryList.module.css";
@@ -19,9 +19,13 @@ export function StoryList() {
       <p className={styles.count} aria-live="polite">
         {shown.length} {shown.length === 1 ? "story" : "stories"}
       </p>
-      <LinkCards
-        items={shown.map(storyCard)}
-      />
+      <ul className={cardLayouts.three}>
+        {shown.map((s, i) => (
+          <li key={i}>
+            <VerticalCard {...storyCard(s)} />
+          </li>
+        ))}
+      </ul>
     </div>
   );
 }
