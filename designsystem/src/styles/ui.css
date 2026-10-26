@@ -1170,9 +1170,13 @@
   cursor: default;
 }
 
+/* The buttons hang into the section's bottom padding (their 48px plus the 8px above), so
+   a row's cards end where any other section's content ends and the space to the next
+   section is the same everywhere (Kedar, 2026-10-27). */
 @media (min-width: 768px) {
   .scroll-row-controls {
     display: flex;
+    margin-bottom: -56px;
   }
 }
 

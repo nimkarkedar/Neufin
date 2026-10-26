@@ -17,13 +17,13 @@ const spots = [
 ];
 
 // Full-card illustrations supplied by Kedar (2026-10-26), in public/assets/illustrations/:
-// on Energy Mint (recoloured to the exact token); solar replaced 2026-10-27 by a 3:2 rooftop on White.
+// 3:2, on White (replaced 2026-10-27; the first set was 4:5 on Energy Mint).
 // Shown at the top of vertical panel cards.
 const cardArt = [
   { file: 'plan-solar.jpg', label: 'A factory with solar panels on its roof, bands of power running in and out, on White (3:2): solar plans' },
-  { file: 'plan-wind.jpg', label: 'A wind turbine where bands meet: wind plans' },
-  { file: 'plan-battery.jpg', label: 'A battery with bands running in and out: battery plans' },
-  { file: 'plan-exchange.jpg', label: 'A band stepping up and down like a daily price: exchange plans' },
+  { file: 'plan-wind.jpg', label: 'A row of wind turbines along a band of power, on White (3:2): wind plans' },
+  { file: 'plan-battery.jpg', label: 'Battery cabinets wired by a band of power to a generator, on White (3:2): battery plans' },
+  { file: 'plan-exchange.jpg', label: 'A band of power rising and falling over a candlestick chart, on White (3:2): daily market plans' },
 ];
 
 function Choice({ items, value, onChange }) {
@@ -100,7 +100,7 @@ export default function Illustration() {
         </div>
       </Section>
 
-      <Section title="Card illustrations" intro="Full-card art, 4:5, one subject in the lower part and open sky at the top for the card's title and line. In use on the website's Buy cheaper power page, Energy plans that fit every business, on Energy Mint with Near Black text (White fails contrast on mint).">
+      <Section title="Card illustrations" intro="Wide art, 3:2, on White: one subject with a band of power running through it. In use at the top of the vertical panel cards on the website's Buy cheaper power page, Energy plans that fit every business, cropped to each card's picture area.">
         <div className="insp-grid">
           {cardArt.map((s) => (
             <figure key={s.file} className="insp-item">
