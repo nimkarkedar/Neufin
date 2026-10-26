@@ -32,6 +32,7 @@ RULES
 - No people, figures, silhouettes or hands. Show the object or place instead.
 - No text, letters, numbers or logos.
 - Flat solid colour only. No gradients on objects, no glow, texture or 3D rendering. Simple flat faces for depth are fine.
+- The background is one perfectly flat colour from edge to edge: no spots, holes, stains, smudges, dark patches, shadows, noise, grain or vignette. Nothing black anywhere unless COLOURS lists it.
 - Only the colours in COLOURS, plus at most one accent on a single element: Signal Yellow #FFC83D (default), Energy Mint #00C2A8 or Electric Coral #FF5C45.
 - Generous empty space. Calm and confident, not busy.
 
@@ -69,13 +70,13 @@ Square 1:1, 1024 × 1024. The background colour fills the square. The whole conc
 Label: Circle graphic
 
 FORMAT
-Square canvas 1:1, 1024 × 1024, with a centred filled circle 92% of the canvas width. The background colour fills the circle only. Everything outside the circle is fully transparent (PNG with alpha). The whole concept fits inside the circle with a clear margin. Nothing crosses the circle edge.
+Square canvas 1:1, 1024 × 1024. Outside the circle, the canvas is plain solid White #FFFFFF, no transparency. A centred circle, 92% of the canvas width, filled with the background colour from COLOURS as one perfectly flat, even colour. The whole concept fits inside the circle with a clear margin. Nothing crosses the circle edge.
 
 ## FORMAT: full
 Label: Full page graphic
 
 FORMAT
-Landscape 3:2, 1536 × 1024. Isolated illustration on a fully transparent background (PNG with alpha), to be placed on a page that already has its own background. No background colour, no floor, no frame: ignore the background in COLOURS and use the rest for the illustration. Keep every element inside the canvas with clear space around it.
+Landscape 3:2, 1536 × 1024. Isolated illustration on plain solid White #FFFFFF, no transparency (it is cut out afterwards to sit on a page that has its own background). No floor and no frame: ignore the background in COLOURS and use the rest for the illustration. Keep every element inside the canvas with clear space around it.
 
 ## COLOURS: white
 Label: White
