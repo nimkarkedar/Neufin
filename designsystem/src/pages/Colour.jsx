@@ -1,4 +1,4 @@
-import { violetScale, coreColours, accentColours, neutrals, hexOf, bestText, contrast, rating } from '../brand/tokens.js';
+import { violetScale, coreColours, accentColours, neutrals, statusColours, hexOf, bestText, contrast, rating } from '../brand/tokens.js';
 import { Swatch } from '../components/Swatch.jsx';
 import { GradientSwatches, GradientExamples, gradientRules } from '../components/Gradients.jsx';
 import { PageHeader, Section, useCopy } from '../components/ui.jsx';
@@ -111,6 +111,10 @@ export default function Colour() {
 
       <Section title="Neutrals" intro="For UI only: backgrounds, secondary text and lines.">
         <div className="swatch-grid">{neutrals.map((c) => <Swatch key={c.token} {...c} />)}</div>
+      </Section>
+
+      <Section title="Status" intro="For form messages only. Always with words and an icon, never colour alone.">
+        <div className="swatch-grid">{statusColours.map((c) => <Swatch key={c.token} {...c} />)}</div>
       </Section>
 
       <Section title="Violet scale">

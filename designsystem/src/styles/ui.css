@@ -111,7 +111,7 @@
 
 /* ---------- Text field ----------
    A white pill, 48px tall, with an optional fixed prefix (such as +91). Numbers are
-   set in IBM Plex Mono. The border turns Near Black on focus and Electric Coral when
+   set in IBM Plex Mono. The border turns Near Black on focus and the Error colour when
    the value is invalid (add data-invalid). */
 
 .text-field {
@@ -128,8 +128,13 @@
   border-color: var(--near-black);
 }
 
-.text-field[data-invalid] {
-  border-color: var(--electric-coral);
+/* Invalid: a 2px line in the Error colour (1px border plus an inset ring), kept while the
+   field has focus so the person can see what to fix. Text, select and action fields alike. */
+.text-field[data-invalid],
+.select-field[data-invalid],
+.action-field-choice[data-invalid] {
+  border-color: var(--error);
+  box-shadow: inset 0 0 0 1px var(--error);
 }
 
 .text-field-prefix {
@@ -172,6 +177,43 @@
   outline: none;
 }
 
+/* ---------- Form field ----------
+   One labelled control in a form: the label (Small, semibold, Grey 600) 6px above a text
+   or select field, and under it, when the value is wrong, one line saying how to fix it,
+   in the Error colour with the warning icon (words and icon, never colour alone). Put
+   data-invalid on the field, aria-invalid on the input, and point the input's
+   aria-describedby at the message. Messages appear when the form is sent, then update as
+   the person types. */
+
+.form-field {
+  display: grid;
+  align-content: start;
+  gap: 6px;
+  min-width: 0;
+}
+
+.form-field-label {
+  color: var(--grey-600);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+  font-weight: 600;
+}
+
+.form-field-error {
+  display: flex;
+  gap: 6px;
+  padding-left: 20px;
+  color: var(--error);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+  font-weight: 600;
+}
+
+.form-field-error svg {
+  flex: none;
+  margin-top: 1px;
+}
+
 /* ---------- Action field ----------
    A choice or an entry and its button in one white pill, such as a state picker with
    See my options, or a work email with Get a quote. The button sits inside the pill, 6px in. On phones the two stack: the
@@ -196,8 +238,8 @@
   transition: border-color var(--duration-fast);
 }
 
-.action-field-choice:focus-within,
-.select-field:focus-within {
+.action-field-choice:focus-within:not([data-invalid]),
+.select-field:focus-within:not([data-invalid]) {
   border-color: var(--near-black);
 }
 
@@ -938,6 +980,89 @@
   white-space: nowrap;
 }
 
+/* ---------- Scroll row ----------
+   A row of cards wider than the screen, scrolled sideways (the ScrollRow component). The
+   row runs to the container's edges so the next card peeks in, snaps to each card and hides
+   its scrollbar; previous and next buttons sit under it on the right from tablets up
+   (phones swipe). Set each card's width with --scroll-item. */
+
+.scroll-row {
+  --scroll-item: 80%;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: var(--scroll-item);
+  gap: var(--grid-gutter);
+  margin-inline: calc(-1 * var(--grid-margin));
+  padding: 4px var(--grid-margin) 16px; /* room for card shadows */
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: var(--grid-margin);
+  scrollbar-width: none;
+}
+
+.scroll-row::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-row > * {
+  min-width: 0;
+  scroll-snap-align: start;
+}
+
+.scroll-row:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: var(--radius-l);
+}
+
+.scroll-row-wrap {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.scroll-row-controls {
+  display: none;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+/* Round 48px buttons in the secondary button's colours. */
+.scroll-row-button {
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: 50%;
+  color: var(--near-black);
+  cursor: pointer;
+  transition: border-color var(--duration-fast), opacity var(--duration-fast);
+}
+
+.scroll-row-button:hover:not(:disabled) {
+  border-color: var(--near-black);
+}
+
+.scroll-row-button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+@media (min-width: 768px) {
+  .scroll-row-controls {
+    display: flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-row {
+    scroll-behavior: auto;
+  }
+}
+
 /* ---------- Accordion ----------
    Questions that open one at a time, built on <details>, so it works without script.
    The Nucleo plus turns into a cross when open. An item is White on hover and while
@@ -1086,6 +1211,16 @@
   }
 }
 
+/* A card that isn't a link (add .image-card-static) doesn't answer the pointer: no deeper
+   shadow, no zoom, so it never looks clickable. */
+.image-card-static:hover {
+  box-shadow: var(--shadow-raised);
+}
+
+.image-card-static:hover > img {
+  scale: none;
+}
+
 /* The illustration eases in from its foot, so its horizon stays put under the text. */
 .image-card-art > img {
   inset: auto 0 calc(-1 * var(--image-card-art-crop, 0%));
@@ -1166,8 +1301,9 @@
     translate: 0 8px;
   }
 
-  /* Text at the bottom: the pill's room (40px pill + 20px gap) waits below the edge. */
-  .image-card:not(.image-card-top) .image-card-body {
+  /* Text at the bottom: the pill's room (40px pill + 20px gap) waits below the edge.
+     Only when there is a pill; a static card's text sits at rest where it is. */
+  .image-card:not(.image-card-top):has(.image-card-cta) .image-card-body {
     translate: 0 60px;
   }
 

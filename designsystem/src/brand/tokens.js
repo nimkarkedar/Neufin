@@ -118,6 +118,12 @@ export const motion = {
   roll: '0.7s',
 };
 
+// Status colours for UI messages. Error is Electric Coral darkened so text and icons pass
+// 4.5:1 on White (5.6:1) and Warm White (5.2:1); Electric Coral itself is 3.1:1.
+export const statusColours = [
+  { name: 'Error', token: 'error', hex: '#C2321F', role: 'Error messages, their icon and an invalid field’s border. Never for decoration.' },
+];
+
 // Colours that are not Neufin's but appear inside third-party marks only.
 export const externalColours = [
   { name: 'WhatsApp green', token: 'whatsapp', hex: '#25D366', role: 'Only inside the WhatsApp mark.' },
@@ -126,7 +132,7 @@ export const externalColours = [
 export function allTokens() {
   const t = {};
   violetScale.forEach((c) => (t[`--violet-${c.step}`] = c.hex));
-  [...coreColours, ...accentColours, ...neutrals].forEach((c) => (t[`--${c.token}`] = c.hex));
+  [...coreColours, ...accentColours, ...neutrals, ...statusColours].forEach((c) => (t[`--${c.token}`] = c.hex));
   gradients.forEach((g) => (t[`--${g.token}`] = gradientCss(g)));
   t['--font-display'] = fonts.display.stack;
   t['--font-body'] = fonts.body.stack;

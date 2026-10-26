@@ -114,6 +114,7 @@ export default function Photography() {
           ))}
         </div>
         <Callout tone="note">Violet wash: Violet 300 multiplied at 45%. Duotone: shadows to Violet 900, highlights to Violet 200. Inside the ribbon, the photo is mapped to Violet 900 and Violet 400, and the middle lane to Violet 500 and white.</Callout>
+        <Callout tone="note">Header wash (website page headers with White text on the photo): the Violet wash, then Violet 900 at 35% over the whole photo, even, never a gradient. It only works on a dark photo: night, dusk or low light, with no bright patch where the text sits. Check White text at 4.5:1 or better at phone and desktop widths before using a photo; pick another photo rather than darkening the wash. Example: Bengaluru at dusk (bengaluru-night) on the Contact page.</Callout>
       </Section>
 
       <Section title="Rules">
@@ -121,7 +122,7 @@ export default function Photography() {
           <DoDont kind="do" caption="Keep faces and the main subject clear of overlays.">
             <PhotoPost photo={byId('electrician')} layout="ribbon" ratio="square" />
           </DoDont>
-          <DoDont kind="dont" caption="Put text straight on the photo. Text sits on a solid block or field.">
+          <DoDont kind="dont" caption="Put text straight on an untreated photo. Text sits on a solid block or field, or, in a website page header, on a dark photo under the header wash (below).">
             <div className="post pp-bad" style={{ aspectRatio: '1 / 1' }}>
               <img src={asset(byId('factory-floor').src)} alt="" />
               <div className="post-head" style={{ left: '8cqw', top: '10cqw', width: '80cqw', fontSize: '9cqw', color: 'var(--warm-white)' }}>Lower energy costs for every shift.</div>

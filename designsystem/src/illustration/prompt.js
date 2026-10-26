@@ -20,14 +20,17 @@ function options(kind) {
     });
 }
 
+export const kinds = options('KIND');
 export const formats = options('FORMAT');
 export const schemes = options('COLOURS');
 
-export function buildPrompt({ concept, format, scheme }) {
+export function buildPrompt({ concept, kind, format, scheme }) {
+  const k = kinds.find((o) => o.id === kind);
   const f = formats.find((o) => o.id === format);
   const s = schemes.find((o) => o.id === scheme);
   return [
     blocks.MASTER,
+    k.text,
     f.text,
     s.text,
     blocks.CONCEPT.replace('{{concept}}', concept.trim() || 'Describe the concept here.'),

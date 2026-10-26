@@ -4,6 +4,7 @@ import { PageHeader, Section } from '../components/ui.jsx';
 import { RollingFigure } from '../components/RollingFigure.jsx';
 import { WhatsAppBadge } from '../components/WhatsAppBadge.jsx';
 import { Segmented } from '../components/Segmented.jsx';
+import { ScrollRow } from '../components/ScrollRow.jsx';
 import { IconSvg } from '../components/Icon.jsx';
 import { icons } from '../brand/icons.js';
 import { asset } from '../brand/asset.js';
@@ -86,7 +87,7 @@ export default function WebComponents() {
         <div className="rows spec-inline">
           <div className="row"><span className="row-key">Shape</span><p>White pill, 48px tall, Grey 200 border.</p></div>
           <div className="row"><span className="row-key">Numbers</span><p>IBM Plex Mono, with a fixed prefix such as +91.</p></div>
-          <div className="row"><span className="row-key">States</span><p>Near Black border on focus, Electric Coral when the value is invalid.</p></div>
+          <div className="row"><span className="row-key">States</span><p>Near Black border on focus. Invalid: a 2px line in the Error colour (#C2321F), kept while the field has focus, always with a message under it (see Form field).</p></div>
         </div>
       </Section>
 
@@ -108,6 +109,31 @@ export default function WebComponents() {
           <div className="row"><span className="row-key">Use</span><p>A dropdown in a form, such as Your state in the home page plan finder.</p></div>
           <div className="row"><span className="row-key">Shape</span><p>The action field's choice on its own: white pill, 48px tall, Grey 200 border, chevron in Near Black. Near Black border on focus.</p></div>
           <div className="row"><span className="row-key">Code</span><p><code>.select-field</code> label around a <code>select</code>. Optional icon: a <code>.select-field-icon</code> before the select (UI outline at 18px in Near Black, one colour like every icon on the site; it says what the field is).</p></div>
+        </div>
+      </Section>
+
+      <Section title="Form field">
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo">
+            <div className="form-field web-field">
+              <label htmlFor="demo-company" className="form-field-label">Company</label>
+              <span className="text-field"><input id="demo-company" className="text-field-input" placeholder="Company name" /></span>
+            </div>
+            <div className="form-field web-field">
+              <label htmlFor="demo-email" className="form-field-label">Work email</label>
+              <span className="text-field" data-invalid>
+                <input id="demo-email" className="text-field-input" type="email" defaultValue="priya@company" aria-invalid="true" aria-describedby="demo-email-error" />
+              </span>
+              <p id="demo-email-error" className="form-field-error"><IconSvg icon={icons['field-error']} size={16} />Enter an email like you@company.com.</p>
+            </div>
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Use</span><p>Every labelled field in a form, such as the Contact page's form.</p></div>
+          <div className="row"><span className="row-key">Label</span><p>Always visible above the field: Small, semibold, Grey 600, 6px above. Never a placeholder in place of a label. If every field is required, say so once under the form's title ("All fields are required.").</p></div>
+          <div className="row"><span className="row-key">Error</span><p>One line under the field, 20px in to line up with the field's text: Small, semibold, in the Error colour with the UI outline circle-warning icon at 16px in the same colour. Words and icon, never colour alone. Say how to fix it ("Enter a 10-digit Indian mobile number."), not just that it's wrong.</p></div>
+          <div className="row"><span className="row-key">When</span><p>Messages appear when the form is sent, and focus moves to the first field with an error. After that, each message updates as the person types or leaves the field. Don't flag a field before the person has tried to send.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>.form-field</code> around a <code>.form-field-label</code> (a <code>label</code> with <code>for</code>), the field, and a <code>.form-field-error</code> with an id. Put <code>data-invalid</code> on the field, and <code>aria-invalid</code> and <code>aria-describedby</code> (the message's id) on the input. A message that appears without a send, such as after a network failure, goes in a <code>role="alert"</code> container.</p></div>
         </div>
       </Section>
 
@@ -259,6 +285,24 @@ export default function WebComponents() {
           <div className="row"><span className="row-key">Photo</span><p><code>.image-card-wash</code> adds the Violet wash (Violet 300 multiplied at 45%). Text sits at the bottom over a soft Near Black shade so White text reads.</p></div>
           <div className="row"><span className="row-key">Illustration</span><p><code>.image-card-art .image-card-top</code>: the art anchored to the bottom, its foot cropped by <code>--image-card-art-crop</code> (a share of the card's height) on its own sky colour (<code>--image-card-bg</code>, a token, e.g. Electric Coral), so the sky runs up behind the text at the top.</p></div>
           <div className="row"><span className="row-key">Code</span><p><code>a.image-card</code> holding an <code>img</code> (alt empty: the title names the link) and <code>.image-card-body</code> with <code>.image-card-title</code> (H2 size), <code>.image-card-text</code> and <code>.image-card-cta</code> (aria-hidden: a cue, not a second link). Shape 4:5, radius L, padding 24 / 40px.</p></div>
+          <div className="row"><span className="row-key">Static</span><p>A card that isn't a link (such as What it's like on Careers): a <code>div.image-card</code> with <code>.image-card-static</code>, no call to action. It doesn't answer the pointer, so it never looks clickable.</p></div>
+        </div>
+      </Section>
+
+      <Section title="Scroll row">
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo" style={{ display: 'block', overflow: 'hidden', padding: '24px' }}>
+            <ScrollRow label="Example photos">
+              {['Photo: the office', 'Photo: a team lunch', 'Photo: the offsite', 'Photo: a site visit', 'Photo: demo day'].map((n) => (
+                <div key={n} className="placeholder placeholder-dawn" style={{ aspectRatio: '4 / 5' }}><span className="placeholder-icon"><IconSvg icon={icons.people} size={24} /></span><span className="placeholder-note">{n}</span></div>
+              ))}
+            </ScrollRow>
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Use</span><p>A set of like cards that doesn't fit the width, such as team photos or events on Careers, or a short sequence on phones. Never for the main content of a page, and never auto-playing.</p></div>
+          <div className="row"><span className="row-key">Behaviour</span><p>Cards keep their width and snap into place; the next one peeks in at the edge. Previous and next buttons (48px, round, the secondary button's colours) sit under the row on the right from tablets up and grey out at either end; phones swipe. The row takes keyboard focus and scrolls with the arrow keys. Smooth scrolling is off with reduced motion.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>{'<ScrollRow label="…">'}</code> around the cards (components/ScrollRow.jsx, styles <code>.scroll-row</code> in ui.css). Card width: <code>--scroll-item</code> on the row (default 80%).</p></div>
         </div>
       </Section>
 

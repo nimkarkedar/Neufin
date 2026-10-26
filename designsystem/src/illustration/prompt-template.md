@@ -4,7 +4,7 @@ This is the single source for every illustration prompt. The Illustration page a
 /illustration-prompt skill both read it. Edit freely.
 
 How it is assembled:
-  MASTER, then one FORMAT block, then one COLOURS block, then the CONCEPT.
+  MASTER, then one KIND block, then one FORMAT block, then one COLOURS block, then the CONCEPT.
   {{concept}} is replaced with what the user writes.
 Blocks start with a line like `## FORMAT: social`. The id after the colon must stay the same.
 `Label:` is the button name on the page. `Swatch:` is the chip on the page: background | inner square.
@@ -12,27 +12,52 @@ Blocks start with a line like `## FORMAT: social`. The id after the colon must s
 
 ## MASTER
 
-Match the style of the attached reference images exactly: the same flat shapes, band geometry, line rhythm and level of detail. Use them for style only. Do not copy their subject or composition.
-
 Create a flat vector illustration for Neufin Energy, an Indian company that helps businesses buy and manage electricity.
 
-DRAW
-- Only what the CONCEPT needs. One clear message, one hero subject. Nothing extra.
-- Real places and things as simple flat shapes (plants, warehouses, solar, turbines, pylons, meters, bills), seen from a low viewpoint, cropped by the canvas edge.
-- Energy shown as thick parallel bands of equal width, horizontal or at exactly 32 degrees, bending with a small rounded corner. The bands tell the story: converging for many sources, rising for savings, breaking for leakage, running steady for reliable supply.
+WHAT TO DRAW
+The CONCEPT at the end decides the subject. Draw what it describes, as directly and simply as possible. Do not add towers, pylons, factories, warehouses, roads, flyovers, cities or landscapes unless the CONCEPT names them. When in doubt, draw less.
+
+THE REFERENCE IMAGES
+The attached images show the style only: flat colour, how the colours are used, and how the bands are drawn. Do not copy their subjects, scenes, viewpoint or composition. If they show towers, factories or roads and the CONCEPT does not, leave those out.
+
+THE NEUFIN BAND (the one graphic idea in every illustration)
+- Thick parallel bands of equal width, like the bands of the Neufin logo.
+- A band runs straight, steps down or up at exactly 32 degrees with a crisp angled corner, then runs straight again. No curves, no rounded corners, no other angles.
+- The bands carry the message: converging for many sources, stepping down for a lower price, rising for growth, breaking for leakage, running steady for reliable supply.
+- Bands can also build the subject itself: an object or symbol made from a few bands and flat shapes.
+- One to three groups of bands at most. Calm, not a pattern.
 
 RULES
-- No people, figures, silhouettes or hands. Show places and objects instead.
+- One clear message, one hero subject. Nothing extra.
+- No people, figures, silhouettes or hands. Show the object or place instead.
 - No text, letters, numbers or logos.
-- Flat solid colour only. No gradients on objects, no glow, texture or 3D.
+- Flat solid colour only. No gradients on objects, no glow, texture or 3D rendering. Simple flat faces for depth are fine.
 - Only the colours in COLOURS, plus at most one accent on a single element: Signal Yellow #FFC83D (default), Energy Mint #00C2A8 or Electric Coral #FF5C45.
 - Generous empty space. Calm and confident, not busy.
+
+## KIND: object
+Label: Stand-alone object
+
+KIND
+One stand-alone object, whole and centred on the plain background, for example a meter, a bill, a battery, a solar panel, a plug or a calendar. Simple and slightly stylised, with Neufin bands running through, around or out of it. No ground, horizon, buildings or landscape behind it.
+
+## KIND: icon
+Label: Icon-like symbol
+
+KIND
+One bold symbol, as simple as an icon drawn large: a few flat shapes and Neufin bands, still readable at 64px. Centred and seen straight on, with no perspective, no scene and no ground.
+
+## KIND: scene
+Label: Scene
+
+KIND
+A simple scene of one place, seen from a low viewpoint and cropped by the canvas edge, with the Neufin bands running through it. Only the places and things the CONCEPT names.
 
 ## FORMAT: social
 Label: Social media post
 
 FORMAT
-Portrait 4:5, 1080 × 1350. The background colour fills the canvas. Keep the top 35% as clean, empty flat colour for a headline. The illustration sits in the lower 65% and bleeds off at least two edges.
+Portrait 4:5, 1080 × 1350. The background colour fills the canvas. Keep the top 35% as clean, empty flat colour for a headline. The illustration sits in the lower 65%. A scene bleeds off at least two edges; an object or symbol sits whole, with space around it.
 
 ## FORMAT: square
 Label: Square graphic
@@ -146,7 +171,8 @@ Background: a soft vertical gradient, #B2CAF5 at the top, #CADEEA in the middle,
 ## CONCEPT
 
 CONCEPT
+Draw this, and nothing the CONCEPT does not ask for:
 {{concept}}
 
 VARIATIONS
-Generate 4 separate images of this concept, one after another, each as its own full-size image in the format above. Keep the style, colours and rules identical across all 4. Vary only the composition: the viewpoint, the crop and how the bands move. Do not combine them into one grid.
+Generate 4 separate images of this concept, one after another, each as its own full-size image in the format above. Keep the subject, style, colours and rules identical across all 4. Vary only the composition: the viewpoint, the crop and how the bands move. Do not combine them into one grid.

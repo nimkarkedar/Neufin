@@ -105,8 +105,10 @@ export default function Typography() {
             <div><span>Case</span><strong>Sentence case</strong></div>
             <div><span>Weight</span><strong>Archivo 800</strong></div>
             <div><span>Leading</span><strong>0.95–1.0</strong></div>
+            <div><span>Colour</span><strong>One colour per line of text</strong></div>
                                   </div>
         </div>
+        <p className="caption">Emphasis comes from size, weight and space. Never colour some words of a sentence, or a figure, to make them stand out (such as one phrase in violet): it reads as dated. Headlines, statements and big numbers take the text colour.</p>
       </Section>
 
       <Section title="Fallback: Arial">

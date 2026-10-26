@@ -24,6 +24,21 @@ export const photos = [
   { id: 'pylon-blue-hour', src: '/assets/photos/pylon-blue-hour.jpg', alt: 'A line of transmission towers and poles under a clear blue evening sky', align: 'xMaxYMid' },
   // Supplied by Kedar for the home page's How we keep your price low cards (cropped 4:5).
   { id: 'laptop-software', src: '/assets/photos/laptop-software.jpg', alt: 'Person working in energy software on a laptop', align: 'xMidYMid' },
+  // Unsplash License: satyaprakash kumawat, Prestige Lakeside Habitat, Whitefield, Bengaluru (Unsplash ID ky1d-IWCBis),
+  // cropped to the city and the dusk sky. Placeholder for the website's Contact header until Neufin's own photos arrive.
+  { id: 'bengaluru-night', src: '/assets/photos/bengaluru-night.jpg', alt: 'Bengaluru at dusk from a high floor, the city lights running to the horizon', align: 'xMidYMid' },
+  // Supplied by Kedar (2026-10-26), 1200 × 1800, for the Careers What it's like cards.
+  { id: 'careers-team-coding', src: '/assets/photos/careers-team-coding.jpg', alt: 'A developer at a desk with code on the screen in an open office', align: 'xMidYMid' },
+  { id: 'careers-wind-farm', src: '/assets/photos/careers-wind-farm.jpg', alt: 'Wind turbines on green fields under a deep blue sky', align: 'xMidYMid' },
+  { id: 'careers-pylon-dusk', src: '/assets/photos/careers-pylon-dusk.jpg', alt: 'A transmission tower and its wires from below at dusk', align: 'xMidYMid' },
+  // Supplied by Kedar (2026-10-26), cropped square to 810 × 810. Careers, Why we started Neufin.
+  { id: 'founders-rushil-rahool', src: '/assets/photos/founders-rushil-rahool.jpg', alt: 'Rushil and Rahool, Neufin’s co-founders, smiling on a railway station platform', align: 'xMinYMid' },
+  // Supplied by Kedar (2026-10-26), cropped to 1800 × 750. Careers header.
+  { id: 'expressway-night', src: '/assets/photos/expressway-night.jpg', alt: 'Light trails on a curving expressway flyover near Pune at dusk, dark hills behind', align: 'xMidYMid' },
+  // Unsplash License: Dewang Gupta, New Delhi (Unsplash ID z55PxEI-7t8), cropped to 1800 × 750. Former Careers header placeholder.
+  { id: 'pylon-mist-delhi', src: '/assets/photos/pylon-mist-delhi.jpg', alt: 'A pylon and fishermen in a boat on a misty lake at dawn, New Delhi', align: 'xMidYMid' },
+  // Unsplash License: litoon dev (Unsplash ID E8pqwxaS6ko), 1600 × 1067. Careers placeholder for the team at work.
+  { id: 'engineers-at-screen', src: '/assets/photos/engineers-at-screen.jpg', alt: 'Two engineers looking closely at a computer screen', align: 'xMinYMid' },
   { id: 'electrician-rack', src: '/assets/photos/electrician-rack.jpg', alt: 'Technician in a high-visibility vest wiring an electrical cabinet', align: 'xMinYMid' },
 ];
 

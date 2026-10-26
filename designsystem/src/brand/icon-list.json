@@ -32,6 +32,7 @@
     "field-gauge": { "family": "ui", "label": "gauge", "fill": "outline", "size": "18px" },
     "field-calendar": { "family": "ui", "label": "calendar", "fill": "outline", "size": "18px" },
     "drop": { "family": "ui", "label": "arrow-down", "fill": "outline", "size": "18px" },
+    "field-error": { "family": "ui", "label": "circle-warning", "fill": "outline", "size": "18px" },
     "plus": { "family": "core", "label": "plus", "fill": "outline", "size": "24px" },
     "check": { "family": "core", "label": "check", "fill": "outline", "size": "24px" },
     "phone": { "family": "core", "label": "phone", "fill": "outline", "size": "24px" },
