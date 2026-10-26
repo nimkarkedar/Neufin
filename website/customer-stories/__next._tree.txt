@@ -4,7 +4,7 @@
 :HL["/Neufin/website/_next/static/media/99e609270109b47d-s.p.40sczeszzbjw1.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/media/effe91970fc4db64-s.p.0oace-s_gkfks.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/chunks/20-rdpj37ih-_.css","style"]
-:HL["/Neufin/website/_next/static/media/factory-floor.1c-ozfnhlpl54.jpg","image"]
+:HL["/Neufin/website/_next/static/media/spinning-mill.0pv31-x-ab4q3.jpg","image"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"customer-stories","h":64,"c":"$Q2"}]]
-0:{"b":"U1ir7odiESt0XQwclqRv-","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"SCZ-YcTnBVTYs0gzxKTyP","t":{"t":{"s":"","h":16,"c":"$Q1"}}}

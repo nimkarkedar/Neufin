@@ -9,4 +9,4 @@
 :HL["/Neufin/website/_next/static/media/cerc.230j7r4rq32br.svg","image"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"about","h":64,"c":"$Q2"}]]
-0:{"b":"U1ir7odiESt0XQwclqRv-","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"SCZ-YcTnBVTYs0gzxKTyP","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
