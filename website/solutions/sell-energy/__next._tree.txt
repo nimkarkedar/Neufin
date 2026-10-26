@@ -1,11 +1,11 @@
-:HL["/Neufin/website/_next/static/chunks/0rwgd84n2_aru.css","style"]
+:HL["/Neufin/website/_next/static/chunks/32zwb7fia7h0_.css","style"]
 :HL["/Neufin/website/_next/static/media/03fc1b4a8d284b5e-s.p.0wiir8udbzjvx.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/media/75affa71d1e2f6a7-s.p.17-aodiw50953.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/media/99e609270109b47d-s.p.40sczeszzbjw1.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/media/effe91970fc4db64-s.p.0oace-s_gkfks.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/Neufin/website/_next/static/chunks/20-rdpj37ih-_.css","style"]
+:HL["/Neufin/website/_next/static/chunks/0ha0z8zwno897.css","style"]
 :HL["/Neufin/website/_next/static/media/solar-site.00a2k3ywizqb3.jpg","image"]
 3:[["children",{"s":"__PAGE__","h":160}]]
 2:[["children",{"s":"sell-energy","h":96,"c":"$Q3"}]]
 1:[["children",{"s":"solutions","h":64,"c":"$Q2"}]]
-0:{"b":"SCZ-YcTnBVTYs0gzxKTyP","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"gv7QGJea7yagQYcNGH7XQ","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
