@@ -1,95 +1,169 @@
 import Link from "next/link";
-import { ModuleTabs } from "@/components/lumen/ModuleTabs";
-import { Faq, LinkCards, Steps } from "@/components/sections/Blocks";
-import { LogoBar } from "@/components/sections/LogoBar";
-import { StripeHeader } from "@/components/sections/StripeHeader";
+import { IconSvg } from "@ds/components/Icon.jsx";
+import { icons } from "@ds/brand/icons.js";
 // TODO: Neufin's own photo; a library photo stands in.
-import metersPhoto from "@ds/../public/assets/photos/meters.jpg";
+import teamCoding from "@ds/../public/assets/photos/careers-team-coding.jpg";
+import { HowWeDoIt } from "@/components/home/HowWeDoIt";
+import { Industries } from "@/components/home/Industries";
+import { Split } from "@/components/sections/Blocks";
+import { FaqSection } from "@/components/sections/FaqSection";
+import { LogoBar } from "@/components/sections/LogoBar";
+import { Placeholder } from "@/components/sections/Placeholder";
 import { Section } from "@/components/sections/Section";
-import { otherSolutions } from "@/lib/content";
+import { StripeHeader } from "@/components/sections/StripeHeader";
 import { customerLogos } from "@/lib/logos";
 import { pageMeta } from "@/lib/meta";
-import { industries, solutions } from "@/lib/site";
+import { lumenModules, solutions } from "@/lib/site";
+import styles from "./run.module.css";
 
 export const metadata = pageMeta(
-  "Lumen: run and optimise your power",
-  "Lumen is Neufin's software. It checks every bill, tracks solar and batteries, holds suppliers to your contract and runs every source at the cheapest time.",
+  "Lumen: run and optimise your energy",
+  "Lumen is Neufin's software. It improves solar and battery output, holds suppliers to your contract, runs every source at the cheapest time and checks every bill.",
   solutions.run.href,
 );
 
-// Lumen × industry pages, picked from the doc's first set.
-const lumenIndustries = ["Hotels and resorts", "Auto", "Offices and coworking", "Retail chains"];
+// Run and optimise, in the brief's order (the "Neufin website structure" doc, Solutions:
+// Run and optimise my energy), with the finish of the other pages: the text-on-photo
+// header, the logo bar, the standard H2 head, the home page's industries block on the
+// page's one Violet 900 band, the shared FAQ and solution cards, and the footer's contact
+// card as the last step.
+
+// TODO: link to the demo scheduling flow once it exists.
+const demoHref = "/contact";
+
+// The four modules, in the brief's order, with its lines. Names are the nav's plain names
+// (site.ts). Each row: the module on one side, its Lumen screen on the other, alternating
+// (the client's Ramp reference). TODO: real Lumen screens.
+const modules = [
+  { ...lumenModules[1], line: "Get more energy from your solar and batteries. Lumen tracks output and maintenance, and spots faults early." },
+  { ...lumenModules[2], line: "Lumen checks that your power contract's terms are kept, and helps you recover money when they are broken." },
+  { ...lumenModules[3], line: "Lumen schedules your grid, solar, wind, diesel and batteries, and buys from the exchange when it is cheaper." },
+  { ...lumenModules[0], line: "Lumen fetches and checks every bill at every site, so you pay only for what you used, with no penalties or hidden charges." },
+];
+
+// How it works as one picture (the brief: a visual, not text): what Lumen connects to,
+// what it finds, what you get. Figures are illustrative. TODO: confirm with Neufin.
+const sources = [
+  { icon: "meter", name: "Meters" },
+  { icon: "solar-panel", name: "Solar" },
+  { icon: "windmill", name: "Wind" },
+  { icon: "battery", name: "Batteries" },
+  { icon: "bolt", name: "Diesel generators" },
+  { icon: "bill", name: "Electricity board bills" },
+] as const;
+
+const leaks = [
+  { icon: "bill", text: "Bill charged at the wrong tariff" },
+  { icon: "solar-panel", text: "Inverter 2 down since Tuesday" },
+  { icon: "contract", text: "Supplier short of contracted units" },
+] as const;
 
 export default function RunAndOptimise() {
   return (
     <>
       <StripeHeader
         crumbs={[{ label: "Solutions" }, { label: solutions.run.label }]}
-        title="Pay less for the power you already use"
-        lead="Lumen is our software. It tracks every site, bill and agreement, and acts when there's money to save."
+        title="Generate more. Pay less."
+        lead="Software that improves generation and finds hidden opportunities to save on energy cost."
         actions={
-          <>
-            {/* TODO: link to the demo scheduling flow once it exists. */}
-            <Link href="/contact" className="btn btn-accent">
-              Book a demo
-            </Link>
-            <Link href="#how" className="link-arrow">
-              See how it works
-            </Link>
-          </>
+          <Link href={demoHref} className="btn btn-accent">
+            Book a demo
+            <IconSvg icon={icons.arrow} size={20} />
+          </Link>
         }
-        photo={metersPhoto}
+        photo={teamCoding}
+        focus="50% 55%"
+        over
       />
 
-      <Section tone="white">
-        <LogoBar label="Used by" logos={customerLogos} />
+      <div className={`container ${styles.logos}`}>
+        <LogoBar label="Used by businesses across India" logos={customerLogos} />
+      </div>
+
+      <Section id="modules" title="Four ways Lumen cuts your energy cost">
+        <div className={styles.modules}>
+          {modules.map((m, i) => (
+            <Split
+              key={m.href}
+              flip={i % 2 === 1}
+              visual={
+                <div className={`surface ${styles.screen}`}>
+                  <Placeholder note={`Lumen screen: ${m.label.toLowerCase()}`} tone="plain" ratio="16 / 10" />
+                </div>
+              }
+            >
+              <span className={styles.moduleIcon}>
+                <IconSvg icon={icons[m.icon]} size={24} />
+              </span>
+              <h3 className={styles.moduleName}>{m.label}</h3>
+              <p className={styles.moduleLine}>{m.line}</p>
+              {/* TODO: the Lumen module pages don't exist yet. */}
+              <Link href={m.href} className="link-arrow">
+                More on {m.label.toLowerCase()}
+                <IconSvg icon={icons.arrow} size={20} />
+              </Link>
+            </Split>
+          ))}
+        </div>
       </Section>
 
-      <Section id="modules" tone="dark" title="Four ways Lumen cuts your power cost" lead="Pick one to see it in Lumen.">
-        <ModuleTabs />
+      <Section id="industries" tone="dark" title="See what Lumen can do for your industry">
+        <Industries lumen />
       </Section>
 
-      <Section id="industries" title="What Lumen does for your industry" lead="Each industry loses money in different places. Lumen is set up for yours.">
-        {/* TODO: three solution points, client logos and a figure per industry. */}
-        <LinkCards
-          columns={4}
-          items={lumenIndustries.map((name) => ({
-            title: name,
-            text: `What Lumen tracks and fixes for ${name.toLowerCase()}, in one line.`,
-            href: industries.find((i) => i.label === name)?.href ?? "/",
-            cover: { note: `Photo: a ${name.toLowerCase()} site`, icon: "image" as const, tone: "daylight" as const },
-            meta: [{ value: "X%", label: "lower power cost" }],
-            linkLabel: `Lumen for ${name.toLowerCase()}`,
-          }))}
-        />
+      <Section id="how" title="Up and running in three steps">
+        <ol className={`surface ${styles.flow}`}>
+          <li className={styles.stage}>
+            <p className={styles.stageName}>Connect your sites</p>
+            <ul className={styles.sources}>
+              {sources.map((s) => (
+                <li key={s.name}>
+                  <span className={styles.tile}>
+                    <IconSvg icon={icons[s.icon]} size={20} />
+                  </span>
+                  {s.name}
+                </li>
+              ))}
+            </ul>
+          </li>
+          <li className={styles.stage}>
+            <p className={styles.stageName}>See where money leaks</p>
+            <ul className={styles.leaks}>
+              {leaks.map((l) => (
+                <li key={l.text}>
+                  <span className={styles.tile}>
+                    <IconSvg icon={icons[l.icon]} size={20} />
+                  </span>
+                  {l.text}
+                </li>
+              ))}
+            </ul>
+          </li>
+          <li className={styles.stage}>
+            <p className={styles.stageName}>Act on it</p>
+            <div className={styles.result}>
+              <span className={styles.resultLabel}>Saved this month</span>
+              <span className={styles.resultValue}>₹2.4 lakh</span>
+              <span className={styles.resultLabel}>Across 12 sites. Illustrative.</span>
+            </div>
+          </li>
+        </ol>
       </Section>
 
-      <Section id="how" tone="white" title="Up and running in three steps">
-        <Steps
-          items={[
-            { title: "Connect your sites", text: "Meters, solar inverters and your electricity board accounts link to Lumen.", visual: { note: "Diagram: meters, inverters and board portals flowing into Lumen", icon: "nodes", tone: "violet" } },
-            { title: "See where money leaks", text: "Lumen flags wrong bills, idle panels and broken contract terms.", visual: { note: "Screen: leak alerts", icon: "magnifier", tone: "dawn" } },
-            { title: "Act on it", text: "Fix it in Lumen, or we fix it for you, and watch the saving add up.", visual: { note: "Screen: actions and savings", icon: "coins", tone: "daylight" } },
-          ]}
-        />
-      </Section>
+      {/* TODO: Neufin to answer the open questions. */}
+      <FaqSection
+        title="Questions about Lumen"
+        items={[
+          { q: "What do you need for setup?", a: "Your list of sites, the account numbers on your power bills, and access to your meters and solar inverters." },
+          { q: "Do I need new meters?" },
+          { q: "Which electricity boards can you fetch bills from?" },
+          { q: "Can you track my rooftop solar?" },
+          { q: "How much does Lumen cost?" },
+          { q: "Is my data safe?" },
+        ]}
+      />
 
-      <Section id="faq" title="Questions about Lumen" narrowHead>
-        <Faq
-          items={[
-            { q: "What do you need to set it up?", a: "Your list of sites, the account numbers on your power bills, and access to your meters and solar inverters." },
-            { q: "Do I need new meters?" },
-            { q: "Which electricity boards can Lumen fetch bills from?" },
-            { q: "Can Lumen track my rooftop solar?" },
-            { q: "How much does Lumen cost?" },
-            { q: "Is my data safe?" },
-          ]}
-        />
-      </Section>
-
-      <Section id="more" tone="white" title="More ways to cut your power cost">
-        <LinkCards items={otherSolutions("run")} />
-      </Section>
+      <HowWeDoIt title="More ways to cut your energy cost" exclude="run" />
     </>
   );
 }

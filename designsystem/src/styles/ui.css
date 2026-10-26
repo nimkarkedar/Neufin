@@ -1307,8 +1307,9 @@
     translate: 0 60px;
   }
 
-  .image-card:hover .image-card-body,
-  .image-card:focus-visible .image-card-body {
+  /* As specific as the rule above, so hover wins. */
+  .image-card:not(.image-card-top):has(.image-card-cta):hover .image-card-body,
+  .image-card:not(.image-card-top):has(.image-card-cta):focus-visible .image-card-body {
     translate: none;
   }
 

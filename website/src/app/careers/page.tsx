@@ -158,9 +158,9 @@ export default function Careers() {
 
       <Section id="hiring" title="Our hiring process" lead="We move fast. Most candidates hear back within a week.">
         {/* One step higher each time, at the Stripe's angle. */}
-        <ScrollRow label="Hiring steps" controls={false} className={`${cardLayouts.four} ${styles.climb}`}>
+        <ScrollRow label="Hiring steps" controls={false} className={`${cardLayouts.four} ${cardLayouts.climb}`}>
           {hiring.map((h, i) => (
-            <div key={h.title} className={styles.step} style={{ "--i": i, "--n": hiring.length } as CSSProperties}>
+            <div key={h.title} className={cardLayouts.step} style={{ "--i": i, "--n": hiring.length } as CSSProperties}>
               <ArtCard {...h} />
             </div>
           ))}

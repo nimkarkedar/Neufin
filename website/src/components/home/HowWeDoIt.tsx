@@ -5,6 +5,7 @@ import { icons } from "@ds/brand/icons.js";
 import laptop from "@ds/../public/assets/photos/laptop-software.jpg";
 import electrician from "@ds/../public/assets/photos/electrician-rack.jpg";
 import landscape from "@ds/../public/assets/illustrations/energy-landscape.jpg";
+import solarSite from "@ds/../public/assets/photos/solar-site.jpg";
 import { solutions } from "@/lib/site";
 import styles from "./HowWeDoIt.module.css";
 
@@ -17,6 +18,16 @@ import styles from "./HowWeDoIt.module.css";
 // TODO: Neufin to confirm the lines.
 const cards = [
   {
+    id: "buy",
+    title: "Buy cheaper energy",
+    text: "Cut energy cost, on your terms. Choose your tariff, tenure and capacity.",
+    href: solutions.buy.href,
+    cta: "See energy plans",
+    image: solarSite,
+    kind: "photo",
+  },
+  {
+    id: "run",
     title: "Run and optimise",
     text: "Lumen watches every meter, plant and bill, and flags faults and overcharges.",
     href: solutions.run.href,
@@ -25,6 +36,7 @@ const cards = [
     kind: "photo",
   },
   {
+    id: "advisory",
     title: "Energy advisory",
     text: "We compare 30+ suppliers and tell you which power suits each site.",
     href: solutions.advisory.href,
@@ -33,6 +45,7 @@ const cards = [
     kind: "art",
   },
   {
+    id: "services",
     title: "Services",
     text: "Meters, approvals and paperwork, done for you while your site keeps running.",
     href: solutions.services.href,
@@ -47,14 +60,16 @@ const cards = [
 // breathing space).
 const art = { "--image-card-bg": "var(--electric-coral)", "--image-card-art-crop": "16%" } as CSSProperties;
 
-export function HowWeDoIt() {
+// Other pages reuse the cards under their own heading, leaving out their own solution
+// (`exclude`). The home page shows the three besides buying, which the plan finder covers.
+export function HowWeDoIt({ title = "How we keep your price low", exclude = "buy" }: { title?: string; exclude?: (typeof cards)[number]["id"] }) {
   return (
     <section className={`container ${styles.section}`} aria-labelledby="how-title">
       <h2 id="how-title" className={styles.title}>
-        How we keep your price low
+        {title}
       </h2>
       <ul className={styles.cards}>
-        {cards.map((c) => (
+        {cards.filter((c) => c.id !== exclude).map((c) => (
           <li key={c.title}>
             <Link
               href={c.href}

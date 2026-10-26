@@ -1,0 +1,59 @@
+/* Buy cheaper power. Mobile first. */
+
+/* What an energy plan is: one White box, four parts in a row with lines between them,
+   edge to edge, like the numbers block's grid. */
+.parts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin: 0;
+  overflow: hidden;
+}
+
+.part {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+  padding: 24px 20px;
+  border-right: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.partLabel {
+  color: var(--ink-2);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+}
+
+.partValue {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  font-weight: var(--text-h3-weight);
+  text-wrap: balance;
+}
+
+.kinds {
+  margin-top: var(--grid-gutter);
+}
+
+@media (min-width: 768px) {
+  .part {
+    padding: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .parts {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .part {
+    padding: 32px 28px 40px;
+    border-bottom: 0;
+  }
+
+  .part:last-child {
+    border-right: 0;
+  }
+}

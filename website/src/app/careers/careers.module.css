@@ -52,21 +52,6 @@
   font-weight: 400;
 }
 
-/* ---------- Hiring: the art cards climb, one step higher each, at the Stripe's angle ---------- */
-
-.climb {
-  --drop: 24px;
-}
-
-.climb :global(.scroll-row) {
-  align-items: start;
-}
-
-/* Step 1 sits lowest; each next card starts --drop higher. */
-.step {
-  margin-top: calc((var(--n) - 1 - var(--i)) * var(--drop));
-}
-
 /* ---------- Write to us ---------- */
 
 .write {
@@ -88,9 +73,5 @@
 
   .letter {
     grid-column: 7 / -1;
-  }
-
-  .climb {
-    --drop: 40px;
   }
 }

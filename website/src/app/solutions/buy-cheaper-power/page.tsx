@@ -1,105 +1,115 @@
 import Link from "next/link";
+import type { CSSProperties } from "react";
 import { IconSvg } from "@ds/components/Icon.jsx";
+import { ScrollRow } from "@ds/components/ScrollRow.jsx";
 import { icons } from "@ds/brand/icons.js";
-import { PlanFinder } from "@/components/sections/PlanFinder";
-import { Checks, Faq, Features, LinkCards, Steps, Table } from "@/components/sections/Blocks";
-import { StripeHeader } from "@/components/sections/StripeHeader";
 // TODO: Neufin's own photo; a library photo stands in.
-import pylonSkyPhoto from "@ds/../public/assets/photos/pylon-sky.jpg";
+import pylonDusk from "@ds/../public/assets/photos/careers-pylon-dusk.jpg";
+import { HowWeDoIt } from "@/components/home/HowWeDoIt";
+import { Table } from "@/components/sections/Blocks";
+import { ArtCard, PhotoCard, cardLayouts } from "@/components/sections/Cards";
+import { FaqSection } from "@/components/sections/FaqSection";
+import { PlanFinder } from "@/components/sections/PlanFinder";
 import { Section } from "@/components/sections/Section";
-import { latest, otherSolutions, resourcesLink } from "@/lib/content";
+import { StripeHeader } from "@/components/sections/StripeHeader";
+import { latest, resourcesLink } from "@/lib/content";
 import { pageMeta } from "@/lib/meta";
-import { customerStories, planFinderHref, solutions, tariffCalculator } from "@/lib/site";
+import { customerStories, solutions } from "@/lib/site";
+import styles from "./buy.module.css";
 
 export const metadata = pageMeta(
   "Buy cheaper power for your business",
-  "Energy plans from solar, wind, battery and the power market, from 30 days to 15 years and from 0.5 MWp. Pay up to 40% less per unit than your electricity board.",
+  "Energy plans from solar, wind, battery and the power exchange, from 30 days to 15 years and from 0.5 MWp. Cut your energy bill by up to 30%.",
   solutions.buy.href,
 );
+
+// Buy cheaper power, in the brief's order (the "Neufin website structure" doc, Solutions:
+// Buy cheaper energy), built from what the site already has: the text-on-photo header, the
+// shared cards, the plan finder, the home page's FAQ and solution cards, and the footer's
+// contact card as the last step.
+
+// What an energy plan is, in four parts, so the term needs no explaining (the brief's
+// note): the brief's four points, each as one part of the plan.
+const planParts = [
+  { label: "What you buy", value: "Solar, wind, battery or exchange power" },
+  { label: "At what price", value: "The lowest per unit, through bulk buying" },
+  { label: "For how long", value: "From 30 days to 15 years" },
+  { label: "How much", value: "From 0.5 MWp" },
+];
+
+// The four kinds of plan, from the brief. TODO: Kedar's four spot illustrations.
+const plans = [
+  { title: "Solar", text: "Fixed-price daytime energy. Best for plants and offices that run by day.", note: "Illustration: solar" },
+  { title: "Wind", text: "Energy that runs into the evening and night. Best for sites that run round the clock.", note: "Illustration: wind" },
+  { title: "Battery", text: "Solar stored for your evening peak. Best for sites with high evening loads.", note: "Illustration: battery" },
+  { title: "Spot, from the exchange", text: "Bought daily from the exchange with no lock-in. Best for flexible loads or short terms.", note: "Illustration: the exchange" },
+];
+
+// TODO: real stories, figures and client names.
+const stories = ["Auto", "Hotels and resorts", "Offices and coworking", "Real estate and malls"].map((ind) => ({
+  title: "X% lower energy cost",
+  text: `Client name · ${ind}`,
+  note: `Photo: a ${ind.toLowerCase()} site`,
+}));
+
+// From first call to cheaper energy, from the brief. TODO: Kedar's four spot illustrations.
+const steps = [
+  { title: "Share your electricity bills", text: "Send them on WhatsApp or by email. That is all we need to start.", note: "Illustration: a bill" },
+  { title: "Get a quote within 48 hours", text: "We compare plans across 30+ suppliers and send you a price.", note: "Illustration: a quote" },
+  { title: "Sign a standard agreement", text: "Pick the plan we recommend. The terms are agreed in advance.", note: "Illustration: an agreement" },
+  { title: "Power starts in as little as 30 days", text: "Depending on the plan you pick.", note: "Illustration: power flowing" },
+];
 
 export default function BuyCheaperPower() {
   return (
     <>
       <StripeHeader
         crumbs={[{ label: "Solutions" }, { label: solutions.buy.label }]}
-        title="Cut your power bill by up to 40%"
-        lead="Pick your contract length, source and size. We find the plan, sign it and get power flowing in about 3 months."
+        title="Cut your energy bill by up to 30%"
+        lead="Choose your tariff, tenure and capacity."
         actions={
-          <>
-            <Link href={planFinderHref} className="btn btn-accent">
-              See plans and prices
-              <IconSvg icon={icons.arrow} size={20} />
-            </Link>
-            <Link href="/contact" className="btn btn-secondary">
-              Get a quote
-            </Link>
-            <Link href={tariffCalculator.href} className="link-arrow">
-              Or try the savings calculator
-            </Link>
-          </>
+          <Link href="#compare" className="btn btn-accent">
+            View prices
+            <IconSvg icon={icons.arrow} size={20} />
+          </Link>
         }
-        photo={pylonSkyPhoto}
+        photo={pylonDusk}
+        focus="50% 20%"
+        over
       />
 
-      <Section
-        id="plans"
-        tone="white"
-        title="Energy plans that fit how you use power"
-        lead="An energy plan is a contract to buy power from a chosen source, at a set price, for a set term."
-      >
-        <Checks
-          items={[
-            "Plans from 0.5 MWp",
-            "Contracts from 30 days to 15 years",
-            "Lowest prices, through bulk buying",
-            "Standard terms, agreed in advance",
-          ]}
-        />
-        <div style={{ marginTop: 40 }}>
-          <Features
-            columns={4}
-            items={[
-              { icon: "sun", title: "Solar", text: "Fixed-price daytime power. Best for plants and offices that run by day." },
-              { icon: "wind", title: "Wind", text: "Power that runs into the evening and night. Best for sites that run round the clock." },
-              { icon: "battery", title: "Battery", text: "Solar stored for your evening peak. Best for sites with high evening use." },
-              { icon: "chart", title: "Daily market power", text: "Bought each day with no lock-in. Best for short or changing needs." },
-            ]}
-          />
+      <Section id="plans" title="Energy plans that fit every business" lead="An energy plan is a contract to buy power. It has four parts.">
+        <dl className={`surface ${styles.parts}`}>
+          {planParts.map((p) => (
+            <div key={p.label} className={styles.part}>
+              <dt className={styles.partLabel}>{p.label}</dt>
+              <dd className={styles.partValue}>{p.value}</dd>
+            </div>
+          ))}
+        </dl>
+        <div className={styles.kinds}>
+          <ScrollRow label="Kinds of energy plan" controls={false} className={cardLayouts.four}>
+            {plans.map((p) => (
+              <ArtCard key={p.title} {...p} />
+            ))}
+          </ScrollRow>
         </div>
       </Section>
 
-      <PlanFinder />
+      <div id="compare">
+        {/* TODO (brief): yearly use, the electricity board by name, and the price type (changes with tariff orders vs fixed). */}
+        <PlanFinder title="See what you’d save against your electricity board" />
+      </div>
 
-      <Section
-        id="stories"
-        tone="white"
-        title="Businesses like yours, paying less"
-        lead="Each industry uses power differently. Here is what we did for a few."
-        link={{ label: "All customer stories", href: customerStories.href }}
-      >
-        {/* TODO: real stories, figures and client logos. */}
-        <LinkCards
-          columns={4}
-          items={["Auto", "Hotels and resorts", "Offices and coworking", "Real estate and malls"].map((ind) => ({
-            title: ind,
-            text: `One line on what we did for a ${ind.toLowerCase()} client.`,
-            href: customerStories.href,
-            tag: "Client name",
-            cover: { note: `Photo: a ${ind.toLowerCase()} site`, icon: "image" as const, tone: "daylight" as const },
-            meta: [
-              { value: "X%", label: "lower cost" },
-              { value: "₹N L", label: "saved a year" },
-            ],
-            linkLabel: "Read story",
-          }))}
-        />
+      <Section id="stories" title="Businesses like yours, paying less" link={{ label: "All customer stories", href: customerStories.href }}>
+        <ScrollRow label="Customer stories" className={cardLayouts.row}>
+          {stories.map((s) => (
+            <PhotoCard key={s.text} {...s} href={customerStories.href} cta="Read the story" />
+          ))}
+        </ScrollRow>
       </Section>
 
-      <Section
-        id="on-your-own"
-        title="Buying clean power on your own is slow and rigid"
-        lead="With Neufin it takes about 3 months, at a price you choose."
-      >
+      <Section id="on-your-own" tone="white" title="Buying clean power on your own is slow and rigid" lead="With Neufin it takes as little as 30 days, at a price you choose.">
         <Table
           caption="Buying on your own compared with buying through Neufin"
           head={["", "On your own", "With Neufin"]}
@@ -108,41 +118,45 @@ export default function BuyCheaperPower() {
             ["Price", "High prices that change by generator", "Lowest price, through bulk buying"],
             ["Lock-in", "Long term, from 3 to 15 years", "Your choice, from 30 days to 15 years"],
             ["Terms", "New terms in every quote", "Standard terms, agreed in advance"],
-            ["Time to start", "6 to 9 months", "About 3 months"],
+            ["Time to start", "6 to 9 months", "As little as 30 days"],
             ["Smallest size", "From 1.5 MWp", "From 0.5 MWp"],
           ]}
         />
       </Section>
 
-      <Section id="how" tone="white" title="From your bill to cheaper power">
-        <Steps
-          items={[
-            { title: "Share your power bills", visual: { note: "Screen: uploading a bill", icon: "upload", tone: "violet" } },
-            { title: "Get a quote within 48 hours", visual: { note: "Screen: your quote", icon: "file-check", tone: "violet" } },
-            { title: "Pick the plan we recommend and sign a standard agreement", visual: { note: "Screen: the agreement", icon: "contract", tone: "violet" } },
-            { title: "Power starts in as little as 30 days", text: "Depending on the plan you pick.", visual: { note: "Screen: supply is live", icon: "bolt", tone: "daylight" } },
-          ]}
-        />
+      <Section id="how" title="From first call to cheaper energy">
+        {/* One step higher each time, at the Stripe's angle, as on Careers. */}
+        <ScrollRow label="How it works" controls={false} className={`${cardLayouts.four} ${cardLayouts.climb}`}>
+          {steps.map((s, i) => (
+            <div key={s.title} className={cardLayouts.step} style={{ "--i": i, "--n": steps.length } as CSSProperties}>
+              <ArtCard {...s} />
+            </div>
+          ))}
+        </ScrollRow>
       </Section>
 
-      <Section id="latest" title="Latest from Neufin" link={resourcesLink}>
-        <LinkCards items={latest} />
+      <Section id="latest" title="Neu from Neufin Energy" link={resourcesLink}>
+        <ul className={cardLayouts.three}>
+          {latest.map((l) => (
+            <li key={l.title}>
+              <PhotoCard title={l.title} text={l.text} note={l.cover?.note} href={l.href} cta={l.linkLabel} />
+            </li>
+          ))}
+        </ul>
       </Section>
 
-      <Section id="faq" tone="white" title="Questions about buying power" narrowHead>
-        <Faq
-          items={[
-            { q: "Is there a minimum load?", a: "Plans start from 0.5 MWp, for businesses on a high-tension (HT) connection." },
-            { q: "What if my load changes?" },
-            { q: "What if I have more than one site?", a: "One contract can cover sites across states. We supply in 16 states." },
-            { q: "What do you charge?" },
-          ]}
-        />
-      </Section>
+      {/* TODO: Neufin to answer the open questions. */}
+      <FaqSection
+        title="Questions about buying energy"
+        items={[
+          { q: "Is there a minimum load requirement?", a: "Plans start from 0.5 MWp, for businesses on a high-tension (HT) connection." },
+          { q: "What if my load changes?" },
+          { q: "What if I have multiple sites?", a: "One contract can cover sites across states. We supply in 16 states." },
+          { q: "What do you charge?" },
+        ]}
+      />
 
-      <Section id="more" title="More ways to cut your power cost">
-        <LinkCards items={otherSolutions("buy")} />
-      </Section>
+      <HowWeDoIt title="More ways to cut your energy cost" />
     </>
   );
 }

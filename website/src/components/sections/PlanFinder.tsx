@@ -62,7 +62,7 @@ function Choice({
   );
 }
 
-export function PlanFinder() {
+export function PlanFinder({ title = "See your price before you talk to us" }: { title?: string }) {
   const [term, setTerm] = useState(1);
   const [use, setUse] = useState(1);
   const [site, setSite] = useState(0);
@@ -88,7 +88,7 @@ export function PlanFinder() {
     <div className={styles.band}>
       <section className={`container ${styles.section}`} aria-labelledby="price-title">
         <h2 id="price-title" className={styles.title}>
-          See your price before you talk to us
+          {title}
         </h2>
 
         <div className={`surface ${styles.card}`}>

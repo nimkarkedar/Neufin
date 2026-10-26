@@ -75,14 +75,31 @@ const content: Record<string, { title: string; text: string; photo: { image: Sta
   },
 };
 
-// Industries on the home page: the design system's choice chips pick an industry (the
+// What Lumen fixes in each industry, for Run and optimise (the brief: a few solution
+// points, a figure and a link to the Lumen × industry page). TODO: Neufin to confirm the
+// points and send real figures.
+const lumenContent: Record<string, { title: string; points: string[] }> = {
+  Auto: { title: "Lumen for auto plants", points: ["Checks every plant's bill against its tariff", "Tracks rooftop solar output, shift by shift", "Moves load to the cheapest hours"] },
+  Plastics: { title: "Lumen for plastics", points: ["Shows each machine line's share of the bill", "Flags maximum demand penalties before they land", "Runs solar and grid by time of day"] },
+  Steel: { title: "Lumen for steel", points: ["Holds suppliers to your contract, unit by unit", "Flags power factor and demand penalties", "Buys from the exchange when it is cheaper"] },
+  "Hotels and resorts": { title: "Lumen for hotels and resorts", points: ["Every property's bill, fetched and checked", "Diesel and grid use compared, night by night", "Solar and battery output tracked per property"] },
+  "Real estate and malls": { title: "Lumen for real estate and malls", points: ["Common-area power split by tenant and floor", "Every unit's source on record for your reports", "Wrong bills caught before you pay them"] },
+  "Offices and coworking": { title: "Lumen for offices and coworking", points: ["Every centre's bill in one place", "Spots centres that use power after hours", "Checks your contract terms each month"] },
+  "Banks and finance": { title: "Lumen for banks and finance", points: ["Hundreds of branch bills, fetched and checked", "Clean power share tracked for your targets", "Data centre load watched round the clock"] },
+  "Retail chains": { title: "Lumen for retail chains", points: ["Every store's bill, fetched and checked", "Stores compared by power use per square foot", "Penalties and wrong tariffs flagged early"] },
+};
+
+// Industries on the home page (and, with `lumen`, on Run and optimise): the design system's choice chips pick an industry (the
 // row fades at the edge on phones to show it scrolls), and one White surface shows what
 // Neufin does for it (left) next to its photo (right), with the customers from that
 // industry and a link to the industry's own page.
-export function Industries() {
+export function Industries({ lumen = false }: { lumen?: boolean }) {
   const [current, setCurrent] = useState(0);
   const ind = industries[current];
   const c = content[ind.label];
+  const l = lumen ? lumenContent[ind.label] : undefined;
+  // TODO: the Lumen × industry pages don't exist yet.
+  const href = lumen ? `${ind.href}/lumen` : ind.href;
 
   return (
     <div>
@@ -99,8 +116,26 @@ export function Industries() {
 
       <div className={`surface ${styles.panel}`} aria-live="polite">
         <div className={styles.text}>
-          <h3 className={styles.title}>{c.title}</h3>
-          <p className={styles.line}>{c.text}</p>
+          <h3 className={styles.title}>{l ? l.title : c.title}</h3>
+          {l ? (
+            <ul className={styles.points}>
+              {l.points.map((p) => (
+                <li key={p}>
+                  <IconSvg icon={icons.check} size={18} />
+                  {p}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className={styles.line}>{c.text}</p>
+          )}
+          {/* TODO: a real figure per industry. */}
+          {l && (
+            <p className={styles.metric}>
+              <span className={styles.metricValue}>X%</span>
+              <span className={styles.footLabel}>lower energy cost for our customers in {ind.label.toLowerCase()}</span>
+            </p>
+          )}
 
 
           <div className={styles.foot}>
@@ -117,8 +152,8 @@ export function Industries() {
               </>
             )}
             {/* TODO: the industry pages don't exist yet. */}
-            <Link href={ind.href} className="link-arrow">
-              See our work in {ind.label.toLowerCase()}
+            <Link href={href} className="link-arrow">
+              {lumen ? `Lumen for ${ind.label.toLowerCase()}` : `See our work in ${ind.label.toLowerCase()}`}
               <IconSvg icon={icons.arrow} size={20} />
             </Link>
           </div>
