@@ -33,13 +33,13 @@ export const metadata = pageMeta(
 // contact card as the last step.
 
 
-// The four kinds of plan, from the brief, as panel cards on Kedar's illustrations (Energy
-// Mint), cropped to the art at the foot of each.
+// The four kinds of plan, from the brief, as panel cards on Kedar's illustrations (3:2, on
+// White), each with its own crop.
 const plans = [
   { title: "Solar", text: "Fixed-price daytime energy, for sites that run by day.", art: artSolar, focus: "50% 50%" },
-  { title: "Wind", text: "Energy into the evening and night, for round-the-clock sites.", art: artWind },
-  { title: "Battery", text: "Solar stored for your evening peak, for high evening loads.", art: artBattery },
-  { title: "Daily market", text: "Bought daily on the power exchange, with no lock-in.", art: artExchange },
+  { title: "Wind", text: "Energy into the evening and night, for round-the-clock sites.", art: artWind, focus: "10% 50%" },
+  { title: "Battery", text: "Solar stored for your evening peak, for high evening loads.", art: artBattery, focus: "50% 50%" },
+  { title: "Daily market", text: "Bought daily on the power exchange, with no lock-in.", art: artExchange, focus: "50% 50%" },
 ];
 
 
@@ -76,7 +76,7 @@ export default function BuyCheaperPower() {
           </div>
           <ScrollRow label="Kinds of energy plan" className={cardLayouts.row}>
             {plans.map((p) => (
-              <VerticalCard key={p.title} image={p.art} focus={p.focus ?? "50% 80%"} title={p.title} text={p.text} />
+              <VerticalCard key={p.title} image={p.art} focus={p.focus} title={p.title} text={p.text} />
             ))}
           </ScrollRow>
         </div>
