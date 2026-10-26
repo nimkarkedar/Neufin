@@ -5,6 +5,14 @@ import { ScrollRow } from "@ds/components/ScrollRow.jsx";
 import { icons } from "@ds/brand/icons.js";
 // TODO: Neufin's own photo; a library photo stands in.
 import pylonDusk from "@ds/../public/assets/photos/careers-pylon-dusk.jpg";
+import artSolar from "@ds/../public/assets/illustrations/plan-solar.jpg";
+import artWind from "@ds/../public/assets/illustrations/plan-wind.jpg";
+import artBattery from "@ds/../public/assets/illustrations/plan-battery.jpg";
+import artExchange from "@ds/../public/assets/illustrations/plan-exchange.jpg";
+import stepBill from "@ds/../public/assets/illustrations/step-bill.png";
+import stepQuote from "@ds/../public/assets/illustrations/step-quote.png";
+import stepAgreement from "@ds/../public/assets/illustrations/step-agreement.png";
+import stepPower from "@ds/../public/assets/illustrations/step-power.png";
 import { HowWeDoIt } from "@/components/home/HowWeDoIt";
 import { Table } from "@/components/sections/Blocks";
 import { ArtCard, PhotoCard, cardLayouts } from "@/components/sections/Cards";
@@ -37,12 +45,13 @@ const planParts = [
   { label: "How much", value: "From 0.5 MWp" },
 ];
 
-// The four kinds of plan, from the brief. TODO: Kedar's four spot illustrations.
+// The four kinds of plan, from the brief, each on a full-card illustration (Kedar's art on
+// Energy Mint). `crop` pulls the art down so the text above it stays clear.
 const plans = [
-  { title: "Solar", text: "Fixed-price daytime energy. Best for plants and offices that run by day.", note: "Illustration: solar" },
-  { title: "Wind", text: "Energy that runs into the evening and night. Best for sites that run round the clock.", note: "Illustration: wind" },
-  { title: "Battery", text: "Solar stored for your evening peak. Best for sites with high evening loads.", note: "Illustration: battery" },
-  { title: "Spot, from the exchange", text: "Bought daily from the exchange with no lock-in. Best for flexible loads or short terms.", note: "Illustration: the exchange" },
+  { title: "Solar", text: "Fixed-price daytime energy. Best for plants and offices that run by day.", art: artSolar, crop: "0%" },
+  { title: "Wind", text: "Energy that runs into the evening and night. Best for sites that run round the clock.", art: artWind, crop: "12%" },
+  { title: "Battery", text: "Solar stored for your evening peak. Best for sites with high evening loads.", art: artBattery, crop: "4%" },
+  { title: "Spot, from the exchange", text: "Bought daily from the exchange with no lock-in. Best for flexible loads or short terms.", art: artExchange, crop: "6%" },
 ];
 
 // TODO: real stories, figures and client names.
@@ -52,12 +61,12 @@ const stories = ["Auto", "Hotels and resorts", "Offices and coworking", "Real es
   note: `Photo: a ${ind.toLowerCase()} site`,
 }));
 
-// From first call to cheaper energy, from the brief. TODO: Kedar's four spot illustrations.
+// From first call to cheaper energy, from the brief, with Kedar's spot illustrations.
 const steps = [
-  { title: "Share your electricity bills", text: "Send them on WhatsApp or by email. That is all we need to start.", note: "Illustration: a bill" },
-  { title: "Get a quote within 48 hours", text: "We compare plans across 30+ suppliers and send you a price.", note: "Illustration: a quote" },
-  { title: "Sign a standard agreement", text: "Pick the plan we recommend. The terms are agreed in advance.", note: "Illustration: an agreement" },
-  { title: "Power starts in as little as 30 days", text: "Depending on the plan you pick.", note: "Illustration: power flowing" },
+  { title: "Share your electricity bills", text: "Send them on WhatsApp or by email. That is all we need to start.", art: stepBill },
+  { title: "Get a quote within 48 hours", text: "We compare plans across 30+ suppliers and send you a price.", art: stepQuote },
+  { title: "Sign a standard agreement", text: "Pick the plan we recommend. The terms are agreed in advance.", art: stepAgreement },
+  { title: "Power starts in as little as 30 days", text: "Depending on the plan you pick.", art: stepPower },
 ];
 
 export default function BuyCheaperPower() {
@@ -90,7 +99,17 @@ export default function BuyCheaperPower() {
         <div className={styles.kinds}>
           <ScrollRow label="Kinds of energy plan" controls={false} className={cardLayouts.four}>
             {plans.map((p) => (
-              <ArtCard key={p.title} {...p} />
+              <div
+                key={p.title}
+                className={`image-card image-card-static image-card-art image-card-top ${styles.plan}`}
+                style={{ "--image-card-art-crop": p.crop } as CSSProperties}
+              >
+                <img src={p.art.src} alt="" />
+                <div className="image-card-body">
+                  <h3 className="image-card-title">{p.title}</h3>
+                  <p className="image-card-text">{p.text}</p>
+                </div>
+              </div>
             ))}
           </ScrollRow>
         </div>

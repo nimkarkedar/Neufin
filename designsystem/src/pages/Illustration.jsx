@@ -18,6 +18,19 @@ const spots = [
   { file: 'hire-case.png', label: 'Working through charts at a laptop: case study' },
   { file: 'hire-deep-dive.png', label: 'Presenting charts to a small room: deep-dive interview' },
   { file: 'hire-founders.png', label: 'Three people talking at a table: founders round' },
+  { file: 'step-bill.png', label: 'A power bill on bands of power: share your bills' },
+  { file: 'step-quote.png', label: 'A bill with a 48-hour timer: get a quote' },
+  { file: 'step-agreement.png', label: 'A pen signing a page: sign the agreement' },
+  { file: 'step-power.png', label: 'A calendar with a power badge: power starts' },
+];
+
+// Full-card illustrations supplied by Kedar (2026-10-26), in public/assets/illustrations/:
+// 4:5, on Energy Mint (recoloured to the exact token), shown as image cards with the text at the top.
+const cardArt = [
+  { file: 'plan-solar.jpg', label: 'A solar panel on a band of power: solar plans' },
+  { file: 'plan-wind.jpg', label: 'A wind turbine where bands meet: wind plans' },
+  { file: 'plan-battery.jpg', label: 'A battery with bands running in and out: battery plans' },
+  { file: 'plan-exchange.jpg', label: 'A band stepping up and down like a daily price: exchange plans' },
 ];
 
 function Choice({ items, value, onChange }) {
@@ -84,9 +97,19 @@ export default function Illustration() {
         </div>
       </Section>
 
-      <Section title="Spot illustrations" intro="Round spots on Electric Coral, one idea each, for cards that carry a single thought. In use on the website's Careers page: How we work (one per value, on Electric Coral) and Our hiring process (one per step, on Signal Yellow). Transparent PNG, shown at 160 to 200px.">
+      <Section title="Spot illustrations" intro="Round spots on Electric Coral, one idea each, for cards that carry a single thought. In use on the website's Careers page: How we work (one per value, on Electric Coral) Our hiring process (one per step, on Signal Yellow), and Buy cheaper power's steps (on Electric Coral). Transparent PNG, shown at 160 to 200px.">
         <div className="insp-grid">
           {spots.map((s) => (
+            <figure key={s.file} className="insp-item">
+              <img src={asset(`/assets/illustrations/${s.file}`)} alt={s.label} loading="lazy" />
+            </figure>
+          ))}
+        </div>
+      </Section>
+
+      <Section title="Card illustrations" intro="Full-card art, 4:5, one subject in the lower part and open sky at the top for the card's title and line. In use on the website's Buy cheaper power page, Energy plans that fit every business, on Energy Mint with Near Black text (White fails contrast on mint).">
+        <div className="insp-grid">
+          {cardArt.map((s) => (
             <figure key={s.file} className="insp-item">
               <img src={asset(`/assets/illustrations/${s.file}`)} alt={s.label} loading="lazy" />
             </figure>

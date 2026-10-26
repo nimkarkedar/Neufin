@@ -37,6 +37,33 @@
   margin-top: var(--grid-gutter);
 }
 
+/* A kind of plan: the design system's image card on its illustration, Energy Mint, the text
+   at the top in Near Black (White fails contrast on mint), H3 so it fits four across. */
+.plan {
+  --image-card-bg: var(--energy-mint);
+  color: var(--near-black);
+}
+
+.plan :global(.image-card-title) {
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  letter-spacing: var(--text-h3-track);
+}
+
+/* Two by two until the cards are wide enough for the text above the art. */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .kinds :global(.scroll-row) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* Four across from 1280px: taller cards, so the art sits lower and the text stays clear. */
+@media (min-width: 1280px) {
+  .plan {
+    aspect-ratio: 2 / 3;
+  }
+}
+
 @media (min-width: 768px) {
   .part {
     padding: 32px;
