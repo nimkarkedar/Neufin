@@ -5,6 +5,7 @@ import { icons } from "@ds/brand/icons.js";
 import teamCoding from "@ds/../public/assets/photos/careers-team-coding.jpg";
 import { HowWeDoIt } from "@/components/home/HowWeDoIt";
 import { Industries } from "@/components/home/Industries";
+import { LumenFlow } from "@/components/lumen/LumenFlow";
 import { Split } from "@/components/sections/Blocks";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { LogoBar } from "@/components/sections/LogoBar";
@@ -41,22 +42,6 @@ const modules = [
   { ...lumenModules[0], line: "Lumen fetches and checks every bill at every site, so you pay only for what you used, with no penalties or hidden charges." },
 ];
 
-// How it works as one picture (the brief: a visual, not text): what Lumen connects to,
-// what it finds, what you get. Figures are illustrative. TODO: confirm with Neufin.
-const sources = [
-  { icon: "meter", name: "Meters" },
-  { icon: "solar-panel", name: "Solar" },
-  { icon: "windmill", name: "Wind" },
-  { icon: "battery", name: "Batteries" },
-  { icon: "bolt", name: "Diesel generators" },
-  { icon: "bill", name: "Electricity board bills" },
-] as const;
-
-const leaks = [
-  { icon: "bill", text: "Bill charged at the wrong tariff" },
-  { icon: "solar-panel", text: "Inverter 2 down since Tuesday" },
-  { icon: "contract", text: "Supplier short of contracted units" },
-] as const;
 
 export default function RunAndOptimise() {
   return (
@@ -112,42 +97,7 @@ export default function RunAndOptimise() {
       </Section>
 
       <Section id="how" title="Up and running in three steps">
-        <ol className={`surface ${styles.flow}`}>
-          <li className={styles.stage}>
-            <p className={styles.stageName}>Connect your sites</p>
-            <ul className={styles.sources}>
-              {sources.map((s) => (
-                <li key={s.name}>
-                  <span className={styles.tile}>
-                    <IconSvg icon={icons[s.icon]} size={20} />
-                  </span>
-                  {s.name}
-                </li>
-              ))}
-            </ul>
-          </li>
-          <li className={styles.stage}>
-            <p className={styles.stageName}>See where money leaks</p>
-            <ul className={styles.leaks}>
-              {leaks.map((l) => (
-                <li key={l.text}>
-                  <span className={styles.tile}>
-                    <IconSvg icon={icons[l.icon]} size={20} />
-                  </span>
-                  {l.text}
-                </li>
-              ))}
-            </ul>
-          </li>
-          <li className={styles.stage}>
-            <p className={styles.stageName}>Act on it</p>
-            <div className={styles.result}>
-              <span className={styles.resultLabel}>Saved this month</span>
-              <span className={styles.resultValue}>₹2.4 lakh</span>
-              <span className={styles.resultLabel}>Across 12 sites. Illustrative.</span>
-            </div>
-          </li>
-        </ol>
+        <LumenFlow />
       </Section>
 
       {/* TODO: Neufin to answer the open questions. */}

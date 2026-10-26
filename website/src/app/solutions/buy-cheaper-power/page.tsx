@@ -14,7 +14,8 @@ import stepQuote from "@ds/../public/assets/illustrations/step-quote.png";
 import stepAgreement from "@ds/../public/assets/illustrations/step-agreement.png";
 import stepPower from "@ds/../public/assets/illustrations/step-power.png";
 import { HowWeDoIt } from "@/components/home/HowWeDoIt";
-import { Table } from "@/components/sections/Blocks";
+import { LinkCards } from "@/components/sections/Blocks";
+import { stories, storyCard } from "@/lib/stories";
 import { ArtCard, PhotoCard, cardLayouts } from "@/components/sections/Cards";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { PlanFinder } from "@/components/sections/PlanFinder";
@@ -36,37 +37,25 @@ export const metadata = pageMeta(
 // shared cards, the plan finder, the home page's FAQ and solution cards, and the footer's
 // contact card as the last step.
 
-// What an energy plan is, in four parts, so the term needs no explaining (the brief's
-// note): the brief's four points, each as one part of the plan.
-const planParts = [
-  { label: "What you buy", value: "Solar, wind, battery or exchange power" },
-  { label: "At what price", value: "The lowest per unit, through bulk buying" },
-  { label: "For how long", value: "From 30 days to 15 years" },
-  { label: "How much", value: "From 0.5 MWp" },
-];
 
 // The four kinds of plan, from the brief, each on a full-card illustration (Kedar's art on
 // Energy Mint). `crop` pulls the art down so the text above it stays clear.
+// `crop` places the art on phones (4:5 cards), `cropWide` in the 2 × 2 grid beside the box from 1280px.
 const plans = [
-  { title: "Solar", text: "Fixed-price daytime energy. Best for plants and offices that run by day.", art: artSolar, crop: "0%" },
-  { title: "Wind", text: "Energy that runs into the evening and night. Best for sites that run round the clock.", art: artWind, crop: "12%" },
-  { title: "Battery", text: "Solar stored for your evening peak. Best for sites with high evening loads.", art: artBattery, crop: "4%" },
-  { title: "Spot, from the exchange", text: "Bought daily from the exchange with no lock-in. Best for flexible loads or short terms.", art: artExchange, crop: "6%" },
+  { title: "Solar", text: "Fixed-price daytime energy, for sites that run by day.", art: artSolar, crop: "0%", cropWide: "36%" },
+  { title: "Wind", text: "Energy into the evening and night, for round-the-clock sites.", art: artWind, crop: "12%", cropWide: "54%" },
+  { title: "Battery", text: "Solar stored for your evening peak, for high evening loads.", art: artBattery, crop: "4%", cropWide: "42%" },
+  { title: "Spot, from the exchange", text: "Bought daily with no lock-in, for flexible loads or short terms.", art: artExchange, crop: "6%", cropWide: "46%" },
 ];
 
-// TODO: real stories, figures and client names.
-const stories = ["Auto", "Hotels and resorts", "Offices and coworking", "Real estate and malls"].map((ind) => ({
-  title: "X% lower energy cost",
-  text: `Client name · ${ind}`,
-  note: `Photo: a ${ind.toLowerCase()} site`,
-}));
 
 // From first call to cheaper energy, from the brief, with Kedar's spot illustrations.
+// TODO: Neufin to confirm the durations (48 hours and 30 days are the brief's).
 const steps = [
-  { title: "Share your electricity bills", text: "Send them on WhatsApp or by email. That is all we need to start.", art: stepBill },
-  { title: "Get a quote within 48 hours", text: "We compare plans across 30+ suppliers and send you a price.", art: stepQuote },
-  { title: "Sign a standard agreement", text: "Pick the plan we recommend. The terms are agreed in advance.", art: stepAgreement },
-  { title: "Power starts in as little as 30 days", text: "Depending on the plan you pick.", art: stepPower },
+  { title: "Share your electricity bills", text: "Send them on WhatsApp or by email. That is all we need to start.", duration: "5 minutes", art: stepBill },
+  { title: "Get a quote within 48 hours", text: "We compare plans across 30+ suppliers and send you a price.", duration: "Within 48 hours", art: stepQuote },
+  { title: "Sign a standard agreement", text: "Pick the plan we recommend. The terms are agreed in advance.", duration: "1 day", art: stepAgreement },
+  { title: "Power starts in as little as 30 days", text: "Depending on the plan you pick.", duration: "From 30 days", art: stepPower },
 ];
 
 export default function BuyCheaperPower() {
@@ -87,22 +76,26 @@ export default function BuyCheaperPower() {
         over
       />
 
-      <Section id="plans" title="Energy plans that fit every business" lead="An energy plan is a contract to buy power. It has four parts.">
-        <dl className={`surface ${styles.parts}`}>
-          {planParts.map((p) => (
-            <div key={p.label} className={styles.part}>
-              <dt className={styles.partLabel}>{p.label}</dt>
-              <dd className={styles.partValue}>{p.value}</dd>
-            </div>
-          ))}
-        </dl>
-        <div className={styles.kinds}>
-          <ScrollRow label="Kinds of energy plan" controls={false} className={cardLayouts.four}>
+      {/* One fold: what a plan is on the left (like the home numbers block's left box), the
+          four kinds as a 2 × 2 of illustrated cards on the right. */}
+      <Section id="plans" title="Energy plans that fit every business">
+        <div className={styles.plans}>
+          <div className={`surface ${styles.explain}`}>
+            <p className={styles.explainText}>
+              An energy plan is a contract to buy power at a fixed price, for as long as you need, from 30 days to 15 years. We buy in
+              bulk from 30+ suppliers, so you pay less per unit than you do your electricity board. Plans start from 0.5 MWp.
+            </p>
+            <Link href="#compare" className="btn btn-primary">
+              See your price
+              <IconSvg icon={icons.arrow} size={20} />
+            </Link>
+          </div>
+          <ScrollRow label="Kinds of energy plan" controls={false} className={`${cardLayouts.four} ${styles.kinds}`}>
             {plans.map((p) => (
               <div
                 key={p.title}
                 className={`image-card image-card-static image-card-art image-card-top ${styles.plan}`}
-                style={{ "--image-card-art-crop": p.crop } as CSSProperties}
+                style={{ "--crop": p.crop, "--crop-wide": p.cropWide } as CSSProperties}
               >
                 <img src={p.art.src} alt="" />
                 <div className="image-card-body">
@@ -121,35 +114,14 @@ export default function BuyCheaperPower() {
       </div>
 
       <Section id="stories" title="Businesses like yours, paying less" link={{ label: "All customer stories", href: customerStories.href }}>
-        <ScrollRow label="Customer stories" className={cardLayouts.row}>
-          {stories.map((s) => (
-            <PhotoCard key={s.text} {...s} href={customerStories.href} cta="Read the story" />
-          ))}
-        </ScrollRow>
-      </Section>
-
-      <Section id="on-your-own" tone="white" title="Buying clean power on your own is slow and rigid" lead="With Neufin it takes as little as 30 days, at a price you choose.">
-        <Table
-          caption="Buying on your own compared with buying through Neufin"
-          head={["", "On your own", "With Neufin"]}
-          highlight={2}
-          rows={[
-            ["Price", "High prices that change by generator", "Lowest price, through bulk buying"],
-            ["Lock-in", "Long term, from 3 to 15 years", "Your choice, from 30 days to 15 years"],
-            ["Terms", "New terms in every quote", "Standard terms, agreed in advance"],
-            ["Time to start", "6 to 9 months", "As little as 30 days"],
-            ["Smallest size", "From 1.5 MWp", "From 0.5 MWp"],
-          ]}
-        />
+        {/* The same cards as the Customer stories page, which this section links to. */}
+        <LinkCards columns={4} items={stories.slice(0, 4).map(storyCard)} />
       </Section>
 
       <Section id="how" title="From first call to cheaper energy">
-        {/* One step higher each time, at the Stripe's angle, as on Careers. */}
-        <ScrollRow label="How it works" controls={false} className={`${cardLayouts.four} ${cardLayouts.climb}`}>
+        <ScrollRow label="How it works" controls={false} className={cardLayouts.four}>
           {steps.map((s, i) => (
-            <div key={s.title} className={cardLayouts.step} style={{ "--i": i, "--n": steps.length } as CSSProperties}>
-              <ArtCard {...s} />
-            </div>
+            <ArtCard key={s.title} {...s} step={i + 1} />
           ))}
         </ScrollRow>
       </Section>

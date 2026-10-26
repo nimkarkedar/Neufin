@@ -153,16 +153,6 @@ export function PlanFinder({ title = "See your price before you talk to us" }: {
                     <RollingFigure value={rate(best.price)} />
                   </td>
                 </tr>
-                <tr>
-                  <th scope="row">Energy charges</th>
-                  <td>
-                    <RollingFigure value={inr(boardBill)} />
-                  </td>
-                  <td className={styles.neufin}>
-                    <Drop />
-                    <RollingFigure value={inr(neufinBill)} />
-                  </td>
-                </tr>
               </tbody>
             </table>
 

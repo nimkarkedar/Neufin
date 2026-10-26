@@ -102,8 +102,12 @@
     grid-column: 8 / -1;
   }
 
-  /* A link alone sits at the right end of the row. */
+  /* A link alone sits at the right end of the row, centred on the title. Its 48px tap area
+     overhangs the row instead of making it taller, so every title sits the same distance
+     from the section above. */
   .aside:not(:has(.lead)) {
     justify-items: end;
+    align-self: center;
+    margin-block: -12px;
   }
 }

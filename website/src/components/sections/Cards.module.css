@@ -28,6 +28,7 @@
 /* ---------- Art card: White, a round spot illustration, title and line ---------- */
 
 .artCard {
+  position: relative;
   --ink: var(--near-black);
   --ink-2: var(--grey-600);
   display: grid;
@@ -74,6 +75,23 @@
   margin-top: 8px;
 }
 
+/* "Step N" just above the title (Kedar: 10px on desktop, 8px on phones). */
+.step {
+  margin-bottom: 8px;
+}
+
+/* The duration in the card's top right corner. The card's top padding grows so the
+   illustration starts below it and the two never touch. */
+.duration {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+
+.artCard:has(.duration) {
+  padding-top: 56px;
+}
+
 .cardTitle {
   font-size: var(--text-h3-size);
   line-height: var(--text-h3-lh);
@@ -105,20 +123,6 @@
 /* Photo cards in a sideways row (with ScrollRow), the same size as three across. */
 .row :global(.scroll-row) {
   --scroll-item: 78%;
-}
-
-/* Steps that climb (with .four): each card starts one step higher than the one before,
-   at --drop, like the Stripe stepping. Set --i (the step) and --n (how many) on each step. */
-.climb {
-  --drop: 24px;
-}
-
-.climb :global(.scroll-row) {
-  align-items: start;
-}
-
-.step {
-  margin-top: calc((var(--n) - 1 - var(--i)) * var(--drop));
 }
 
 @media (min-width: 768px) {
@@ -163,13 +167,23 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 
-  .climb {
-    --drop: 40px;
-  }
 
   .artCard {
     min-height: 400px;
     padding: 32px 28px 36px;
+  }
+
+  .step {
+    margin-bottom: 10px;
+  }
+
+  .duration {
+    top: 20px;
+    right: 20px;
+  }
+
+  .artCard:has(.duration) {
+    padding-top: 64px;
   }
 
   .cardArt {

@@ -154,7 +154,7 @@
   }
 }
 
-/* Desktop: the step takes columns 11–12; seven groups and the stamp in four columns of three. */
+/* Desktop: the step takes columns 11–12; the three groups and the stamp in four columns. */
 @media (min-width: 1024px) {
   .contactRow {
     padding-bottom: 40px;

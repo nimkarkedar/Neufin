@@ -1,120 +1,11 @@
 /* About. Mobile first. The shared cards (sections/Cards) and the standard section head,
-   on the Warm White page with a White investors band, the one Violet 900 band (the
-   licence); the footer's contact card closes the page. */
+   on the Warm White page with a White investors band; the footer's contact card
+   closes the page. */
 
 /* A small label over a group, the same as the logo bar's. */
 .groupLabel {
   margin-bottom: 12px;
   color: var(--ink-2);
-}
-
-/* ---------- Investors: angels in one White box, a cell each, lines edge to edge ---------- */
-
-.angels {
-  margin-top: 40px;
-}
-
-.angelGrid {
-  --logo-size: 32px;
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  overflow: hidden;
-}
-
-.angel {
-  display: grid;
-  align-content: start;
-  gap: 20px;
-  padding: 24px 20px;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  color: var(--ink-2);
-}
-
-.angelName {
-  display: block;
-  color: var(--ink);
-  font-weight: 600;
-}
-
-.angelRole {
-  display: block;
-  font-size: var(--text-small-size);
-  line-height: var(--text-small-lh);
-}
-
-/* ---------- Licence: one White box on the band, the facts beside the CERC seal ---------- */
-
-/* The box keeps the light colour roles on the dark band. */
-.licence {
-  --ink: var(--near-black);
-  --ink-2: var(--grey-600);
-  --line: var(--grey-200);
-  position: relative;
-  display: grid;
-  overflow: hidden;
-  color: var(--ink);
-}
-
-.licenceBody {
-  display: grid;
-  align-content: start;
-  gap: 24px;
-  padding: 24px 20px;
-}
-
-.licenceLead {
-  max-width: 48ch;
-  font-size: var(--text-body-l-size);
-  line-height: var(--text-body-l-lh);
-  text-wrap: pretty;
-}
-
-.facts {
-  display: grid;
-  border-top: 1px solid var(--line);
-}
-
-.facts div {
-  display: grid;
-  gap: 2px;
-  padding: 12px 0;
-  border-bottom: 1px solid var(--line);
-}
-
-.facts dt {
-  color: var(--ink-2);
-  font-size: var(--text-small-size);
-  line-height: var(--text-small-lh);
-}
-
-.facts dd {
-  margin: 0;
-  font-weight: 600;
-}
-
-/* The CERC seal: the numbers block's ring stamp, large, in Electric Violet, tilted and cut
-   by the box's edge, as the plan finder's stamp is: the bottom on phones, the right side
-   from desktop. */
-.seal {
-  position: relative;
-  min-height: 200px;
-  color: var(--electric-violet);
-}
-
-.sealPos {
-  position: absolute;
-  right: -32px;
-  bottom: -150px;
-  rotate: -10deg;
-}
-
-.emblem {
-  width: 42%;
-  height: auto;
 }
 
 /* ---------- Press: a list like Open roles ---------- */
@@ -155,18 +46,6 @@
 }
 
 @media (min-width: 768px) {
-  .angelGrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .angel {
-    padding: 32px;
-  }
-
-  .licenceBody {
-    padding: 32px;
-  }
-
   .pressItem {
     grid-template-columns: 1fr auto;
     align-items: center;
@@ -174,31 +53,3 @@
   }
 }
 
-@media (min-width: 1024px) {
-  .angelGrid {
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-  }
-
-  .angel {
-    padding: 32px 28px;
-  }
-
-  .licence {
-    grid-template-columns: 7fr 5fr;
-  }
-
-  .licenceBody {
-    padding: 40px;
-  }
-
-  .seal {
-    min-height: 0;
-  }
-
-  .sealPos {
-    top: 50%;
-    right: -88px;
-    bottom: auto;
-    translate: 0 -50%;
-  }
-}

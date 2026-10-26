@@ -47,92 +47,9 @@
   border-radius: var(--radius-s);
 }
 
-/* ---------- How it works: one picture in three stages ---------- */
-
-.flow {
-  display: grid;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  overflow: hidden;
-}
-
-.stage {
-  display: grid;
-  align-content: start;
-  gap: 20px;
-  padding: 24px 20px;
-  border-bottom: 1px solid var(--line);
-}
-
-.stage:last-child {
-  border-bottom: 0;
-}
-
-.stageName {
-  font-family: var(--font-display);
-  font-size: var(--text-h3-size);
-  line-height: var(--text-h3-lh);
-  font-weight: var(--text-h3-weight);
-}
-
-.sources,
-.leaks {
-  display: grid;
-  gap: 10px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.sources li,
-.leaks li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 8px 12px 8px 8px;
-  border-radius: var(--radius-m);
-  background: var(--warm-white);
-}
-
-.tile {
-  display: grid;
-  flex: none;
-  place-items: center;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: var(--white);
-}
-
-.result {
-  display: grid;
-  gap: 4px;
-  padding: 20px;
-  border-radius: var(--radius-m);
-  background: var(--violet-100);
-}
-
-.resultValue {
-  font-family: var(--font-display);
-  font-size: var(--text-h1-size);
-  line-height: var(--text-h1-lh);
-  font-weight: var(--text-h1-weight);
-}
-
-.resultLabel {
-  color: var(--ink-2);
-  font-size: var(--text-small-size);
-  line-height: var(--text-small-lh);
-}
-
 @media (min-width: 768px) {
   .logos {
     margin-top: 48px;
-  }
-
-  .stage {
-    padding: 32px;
   }
 }
 
@@ -143,19 +60,5 @@
 
   .modules {
     gap: 96px;
-  }
-
-  .flow {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .stage {
-    padding: 40px;
-    border-right: 1px solid var(--line);
-    border-bottom: 0;
-  }
-
-  .stage:last-child {
-    border-right: 0;
   }
 }

@@ -13,15 +13,7 @@ import yesBank from "@/assets/logos/customers/yes-bank.svg";
 import threeOne4 from "@/assets/logos/investors/3one4-capital.svg";
 import betterCapital from "@/assets/logos/investors/better-capital.svg";
 import goodCapital from "@/assets/logos/investors/good-capital.svg";
-import groww from "@/assets/logos/investors/groww.svg";
-import jupiter from "@/assets/logos/investors/jupiter.svg";
-import mckinsey from "@/assets/logos/investors/mckinsey-and-company.svg";
-import murugappa from "@/assets/logos/investors/murugappa.svg";
-import practo from "@/assets/logos/investors/practo.svg";
 import rainmatter from "@/assets/logos/investors/rainmatter.svg";
-import softbank from "@/assets/logos/investors/softbank.svg";
-import timeZero from "@/assets/logos/investors/time-zero-capital.svg";
-import urbanLadder from "@/assets/logos/investors/urban-ladder.svg";
 import candi from "@/assets/logos/partners/candi.svg";
 import cleanmax from "@/assets/logos/partners/cleanmax.svg";
 import ecofy from "@/assets/logos/partners/ecofy.svg";
@@ -73,20 +65,13 @@ export const financeLogos = [
   logo("Net Zero Finance", netZero),
 ];
 
-// TODO: Neufin to confirm which of these are funds and which are angels' companies.
+// Institutional investors only (Neufin, 2026-10-27). Angel investors' company logos are
+// never shown without the investor's name, so they are not in any logo bar.
 export const investorLogos = [
-  logo("Rainmatter", rainmatter),
-  logo("Good Capital", goodCapital),
-  logo("3one4 Capital", threeOne4),
   logo("Better Capital", betterCapital),
-  logo("Time Zero Capital", timeZero),
-  logo("Murugappa", murugappa),
-  logo("SoftBank", softbank),
-  logo("McKinsey & Company", mckinsey),
-  logo("Groww", groww),
-  logo("Jupiter", jupiter),
-  logo("Practo", practo),
-  logo("Urban Ladder", urbanLadder),
+  logo("Good Capital", goodCapital),
+  logo("Rainmatter by Zerodha", rainmatter),
+  logo("3one4 Capital", threeOne4),
 ];
 
 // Every logo once, for the logo bar: customers, suppliers, finance partners (YES BANK is

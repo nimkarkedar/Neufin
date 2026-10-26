@@ -1,0 +1,266 @@
+/* How Lumen works. Mobile first: the three cards stacked with a pulsing link between them.
+   From 1280px: a fixed 1200 × 560 stage, cards placed in its units, the bands drawn in SVG. */
+
+/* ---------- The panel: Electric Coral with two soft glows that drift, and a faint grid ----------
+   Coral, as in Kedar's spot illustrations: warm and high in contrast with the White cards
+   (Violet 900 was too much violet, the Daylight gradient too low in contrast). */
+
+.panel {
+  position: relative;
+  overflow: hidden;
+  padding: 20px 16px;
+  border-radius: var(--radius-l);
+  background:
+    radial-gradient(55% 65% at 20% 25%, color-mix(in srgb, var(--white) 22%, transparent), transparent 70%),
+    radial-gradient(50% 60% at 80% 75%, color-mix(in srgb, var(--violet-900) 18%, transparent), transparent 70%),
+    var(--electric-coral);
+  background-size: 140% 140%, 140% 140%, auto;
+  box-shadow: var(--shadow-raised);
+  isolation: isolate;
+  animation: glow-drift calc(var(--duration-slow) * 30) var(--ease-out) infinite alternate;
+}
+
+.panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--near-black) 7%, transparent) 0 1px, transparent 1px 80px);
+  pointer-events: none;
+}
+
+@keyframes glow-drift {
+  from {
+    background-position: 0% 0%, 100% 100%, 0 0;
+  }
+  to {
+    background-position: 30% 20%, 70% 80%, 0 0;
+  }
+}
+
+/* ---------- Cards ---------- */
+
+.cards {
+  display: grid;
+  gap: 48px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.card {
+  --ink: var(--near-black);
+  --ink-2: var(--grey-600);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 20px;
+  border-radius: var(--radius-l);
+  background: var(--white);
+  box-shadow: var(--shadow-raised);
+  color: var(--ink);
+}
+
+/* Phones: a short link between stacked cards, with light running down it. */
+.card:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 40px;
+  width: 6px;
+  height: 48px;
+  background: linear-gradient(transparent 35%, var(--white) 50%, transparent 65%) 0 0 / 100% 300%,
+    var(--violet-900);
+  animation: link-run var(--duration-current) linear infinite;
+}
+
+@keyframes link-run {
+  to {
+    background-position: 0 300%, 0 0;
+  }
+}
+
+.title {
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  font-weight: var(--text-h3-weight);
+}
+
+.text {
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+.rows {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  margin: 6px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rows li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px 6px 6px;
+  border-radius: var(--radius-m);
+  background: var(--warm-white);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+}
+
+.tile {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--white);
+}
+
+.saved {
+  display: grid;
+  gap: 2px;
+  width: 100%;
+  margin-top: 6px;
+  padding: 14px 16px;
+  border-radius: var(--radius-m);
+  background: var(--violet-100);
+}
+
+.savedValue {
+  font-family: var(--font-display);
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-lh);
+  font-weight: var(--text-h2-weight);
+}
+
+.savedLabel {
+  color: var(--ink-2);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+}
+
+/* ---------- The bands (desktop) ---------- */
+
+.links {
+  display: none;
+}
+
+.band,
+.pulse {
+  fill: none;
+  stroke-width: 6;
+  stroke-linejoin: miter;
+  stroke-linecap: butt;
+}
+
+.band {
+  stroke: var(--violet-900);
+}
+
+/* A short bright segment runs along each band, one after the other. */
+.pulse {
+  stroke: var(--white);
+  stroke-dasharray: 28 400;
+  stroke-dashoffset: 28;
+  animation: pulse-run var(--duration-current) linear infinite;
+  animation-delay: calc(var(--i) * var(--duration-current) / 6);
+}
+
+@keyframes pulse-run {
+  to {
+    stroke-dashoffset: -400;
+  }
+}
+
+.label {
+  fill: var(--near-black);
+  font-family: var(--font-body);
+  font-size: var(--text-small-size);
+}
+
+@media (min-width: 768px) {
+  .panel {
+    padding: 32px;
+  }
+
+  .card {
+    padding: 24px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .panel {
+    padding: 40px;
+  }
+
+  .stage {
+    position: relative;
+    aspect-ratio: 1200 / 560;
+  }
+
+  .links {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+
+  .cards {
+    position: absolute;
+    inset: 0;
+    display: block;
+  }
+
+  .card {
+    position: absolute;
+  }
+
+  .card::after {
+    display: none;
+  }
+
+  /* Positions in stage units (1200 × 560), as percentages. */
+  .sites {
+    top: 3.6%;
+    left: 0;
+    width: 28.3%;
+    height: 92.8%;
+    justify-content: center;
+  }
+
+  .lumen {
+    top: 28.6%;
+    left: 39.2%;
+    width: 21.6%;
+    height: 42.8%;
+    justify-content: center;
+  }
+
+  .results {
+    top: 10.7%;
+    left: 71.7%;
+    width: 28.3%;
+    height: 78.6%;
+    justify-content: center;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .pulse,
+  .card::after {
+    animation: none;
+  }
+
+  .pulse {
+    display: none;
+  }
+}

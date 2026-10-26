@@ -1,13 +1,7 @@
-import Link from "next/link";
-import { IconSvg } from "@ds/components/Icon.jsx";
 import { ScrollRow } from "@ds/components/ScrollRow.jsx";
-import { RingStamp } from "@ds/components/Stamp.jsx";
-import { icons } from "@ds/brand/icons.js";
 // TODO: Neufin's own photo; a library photo stands in (credit in the design system's photo list).
 import pylonMist from "@ds/../public/assets/photos/pylon-mist-delhi.jpg";
-import cerc from "@/assets/cerc.svg";
 import { Proof } from "@/components/home/Proof";
-import { LogoMark } from "@/components/sections/Blocks";
 import { ArtCard, PhotoCard, cardLayouts } from "@/components/sections/Cards";
 import { LogoBar } from "@/components/sections/LogoBar";
 import { Section } from "@/components/sections/Section";
@@ -26,7 +20,7 @@ export const metadata = pageMeta(
 // About tells Neufin's story in the brief's order (the "Neufin website structure" doc,
 // About), with the same finish as Careers and the home page: the text-on-photo header, the
 // standard H2 head, the shared photo and art cards, the home page's numbers block as it is,
-// one Violet 900 band (the licence), then the footer's contact card as the last step, as on
+// then the footer's contact card as the last step, as on
 // the home page.
 
 // Our story, told in three beats from the brief's paragraph. TODO: Kedar's spot illustrations.
@@ -55,11 +49,6 @@ const team: { name: string; role: string; linkedin?: string }[] = [
   ...Array.from({ length: 4 }, () => ({ name: "Name", role: "Role" })),
 ];
 
-// TODO: Neufin to confirm which investors are funds and which logos are angels' companies,
-// and to name each angel and their role.
-const angelCompanies = ["McKinsey & Company", "Groww", "Jupiter", "Practo", "Urban Ladder"];
-const funds = investorLogos.filter((l) => !angelCompanies.includes(l.name));
-const angels = investorLogos.filter((l) => angelCompanies.includes(l.name));
 
 // TODO: press coverage: publication, headline, date and link.
 const press = [1, 2, 3].map(() => ({ outlet: "Publication", headline: "Headline of the article about Neufin", date: "Month 2026" }));
@@ -108,63 +97,8 @@ export default function About() {
       </Section>
 
       <Section id="investors" tone="white" title="Backed by leading investors">
-        <LogoBar label="Funds" logos={funds} />
-        <div className={styles.angels}>
-          <p className={styles.groupLabel}>Angel investors</p>
-          <ul className={`surface ${styles.angelGrid}`}>
-            {angels.map((a) => (
-              <li key={a.name} className={styles.angel}>
-                <LogoMark logo={a} />
-                <p>
-                  <span className={styles.angelName}>Name</span>
-                  <span className={styles.angelRole}>Role, {a.name}</span>
-                </p>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Section>
-
-      <Section id="licence" tone="dark" title="Licensed to trade energy">
-        <div className={`surface ${styles.licence}`}>
-          <div className={styles.licenceBody}>
-            <p className={styles.licenceLead}>
-              We hold an inter-state power trading licence from the Central Electricity Regulatory Commission, so we sign and supply
-              under our own licence.
-            </p>
-            <dl className={styles.facts}>
-              <div>
-                <dt>Issued by</dt>
-                <dd>Central Electricity Regulatory Commission (CERC)</dd>
-              </div>
-              <div>
-                <dt>Licence</dt>
-                <dd>Inter-state trading, Category V</dd>
-              </div>
-              {/* TODO: licence number and validity from the licence document. */}
-              <div>
-                <dt>Licence number</dt>
-                <dd>To come</dd>
-              </div>
-              <div>
-                <dt>Valid until</dt>
-                <dd>To come</dd>
-              </div>
-            </dl>
-            {/* TODO: link to the licence PDF. */}
-            <Link href="/documents/power-trading-licence" className="link-arrow">
-              View the licence
-              <IconSvg icon={icons.arrow} size={20} />
-            </Link>
-          </div>
-          <div className={styles.seal} aria-hidden="true">
-            <span className={styles.sealPos}>
-              <RingStamp text="Licensed by CERC · Inter-state trading · Category V · " size={320}>
-                <img src={cerc.src} alt="" className={styles.emblem} />
-              </RingStamp>
-            </span>
-          </div>
-        </div>
+        {/* Institutional investors. Angel investors appear only with their names (TODO: Neufin to send). */}
+        <LogoBar logos={investorLogos} />
       </Section>
 
       <Section id="partners" title="Partners and press">

@@ -80,10 +80,8 @@ export const services: NavLink[] = [
   { label: "Rooftop solar net metering", href: "/solutions/services/net-metering" },
 ];
 
-// Energy plans and Lumen are the same pages as Buy cheaper power and Run and optimise.
-const energyPlans: NavLink = { label: "Energy plans", href: solutions.buy.href };
-const supplyMap: NavLink = { label: "Plan finder", href: "/products/plan-finder" };
-const lumen: NavLink = { label: "Lumen", href: solutions.run.href };
+// Energy plans: every plan in one place (the plan finder page). Phase 1 (Kedar, 2026-10-27).
+const energyPlans: NavLink = { label: "Energy plans", href: "/products/plan-finder" };
 // Lumen's modules, with the icon and line the Products menu and the home page's Lumen
 // block both show.
 export const lumenModules: (MenuItem & { icon: IconName; description: string })[] = [
@@ -93,18 +91,20 @@ export const lumenModules: (MenuItem & { icon: IconName; description: string })[
   { label: "Automatic source switching", href: "/products/lumen/source-switching", icon: "nodes", description: "Uses grid, solar, wind, diesel or battery, whichever is cheapest." },
 ];
 
-export const blogs: NavLink = { label: "Blogs", href: "/blog" };
+export const blogs: NavLink = { label: "Blog", href: "/blog" };
 export const publications: NavLink = { label: "Publications", href: "/publications" };
 export const tariffCalculator: NavLink = { label: "Savings calculator", href: "/tools/savings-calculator" };
-export const stateGuides: NavLink = { label: "State guides", href: "/tools/state-guides" };
 export const customerStories: NavLink = { label: "Customer stories", href: "/customer-stories" };
 export const about: NavLink = { label: "About", href: "/about" };
 export const careers: NavLink = { label: "Careers", href: "/careers" };
 
-export const planFinderHref = supplyMap.href;
+export const planFinderHref = energyPlans.href;
 
 export const contactLink: NavLink = { label: "Contact us", href: "/contact" };
 
+// Phase 1 pages only (Kedar, 2026-10-27): Home, the five solutions, Energy plans, Blog,
+// Publications, Customer stories, About, Careers, Contact. Industry, Lumen module, tool and
+// document pages come later, so the menu doesn't link to them yet.
 export const mainNav: NavItem[] = [
   { label: "Home", href: "/" },
   {
@@ -121,7 +121,6 @@ export const mainNav: NavItem[] = [
             { ...solutions.services, icon: "wrench", description: "Meter work and electricity board approvals, done for you." },
           ],
         },
-        { title: "By industry", items: industries },
       ],
       aside: {
         label: "For suppliers",
@@ -131,35 +130,7 @@ export const mainNav: NavItem[] = [
       },
     },
   },
-  {
-    label: "Products",
-    href: "/products",
-    menu: {
-      columns: [
-        {
-          title: "Plans",
-          items: [
-            { ...energyPlans, icon: "bolt", description: "See every plan you can buy, with the price." },
-            { ...supplyMap, icon: "map", description: "Compare every plan available in your state." },
-          ],
-        },
-        {
-          title: "Software",
-          items: [
-            { ...lumen, icon: "meter", description: "Track and run every site's power in one place." },
-            ...lumenModules,
-          ],
-        },
-      ],
-      aside: {
-        label: "Lumen",
-        title: "See Lumen on your own sites",
-        text: "Lumen tracks every site, bill and agreement, and acts when there's money to save.",
-        // TODO: link to the demo scheduling flow once it exists.
-        link: { label: "Book a demo", href: "/contact" },
-      },
-    },
-  },
+  energyPlans,
   {
     label: "Resources",
     href: "/resources",
@@ -168,17 +139,9 @@ export const mainNav: NavItem[] = [
         {
           title: "Learn",
           items: [
-            // TODO: confirm the Blogs note; the doc gives none.
+            // TODO: confirm the Blog note; the doc gives none.
             { ...blogs, icon: "news", description: "Notes on power prices, rules and markets." },
             { ...publications, icon: "book", description: "Reports, guides and research papers." },
-          ],
-        },
-        {
-          title: "Tools",
-          items: [
-            { ...tariffCalculator, icon: "calculator", description: "Compare your electricity board rate with our plans." },
-            // TODO: confirm the State guides note; the doc gives none.
-            { ...stateGuides, icon: "location", description: "Rules and charges for buying clean power in your state." },
           ],
         },
       ],
@@ -187,7 +150,7 @@ export const mainNav: NavItem[] = [
         title: "Renewable energy handbook",
         // TODO: confirm this line with Neufin.
         text: "A plain guide to buying clean power for your business.",
-        link: { label: "Get the handbook", href: "/publications/renewable-energy-handbook" },
+        link: { label: "See publications", href: publications.href },
       },
     },
   },
@@ -210,23 +173,9 @@ export const socialLinks: NavLink[] = [
   { label: "Instagram", href: site.instagram },
 ];
 
-// Footer columns, from the doc. The footer links to every page so search engines find them.
+// Footer columns: every Phase 1 page, so search engines find them all.
 export const footerGroups: { title: string; links: NavLink[] }[] = [
-  { title: "Solutions by need", links: Object.values(solutions) },
-  { title: "Products", links: [energyPlans, supplyMap, lumen, ...lumenModules] },
-  { title: "Solutions by industry", links: industries },
-  { title: "Services", links: services },
-  { title: "Resources", links: [blogs, publications, tariffCalculator, customerStories] },
+  { title: "Solutions", links: Object.values(solutions) },
+  { title: "Resources", links: [energyPlans, blogs, publications, customerStories] },
   { title: "Company", links: [about, careers, contactLink] },
-  {
-    title: "Reports and documents",
-    // TODO: link each to its PDF once supplied.
-    links: [
-      // TODO: spell out "IES" once Neufin confirms the full name.
-      { label: "IES report", href: "/publications/ies-report" },
-      { label: "Renewable energy handbook", href: "/publications/renewable-energy-handbook" },
-      { label: "PF Form 5A", href: "/documents/pf-form-5a" },
-      { label: "Power trading licence", href: "/documents/power-trading-licence" },
-    ],
-  },
 ];

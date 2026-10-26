@@ -1,6 +1,5 @@
 import Link from "next/link";
 import type { StaticImageData } from "next/image";
-import type { CSSProperties } from "react";
 import { IconSvg } from "@ds/components/Icon.jsx";
 import { ScrollRow } from "@ds/components/ScrollRow.jsx";
 import { icons } from "@ds/brand/icons.js";
@@ -17,7 +16,6 @@ import artRespect from "@ds/../public/assets/illustrations/value-respect.png";
 import artCall from "@ds/../public/assets/illustrations/hire-call.png";
 import artCase from "@ds/../public/assets/illustrations/hire-case.png";
 import artDeepDive from "@ds/../public/assets/illustrations/hire-deep-dive.png";
-import artFounders from "@ds/../public/assets/illustrations/hire-founders.png";
 import { Roles } from "@/components/careers/Roles";
 import { Section } from "@/components/sections/Section";
 import { StripeHeader } from "@/components/sections/StripeHeader";
@@ -54,12 +52,12 @@ const life = ["the Bengaluru office", "a team outing", "the offsite", "lunch wit
 // TODO: real events: photo, place, event name and date.
 const events = [1, 2, 3, 4].map((i) => ({ name: `Event name ${i}`, when: "Place · Month 2026" }));
 
-// Spot illustrations from Kedar (2026-10-26).
-const hiring: { art: StaticImageData; title: string; text: string }[] = [
+// Icon-like spot illustrations from Kedar (2026-10-27; no people). TODO: the founders round one.
+const hiring: { art?: StaticImageData; note?: string; title: string; text: string }[] = [
   { art: artCall, title: "Screening call", text: "30 minutes with someone on the team." },
   { art: artCase, title: "Case study", text: "A real problem we've actually faced." },
   { art: artDeepDive, title: "Deep-dive interview", text: "Walk us through your work. Meet the people you'd work with." },
-  { art: artFounders, title: "Founders round", text: "A conversation with Rushil and Rahool: vision, ambition, alignment." },
+  { note: "Illustration: founders round", title: "Founders round", text: "A conversation with Rushil and Rahool: vision, ambition, alignment." },
 ];
 
 // Careers tells one story, fold by fold: the opportunity (header), why we exist (mission),
@@ -68,7 +66,7 @@ const hiring: { art: StaticImageData; title: string; text: string }[] = [
 // (PhotoCard, ArtCard in components/sections/Cards), so every section reads as one family.
 // Sections share the standard H2 head and sit on the Warm White page, except How we work
 // (the one Violet 900 band) and Open roles (Violet 100). Rows of photo cards that don't fit
-// scroll sideways; the hiring steps climb, each card one step higher, at the Stripe's angle.
+// scroll sideways; the hiring steps sit flat in one row, each with its step tag.
 
 export default function Careers() {
   return (
@@ -157,12 +155,9 @@ export default function Careers() {
       </Section>
 
       <Section id="hiring" title="Our hiring process" lead="We move fast. Most candidates hear back within a week.">
-        {/* One step higher each time, at the Stripe's angle. */}
-        <ScrollRow label="Hiring steps" controls={false} className={`${cardLayouts.four} ${cardLayouts.climb}`}>
+        <ScrollRow label="Hiring steps" controls={false} className={cardLayouts.four}>
           {hiring.map((h, i) => (
-            <div key={h.title} className={cardLayouts.step} style={{ "--i": i, "--n": hiring.length } as CSSProperties}>
-              <ArtCard {...h} />
-            </div>
+            <ArtCard key={h.title} {...h} step={i + 1} />
           ))}
         </ScrollRow>
       </Section>

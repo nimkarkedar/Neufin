@@ -75,10 +75,34 @@ export function PhotoCard({
 
 // Art card: a White card with a round spot illustration, a title and a line. Left-aligned
 // with a 160px spot; `centred` gives a 200px spot over centred text (How we work, Kedar's
-// mock). Until the illustration arrives, a Warm White circle holds the note.
-export function ArtCard({ art, note, title, text, centred = false }: { art?: StaticImageData; note?: string; title: string; text: string; centred?: boolean }) {
+// mock). Until the illustration arrives, a Warm White circle holds the note. For steps in
+// order, `step` puts a "Step N" tag just above the title, and `duration` a tag with a live
+// dot in the card's top right corner (the design system's .tag and .tag-dot).
+export function ArtCard({
+  art,
+  note,
+  title,
+  text,
+  step,
+  duration,
+  centred = false,
+}: {
+  art?: StaticImageData;
+  note?: string;
+  title: string;
+  text: string;
+  step?: number;
+  duration?: string;
+  centred?: boolean;
+}) {
   return (
     <div className={`${styles.artCard} ${centred ? styles.centred : ""}`}>
+      {duration && (
+        <span className={`tag ${styles.duration}`}>
+          {duration}
+          <span className="tag-dot" aria-hidden="true" />
+        </span>
+      )}
       {art ? (
         <img src={art.src} alt="" className={styles.cardArt} />
       ) : (
@@ -87,6 +111,7 @@ export function ArtCard({ art, note, title, text, centred = false }: { art?: Sta
           {note}
         </span>
       )}
+      {step && <span className={`tag ${styles.step}`}>Step {step}</span>}
       <h3 className={styles.cardTitle}>{title}</h3>
       <p className={styles.cardText}>{text}</p>
     </div>

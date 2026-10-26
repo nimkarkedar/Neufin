@@ -1,46 +1,38 @@
 /* Buy cheaper power. Mobile first. */
 
-/* What an energy plan is: one White box, four parts in a row with lines between them,
-   edge to edge, like the numbers block's grid. */
-.parts {
+/* ---------- Energy plans: what a plan is (left), the four kinds 2 × 2 (right) ----------
+   One fold at 1440 × 900 and 1280 × 800. Phones and tablets: the box, then the cards
+   sideways. */
+
+.plans {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  margin: 0;
-  overflow: hidden;
+  gap: var(--grid-gutter);
 }
 
-.part {
-  display: grid;
-  align-content: start;
-  gap: 8px;
+/* What a plan is: one short paragraph and the call to action, in a White box. The four
+   kinds are on the cards beside it, so the box doesn't list them. */
+.explain {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 32px;
   padding: 24px 20px;
-  border-right: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
 }
 
-.partLabel {
-  color: var(--ink-2);
-  font-size: var(--text-small-size);
-  line-height: var(--text-small-lh);
-}
-
-.partValue {
-  margin: 0;
+.explainText {
   font-family: var(--font-display);
   font-size: var(--text-h3-size);
-  line-height: var(--text-h3-lh);
-  font-weight: var(--text-h3-weight);
-  text-wrap: balance;
-}
-
-.kinds {
-  margin-top: var(--grid-gutter);
+  line-height: var(--text-body-l-lh);
+  font-weight: 500;
+  text-wrap: pretty;
 }
 
 /* A kind of plan: the design system's image card on its illustration, Energy Mint, the text
-   at the top in Near Black (White fails contrast on mint), H3 so it fits four across. */
+   at the top in Near Black (White fails contrast on mint). */
 .plan {
   --image-card-bg: var(--energy-mint);
+  --image-card-art-crop: var(--crop);
   color: var(--near-black);
 }
 
@@ -50,37 +42,58 @@
   letter-spacing: var(--text-h3-track);
 }
 
-/* Two by two until the cards are wide enough for the text above the art. */
+.plan :global(.image-card-text) {
+  max-width: 28ch;
+}
+
+@media (min-width: 768px) {
+  .explain {
+    padding: 32px;
+  }
+}
+
+/* From 1024 to 1279px the cards stay 2 × 2 (four across is too narrow for the text). */
 @media (min-width: 1024px) and (max-width: 1279px) {
   .kinds :global(.scroll-row) {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-/* Four across from 1280px: taller cards, so the art sits lower and the text stays clear. */
+/* Side by side from 1280px, where the cards are wide enough for the art under the text.
+   Below that, the box sits above the cards (2 × 2 from 768px). */
 @media (min-width: 1280px) {
+  .plans {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+  }
+
+  .explain {
+    grid-column: 1 / span 5;
+  }
+
+
+
+  .explain {
+    padding: 40px;
+  }
+
+  /* 2 × 2, the same height as the box on the left (both halves of the row stretch). */
+  .kinds {
+    grid-column: 6 / -1;
+    display: grid;
+  }
+
+  .kinds :global(.scroll-row) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+    padding-block: 0;
+    margin-block: 0;
+  }
+
   .plan {
-    aspect-ratio: 2 / 3;
-  }
-}
-
-@media (min-width: 768px) {
-  .part {
-    padding: 32px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .parts {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-  }
-
-  .part {
-    padding: 32px 28px 40px;
-    border-bottom: 0;
-  }
-
-  .part:last-child {
-    border-right: 0;
+    --image-card-art-crop: var(--crop-wide);
+    aspect-ratio: auto;
+    height: 100%;
+    min-height: 300px;
   }
 }
