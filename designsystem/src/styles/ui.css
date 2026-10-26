@@ -662,6 +662,44 @@
   outline-color: var(--electric-violet);
 }
 
+/* An icon before the label (a source's solar panel, a calendar), in the label's colour.
+   Several icons sit side by side. */
+.segmented-icon {
+  display: inline-flex;
+  gap: 2px;
+  margin-right: 8px;
+}
+
+/* Stacked: the options in a column from desktop, for a filter sidebar (the plan list). The
+   track is a soft panel (radius L), each option a full-width row (radius M), and the thumb
+   glides up and down. A row on phones and tablets, like the standard control. */
+@media (min-width: 1024px) {
+  .segmented-stacked {
+    display: flex;
+    flex-direction: column;
+    justify-self: stretch;
+    width: 100%;
+    overflow: visible;
+    border-radius: var(--radius-l);
+  }
+
+  .segmented-stacked .segmented-thumb {
+    top: 0;
+    bottom: auto;
+    height: var(--h);
+    border-radius: var(--radius-m);
+    translate: var(--x) var(--y);
+    transition:
+      translate var(--duration-slow) var(--ease-out),
+      height var(--duration-slow) var(--ease-out);
+  }
+
+  .segmented-stacked .segmented-option {
+    border-radius: var(--radius-m);
+    white-space: normal;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .segmented-thumb {
     transition: none;
@@ -1027,6 +1065,39 @@
   }
 }
 
+/* ---------- Avatar ----------
+   A person's round photo, beside their name (e.g. an angel investor). Without a photo it
+   shows their initials on Warm White, so a row of people stays one family. 48px; `-l` 64px. */
+
+.avatar {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+  border: 1px solid var(--grey-200);
+  border-radius: 50%;
+  background: var(--warm-white);
+  color: var(--near-black);
+  font-family: var(--font-display);
+  font-size: var(--text-small-size);
+  font-weight: 700;
+  line-height: 1;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatar-l {
+  width: 64px;
+  height: 64px;
+  font-size: var(--text-body-size);
+}
+
 /* ---------- Scroll row ----------
    A row of cards wider than the screen, scrolled sideways (the ScrollRow component). The
    row runs to the container's edges so the next card peeks in, snaps to each card and hides
@@ -1189,206 +1260,254 @@
   color: var(--grey-600);
 }
 
-/* ---------- Image card ----------
-   A tall card filled edge to edge by a photo or an illustration, with its title and one
-   short line centred over it, Apple-style: lots of air, no box chrome. The whole card is
-   the link (an <a class="image-card">). Photos take the design system's Violet wash
-   (.image-card-wash) and a soft Near Black shade under the text at the bottom, so White
-   text reads. An illustration (.image-card-art) sits on its own sky colour, set as the
-   card's background (--image-card-bg), anchored to the bottom with its foot cropped by
-   --image-card-art-crop (a share of the card's height), so its sky runs up behind the text
-   at the top; a taller card simply shows more sky. Raised shadow at rest. Under the
-   pointer (or with keyboard focus) the card itself stays still: its shadow deepens to
-   the overlay shadow and the picture inside eases in by 4%, so it reads as a link
-   without moving (no lift or tilt; no zoom with reduced motion).
+/* ---------- Vertical card ----------
+   The site's one vertical card (Kedar, 2026-10-27): 4:5, radius L, the raised shadow, the
+   title and its line on the left. Two looks, each still or clickable:
 
-   The text sits in .image-card-body with a call to action, .image-card-cta: a small White
-   pill with an arrow (a cue, not a second link). Where the pointer can hover, the pill is
-   hidden at rest; on hover or focus it fades in, and on a card with its text at the bottom
-   the text slides up to make room (its space is held below the card's edge at rest, so
-   nothing jumps). Touch screens always show the pill. Reduced motion: it fades, nothing
-   slides. */
+   - Photo (.vertical-card-photo): the picture fills the card under the Violet wash, with a
+     soft Near Black shade rising from the foot; the White title and line sit at the bottom.
+   - Panel (the default): the picture across the top, its foot stepping down along the
+     Stripe at 32°, then a White panel with an optional tag (a step, an industry, a content
+     type), the title and the line.
 
-.image-card {
-  --image-card-pad: 24px;
+   Every card's title is Card title (28px, 24px on phones) and its line Body, at most two
+   lines each, kept to a column clear of the step; longer text is cut with an ellipsis. The
+   text sits at the panel's foot. A card is a two-row grid (picture, panel) held at 4:5;
+   in a row of cards the layout shares those rows (.vertical-card-row on the grid, see
+   below), so each panel is as tall as the tallest in its row and the pictures line up,
+   with no spare room where no card needs it. Until a picture arrives the media is plain
+   Near Black.
+
+   Clickable: an <a class="vertical-card"> with .vertical-card-go, a round arrow (40 / 44px)
+   on the line's row, bottoms aligned; a cue, not a second link. Grey 200 at rest. Under
+   the pointer the card stays still: the arrow turns Electric Violet (it never moves), the
+   shadow deepens to the overlay shadow and the picture eases in by 4% (no zoom
+   with reduced motion). A still card (a div) answers nothing. */
+
+.vertical-card {
+  --vcard-pad: 24px;
+  --vcard-go: 40px;
+  /* The Stripe step at the panel's top edge: where it starts, and how far it drops. */
+  --vcard-step-at: 66%;
+  --vcard-drop: 32px;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  aspect-ratio: 4 / 5;
+  display: grid;
+  /* Two rows, the picture and the panel. In a row of cards the rows are shared (subgrid,
+     set by the layout), so every panel in the row is as tall as the tallest one there. */
+  grid-template-rows: minmax(0, 1fr) auto;
+  row-gap: 0;
   overflow: hidden;
-  padding: var(--image-card-pad);
   border-radius: var(--radius-l);
-  background: var(--image-card-bg, var(--near-black));
+  background: var(--white);
   box-shadow: var(--shadow-raised);
-  color: var(--white);
-  text-align: center;
+  color: var(--near-black);
+  text-align: left;
   text-decoration: none;
   isolation: isolate;
   transition: box-shadow var(--duration-slow) var(--ease-out);
 }
 
-.image-card:hover,
-.image-card:focus-visible {
+/* Holds the card at 4:5 across both rows; the picture takes what the panel leaves. */
+.vertical-card::before {
+  content: "";
+  grid-row: 1 / span 2;
+  grid-column: 1;
+  aspect-ratio: 4 / 5;
+  visibility: hidden;
+}
+
+a.vertical-card:hover,
+a.vertical-card:focus-visible {
   box-shadow: var(--shadow-overlay);
 }
 
-.image-card-top {
-  justify-content: flex-start;
+a.vertical-card:focus-visible {
+  outline: 2px solid var(--electric-violet);
+  outline-offset: 3px;
 }
 
-.image-card > img {
+.vertical-card-media {
+  position: relative;
+  grid-row: 1;
+  grid-column: 1;
+  display: block;
+  min-height: 0;
+  overflow: hidden;
+  background: var(--near-black);
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% 100%,
+    calc(var(--vcard-step-at) + var(--vcard-drop) / var(--stripe-slope, 0.6306)) 100%,
+    var(--vcard-step-at) calc(100% - var(--vcard-drop)),
+    0 calc(100% - var(--vcard-drop))
+  );
+}
+
+.vertical-card-media > img,
+.vertical-card-media > svg {
   position: absolute;
   inset: 0;
-  z-index: -2;
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: scale calc(var(--duration-slow) * 2) var(--ease-out);
 }
 
-.image-card:hover > img,
-.image-card:focus-visible > img {
+a.vertical-card:hover .vertical-card-media > img,
+a.vertical-card:focus-visible .vertical-card-media > img {
   scale: 1.04;
 }
 
+.vertical-card-body {
+  position: relative;
+  grid-row: 2;
+  grid-column: 1;
+  display: grid;
+  /* Two columns: the words (tag, title, line) stacked on the left, clear of the step, and
+     the arrow on the right, at the foot. The arrow's column is held on every card,
+     clickable or not, so text measures the same everywhere. */
+  grid-template-columns: minmax(0, 1fr) var(--vcard-go);
+  align-content: end;
+  align-items: end;
+  column-gap: 16px;
+  /* The panel tucks under the step; its text starts level with the step's foot. */
+  margin-top: calc(-1 * var(--vcard-drop));
+  padding: var(--vcard-drop) var(--vcard-pad) var(--vcard-pad);
+}
+
+.vertical-card-words {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  min-width: 0;
+}
+
+.vertical-card-words > .tag {
+  margin-bottom: 10px;
+}
+
+.vertical-card-title,
+.vertical-card-text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
+
+.vertical-card-title {
+  align-self: stretch;
+  font-family: var(--font-display);
+  font-size: var(--text-card-size);
+  line-height: var(--text-card-lh);
+  font-weight: var(--text-card-weight);
+  letter-spacing: var(--text-card-track);
+}
+
+.vertical-card-text {
+  align-self: stretch;
+  margin-top: 8px;
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-lh);
+}
+
+/* The arrow, in its own column, its bottom level with the last line of the words. Grey 200
+   at rest, Electric Violet with a White arrow while the card is hovered. */
+.vertical-card-go {
+  grid-column: 2;
+  display: grid;
+  place-items: center;
+  width: var(--vcard-go);
+  height: var(--vcard-go);
+  border-radius: 50%;
+  background: var(--grey-200);
+  color: var(--near-black);
+  transition:
+    background-color var(--duration-base) var(--ease-out),
+    color var(--duration-base) var(--ease-out);
+}
+
+a.vertical-card:hover .vertical-card-go,
+a.vertical-card:focus-visible .vertical-card-go {
+  background: var(--electric-violet);
+  color: var(--white);
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .image-card:hover > img,
-  .image-card:focus-visible > img {
+  a.vertical-card:hover .vertical-card-media > img,
+  a.vertical-card:focus-visible .vertical-card-media > img {
     scale: none;
   }
 }
 
-/* A card that isn't a link (add .image-card-static) doesn't answer the pointer: no deeper
-   shadow, no zoom, so it never looks clickable. */
-.image-card-static:hover {
-  box-shadow: var(--shadow-raised);
+/* Photo: the picture fills the card; the text sits at the bottom in White. */
+.vertical-card-photo {
+  background: var(--near-black);
+  color: var(--white);
 }
 
-.image-card-static:hover > img {
-  scale: none;
-}
-
-/* The illustration eases in from its foot, so its horizon stays put under the text. */
-.image-card-art > img {
-  inset: auto 0 calc(-1 * var(--image-card-art-crop, 0%));
-  height: auto;
-  transform-origin: 50% 100%;
-}
-
-/* The Violet wash (Violet 300 multiplied at 45%) and, for text at the bottom, a shade
-   rising from the foot of the card. */
-.image-card-wash::before,
-.image-card:not(.image-card-top)::after {
-  content: "";
+.vertical-card-photo .vertical-card-media {
   position: absolute;
   inset: 0;
   z-index: -1;
+  clip-path: none;
+}
+
+/* The Violet wash (Violet 300 multiplied at 45%) and the shade under the text. */
+.vertical-card-photo .vertical-card-media::before,
+.vertical-card-photo .vertical-card-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
   pointer-events: none;
 }
 
-.image-card-wash::before {
+.vertical-card-photo .vertical-card-media::before {
   background: var(--violet-300);
   opacity: 0.45;
   mix-blend-mode: multiply;
 }
 
-.image-card:not(.image-card-top)::after {
-  top: 45%;
-  background: linear-gradient(transparent, color-mix(in srgb, var(--near-black) 64%, transparent));
+.vertical-card-photo .vertical-card-media::after {
+  top: 40%;
+  background: linear-gradient(transparent, color-mix(in srgb, var(--near-black) 72%, transparent));
 }
 
-.image-card-title {
-  font-family: var(--font-display);
-  font-size: var(--text-h2-size);
-  line-height: var(--text-h2-lh);
-  font-weight: var(--text-h2-weight);
-  letter-spacing: var(--text-h2-track);
-  text-wrap: balance;
-}
-
-.image-card-text {
-  max-width: 32ch;
-  margin: 8px auto 0;
-  text-wrap: pretty;
-}
-
-.image-card-body {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: translate var(--duration-slow) var(--ease-out);
-}
-
-.image-card-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 40px;
-  margin-top: 20px;
-  padding: 0 18px;
-  border-radius: var(--radius-pill);
-  background: var(--white);
-  color: var(--near-black);
-  font-weight: 600;
-  line-height: 1;
-  white-space: nowrap;
-  transition:
-    opacity var(--duration-slow) var(--ease-out),
-    translate var(--duration-slow) var(--ease-out);
-}
-
-.image-card-cta svg {
-  flex-shrink: 0;
-  transition: translate var(--duration-base) var(--ease-out);
-}
-
-@media (hover: hover) {
-  .image-card-cta {
-    opacity: 0;
-    translate: 0 8px;
-  }
-
-  /* Text at the bottom: the pill's room (40px pill + 20px gap) waits below the edge.
-     Only when there is a pill; a static card's text sits at rest where it is. */
-  .image-card:not(.image-card-top):has(.image-card-cta) .image-card-body {
-    translate: 0 60px;
-  }
-
-  /* As specific as the rule above, so hover wins. */
-  .image-card:not(.image-card-top):has(.image-card-cta):hover .image-card-body,
-  .image-card:not(.image-card-top):has(.image-card-cta):focus-visible .image-card-body {
-    translate: none;
-  }
-
-  .image-card:hover .image-card-cta,
-  .image-card:focus-visible .image-card-cta {
-    opacity: 1;
-    translate: none;
-  }
-
-  .image-card:hover .image-card-cta svg {
-    translate: 3px 0;
-  }
-}
-
-@media (hover: hover) and (prefers-reduced-motion: reduce) {
-  .image-card:not(.image-card-top) .image-card-body,
-  .image-card-cta,
-  .image-card:hover .image-card-cta svg {
-    translate: none;
-  }
-}
-
-.image-card:focus-visible {
-  outline: 2px solid var(--electric-violet);
-  outline-offset: 3px;
+.vertical-card-photo .vertical-card-body {
+  margin-top: 0;
+  padding-top: var(--vcard-pad);
 }
 
 @media (min-width: 1024px) {
-  .image-card {
-    --image-card-pad: 40px;
+  .vertical-card {
+    --vcard-pad: 32px;
+    --vcard-go: 44px;
+    --vcard-drop: 40px;
   }
+}
+
+/* A row of vertical cards whose panels share one height: put .vertical-card-row on the
+   grid of cards (or of list items holding them), or on a ScrollRow (its className). Each
+   card, or its list item, takes two of the row's tracks as a subgrid. The row's gap stays
+   between rows of cards. */
+.vertical-card-row:not(.scroll-row-wrap) {
+  grid-auto-rows: minmax(0, 1fr) auto;
+}
+
+.vertical-card-row > .scroll-row {
+  grid-template-rows: minmax(0, 1fr) auto;
+}
+
+.vertical-card-row:not(.scroll-row-wrap) > *,
+.vertical-card-row > .scroll-row > *,
+.vertical-card-row > li > .vertical-card {
+  display: grid;
+  grid-row: span 2;
+  grid-template-rows: subgrid;
+  row-gap: 0;
 }
 
 /* ---------- Media placeholder ----------

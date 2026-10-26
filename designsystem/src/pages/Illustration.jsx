@@ -10,13 +10,6 @@ const inspiration = [1, 2, 3, 4, 5, 6].map((i) => (filled.includes(i) ? asset(`/
 
 // Spot illustrations supplied by Kedar (2026-10-26), in public/assets/illustrations/.
 const spots = [
-  { file: 'value-ownership.png', label: 'An arrow rising out of a road between blocks: extreme ownership' },
-  { file: 'value-customer.png', label: 'Power lines running into a factory: customer obsession' },
-  { file: 'value-solution.png', label: 'Lines winding round a block to reach a building: a solution mindset' },
-  { file: 'value-respect.png', label: 'Two flyovers meeting at one point: respect' },
-  { file: 'hire-call.png', label: 'A phone handset: screening call' },
-  { file: 'hire-case.png', label: 'A notepad: case study' },
-  { file: 'hire-deep-dive.png', label: 'A presentation board with a chart: deep-dive interview' },
   { file: 'step-bill.png', label: 'A power bill on bands of power: share your bills' },
   { file: 'step-quote.png', label: 'A bill with a 48-hour timer: get a quote' },
   { file: 'step-agreement.png', label: 'A pen signing a page: sign the agreement' },
@@ -24,9 +17,10 @@ const spots = [
 ];
 
 // Full-card illustrations supplied by Kedar (2026-10-26), in public/assets/illustrations/:
-// 4:5, on Energy Mint (recoloured to the exact token), shown as image cards with the text at the top.
+// on Energy Mint (recoloured to the exact token); solar replaced 2026-10-27 by a 3:2 rooftop on White.
+// Shown at the top of vertical panel cards.
 const cardArt = [
-  { file: 'plan-solar.jpg', label: 'A solar panel on a band of power: solar plans' },
+  { file: 'plan-solar.jpg', label: 'A factory with solar panels on its roof, bands of power running in and out, on White (3:2): solar plans' },
   { file: 'plan-wind.jpg', label: 'A wind turbine where bands meet: wind plans' },
   { file: 'plan-battery.jpg', label: 'A battery with bands running in and out: battery plans' },
   { file: 'plan-exchange.jpg', label: 'A band stepping up and down like a daily price: exchange plans' },
@@ -96,7 +90,7 @@ export default function Illustration() {
         </div>
       </Section>
 
-      <Section title="Spot illustrations" intro="Round spots on Electric Coral, one idea each, for cards that carry a single thought. In use on the website's Careers page: How we work (one per value, on Electric Coral) Our hiring process (icon-like, Signal Yellow on Electric Violet), and Buy cheaper power's steps (on Electric Coral). Transparent PNG, shown at 160 to 200px.">
+      <Section title="Spot illustrations" intro="Round spots on Electric Coral, one idea each, for cards that carry a single thought. In use on the website's Buy cheaper power page, From first call to cheaper energy (one per step). Transparent PNG, shown at 160 to 200px. Careers' values (Electric Violet circles) and hiring steps (Electric Coral circles, one band carrying the story through the four) are drawn in code in the same band language (website/src/components/careers/ValueArt.tsx)">
         <div className="insp-grid">
           {spots.map((s) => (
             <figure key={s.file} className="insp-item">

@@ -177,7 +177,8 @@ export default function WebComponents() {
           <div className="row"><span className="row-key">Use</span><p>One choice from a short set that switches what's shown, such as the home page's industries, the plan finder's choices, and the filters on Customer stories, Careers and the plan list. Calmer than a row of outlined chips: one track, plain text, one solid thumb.</p></div>
           <div className="row"><span className="row-key">Interaction</span><p>The thumb glides to the new choice (slow, ease-out) and the label's colour follows; hovering an option darkens (light) or whitens (inverse) its label. Arrow keys move the choice. When the set is wider than its space the track scrolls sideways and the chosen option scrolls into view. No slide with reduced motion.</p></div>
           <div className="row"><span className="row-key">Shape</span><p>Pill track with 4px inset, options 40px tall (<code>small</code>: 32px, Small text, 14px either side and 2px apart, for forms with several sets such as the plan finder). Light: Near Black 5% track (shows on White and Warm White), Near Black thumb, Grey 600 labels, White when chosen. Inverse (on Violet 900 or Near Black): White 10% track, White thumb, Violet 100 labels, Near Black when chosen.</p></div>
-          <div className="row"><span className="row-key">Code</span><p><code>&lt;Segmented name label options value onChange inverse small /&gt;</code> (label optional when a visible legend names the group) from <code>components/Segmented.jsx</code>; styles <code>.segmented</code>, <code>.segmented-inverse</code> in ui.css.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>&lt;Segmented name label options value onChange inverse small stacked icons /&gt;</code> (label optional when a visible legend names the group) from <code>components/Segmented.jsx</code>; styles <code>.segmented</code>, <code>.segmented-inverse</code>, <code>.segmented-stacked</code>, <code>.segmented-icon</code> in ui.css.</p></div>
+          <div className="row"><span className="row-key">Stacked</span><p>For a filter sidebar (the plan list): from desktop the options sit in a column, each a full-width row, and the thumb glides up and down; on phones they stay a row. <code>icons</code> leads each option with a Nucleo icon in the label's colour (one per option, or several side by side, e.g. solar panel and windmill).</p></div>
         </div>
       </Section>
 
@@ -211,18 +212,21 @@ export default function WebComponents() {
         </div>
       </Section>
 
-      <Section title="Arrow link and tag">
+      <Section title="Arrow link, tag and avatar">
         <div className="tile">
           <div className="tile-stage stage-light web-demo" style={{ alignItems: 'center' }}>
             <a className="link-arrow" href="#arrow" onClick={(e) => e.preventDefault()}>See every plan<IconSvg icon={icons.arrow} size={20} /></a>
             <span className="tag">Guide</span>
             <span className="tag">Hotels and resorts</span>
             <span className="tag">30 minutes<span className="tag-dot" /></span>
+            <span className="avatar">RN</span>
+            <span className="avatar avatar-l">RG</span>
           </div>
         </div>
         <div className="rows spec-inline">
           <div className="row"><span className="row-key">Arrow link</span><p>A text link to the next page, with the Nucleo arrow that nudges right on hover. Never the main action. <code>.link-arrow</code>.</p></div>
           <div className="row"><span className="row-key">Tag</span><p>A small label for a content type, a group, a step or a duration. It hugs its text, and can take a 14px icon or a live dot (<code>.tag-dot</code>, Energy Mint with a soft pulsing glow, still with reduced motion) for a duration. Sentence case, never uppercase, not clickable. <code>.tag</code>.</p></div>
+          <div className="row"><span className="row-key">Avatar</span><p>A person's round photo beside their name, 48px (<code>.avatar-l</code> 64px), with a Grey 200 ring. Without a photo it shows their initials in Archivo on Warm White, so a row of people stays one family. Put an <code>img</code> inside, or the initials. <code>.avatar</code>.</p></div>
         </div>
       </Section>
 
@@ -259,34 +263,59 @@ export default function WebComponents() {
         </div>
       </Section>
 
-      <Section title="Image card">
+      <Section title="Vertical card">
         <div className="tile">
-          <div className="tile-stage stage-light" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 20, alignItems: 'start' }}>
-            <a href="#image-card" className="image-card image-card-wash" onClick={(e) => e.preventDefault()}>
-              <img src={asset('/assets/photos/laptop-software.jpg')} alt="" />
-              <span className="image-card-body">
-                <span className="image-card-title">Smart energy</span>
-                <span className="image-card-text">Photo, Violet wash, text at the bottom.</span>
-                <span className="image-card-cta" aria-hidden="true">Explore Lumen<IconSvg icon={icons.arrow} size={18} /></span>
+          <div className="tile-stage stage-light" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))', gap: 20, alignItems: 'start' }}>
+            <div className="vertical-card vertical-card-photo">
+              <div className="vertical-card-media"><img src={asset('/assets/photos/careers-team-coding.jpg')} alt="" /></div>
+              <div className="vertical-card-body">
+                <div className="vertical-card-words">
+                  <h3 className="vertical-card-title">Own something meaningful</h3>
+                  <p className="vertical-card-text">Metering, electricity board approvals across India and hardware installation</p>
+                </div>
+              </div>
+            </div>
+            <a href="#vertical-card" className="vertical-card vertical-card-photo" onClick={(e) => e.preventDefault()}>
+              <span className="vertical-card-media"><img src={asset('/assets/photos/careers-team-coding.jpg')} alt="" /></span>
+              <span className="vertical-card-body">
+                <span className="vertical-card-words">
+                  <span className="vertical-card-title">Own something meaningful</span>
+                  <span className="vertical-card-text">Metering, electricity board approvals across India and hardware installation</span>
+                </span>
+                <span className="vertical-card-go"><IconSvg icon={icons.arrow} size={20} /></span>
               </span>
             </a>
-            <a href="#image-card" className="image-card image-card-art image-card-top" style={{ '--image-card-bg': 'var(--electric-coral)', '--image-card-art-crop': '16%' }} onClick={(e) => e.preventDefault()}>
-              <img src={asset('/assets/illustrations/energy-landscape.jpg')} alt="" />
-              <span className="image-card-body">
-                <span className="image-card-title">Energy advisory</span>
-                <span className="image-card-text">Illustration anchored low, text at the top.</span>
-                <span className="image-card-cta" aria-hidden="true">Plan your energy mix<IconSvg icon={icons.arrow} size={18} /></span>
+            <div className="vertical-card">
+              <div className="vertical-card-media"><img src={asset('/assets/illustrations/plan-wind.jpg')} alt="" style={{ objectPosition: '50% 80%' }} /></div>
+              <div className="vertical-card-body">
+                <div className="vertical-card-words">
+                  <span className="tag">Step 3</span>
+                  <h3 className="vertical-card-title">Own something meaningful</h3>
+                  <p className="vertical-card-text">Metering, electricity board approvals across India and hardware installation</p>
+                </div>
+              </div>
+            </div>
+            <a href="#vertical-card" className="vertical-card" onClick={(e) => e.preventDefault()}>
+              <span className="vertical-card-media"><img src={asset('/assets/illustrations/plan-wind.jpg')} alt="" style={{ objectPosition: '50% 80%' }} /></span>
+              <span className="vertical-card-body">
+                <span className="vertical-card-words">
+                  <span className="tag">Step 3</span>
+                  <span className="vertical-card-title">Own something meaningful</span>
+                  <span className="vertical-card-text">Metering, electricity board approvals across India and hardware installation</span>
+                </span>
+                <span className="vertical-card-go"><IconSvg icon={icons.arrow} size={20} /></span>
               </span>
             </a>
           </div>
         </div>
         <div className="rows spec-inline">
-          <div className="row"><span className="row-key">Use</span><p>A row of tall cards that each lead to a page, where the picture carries the message (the home page's How we keep your price low). Title and one short line, centred, with lots of air, in the manner of Apple's cards. Three to a row on desktop, stacked on phones.</p></div>
-          <div className="row"><span className="row-key">Hover</span><p>The card stays still (no lift, tilt or fade): its raised shadow deepens to the overlay shadow and the picture inside eases in by 4% over 0.8s, and the call to action (<code>.image-card-cta</code>, a White pill with an arrow) fades in; with the text at the bottom, the text slides up to make room. Same on keyboard focus. Touch screens always show the pill. Reduced motion: no zoom or slide, only the fade.</p></div>
-          <div className="row"><span className="row-key">Photo</span><p><code>.image-card-wash</code> adds the Violet wash (Violet 300 multiplied at 45%). Text sits at the bottom over a soft Near Black shade so White text reads.</p></div>
-          <div className="row"><span className="row-key">Illustration</span><p><code>.image-card-art .image-card-top</code>: the art anchored to the bottom, its foot cropped by <code>--image-card-art-crop</code> (a share of the card's height) on its own sky colour (<code>--image-card-bg</code>, a token, e.g. Electric Coral), so the sky runs up behind the text at the top.</p></div>
-          <div className="row"><span className="row-key">Code</span><p><code>a.image-card</code> holding an <code>img</code> (alt empty: the title names the link) and <code>.image-card-body</code> with <code>.image-card-title</code> (H2 size), <code>.image-card-text</code> and <code>.image-card-cta</code> (aria-hidden: a cue, not a second link). Shape 4:5, radius L, padding 24 / 40px.</p></div>
-          <div className="row"><span className="row-key">Static</span><p>A card that isn't a link (such as What it's like on Careers): a <code>div.image-card</code> with <code>.image-card-static</code>, no call to action. It doesn't answer the pointer, so it never looks clickable.</p></div>
+          <div className="row"><span className="row-key">Use</span><p>Every vertical card on the site (Kedar, 2026-10-27): two looks, each still or clickable. No other vertical card, no round spot illustrations or icons in cards.</p></div>
+          <div className="row"><span className="row-key">Photo</span><p><code>.vertical-card-photo</code>: the picture fills the card under the Violet wash (Violet 300 multiplied at 45%) with a Near Black shade rising from the foot; White title and line at the bottom, on the left.</p></div>
+          <div className="row"><span className="row-key">Panel</span><p>The default: the picture across the top, its foot stepping down along the Stripe at 32° (starting two thirds across, 32 / 40px drop), then a White panel with an optional <code>.tag</code> (a step, an industry, a content type), the title and the line. In a row of cards (<code>.vertical-card-row</code> on the grid or the ScrollRow) the panels share one height, the tallest in the row, so pictures line up and no card keeps spare room unless a neighbour needs it.</p></div>
+          <div className="row"><span className="row-key">Text</span><p>Title in the Card title style (28px, 24px on phones), line Body (16px), the same on every card. Both keep to a left column clear of the step and the arrow, each cut after two lines with an ellipsis, and sit at the foot of the panel.</p></div>
+          <div className="row"><span className="row-key">Clickable</span><p>An <code>a.vertical-card</code> with <code>.vertical-card-go</code>, a round arrow (40 / 44px) on the line's row, bottoms aligned, Grey 200 at rest. The card stays still: the arrow turns Electric Violet with a White arrow and stays put, the shadow deepens to the overlay shadow and the picture eases in by 4%. Reduced motion: no zoom. A still card is a <code>div</code> with real headings and answers nothing.</p></div>
+          <div className="row"><span className="row-key">Placeholder</span><p>Without a picture the media is plain Near Black.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>.vertical-card</code> holding <code>.vertical-card-media</code> (an <code>img</code>, alt empty) and <code>.vertical-card-body</code> with <code>.vertical-card-words</code> (an optional <code>.tag</code>, <code>.vertical-card-title</code>, <code>.vertical-card-text</code>) and, on a link, <code>.vertical-card-go</code> in its own column. Shape 4:5, radius L, padding 24 / 32px. On desktop cards are a third of the content width: three across, or a sideways scroll row for more.</p></div>
         </div>
       </Section>
 

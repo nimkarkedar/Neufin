@@ -49,7 +49,7 @@ function Split() {
   const fg = 'var(--warm-white)';
   return (
     <Canvas bg="var(--near-black)" art={null}>
-      <img className="post-photo" src={asset('/assets/photos/pylon.jpg')} alt="" style={{ left: u(544) }} />
+      <img className="post-photo" src={asset('/assets/photos/pylon-lattice.jpg')} alt="" style={{ left: u(544) }} />
       <svg viewBox={`0 0 ${W} ${W}`} className="post-art" aria-hidden="true"><polygon points={a.points} fill={fg} /></svg>
       <div className="post-logo" style={{ left: u(70), top: u(53) }}><Logo height={u(78)} color={fg} /></div>
       <div className="post-line" style={{ left: u(718), top: u(46), fontSize: u(37), color: fg }}>Cut Energy Cost.<br />On Your Terms.</div>

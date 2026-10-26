@@ -5,6 +5,7 @@ const samples = {
   display: 'Cut Energy Cost.',
   h1: 'On Your Terms.',
   h2: 'Know what you pay.',
+  card: 'Own something meaningful',
   h3: 'Your monthly usage',
   'body-l': 'See where every unit goes and what it costs you, in plain numbers.',
   body: 'Your bill is split into usage, fixed charges and taxes. Tap any line to see how it was calculated.',
