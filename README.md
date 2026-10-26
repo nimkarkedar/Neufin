@@ -6,3 +6,5 @@
 | [website](website) | neufin.energy marketing site (Next.js). Build notes in [website/CLAUDE.md](website/CLAUDE.md) | https://nimkarkedar.github.io/Neufin/website/ (preview, hidden from search engines) |
 
 Each folder is its own project with its own `package.json`. Both publish to the `gh-pages` branch, one subfolder each: run `npm run deploy` inside the folder. Run locally with `npm run dev` (design system: http://localhost:5173, website: http://localhost:3000). Handover notes for the website are in [website/CLAUDE.md](website/CLAUDE.md).
+
+Notes for Claude (and anyone picking the project up): start with [CLAUDE.md](CLAUDE.md), then [WORKING-WITH-KEDAR.md](WORKING-WITH-KEDAR.md) and [STATUS.md](STATUS.md). Screenshot and contrast tools are in [tools/screenshots](tools/screenshots).

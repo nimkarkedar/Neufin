@@ -70,4 +70,14 @@ Never hard-code a hex value, `rgb()`, font, type size, radius, shadow or duratio
 - **Mocks:** build Kedar's mock as drawn and raise concerns as questions.
 - **Before showing:** screenshot at 390px and 1440px.
 
-Record any new decision in `website/CLAUDE.md` (Built so far and the Decisions log).
+## 4. Added from the 2026-10-26 reviews
+
+- **Reuse before building.** Before building any section from a brief row, check the home page and the shared blocks: footer contact card (every page's close), numbers block (`Proof`), plan finder, `FaqSection`, solution cards (`HowWeDoIt`, with `title` and `exclude`), industries block (`Industries`, `lumen` mode), shared `PhotoCard` / `ArtCard` / `cardLayouts` (three, four, row, climb). Reuse and flag what the brief wants that the block lacks; never a page-only copy.
+- **No coloured emphasis.** Never colour part of a sentence or a big figure; text colour only. Emphasis comes from size, weight and space.
+- **Inner page header:** `StripeHeader` with `over` (text on the photo) on a dark photo; measure White text at 4.5:1 or better (tools/screenshots/measure.py). Breadcrumbs show only two levels deep.
+- **Section head:** H2 on one line; a line goes under the title on the left, never hanging in the right pocket.
+- **One family per page:** two or three card types at most, limited backgrounds (Warm White, one Violet 900 band, White).
+- **Illustrations over icons in cards:** Kedar's round spot illustrations in White art cards, full-card art in image cards. No "01 / 02" numbers.
+- **After building:** screenshot 390 and 1440 (plus 1024/1280 where layouts change), hover states with `hover.js`, and fix specificity bugs in shared classes (a hover rule must be at least as specific as its rest rule).
+
+Record any new decision in `website/CLAUDE.md` (Built so far and the Decisions log), and update `STATUS.md` at the repo root when a page's state changes.

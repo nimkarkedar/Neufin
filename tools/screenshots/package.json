@@ -1,0 +1,8 @@
+{
+  "name": "neufin-screenshots",
+  "private": true,
+  "description": "Screenshots and contrast checks for the Neufin website, driving Brave with playwright-core.",
+  "dependencies": {
+    "playwright-core": "^1.48.0"
+  }
+}
