@@ -80,7 +80,13 @@ for (const p of [...webCss, ...dsCss].filter((p) => p.endsWith(".module.css"))) 
   const file = basename(p);
   const users = allSource.filter(([q, t]) => q !== p && t.includes(file));
   // A module re-exported under another name (export { styles as cardLayouts }) is read through it.
-  const aliases = users.flatMap(([, t]) => [...t.matchAll(/export\s*\{\s*styles\s+as\s+(\w+)/g)].map((m) => m[1]));
+  // A module imported under its own name (import boxes from "./Boxes.module.css") is read
+  // through that name too.
+  const escaped = file.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  const aliases = users.flatMap(([, t]) => [
+    ...[...t.matchAll(/export\s*\{\s*styles\s+as\s+(\w+)/g)].map((m) => m[1]),
+    ...[...t.matchAll(new RegExp(`import\\s+(\\w+)\\s+from\\s+["'][^"']*/${escaped}["']`, "g"))].map((m) => m[1]).filter((n) => n !== "styles"),
+  ]);
   const code = [...users.map(([, t]) => t), ...allSource.filter(([, t]) => aliases.some((a) => t.includes(a + "."))).map(([, t]) => t)]
     .join("\n")
     .replace(new RegExp(`\\b(?:${aliases.join("|") || "\\$none"})\\.`, "g"), "styles.");

@@ -29,7 +29,7 @@ Neufin owns the full Nucleo licence: every family except Pixel, Isometric and Ar
   - UI outline or outline-duo 18px is for product-style UI: fields, buttons, tables.
   - Keep one family per set, so a row or a menu never mixes styles.
 - To add one: put it in `designsystem/src/brand/icon-list.json`, run `npm run icons` in `designsystem/`, then use `<Icon>` or `<IconSvg icon={icons[name]}>`.
-- Every icon on the website is one colour: the text colour (Near Black, Warm White on the dark band). Never Electric Violet, never two-tone (no outline-duo, no second tone). Never hex.
+- Content icons on the website (what something is: a source, a problem, a contact line, a menu item) use the design system's `DuoIcon` (Kedar, 2026-10-27): Nucleo UI outline-duo (`duo-*` in the icon list), line in the text colour, second tone Violet 200, line about 2px at any size. Two styles: hero (in a circle, 64px or 48px in menus; Warm White on White, White on the Warm White page via `--duo-circle`; turns White when its `.duo-icon-host` is hovered) and supporting (no circle, 24px or 20px beside text). Functional icons (arrows, close, fields, the accordion plus, icons inside the segmented control) stay one colour, the text colour. Never Electric Violet lines, never hex.
 - If you find a hand-drawn icon in the code, flag it and offer to swap it for Nucleo.
 
 ## 2. The design system first: contest hard before adding anything
