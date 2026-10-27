@@ -7,11 +7,11 @@ import { stripeEdgeClipPath } from "@ds/components/Stripe.jsx";
 import { site } from "@/lib/site";
 import styles from "./StripeHeader.module.css";
 
-export type Crumb = { label: string; href?: string };
+type Crumb = { label: string; href?: string };
 
 // The design system's Stripe combinations (Graphic device page); a page without a photo
 // fills the stepped block with one.
-export const stripeCombos = {
+const stripeCombos = {
   yellowOnViolet900: { bg: "var(--violet-900)", fg: "var(--signal-yellow)" },
   yellowOnViolet: { bg: "var(--electric-violet)", fg: "var(--signal-yellow)" },
   blackOnCoral: { bg: "var(--electric-coral)", fg: "var(--near-black)" },

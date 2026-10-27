@@ -1,6 +1,9 @@
 import { normaliseIndianMobile } from "./phone";
 
-// Checks a call-back request from the footer form. Ready for a server endpoint to use;
+// Checks a call-back request's mobile number. The call-back form (the Contact page's form,
+// also opened as a dialog from the footer card) should send to this endpoint once it is
+// connected; it carries name, company, work email and mobile, so extend the check to those.
+// Ready for a server endpoint to use;
 // the GitHub Pages preview has no server, so nothing calls this yet.
 //
 // To connect call-backs on a server host, add src/app/api/callback/route.ts:

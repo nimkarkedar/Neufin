@@ -1,0 +1,64 @@
+/* The icon grid (IconGrid.tsx). Mobile first. Padding, lines and the hover follow the home
+   numbers block (home/Proof.module.css). */
+
+.grid {
+  --pad: 32px 24px;
+  display: grid;
+  gap: 1px;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background: var(--line);
+  list-style: none;
+}
+
+.cell {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 8px;
+  padding: var(--pad);
+  background: var(--white);
+  transition: background-color var(--duration-slow) ease-out;
+}
+
+/* Under the pointer a cell takes the design system's hover fill, then fades back. The cells never move. */
+.cell:hover {
+  background: var(--hover-fill);
+  transition-duration: var(--duration-fast);
+}
+
+/* Room under the hero icon: 28px to the title (20px here plus the cell's 8px gap). */
+.icon {
+  margin-bottom: 20px;
+}
+
+.title {
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  font-weight: var(--text-h3-weight);
+}
+
+.text {
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+/* Side by side, the cells in a row share one height, so the lines run straight. */
+@media (min-width: 768px) {
+  .grid {
+    --pad: 40px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-auto-rows: 1fr;
+  }
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    --pad: 48px;
+  }
+
+  .grid[data-columns="4"] {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

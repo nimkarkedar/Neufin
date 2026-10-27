@@ -48,7 +48,22 @@ function Field({ id, label, error, children }: { id: string; label: string; erro
 
 // `topic` names what a short form is about in the thank-you note (Sell energy: "selling
 // your energy"); without it the note is about a plan and offers the energy plans.
-export function ContactForm({ short = false, topic }: { short?: boolean; topic?: string }) {
+// In the call-back dialog (CallBackDialog): `bare` drops the White box (the dialog is the
+// box), `idPrefix` keeps its field ids apart from another form on the page, and `onSent`
+// replaces the thank-you card (the dialog closes and shows a toast instead).
+export function ContactForm({
+  short = false,
+  topic,
+  bare = false,
+  idPrefix = "contact",
+  onSent,
+}: {
+  short?: boolean;
+  topic?: string;
+  bare?: boolean;
+  idPrefix?: string;
+  onSent?: () => void;
+}) {
   const order = short ? shortOrder : fullOrder;
   const [sent, setSent] = useState<string | null>(null);
   const [errors, setErrors] = useState<Partial<Record<Key, string>>>({});
@@ -79,17 +94,21 @@ export function ContactForm({ short = false, topic }: { short?: boolean; topic?:
       (e.currentTarget.elements.namedItem(first) as HTMLInputElement).focus();
       return;
     }
+    if (onSent) {
+      onSent();
+      return;
+    }
     setSent(short ? (topic ?? "a plan for your sites") : String(data.get("need")));
   };
 
   // Props shared by the text inputs: the error wiring for screen readers.
   const wire = (key: Key) => ({
-    id: `contact-${key}`,
+    id: `${idPrefix}-${key}`,
     name: key,
     className: "text-field-input",
     required: true,
     "aria-invalid": errors[key] ? true : undefined,
-    "aria-describedby": errors[key] ? `contact-${key}-error` : undefined,
+    "aria-describedby": errors[key] ? `${idPrefix}-${key}-error` : undefined,
     onChange: (ev: React.ChangeEvent<HTMLInputElement>) => recheck(key, ev.target.value),
     onBlur: (ev: React.FocusEvent<HTMLInputElement>) => recheck(key, ev.target.value),
   });
@@ -118,27 +137,31 @@ export function ContactForm({ short = false, topic }: { short?: boolean; topic?:
   }
 
   return (
-    <form ref={form} className={`surface ${styles.card}`} onSubmit={submit} noValidate>
-      {!short && <h2 className={styles.title}>Tell us what you need</h2>}
+    <form ref={form} className={`${bare ? "" : "surface"} ${styles.card}`} onSubmit={submit} noValidate>
+      {!short && (
+        <h2 id={`${idPrefix}-title`} className={styles.title}>
+          Tell us what you need
+        </h2>
+      )}
       <p className={styles.required}>All fields are required.</p>
       <div className={styles.grid}>
         {!short && (
           <>
-            <Field id="contact-need" label="What do you need?">
+            <Field id={`${idPrefix}-need`} label="What do you need?">
               <span className="select-field">
-                <select id="contact-need" name="need" defaultValue={needs[0]}>
+                <select id={`${idPrefix}-need`} name="need" defaultValue={needs[0]}>
                   {needs.map((n) => (
                     <option key={n}>{n}</option>
                   ))}
                 </select>
               </span>
             </Field>
-            <Field id="contact-state" label="State">
+            <Field id={`${idPrefix}-state`} label="State">
               <span className="select-field">
                 <span className="select-field-icon">
                   <IconSvg icon={icons["field-location"]} size={18} />
                 </span>
-                <select id="contact-state" name="state" defaultValue={states[0]}>
+                <select id={`${idPrefix}-state`} name="state" defaultValue={states[0]}>
                   {states.map((s) => (
                     <option key={s}>{s}</option>
                   ))}
@@ -147,24 +170,24 @@ export function ContactForm({ short = false, topic }: { short?: boolean; topic?:
             </Field>
           </>
         )}
-        <Field id="contact-name" label="Name" error={errors.name}>
+        <Field id={`${idPrefix}-name`} label="Name" error={errors.name}>
           <span className="text-field" data-invalid={invalid("name")}>
             <input {...wire("name")} autoComplete="name" placeholder="Full name" />
           </span>
         </Field>
         {!short && (
-          <Field id="contact-company" label="Company" error={errors.company}>
+          <Field id={`${idPrefix}-company`} label="Company" error={errors.company}>
             <span className="text-field" data-invalid={invalid("company")}>
               <input {...wire("company")} autoComplete="organization" placeholder="Company name" />
             </span>
           </Field>
         )}
-        <Field id="contact-email" label="Work email" error={errors.email}>
+        <Field id={`${idPrefix}-email`} label="Work email" error={errors.email}>
           <span className="text-field" data-invalid={invalid("email")}>
             <input {...wire("email")} type="email" autoComplete="email" placeholder="you@company.com" />
           </span>
         </Field>
-        <Field id="contact-phone" label="Mobile" error={errors.phone}>
+        <Field id={`${idPrefix}-phone`} label="Mobile" error={errors.phone}>
           <span className="text-field" data-invalid={invalid("phone")}>
             <span className="text-field-prefix" aria-hidden="true">
               +91
@@ -173,7 +196,9 @@ export function ContactForm({ short = false, topic }: { short?: boolean; topic?:
           </span>
         </Field>
       </div>
-      <button type="submit" className={`btn btn-accent ${styles.submit}`}>
+      {/* The accent button (once a page) only on the full form, where Contact has no other;
+          the short form follows a header that already has one, so it is primary. */}
+      <button type="submit" className={`btn ${short ? "btn-primary" : "btn-accent"} ${styles.submit}`}>
         Get a call back
         <IconSvg icon={icons.arrow} size={20} />
       </button>

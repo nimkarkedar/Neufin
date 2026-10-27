@@ -1,0 +1,166 @@
+/* Two White boxes side by side, in the home numbers block's family (Buy cheaper power's
+   plans, Advisory's one partner), and the list rows used inside a box (Advisory's services
+   and publications). Mobile first. Kedar, 2026-10-27. */
+
+.boxes {
+  --pad: 24px;
+  display: grid;
+  gap: var(--grid-gutter);
+}
+
+/* A box of words: points or a statement, with its button at the foot. */
+.about {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 32px;
+  padding: var(--pad);
+}
+
+/* A title inside a dense card (a panel with points and a photo): the design system's Card
+   title step (28/800, 24 on phones), as every card title. The H1 statement is for a box
+   with little else in it. */
+.cardTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-card-size);
+  line-height: var(--text-card-lh);
+  font-weight: var(--text-card-weight);
+  letter-spacing: var(--text-card-track);
+  text-wrap: balance;
+}
+
+/* Points, each led by a hero duo icon in its circle. */
+.points {
+  display: grid;
+  gap: 20px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.points li {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: var(--text-body-l-size);
+  line-height: var(--text-body-l-lh);
+  text-wrap: pretty;
+}
+
+/* Points led by a hero duo icon, each a title and a line (Advisory's suppliers): body size
+   lines, as in the rows, and room above them under a statement. */
+.pointsLead {
+  margin-top: 32px;
+}
+
+.pointsLead li {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-lh);
+}
+
+/* ---------- Rows: a list in one box, lines edge to edge (as the FAQ and the plan list) ---------- */
+
+.rows {
+  --pad: 24px;
+  display: grid;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  list-style: none;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px var(--pad);
+}
+
+.row + .row,
+.rows > li + li > .row {
+  border-top: 1px solid var(--line);
+}
+
+/* A row that is itself a link takes the design system's hover fill under the pointer. */
+a.row {
+  text-decoration: none;
+  transition: background-color var(--duration-fast) ease;
+}
+
+a.row:hover,
+a.row:focus-visible {
+  background: var(--hover-fill);
+}
+
+.rowText {
+  display: grid;
+  flex: 1;
+  gap: 4px;
+  min-width: 0;
+}
+
+/* Row titles in H3, so a row reads as a heading and its line (Kedar, 2026-10-27). */
+.rowTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  font-weight: var(--text-h3-weight);
+}
+
+.rowLine {
+  color: var(--ink-2);
+  text-wrap: pretty;
+}
+
+/* What sits at the row's end: a text link or a tag, then the arrow. */
+.rowEnd {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: 16px;
+  align-self: center;
+}
+
+@media (min-width: 768px) {
+  .boxes,
+  .rows {
+    --pad: 32px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .boxes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about {
+    justify-content: space-between;
+    padding: 48px;
+  }
+
+  .about .points {
+    gap: 32px;
+  }
+
+  .row {
+    padding-block: 24px;
+  }
+}
+
+/* Phones: the row's link or tag drops under its text, and in a row with a line the icon
+   sits level with the title rather than centred on the whole row. */
+@media (max-width: 767px) {
+  .row:has(.rowLine),
+  .pointsLead li:has(.rowLine) {
+    align-items: flex-start;
+  }
+
+  .row:has(.rowEnd) {
+    flex-wrap: wrap;
+  }
+
+  .row:has(.rowEnd) .rowEnd {
+    flex-basis: 100%;
+    padding-left: 84px;
+  }
+}

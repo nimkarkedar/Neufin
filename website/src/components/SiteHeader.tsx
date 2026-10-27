@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
+import { DuoIcon } from "@ds/components/DuoIcon.jsx";
 import { Icon } from "@ds/components/Icon.jsx";
 import { Logo } from "@ds/components/Logo.jsx";
 import { hexOf } from "@ds/brand/tokens.js";
@@ -34,10 +35,8 @@ function FlyoutColumn({ column, pathname }: { column: MenuColumn; pathname: stri
         {column.items.map((m) => (
           <li key={m.href + m.label}>
             {m.icon ? (
-              <Link href={m.href} className={styles.flyoutItem} aria-current={ariaCurrent(pathname, m.href)}>
-                <span className={styles.iconTile}>
-                  <Icon name={m.icon} tone="neutral" size={24} />
-                </span>
+              <Link href={m.href} className={`duo-icon-host ${styles.flyoutItem}`} aria-current={ariaCurrent(pathname, m.href)}>
+                <DuoIcon name={m.icon} hero size="m" />
                 <span>
                   <span className={styles.flyoutLabel}>{m.label}</span>
                   <span className={styles.flyoutDesc}>{m.description}</span>
@@ -289,14 +288,10 @@ export function SiteHeader() {
                               <li key={m.href + m.label}>
                                 <Link
                                   href={m.href}
-                                  className={m.icon ? styles.groupLink : styles.groupPlain}
+                                  className={m.icon ? `duo-icon-host ${styles.groupLink}` : styles.groupPlain}
                                   aria-current={ariaCurrent(pathname, m.href)}
                                 >
-                                  {m.icon && (
-                                    <span className={styles.iconTile}>
-                                      <Icon name={m.icon} tone="neutral" size={24} />
-                                    </span>
-                                  )}
+                                  {m.icon && <DuoIcon name={m.icon} hero size="m" />}
                                   {m.label}
                                 </Link>
                               </li>

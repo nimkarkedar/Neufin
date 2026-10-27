@@ -3,6 +3,7 @@ import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
 import { Faq } from "./Blocks";
 import { contactLink } from "@/lib/site";
+import side from "./SideSection.module.css";
 import styles from "./FaqSection.module.css";
 
 // The FAQ section from the home page, shared: two columns on desktop, easier to read
@@ -11,9 +12,9 @@ import styles from "./FaqSection.module.css";
 export function FaqSection({ title, items }: { title: string; items: { q: string; a?: string }[] }) {
   return (
     <section id="faq" aria-labelledby="faq-title">
-      <div className={`container ${styles.section}`}>
-        <div className={styles.side}>
-          <h2 id="faq-title" className={styles.title}>
+      <div className={`container ${side.section}`}>
+        <div className={side.side}>
+          <h2 id="faq-title" className={side.title}>
             {title}
           </h2>
           <Link href={contactLink.href} className="link-arrow">

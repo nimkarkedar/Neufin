@@ -1,0 +1,59 @@
+/* The two-column section from the home FAQ, shared by the FAQ and the process steps:
+   section padding as every section. Phones: the head (title, line, link), then the box.
+   Desktop: the head on columns 1–4, staying in view while the box scrolls; the box on
+   columns 6–12. */
+.section {
+  display: grid;
+  gap: 16px;
+  padding-block: var(--section-space);
+}
+
+.side {
+  display: grid;
+  justify-items: start;
+  align-content: start;
+  gap: 8px;
+}
+
+.title {
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-lh);
+  font-weight: var(--text-h2-weight);
+  letter-spacing: var(--text-h2-track);
+  text-wrap: balance;
+}
+
+.band[data-white] {
+  background: var(--white);
+}
+
+/* The line under the title, as the shared Section's. */
+.lead {
+  max-width: 44ch;
+  color: var(--ink-2);
+  font-size: var(--text-body-l-size);
+  line-height: var(--text-body-l-lh);
+  text-wrap: pretty;
+}
+
+/* A button under the head sits 24px below the text above it (8px gap + 16px). */
+.action {
+  margin-top: 16px;
+}
+
+@media (min-width: 1024px) {
+  .section {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--grid-gutter);
+  }
+
+  .side {
+    position: sticky;
+    top: calc(var(--header-h) + 32px);
+    grid-column: 1 / span 4;
+  }
+
+  .section > :last-child {
+    grid-column: 6 / -1;
+  }
+}

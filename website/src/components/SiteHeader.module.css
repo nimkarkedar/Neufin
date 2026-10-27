@@ -73,20 +73,8 @@
   transform: rotate(180deg);
 }
 
-/* Icon tile shared by the flyout and the phone menu: the design system's default
-   icon (Core outline, 24px) in the neutral tone (Near Black, one colour)
-   on a Warm White tile with a Grey 200 line, so it holds on the hover tint too. */
-.iconTile {
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  width: 48px;
-  height: 48px;
-  border-radius: var(--radius-m);
-  border: 1px solid var(--line);
-  background: var(--warm-white);
-}
-
+/* Menu items with an icon (flyout and phone menu) use the design system's hero duo icon
+   at 48px (DuoIcon size="m"): a Warm White circle that turns White on hover. */
 /* ---------- Phone and tablet: menu button + full-screen panel ---------- */
 
 .desktopNav,
@@ -115,7 +103,7 @@
   width: 22px;
   height: 2px;
   background: currentColor;
-  border-radius: 2px; /* rounded ends of the menu icon's bars */
+  border-radius: var(--radius-pill); /* rounded ends of the menu icon's bars */
   transition: transform var(--duration-slow) var(--ease-out);
 }
 
@@ -221,16 +209,10 @@
 .groupLink {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 16px;
   min-height: 56px;
   font-weight: 500;
   text-decoration: none;
-}
-
-.groupLink .iconTile {
-  width: 40px;
-  height: 40px;
-  border-radius: var(--radius-s);
 }
 
 /* Group titles are sentence case: some run to four words. */
@@ -315,7 +297,7 @@
   .topLink {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
     height: 40px;
     padding: 0 12px;
     background: none;
@@ -329,7 +311,7 @@
 
   .topLink:hover,
   .topLink[aria-expanded="true"] {
-    background: var(--warm-white);
+    background: var(--hover-fill);
   }
 
   .topLink[aria-current="page"],
@@ -355,7 +337,7 @@
     }
 
     .topLink {
-      padding: 0 10px;
+      padding: 0 8px;
     }
 
     .desktopList > li:first-child {
@@ -502,10 +484,11 @@
 
   .flyoutItem:hover,
   .flyoutItem[aria-current="page"] {
-    background: var(--warm-white);
+    background: var(--hover-fill);
   }
 
-  .flyoutItem:hover .iconTile {
+  /* The current page's item sits on the hover fill, so its icon circle is White (as on hover). */
+  .flyoutItem[aria-current="page"] :global(.duo-icon-hero) {
     background: var(--white);
   }
 
@@ -526,7 +509,7 @@
   .flyoutPlain {
     display: block;
     margin-inline: -12px;
-    padding: 10px 12px;
+    padding: 12px;
     border-radius: var(--radius-m);
     font-weight: 500;
     line-height: 1.35;
@@ -536,7 +519,7 @@
 
   .flyoutPlain:hover,
   .flyoutPlain[aria-current="page"] {
-    background: var(--warm-white);
+    background: var(--hover-fill);
   }
 
   /* The Warm White panel on the right: one thing to point at. */

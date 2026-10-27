@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 // choice persists (brief: "that choice / info should persist on this page").
 // TODO: pages that link here (home hero and plan finder, Buy cheaper power) should add their
 // choices to the link; state auto-detection by location needs a location service.
-export type PlanChoices = {
+type PlanChoices = {
   state?: string;
   type?: string;
   use?: string;

@@ -75,7 +75,7 @@
   color: var(--ink-2);
 }
 
-/* Buttons and the call-back form sit at the bottom of their column. */
+/* Buttons sit at the bottom of their column. */
 .action {
   margin-top: 16px;
 }
@@ -95,7 +95,7 @@
 }
 
 .faces img + img {
-  margin-left: -10px;
+  margin-left: -8px;
 }
 
 .contact {
@@ -114,37 +114,6 @@
 
 .contact a:hover {
   text-decoration: underline;
-}
-
-/* ---------- Call-back form ---------- */
-
-.form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-/* The field's look comes from the design system's .text-field; this only sizes it. */
-.field {
-  flex: 1 1 220px;
-}
-
-.trap {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-}
-
-.done {
-  margin-top: 16px;
-  font-weight: 500;
-}
-
-/* The design system's .form-field-error; space only when there is a message. */
-.error:not(:empty) {
-  margin-top: 8px;
 }
 
 @media (min-width: 768px) {
@@ -198,8 +167,7 @@
     border-radius: 0 0 var(--inner-r) var(--inner-r);
   }
 
-  .action,
-  .done {
+  .action {
     margin-top: auto;
   }
 

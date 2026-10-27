@@ -34,7 +34,9 @@
   display: grid;
   margin-top: 8px;
   font-family: var(--font-display);
-  font-weight: 700;
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  font-weight: var(--text-h3-weight);
 }
 
 .sign span {

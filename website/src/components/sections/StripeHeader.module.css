@@ -30,7 +30,7 @@
 .back {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   min-height: 48px;
   margin-top: -12px; /* the tap target's extra height sits above, so the title stays close */
   color: var(--ink-2);

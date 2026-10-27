@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import type { StaticImageData } from "next/image";
 import auto from "@ds/../public/assets/photos/factory-floor.jpg";
 import banks from "@ds/../public/assets/photos/industry-banks.jpg";
@@ -11,9 +10,8 @@ import plastics from "@ds/../public/assets/photos/industry-plastics.jpg";
 import retail from "@ds/../public/assets/photos/industry-retail.jpg";
 import steel from "@ds/../public/assets/photos/industry-steel.jpg";
 import { useState } from "react";
-import { IconSvg } from "@ds/components/Icon.jsx";
+import { DuoIcon } from "@ds/components/DuoIcon.jsx";
 import { Segmented } from "@ds/components/Segmented.jsx";
-import { icons } from "@ds/brand/icons.js";
 import { LogoMark } from "@/components/sections/Blocks";
 import { customerLogos, type BrandLogo } from "@/lib/logos";
 import { industries } from "@/lib/site";
@@ -92,14 +90,12 @@ const lumenContent: Record<string, { title: string; points: string[] }> = {
 // Industries on the home page (and, with `lumen`, on Run and optimise): the design system's choice chips pick an industry (the
 // row fades at the edge on phones to show it scrolls), and one White surface shows what
 // Neufin does for it (left) next to its photo (right), with the customers from that
-// industry and a link to the industry's own page.
+// industry.
 export function Industries({ lumen = false }: { lumen?: boolean }) {
   const [current, setCurrent] = useState(0);
   const ind = industries[current];
   const c = content[ind.label];
   const l = lumen ? lumenContent[ind.label] : undefined;
-  // TODO: the Lumen × industry pages don't exist yet.
-  const href = lumen ? `${ind.href}/lumen` : ind.href;
 
   return (
     <div>
@@ -121,7 +117,7 @@ export function Industries({ lumen = false }: { lumen?: boolean }) {
             <ul className={styles.points}>
               {l.points.map((p) => (
                 <li key={p}>
-                  <IconSvg icon={icons.check} size={18} />
+                  <DuoIcon name="duo-check" size={20} />
                   {p}
                 </li>
               ))}
@@ -138,25 +134,20 @@ export function Industries({ lumen = false }: { lumen?: boolean }) {
           )}
 
 
-          <div className={styles.foot}>
-            {c.logos.length > 0 && (
-              <>
-                <p className={styles.footLabel}>Customers from this industry</p>
-                <ul className={styles.logos}>
-                  {c.logos.map((l) => (
-                    <li key={l.name}>
-                      <LogoMark logo={l} />
-                    </li>
-                  ))}
-                </ul>
-              </>
-            )}
-            {/* TODO: the industry pages don't exist yet. */}
-            <Link href={href} className="link-arrow">
-              {lumen ? `Lumen for ${ind.label.toLowerCase()}` : `See our work in ${ind.label.toLowerCase()}`}
-              <IconSvg icon={icons.arrow} size={20} />
-            </Link>
-          </div>
+          {/* No link to the industry's page (or Lumen × industry) yet: those pages are not in
+              Phase 1 (Kedar, 2026-10-27). */}
+          {c.logos.length > 0 && (
+            <div className={styles.foot}>
+              <p className={styles.footLabel}>Customers from this industry</p>
+              <ul className={styles.logos}>
+                {c.logos.map((l) => (
+                  <li key={l.name}>
+                    <LogoMark logo={l} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
 
         <img src={c.photo.image.src} alt={c.photo.alt} className={styles.photo} />

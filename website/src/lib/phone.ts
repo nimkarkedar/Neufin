@@ -6,6 +6,3 @@ export function normaliseIndianMobile(input: string): string | null {
   if (digits.length === 11 && digits.startsWith("0")) digits = digits.slice(1);
   return /^[6-9]\d{9}$/.test(digits) ? digits : null;
 }
-
-// "9876543210" → "+91 98765 43210"
-export const formatIndianMobile = (digits: string) => `+91 ${digits.slice(0, 5)} ${digits.slice(5)}`;

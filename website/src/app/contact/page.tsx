@@ -1,3 +1,4 @@
+import { DuoIcon } from "@ds/components/DuoIcon.jsx";
 import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
 import { ContactReach } from "@/components/contact/ContactReach";
@@ -45,13 +46,13 @@ export default function Contact() {
             <ul className={styles.details}>
               <li>
                 <a href={telHref}>
-                  <IconSvg icon={icons.phone} size={20} />
+                  <DuoIcon name="duo-phone" size={20} />
                   {site.phone}
                 </a>
               </li>
               <li>
                 <a href={`mailto:${site.email}`}>
-                  <IconSvg icon={icons.envelope} size={20} />
+                  <DuoIcon name="duo-envelope" size={20} />
                   {site.email}
                 </a>
               </li>

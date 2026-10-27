@@ -7,10 +7,10 @@ import solarSite from "@ds/../public/assets/photos/solar-site.jpg";
 import windHills from "@ds/../public/assets/photos/wind-hills.jpg";
 import engineersAtScreen from "@ds/../public/assets/photos/engineers-at-screen.jpg";
 import { ContactReach } from "@/components/contact/ContactReach";
-import { Stats } from "@/components/sections/Blocks";
 import { VerticalCard, cardLayouts } from "@/components/sections/Cards";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { LogoBar } from "@/components/sections/LogoBar";
+import { PatternTiles, type PatternTile } from "@/components/sections/PatternTiles";
 import { Section } from "@/components/sections/Section";
 import { StripeHeader } from "@/components/sections/StripeHeader";
 import { customerLogos, supplierLogos } from "@/lib/logos";
@@ -31,11 +31,11 @@ export const metadata = pageMeta(
 // TODO: brief row 5 (not in the screenshots Kedar sent). The testimonials (row 6) wait for
 // real quotes from developers, with name, firm and photo (agreed 2026-10-22).
 
-// What a supplier gets. TODO: Kedar's spot illustrations.
-const gets = [
-  { title: "Verified buyers", text: "Credit-checked business buyers, matched to your plant's output." },
-  { title: "One partner", text: "One contact for every buyer, from contract to payment." },
-  { title: "Less work", text: "We handle approvals, meters and paperwork for you." },
+// What a supplier gets, as pattern tiles with a duo icon each.
+const gets: PatternTile[] = [
+  { icon: "duo-shield", title: "Verified buyers", text: "Credit-checked business buyers, matched to your plant's output." },
+  { icon: "duo-handshake", title: "One partner", text: "One contact for every buyer, from contract to payment." },
+  { icon: "duo-clipboard", title: "Less work", text: "We handle approvals, meters and paperwork for you." },
 ];
 
 // The ways to sell, one card each.
@@ -43,6 +43,13 @@ const ways = [
   { title: "Long-term (PPA)", text: "10 to 25 years. Best for new plants that need financing.", photo: solarSite },
   { title: "Short-term", text: "3 months to 5 years. Best for plants already running.", photo: windHills },
   { title: "Trade through us", text: "Best for power you haven't sold yet.", photo: engineersAtScreen },
+];
+
+// The brief's three figures for suppliers.
+const proof = [
+  { value: "30+", label: "suppliers" },
+  { value: "4+ GW", label: "supply network" },
+  { value: "16", label: "states" },
 ];
 
 export default function SellEnergy() {
@@ -65,13 +72,15 @@ export default function SellEnergy() {
 
       <Section id="proof" title="Developers sell to India's top businesses through Neufin">
         <div className={`surface ${styles.proof}`}>
-          <Stats
-            items={[
-              { value: "30+", label: "suppliers" },
-              { value: "4+ GW", label: "supply network" },
-              { value: "16", label: "states" },
-            ]}
-          />
+          {/* The home numbers block's figures grid (design system `.figures`), flush at the top. */}
+          <dl className="figures">
+            {proof.map((n) => (
+              <div key={n.label} className="figure">
+                <dt className="figure-label">{n.label}</dt>
+                <dd className="figure-value">{n.value}</dd>
+              </div>
+            ))}
+          </dl>
           <div className={styles.logos}>
             <LogoBar label="Our suppliers" logos={supplierLogos} />
             <LogoBar label="Our buyers" logos={customerLogos} />
@@ -80,13 +89,7 @@ export default function SellEnergy() {
       </Section>
 
       <Section id="what-you-get" title="Work with Neufin Energy">
-        <ul className={cardLayouts.three}>
-          {gets.map((g) => (
-            <li key={g.title}>
-              <VerticalCard title={g.title} text={g.text} />
-            </li>
-          ))}
-        </ul>
+        <PatternTiles items={gets} />
       </Section>
 
       <Section id="ways" title="Sell on your terms" link={{ label: "Talk to us", href: contactLink.href }}>

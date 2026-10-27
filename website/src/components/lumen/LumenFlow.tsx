@@ -1,5 +1,5 @@
 import type { CSSProperties } from "react";
-import { IconSvg } from "@ds/components/Icon.jsx";
+import { DuoIcon } from "@ds/components/DuoIcon.jsx";
 import { icons } from "@ds/brand/icons.js";
 import styles from "./LumenFlow.module.css";
 
@@ -15,18 +15,18 @@ import styles from "./LumenFlow.module.css";
 type IconName = keyof typeof icons;
 
 const sources: { icon: IconName; name: string }[] = [
-  { icon: "meter", name: "Meters" },
-  { icon: "solar-panel", name: "Solar" },
-  { icon: "windmill", name: "Wind" },
-  { icon: "battery", name: "Batteries" },
-  { icon: "bolt", name: "Diesel generators" },
-  { icon: "bill", name: "Electricity board bills" },
+  { icon: "duo-meter", name: "Meters" },
+  { icon: "duo-solar", name: "Solar" },
+  { icon: "duo-wind", name: "Wind" },
+  { icon: "duo-battery", name: "Batteries" },
+  { icon: "duo-bolt", name: "Diesel generators" },
+  { icon: "duo-bill", name: "Electricity board bills" },
 ];
 
 const leaks: { icon: IconName; text: string }[] = [
-  { icon: "bill", text: "Bill charged at the wrong tariff" },
-  { icon: "solar-panel", text: "Inverter 2 down since Tuesday" },
-  { icon: "contract", text: "Supplier short of contracted units" },
+  { icon: "duo-bill", text: "Bill charged at the wrong tariff" },
+  { icon: "duo-solar", text: "Inverter 2 down since Tuesday" },
+  { icon: "duo-contract", text: "Supplier short of contracted units" },
 ];
 
 // Bands in stage units. Slope 60 / 95 = 0.63, the Stripe's 536 / 850.
@@ -65,9 +65,7 @@ export function LumenFlow() {
             <ul className={styles.rows}>
               {sources.map((s) => (
                 <li key={s.name}>
-                  <span className={styles.tile}>
-                    <IconSvg icon={icons[s.icon]} size={18} />
-                  </span>
+                  <DuoIcon name={s.icon} size={20} />
                   {s.name}
                 </li>
               ))}
@@ -88,9 +86,7 @@ export function LumenFlow() {
             <ul className={styles.rows}>
               {leaks.map((l) => (
                 <li key={l.text}>
-                  <span className={styles.tile}>
-                    <IconSvg icon={icons[l.icon]} size={18} />
-                  </span>
+                  <DuoIcon name={l.icon} size={20} />
                   {l.text}
                 </li>
               ))}

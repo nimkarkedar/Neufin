@@ -3,8 +3,8 @@
 import type { icons } from "@ds/brand/icons.js";
 
 export type IconName = keyof typeof icons;
-export type NavLink = { label: string; href: string };
-export type MenuItem = NavLink & { description?: string; icon?: IconName };
+type NavLink = { label: string; href: string };
+type MenuItem = NavLink & { description?: string; icon?: IconName };
 // A column is either all icon items (icon, label, note) or all plain links, never mixed.
 // Column titles are short labels in sentence case.
 export type MenuColumn = { title: string; items: MenuItem[] };
@@ -86,10 +86,10 @@ const energyPlans: NavLink = { label: "Energy plans", href: "/products/plan-find
 // Lumen's modules, with the icon and line the Products menu and the home page's Lumen
 // block both show.
 export const lumenModules: (MenuItem & { icon: IconName; description: string })[] = [
-  { label: "Bill management", href: "/products/lumen/bill-management", icon: "bill", description: "Every bill fetched and checked, at every site." },
-  { label: "Solar and battery tracking", href: "/products/lumen/solar-and-battery-tracking", icon: "battery", description: "Output, upkeep and faults, caught early." },
-  { label: "Contract tracking", href: "/products/lumen/contract-tracking", icon: "contract", description: "Bills checked against your power contract." },
-  { label: "Automatic source switching", href: "/products/lumen/source-switching", icon: "nodes", description: "Uses grid, solar, wind, diesel or battery, whichever is cheapest." },
+  { label: "Bill management", href: "/products/lumen/bill-management", icon: "duo-bill", description: "Every bill fetched and checked, at every site." },
+  { label: "Solar and battery tracking", href: "/products/lumen/solar-and-battery-tracking", icon: "duo-battery", description: "Output, upkeep and faults, caught early." },
+  { label: "Contract tracking", href: "/products/lumen/contract-tracking", icon: "duo-contract", description: "Bills checked against your power contract." },
+  { label: "Automatic source switching", href: "/products/lumen/source-switching", icon: "duo-nodes", description: "Uses grid, solar, wind, diesel or battery, whichever is cheapest." },
 ];
 
 export const blogs: NavLink = { label: "Blog", href: "/blog" };
@@ -115,10 +115,10 @@ export const mainNav: NavItem[] = [
         {
           title: "For businesses",
           items: [
-            { ...solutions.buy, icon: "bolt", description: "Energy plans for your sites." },
-            { ...solutions.run, icon: "meter", description: "Pay less for the power you already use." },
-            { ...solutions.advisory, icon: "leaf", description: "A clear plan to reach your clean power goals." },
-            { ...solutions.services, icon: "wrench", description: "Meter work and electricity board approvals, done for you." },
+            { ...solutions.buy, icon: "duo-bolt", description: "Energy plans for your sites." },
+            { ...solutions.run, icon: "duo-meter", description: "Pay less for the power you already use." },
+            { ...solutions.advisory, icon: "duo-leaf", description: "A clear plan to reach your clean power goals." },
+            { ...solutions.services, icon: "duo-wrench", description: "Meter work and electricity board approvals, done for you." },
           ],
         },
       ],
@@ -140,8 +140,8 @@ export const mainNav: NavItem[] = [
           title: "Learn",
           items: [
             // TODO: confirm the Blog note; the doc gives none.
-            { ...blogs, icon: "news", description: "Notes on power prices, rules and markets." },
-            { ...publications, icon: "book", description: "Reports, guides and research papers." },
+            { ...blogs, icon: "duo-news", description: "Notes on power prices, rules and markets." },
+            { ...publications, icon: "duo-book", description: "Reports, guides and research papers." },
           ],
         },
       ],

@@ -1,32 +1,9 @@
-/* FAQs: section padding as every section. Phones: title, link, then the questions.
-   Desktop: title and link on columns 1–4 (staying in view while the list scrolls), the
-   questions on columns 6–12. */
-.section {
-  display: grid;
-  gap: 16px;
-  padding-block: var(--section-space);
-}
-
-.side {
-  display: grid;
-  justify-items: start;
-  align-content: start;
-  gap: 8px;
-}
-
-.title {
-  font-size: var(--text-h2-size);
-  line-height: var(--text-h2-lh);
-  font-weight: var(--text-h2-weight);
-  letter-spacing: var(--text-h2-track);
-  text-wrap: balance;
-}
+/* The FAQ's box. Its two-column frame is SideSection.module.css, shared with the process steps. */
 
 /* The questions in a White card: the accordion's lines run edge to edge inside it (no top
-   line, no last line), rows pad in by the card part padding, and the hover and open fill
-   is Warm White so it shows on White. */
+   line, no last line), rows pad in by the card part padding; hover and open take the
+   design system's hover fill. */
 .box {
-  --accordion-fill: var(--warm-white);
   overflow: hidden;
 }
 
@@ -47,21 +24,6 @@
 }
 
 @media (min-width: 1024px) {
-  .section {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-    column-gap: var(--grid-gutter);
-  }
-
-  .side {
-    position: sticky;
-    top: calc(var(--header-h) + 32px);
-    grid-column: 1 / span 4;
-  }
-
-  .section > :last-child {
-    grid-column: 6 / -1;
-  }
-
   .box :global(.accordion) {
     --accordion-bleed: 40px;
   }

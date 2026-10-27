@@ -7,23 +7,6 @@ import styles from "./Blocks.module.css";
 // Content blocks shared by every page. Each is built from design system pieces:
 // tokens, .surface, .tag, .link-arrow, .accordion, Nucleo icons and placeholders.
 
-const cols = (n: number) => ({ "--cols": n }) as CSSProperties;
-
-// ---------- Big numbers ----------
-
-export function Stats({ items }: { items: { value: string; label: string }[] }) {
-  return (
-    <dl className={styles.stats} style={cols(items.length)}>
-      {items.map((s) => (
-        <div key={s.label} className={styles.stat}>
-          <dt className={styles.statLabel}>{s.label}</dt>
-          <dd className={styles.statValue}>{s.value}</dd>
-        </div>
-      ))}
-    </dl>
-  );
-}
-
 // ---------- A row of logos (name placeholders until the SVGs arrive) ----------
 
 // Logos in the text colour, each covering the same area, so wide wordmarks get
@@ -75,7 +58,7 @@ export function LogoRow({
 
 // ---------- FAQ: the design system accordion, plus FAQPage data for answered ones ----------
 
-export type Qa = { q: string; a?: string };
+type Qa = { q: string; a?: string };
 
 export function Faq({ items }: { items: Qa[] }) {
   const answered = items.filter((i) => i.a);
@@ -128,53 +111,5 @@ export function Checks({ items }: { items: string[] }) {
         </li>
       ))}
     </ul>
-  );
-}
-
-// ---------- A comparison table; one column can be marked as Neufin's ----------
-
-export function Table({
-  head,
-  rows,
-  highlight,
-  caption,
-}: {
-  head: string[];
-  rows: string[][];
-  highlight?: number;
-  caption?: string;
-}) {
-  return (
-    <div className={`surface ${styles.tableWrap}`}>
-      <table className={styles.table}>
-        {caption && <caption className="visually-hidden">{caption}</caption>}
-        <thead>
-          <tr>
-            {head.map((h, i) => (
-              <th key={h || i} scope="col" data-hl={i === highlight || undefined}>
-                {h}
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map((r) => (
-            <tr key={r[0]}>
-              {r.map((c, i) =>
-                i === 0 ? (
-                  <th key={i} scope="row">
-                    {c}
-                  </th>
-                ) : (
-                  <td key={i} data-hl={i === highlight || undefined}>
-                    {c}
-                  </td>
-                ),
-              )}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
   );
 }

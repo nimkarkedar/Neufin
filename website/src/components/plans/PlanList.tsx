@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useId } from "react";
+import { DuoIcon } from "@ds/components/DuoIcon.jsx";
 import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
 import { Segmented } from "@ds/components/Segmented.jsx";
@@ -17,12 +18,13 @@ type Term = "spot" | "short" | "mid" | "long";
 
 // The source's picture: a solar panel, a windmill, a battery, the market's chart. A plan with
 // more than one source shows each, overlapping (Kedar, 2026-10-27).
+// Hero duo icons at 48px (DuoIcon size "m").
 const sourceIcons: Record<Source, IconName[]> = {
-  Solar: ["solar-panel"],
-  Wind: ["windmill"],
-  "Solar and wind": ["solar-panel", "windmill"],
-  Battery: ["solar-panel", "battery"],
-  "Daily market": ["chart"],
+  Solar: ["duo-solar"],
+  Wind: ["duo-wind"],
+  "Solar and wind": ["duo-solar", "duo-wind"],
+  Battery: ["duo-solar", "duo-battery"],
+  "Daily market": ["duo-chart"],
 };
 
 // Each plan carries what the brief lists: name, who it suits, the landed price per unit, the
@@ -68,7 +70,6 @@ const investments = [
   { value: "yes", label: "With investment" },
 ];
 
-const icon = (name: IconName, size = 20) => <IconSvg icon={icons[name]} size={size} />;
 const pick = <T extends { value: string }>(list: T[], value: string | undefined) => list.find((o) => o.value === value) ?? list[0];
 
 // One choice as the design system's segmented control, stacked in the sidebar on desktop.
@@ -160,9 +161,7 @@ export function PlanList() {
                 <div className={styles.who}>
                   <span className={styles.sources} aria-label={p.source} role="img">
                     {sourceIcons[p.source].map((n) => (
-                      <span key={n} className={styles.sourceIcon}>
-                        {icon(n)}
-                      </span>
+                      <DuoIcon key={n} name={n} hero size="m" className={`duo-icon-ring ${styles.sourceIcon}`} />
                     ))}
                   </span>
                   <div>
@@ -179,7 +178,7 @@ export function PlanList() {
                     </dd>
                     <dt className="visually-hidden">Contract length</dt>
                     <dd className={styles.fact}>
-                      {icon("calendar")}
+                      <DuoIcon name="duo-calendar" size={20} />
                       {p.term}
                     </dd>
                   </div>
@@ -187,14 +186,14 @@ export function PlanList() {
                   <div className={styles.pair}>
                     <dt className="visually-hidden">Smallest size</dt>
                     <dd className={styles.fact}>
-                      {icon("bolt")}
+                      <DuoIcon name="duo-bolt" size={20} />
                       <span>
                         <span className={styles.note}>From</span> {p.min}
                       </span>
                     </dd>
                     <dt className="visually-hidden">Smallest yearly use</dt>
                     <dd className={styles.fact}>
-                      {icon("meter")}
+                      <DuoIcon name="duo-meter" size={20} />
                       <span>
                         X lakh units <span className={styles.note}>a year</span>
                       </span>
@@ -203,7 +202,7 @@ export function PlanList() {
                   <div className={styles.pair}>
                     <dt className="visually-hidden">Investment</dt>
                     <dd className={styles.fact}>
-                      {icon("coins")}
+                      <DuoIcon name="duo-coins" size={20} />
                       {p.investment ? "Investment needed" : "No investment"}
                     </dd>
                   </div>

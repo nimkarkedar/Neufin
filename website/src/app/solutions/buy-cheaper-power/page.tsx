@@ -1,25 +1,24 @@
 import Link from "next/link";
+import { DuoIcon } from "@ds/components/DuoIcon.jsx";
 import { IconSvg } from "@ds/components/Icon.jsx";
 import { ScrollRow } from "@ds/components/ScrollRow.jsx";
 import { icons } from "@ds/brand/icons.js";
 // TODO: Neufin's own photo; a library photo stands in.
+// TODO: Neufin's own photo; a library photo stands in.
 import pylonDusk from "@ds/../public/assets/photos/careers-pylon-dusk.jpg";
-import artSolar from "@ds/../public/assets/illustrations/plan-solar.jpg";
-import artWind from "@ds/../public/assets/illustrations/plan-wind.jpg";
-import artBattery from "@ds/../public/assets/illustrations/plan-battery.jpg";
-import artExchange from "@ds/../public/assets/illustrations/plan-exchange.jpg";
 import { HowWeDoIt } from "@/components/home/HowWeDoIt";
 import { QuoteSteps } from "@/components/sections/QuoteSteps";
 import { stories, storyCard } from "@/lib/stories";
 import { VerticalCard, cardLayouts } from "@/components/sections/Cards";
 import { FaqSection } from "@/components/sections/FaqSection";
+import { IconGrid, type IconGridItem } from "@/components/sections/IconGrid";
 import { PlanFinder } from "@/components/sections/PlanFinder";
 import { Section } from "@/components/sections/Section";
 import { StripeHeader } from "@/components/sections/StripeHeader";
 import { latest, resourcesLink } from "@/lib/content";
 import { pageMeta } from "@/lib/meta";
-import { customerStories, solutions } from "@/lib/site";
-import styles from "./buy.module.css";
+import { customerStories, planFinderHref, solutions, type IconName } from "@/lib/site";
+import boxes from "@/components/sections/Boxes.module.css";
 
 export const metadata = pageMeta(
   "Buy cheaper power for your business",
@@ -33,15 +32,23 @@ export const metadata = pageMeta(
 // contact card as the last step.
 
 
-// The four kinds of plan, from the brief, as panel cards on Kedar's illustrations (3:2, on
-// White), each with its own crop.
-const plans = [
-  { title: "Solar", text: "Fixed-price daytime energy, for sites that run by day.", art: artSolar, focus: "50% 50%" },
-  { title: "Wind", text: "Energy into the evening and night, for round-the-clock sites.", art: artWind, focus: "10% 50%" },
-  { title: "Battery", text: "Solar stored for your evening peak, for high evening loads.", art: artBattery, focus: "50% 50%" },
-  { title: "Daily market", text: "Bought daily on the power exchange, with no lock-in.", art: artExchange, focus: "50% 50%" },
+
+// What an energy plan is, from the paragraph that was here (Kedar: as points with icons).
+const points: { icon: IconName; text: string }[] = [
+  { icon: "duo-contract", text: "A contract to buy power at a fixed price" },
+  { icon: "duo-calendar", text: "For as long as you need, from 30 days to 15 years" },
+  { icon: "duo-coins", text: "Bought in bulk from 30+ suppliers, so you pay less per unit than your electricity board" },
+  { icon: "duo-bolt", text: "Plans start from 0.5 MWp" },
 ];
 
+// The four kinds of plan, from the brief, each with a duo icon for its source (solar panel,
+// wind, battery, the market chart).
+const kinds: IconGridItem[] = [
+  { title: "Solar", icon: "duo-solar", text: "Fixed-price daytime energy, for sites that run by day." },
+  { title: "Wind", icon: "duo-wind", text: "Energy into the evening and night, for round-the-clock sites." },
+  { title: "Battery", icon: "duo-battery", text: "Solar stored for your evening peak, for high evening loads." },
+  { title: "Daily market", icon: "duo-chart", text: "Bought daily on the power exchange, with no lock-in." },
+];
 
 export default function BuyCheaperPower() {
   return (
@@ -51,41 +58,41 @@ export default function BuyCheaperPower() {
         title="Cut your energy bill by up to 30%"
         lead="Choose your tariff, tenure and capacity."
         actions={
-          <Link href="#compare" className="btn btn-accent">
+          <Link href={planFinderHref} className="btn btn-accent">
             View prices
             <IconSvg icon={icons.arrow} size={20} />
           </Link>
         }
         photo={pylonDusk}
-        focus="50% 20%"
+        focus="50% 40%"
         over
       />
 
-      {/* What a plan is in one White box, then the four kinds as panel cards in a sideways row. */}
+      {/* Two White boxes of the same height, in the home numbers block's family (Kedar,
+          2026-10-27): what a plan is as four points, then the four kinds of plan in a 2 × 2
+          grid with lines edge to edge, each cell filling with Violet 100 under the pointer. */}
       <Section id="plans" title="Energy plans that fit every business">
-        <div className={styles.plans}>
-          <div className={`surface ${styles.explain}`}>
-            <p className={styles.explainText}>
-              An energy plan is a contract to buy power at a fixed price, for as long as you need, from 30 days to 15 years. We buy in
-              bulk from 30+ suppliers, so you pay less per unit than you do your electricity board. Plans start from 0.5 MWp.
-            </p>
+        <div className={boxes.boxes}>
+          <div className={`surface ${boxes.about}`}>
+            <ul className={boxes.points}>
+              {points.map((p) => (
+                <li key={p.text}>
+                  <DuoIcon name={p.icon} hero />
+                  {p.text}
+                </li>
+              ))}
+            </ul>
             <Link href="#compare" className="btn btn-primary">
               See your price
               <IconSvg icon={icons.arrow} size={20} />
             </Link>
           </div>
-          <ScrollRow label="Kinds of energy plan" className={cardLayouts.row}>
-            {plans.map((p) => (
-              <VerticalCard key={p.title} image={p.art} focus={p.focus} title={p.title} text={p.text} />
-            ))}
-          </ScrollRow>
+          <IconGrid items={kinds} />
         </div>
       </Section>
 
-      <div id="compare">
-        {/* TODO (brief): yearly use, the electricity board by name, and the price type (changes with tariff orders vs fixed). */}
-        <PlanFinder title="See what you’d save against your electricity board" />
-      </div>
+      {/* TODO (brief): yearly use, the electricity board by name, and the price type (changes with tariff orders vs fixed). */}
+      <PlanFinder title="See what you’d save against your electricity board" />
 
       <Section id="stories" title="Businesses like yours, paying less" link={{ label: "All customer stories", href: customerStories.href }}>
         {/* The same cards as the Customer stories page, which this section links to. */}

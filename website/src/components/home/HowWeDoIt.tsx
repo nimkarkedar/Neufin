@@ -1,4 +1,5 @@
-import laptop from "@ds/../public/assets/photos/laptop-software.jpg";
+// Lumen's dashboard, cropped to its app window (Kedar, 2026-10-27), in place of the laptop photo.
+import lumenDashboard from "@/assets/lumen/reporting-dashboard.png";
 import electrician from "@ds/../public/assets/photos/electrician-rack.jpg";
 import windHills from "@ds/../public/assets/photos/wind-hills.jpg";
 import solarSite from "@ds/../public/assets/photos/solar-site.jpg";
@@ -25,7 +26,9 @@ const cards = [
     title: "Run and optimise",
     text: "Lumen watches every meter, plant and bill, and flags overcharges.",
     href: solutions.run.href,
-    image: laptop,
+    image: lumenDashboard,
+    // The cost chart, past the sidebar.
+    focus: "22% 50%",
   },
   {
     id: "advisory",
@@ -54,7 +57,7 @@ export function HowWeDoIt({ title = "How we keep your price low", exclude = "buy
       <ul className={cardLayouts.three}>
         {cards.filter((c) => c.id !== exclude).map((c) => (
           <li key={c.title}>
-            <VerticalCard look="photo" image={c.image} title={c.title} text={c.text} href={c.href} />
+            <VerticalCard look="photo" image={c.image} focus={"focus" in c ? c.focus : undefined} title={c.title} text={c.text} href={c.href} />
           </li>
         ))}
       </ul>

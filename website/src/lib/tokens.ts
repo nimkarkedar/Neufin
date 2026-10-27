@@ -3,7 +3,6 @@
 import { allTokens, breakpoints, fonts, layout, typeScale } from "@ds/brand/tokens.js";
 import { STRIPE_SLOPE } from "@ds/components/Stripe.jsx";
 
-export const TABLET_MIN = breakpoints.tablet;
 export const DESKTOP_MIN = breakpoints.desktop;
 
 const block = (vars: Record<string, string>) =>

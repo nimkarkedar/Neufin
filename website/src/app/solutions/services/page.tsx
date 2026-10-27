@@ -12,13 +12,14 @@ import solarPanels from "@ds/../public/assets/photos/solar.jpg";
 import { HowWeDoIt } from "@/components/home/HowWeDoIt";
 import { LogoRow } from "@/components/sections/Blocks";
 import { VerticalCard, cardLayouts } from "@/components/sections/Cards";
+import { ProcessSteps, type ProcessStep } from "@/components/sections/ProcessSteps";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { LogoBar } from "@/components/sections/LogoBar";
 import { Section } from "@/components/sections/Section";
 import { StripeHeader } from "@/components/sections/StripeHeader";
 import { customerLogos } from "@/lib/logos";
 import { pageMeta } from "@/lib/meta";
-import { services, solutions } from "@/lib/site";
+import { contactLink, services, solutions } from "@/lib/site";
 
 export const metadata = pageMeta(
   "Energy services for your business",
@@ -45,10 +46,10 @@ const details: { title?: string; text: string; image?: StaticImageData; focus?: 
 ];
 
 // How it works, from the brief. TODO: Kedar's spot illustrations; durations from Neufin.
-const steps = [
-  { title: "Send documents", text: "Your site details, connection number and the papers we ask for." },
-  { title: "We do the work", text: "We install the hardware and file with your electricity board." },
-  { title: "Verified and tested", text: "We test all hardware and confirm every approval before we hand over." },
+const steps: ProcessStep[] = [
+  { icon: "duo-clipboard", title: "Send documents", text: "Your site details, connection number and the papers we ask for." },
+  { icon: "duo-wrench", title: "We do the work", text: "We install the hardware and file with your electricity board." },
+  { icon: "duo-shield", title: "Verified and tested", text: "We test all hardware and confirm every approval before we hand over." },
 ];
 
 export default function Services() {
@@ -84,15 +85,7 @@ export default function Services() {
         </ScrollRow>
       </Section>
 
-      <Section id="how" title="Done in three steps">
-        <ul className={cardLayouts.three}>
-          {steps.map((s, i) => (
-            <li key={s.title}>
-              <VerticalCard tag={`Step ${i + 1}`} title={s.title} text={s.text} />
-            </li>
-          ))}
-        </ul>
-      </Section>
+      <ProcessSteps title="Done in three steps" steps={steps} link={{ label: "Get a quote", href: contactLink.href }} white />
 
       {/* TODO: Neufin to answer the open questions. */}
       <FaqSection

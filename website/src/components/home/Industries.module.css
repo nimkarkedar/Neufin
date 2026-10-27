@@ -38,7 +38,7 @@
 /* Lumen: the solution points as a short ticked list, then one figure. */
 .points {
   display: grid;
-  gap: 10px;
+  gap: 12px;
   margin: 16px 0 0;
   padding: 0;
   list-style: none;
@@ -47,12 +47,12 @@
 .points li {
   display: flex;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
 }
 
-.points svg {
-  flex: none;
-  margin-top: 3px;
+/* The duo check, level with the first line. */
+.points :global(.duo-icon) {
+  margin-top: 2px;
 }
 
 .metric {
@@ -74,7 +74,7 @@
   line-height: var(--text-small-lh);
 }
 
-/* Customers and the link sit at the foot of the text column. */
+/* The customers sit at the foot of the text column. */
 .foot {
   display: grid;
   justify-items: start;

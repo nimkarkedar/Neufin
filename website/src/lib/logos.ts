@@ -57,7 +57,7 @@ export const supplierLogos = [
 ];
 
 // Banks and lenders that finance plants for Neufin's customers.
-export const financeLogos = [
+const financeLogos = [
   logo("ICICI Bank", icici),
   logo("YES BANK", yesBank),
   logo("Tata Capital", tataCapital),

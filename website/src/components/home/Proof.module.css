@@ -1,12 +1,10 @@
 /* The home page's numbers block, from Kedar's mock. The H2 title, then two raised White boxes (.surface), side by side
-   on desktop and stacked on phones. Desktop: the boxes take the screen's height less the
-   header, the section's padding and the title (between 580 and 640px), so the block fills
-   one screen at 1440 × 900.
+   on desktop and stacked on phones. Desktop: both boxes take the screen's height less the
+   header, the section's padding and the title (between 440 and 500px).
 
    The facts box is one grid: three equal columns, the same padding in every cell, and
    lines between them running edge to edge. Every label has room for two lines, so the
-   figures in a row share one baseline whatever their labels wrap to, and the sources row
-   follows the same columns (the icons under the first, the text from the second). */
+   figures in a row share one baseline whatever their labels wrap to. */
 
 .section {
   --pad: 24px;
@@ -52,51 +50,9 @@
   overflow: hidden;
 }
 
-/* The cells sit on the line colour with a 1px gap, so the lines between them run edge
-   to edge. Two a row on phones, three on tablets and up. */
+/* The figures grid is the design system's `.figures`; here it fills the box's height. */
 .grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  grid-auto-rows: 1fr;
-  gap: 1px;
   flex: 1;
-  margin: 0;
-  background: var(--line);
-}
-
-/* Figure on top, label under it (the label comes first in the markup, for the list's
-   meaning), the pair centred in the cell. */
-.cell {
-  display: flex;
-  flex-direction: column-reverse;
-  justify-content: center;
-  padding: var(--pad);
-  background: var(--white);
-  transition: background-color var(--duration-slow) ease-out;
-}
-
-/* Under the pointer a cell fills with soft Violet 100, then fades back as the pointer
-   moves on (Kedar: a little cool factor). Colour only: the cells never move. */
-.cell:hover {
-  background: var(--violet-100);
-  transition-duration: var(--duration-fast);
-}
-
-.value {
-  margin: 0;
-  font-family: var(--font-display);
-  font-size: var(--text-h1-size);
-  line-height: var(--text-h1-lh);
-  font-weight: var(--text-h1-weight);
-  letter-spacing: var(--text-h1-track);
-  white-space: nowrap;
-}
-
-/* Two lines of room for every label, so the figures line up across a row. */
-.label {
-  min-height: 2lh;
-  margin-top: 4px;
-  color: var(--ink-2);
 }
 
 /* The licence: the ring stamp over the regulator's emblem, its name under it, centred. */
@@ -127,75 +83,13 @@
   transform: translateY(-6%) rotate(10deg);
 }
 
-/* Phones: icons over the text. From tablets: the grid's three columns, the icons under
-   the first and the text across the other two, each padded like a cell. */
-.sources {
-  display: grid;
-  gap: 20px;
-  padding: var(--pad);
-  border-top: 1px solid var(--line);
-}
-
-/* Round tiles overlapping like a row of faces, icons in the text colour. */
-.stack {
-  display: flex;
-}
-
-.disc {
-  display: grid;
-  flex-shrink: 0;
-  place-items: center;
-  width: 44px;
-  height: 44px;
-  border: 1px solid var(--grey-200);
-  border-radius: 50%;
-  background: var(--white);
-  color: var(--ink);
-}
-
-.disc + .disc {
-  margin-left: -10px;
-}
-
-.text {
-  max-width: 40ch;
-  color: var(--ink-2);
-  text-wrap: pretty;
-}
-
-/* The small title over the list of sources: body size, semibold, the text colour. */
-.textTitle {
-  display: block;
-  color: var(--ink);
-  font-weight: 600;
-}
-
-/* ---------- Saving: the statement, the chart, the link ---------- */
+/* ---------- Saving: the statement (design system `.statement`), then the chart ---------- */
 
 .saving {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   padding: var(--pad);
-}
-
-.statement {
-  max-width: 22ch;
-  font-family: var(--font-display);
-  font-size: var(--text-h1-size);
-  line-height: var(--text-h1-lh);
-  font-weight: var(--text-h1-weight);
-  letter-spacing: var(--text-h1-track);
-  text-wrap: balance;
-}
-
-.sub {
-  max-width: 44ch;
-  margin-top: 12px;
-  color: var(--ink-2);
-  font-size: var(--text-body-l-size);
-  line-height: var(--text-body-l-lh);
-  text-wrap: pretty;
 }
 
 /* ---------- The saving chart ----------
@@ -232,7 +126,7 @@
   align-items: center;
   min-height: 44px;
   margin: 0;
-  padding: 0 14px;
+  padding: 0 16px;
   border-radius: 0 var(--radius-s) var(--radius-s) 0;
   background: var(--grey-400);
   color: var(--near-black);
@@ -254,7 +148,7 @@
   font-weight: 600;
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
-  translate: calc(-100% - 14px) -50%;
+  translate: calc(-100% - 16px) -50%;
 }
 
 /* Reveal on first view (SavingChart sets data-state): clipped to 0% while armed, then the
@@ -292,41 +186,18 @@
   line-height: var(--text-small-lh);
 }
 
-.action {
-  margin-top: 8px;
-}
-
 @media (min-width: 768px) {
   .section {
     --pad: 32px;
   }
-
-  .grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .sources {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    align-items: center;
-    column-gap: 1px;
-    padding-inline: 0;
-  }
-
-  .stack {
-    padding-inline: var(--pad);
-  }
-
-  .text {
-    grid-column: 2 / -1;
-    padding-inline: var(--pad);
-  }
 }
 
-/* Desktop: the boxes side by side, as tall as one screen allows. */
+/* Desktop: the boxes side by side, the same height. The sources row under the figures
+   was removed (Kedar, 2026-10-27), so both are 140px shorter than before. */
 @media (min-width: 1024px) {
   .cards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    height: clamp(580px, calc(100svh - var(--header-h) - 2 * var(--section-space) - 80px), 640px);
+    min-height: clamp(440px, calc(100svh - var(--header-h) - 2 * var(--section-space) - 220px), 500px);
     margin-top: 24px;
   }
 

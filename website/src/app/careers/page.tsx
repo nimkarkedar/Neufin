@@ -19,6 +19,8 @@ import iitBombay from "@/assets/photos/events/iit-bombay.jpg";
 import energyWeek from "@/assets/photos/events/india-energy-week-goa.jpg";
 import mahindra from "@/assets/photos/events/mahindra-policy-paper.jpg";
 import { Roles } from "@/components/careers/Roles";
+import { PatternTiles, type PatternTile } from "@/components/sections/PatternTiles";
+import { ProcessSteps, type ProcessStep } from "@/components/sections/ProcessSteps";
 import { Section } from "@/components/sections/Section";
 import { StripeHeader } from "@/components/sections/StripeHeader";
 import { VerticalCard, cardLayouts } from "@/components/sections/Cards";
@@ -40,13 +42,12 @@ const like: { title: string; text: string; photo: StaticImageData; focus: string
   { title: "Move like energy in the grid", text: "Power markets move by the hour, so we decide fast and ship often.", photo: gokart, focus: "50% 60%" },
 ];
 
-// Copy from Kedar's mock (2026-10-26). TODO: an illustration per value from Kedar (the drawn
-// round ones are out: no circle graphics in cards).
-const values: { title: string; text: string }[] = [
-  { title: "Extreme ownership", text: "Own the outcome, with no excuses or blame." },
-  { title: "Customer obsession", text: "Start with the customer, and make sure our work adds value." },
-  { title: "Solution mindset", text: "Solve or work around problems. Don't just report them." },
-  { title: "Show respect", text: "Be honest, challenge ideas directly, and commit once we decide." },
+// Copy from Kedar's mock (2026-10-26), as pattern tiles with a duo icon each.
+const values: PatternTile[] = [
+  { icon: "duo-flag", title: "Extreme ownership", text: "Own the outcome, with no excuses or blame." },
+  { icon: "duo-user-heart", title: "Customer obsession", text: "Start with the customer, and make sure our work adds value." },
+  { icon: "duo-puzzle", title: "Solution mindset", text: "Solve or work around problems. Don't just report them." },
+  { icon: "duo-handshake", title: "Show respect", text: "Be honest, challenge ideas directly, and commit once we decide." },
 ];
 
 // TODO: more from offsites and site visits as they come.
@@ -66,12 +67,12 @@ const events: { name: string; when: string; photo: StaticImageData; focus: strin
   { name: "COP28", when: "UN climate conference, Dubai · December 2023", photo: cop28, focus: "50% 30%" },
 ];
 
-// TODO: an illustration per step from Kedar.
-const hiring: { title: string; text: string }[] = [
-  { title: "Screening call", text: "30 minutes with someone on the team." },
-  { title: "Case study", text: "A real problem we've actually faced." },
-  { title: "Deep dive", text: "Walk us through your work. Meet the people you'd work with." },
-  { title: "Founders round", text: "A conversation with Rushil and Rahool: vision, ambition, alignment." },
+// The hiring steps, as the shared process rows with a duo icon each.
+const hiring: ProcessStep[] = [
+  { icon: "duo-phone", title: "Screening call", text: "30 minutes with someone on the team." },
+  { icon: "duo-clipboard", title: "Case study", text: "A real problem we've actually faced." },
+  { icon: "duo-presentation", title: "Deep dive", text: "Walk us through your work. Meet the people you'd work with." },
+  { icon: "duo-handshake", title: "Founders round", text: "A conversation with Rushil and Rahool: vision, ambition, alignment." },
 ];
 
 // Careers tells one story, fold by fold: the opportunity (header), why we started (the founders' letter,
@@ -80,7 +81,7 @@ const hiring: { title: string; text: string }[] = [
 // VerticalCard (components/sections/Cards), photo or panel, so every section reads as one family.
 // Sections share the standard H2 head and sit on the Warm White page, except How we work
 // (the one Electric Violet band) and Open roles (Violet 100). Rows of photo cards that don't fit
-// scroll sideways; the hiring steps carry a step tag.
+// scroll sideways; the hiring steps are the shared process rows.
 
 export default function Careers() {
   return (
@@ -140,12 +141,9 @@ export default function Careers() {
         </ul>
       </Section>
 
-      <Section id="values" tone="violet" title="How we work: our values">
-        <ScrollRow label="How we work" className={cardLayouts.row}>
-          {values.map((v) => (
-            <VerticalCard key={v.title} title={v.title} text={v.text} />
-          ))}
-        </ScrollRow>
+      {/* On the page, not a band: the tiles carry the colour. */}
+      <Section id="values" title="How we work: our values">
+        <PatternTiles items={values} />
       </Section>
 
       <Section id="life" title="Life at Neufin">
@@ -164,13 +162,7 @@ export default function Careers() {
         </ScrollRow>
       </Section>
 
-      <Section id="hiring" title="Our hiring process" lead="We move fast. Most candidates hear back within a week.">
-        <ScrollRow label="Hiring steps" className={cardLayouts.row}>
-          {hiring.map((h, i) => (
-            <VerticalCard key={h.title} tag={`Step ${i + 1}`} title={h.title} text={h.text} />
-          ))}
-        </ScrollRow>
-      </Section>
+      <ProcessSteps id="hiring" title="Our hiring process" lead="We move fast. Most candidates hear back within a week." steps={hiring} link={{ label: "View open roles", href: "#roles" }} />
 
       <Section id="roles" tone="tint" title="Open roles">
         <Roles />

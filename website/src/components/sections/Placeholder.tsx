@@ -3,7 +3,7 @@ import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
 
 export type IconName = keyof typeof icons;
-export type PlaceholderTone = "daylight" | "dawn" | "violet" | "dark" | "plain";
+type PlaceholderTone = "daylight" | "dawn" | "violet" | "dark" | "plain";
 
 // The design system's media placeholder: holds the place of a photo, illustration or
 // product screen. TODO: every Placeholder on the site is waiting for real imagery.

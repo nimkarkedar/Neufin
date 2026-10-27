@@ -25,7 +25,7 @@
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: repeating-linear-gradient(90deg, color-mix(in srgb, var(--near-black) 7%, transparent) 0 1px, transparent 1px 80px);
+  background: var(--grid-lines);
   pointer-events: none;
 }
 
@@ -55,7 +55,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: 10px;
+  gap: 12px;
   padding: 20px;
   border-radius: var(--radius-l);
   background: var(--white);
@@ -95,9 +95,9 @@
 
 .rows {
   display: grid;
-  gap: 6px;
+  gap: 8px;
   width: 100%;
-  margin: 6px 0 0;
+  margin: 8px 0 0;
   padding: 0;
   list-style: none;
 }
@@ -105,30 +105,20 @@
 .rows li {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 6px 12px 6px 6px;
+  gap: 12px;
+  padding: 8px 12px;
   border-radius: var(--radius-m);
   background: var(--warm-white);
   font-size: var(--text-small-size);
   line-height: var(--text-small-lh);
 }
 
-.tile {
-  display: grid;
-  flex: none;
-  place-items: center;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: var(--white);
-}
-
 .saved {
   display: grid;
   gap: 2px;
   width: 100%;
-  margin-top: 6px;
-  padding: 14px 16px;
+  margin-top: 8px;
+  padding: 16px;
   border-radius: var(--radius-m);
   background: var(--violet-100);
 }

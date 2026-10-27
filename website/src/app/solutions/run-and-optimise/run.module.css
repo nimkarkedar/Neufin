@@ -3,18 +3,10 @@
 /* ---------- Four ways: alternating rows, the module beside its Lumen screen ---------- */
 
 .modules {
+  /* The rows sit on the Warm White page, so the hero icon's circle is White. */
+  --duo-circle: var(--white);
   display: grid;
   gap: 56px;
-}
-
-.moduleIcon {
-  display: grid;
-  place-items: center;
-  width: 48px;
-  height: 48px;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  background: var(--white);
 }
 
 .moduleName {
@@ -33,17 +25,29 @@
   text-wrap: pretty;
 }
 
-/* The screen sits in a White box; the inset placeholder takes radius L minus the padding. */
-.screen {
-  padding: 8px;
+/* Every Lumen screen sits in the same White stage (.surface, 4:3), fitted inside it with
+   room around, so screens of different shapes read as one set. */
+.stage {
+  display: grid;
+  aspect-ratio: 4 / 3;
+  padding: 24px;
+  overflow: hidden;
 }
 
-.screen > * {
-  border-radius: var(--radius-s);
+.screen {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
 }
 
 @media (min-width: 1024px) {
   .modules {
     gap: 96px;
+  }
+
+  .stage {
+    padding: 40px;
   }
 }

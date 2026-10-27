@@ -30,7 +30,7 @@
 .line {
   display: inline-flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   min-height: 44px;
   font-family: var(--font-display);
   font-size: var(--text-h3-size);

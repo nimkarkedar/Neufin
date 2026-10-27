@@ -85,7 +85,7 @@ export function PlanFinder({ title = "See your price before you talk to us" }: {
   const percent = Math.round((saved / boardBill) * 100);
 
   return (
-    <div className={styles.band}>
+    <div id="compare" className={styles.band}>
       <section className={`container ${styles.section}`} aria-labelledby="price-title">
         <h2 id="price-title" className={styles.title}>
           {title}
@@ -114,7 +114,13 @@ export function PlanFinder({ title = "See your price before you talk to us" }: {
           </form>
 
           <div className={styles.bill} aria-live="polite">
-            <p className={styles.billTitle}>Your monthly power bill</p>
+            <div className={styles.billHead}>
+              <p className={styles.billTitle}>Your monthly power bill</p>
+              <span className="tag">
+                <span className="tag-dot" aria-hidden="true" />
+                Updates as you choose
+              </span>
+            </div>
 
             <table className={styles.table}>
               <thead>
@@ -170,7 +176,7 @@ export function PlanFinder({ title = "See your price before you talk to us" }: {
                 </p>
                 <p className={styles.savingNote}>
                   {/* Keyed on the change count, so the badge pops again on every change. */}
-                  <span key={changes} className={styles.badge} data-pop={changes > 0 || undefined}>
+                  <span key={changes} className="saving-badge" data-pop={changes > 0 || undefined}>
                     {percent}% less
                   </span>
                 </p>

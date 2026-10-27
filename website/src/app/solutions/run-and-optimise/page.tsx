@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { DuoIcon } from "@ds/components/DuoIcon.jsx";
 import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
 // TODO: Neufin's own photo; a library photo stands in.
@@ -9,7 +10,10 @@ import { LumenFlow } from "@/components/lumen/LumenFlow";
 import { Split } from "@/components/sections/Blocks";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { LogoBar } from "@/components/sections/LogoBar";
-import { Placeholder } from "@/components/sections/Placeholder";
+import screenAssets from "@/assets/lumen/asset-management.png";
+import screenBills from "@/assets/lumen/bill-management.png";
+import screenContract from "@/assets/lumen/contract-management.png";
+import screenSwitching from "@/assets/lumen/orchestration.png";
 import { Section } from "@/components/sections/Section";
 import { StripeHeader } from "@/components/sections/StripeHeader";
 import { customerLogos } from "@/lib/logos";
@@ -34,12 +38,34 @@ const demoHref = "/contact";
 
 // The four modules, in the brief's order, with its lines. Names are the nav's plain names
 // (site.ts). Each row: the module on one side, its Lumen screen on the other, alternating
-// (the client's Ramp reference). TODO: real Lumen screens.
+// (the client's Ramp reference). Screens from Kedar's Lumen folder (2026-10-27), each fitted
+// into the same White stage (4:3), so the four rows match whatever each file's shape.
+// Figures in them are illustrative.
 const modules = [
-  { ...lumenModules[1], line: "Get more energy from your solar and batteries. Lumen tracks output and maintenance, and spots faults early." },
-  { ...lumenModules[2], line: "Lumen checks that your power contract's terms are kept, and helps you recover money when they are broken." },
-  { ...lumenModules[3], line: "Lumen schedules your grid, solar, wind, diesel and batteries, and buys from the exchange when it is cheaper." },
-  { ...lumenModules[0], line: "Lumen fetches and checks every bill at every site, so you pay only for what you used, with no penalties or hidden charges." },
+  {
+    ...lumenModules[1],
+    line: "Get more energy from your solar and batteries. Lumen tracks output and maintenance, and spots faults early.",
+    screen: screenAssets,
+    alt: "Lumen screen for a 1 MWp rooftop solar site: 3,850 kWh actual against 4,200 kWh expected, with two fixes, the next cleaning and optimisers, and the energy each adds.",
+  },
+  {
+    ...lumenModules[2],
+    line: "Lumen checks that your power contract's terms are kept, and helps you recover money when they are broken.",
+    screen: screenContract,
+    alt: "Lumen screen for a 2 MW solar power contract: the price matches the contract, the units are 22,000 kWh short.",
+  },
+  {
+    ...lumenModules[3],
+    line: "Lumen schedules your grid, solar, wind, diesel and batteries, and buys from the exchange when it is cheaper.",
+    screen: screenSwitching,
+    alt: "Lumen screen of today's market price: Lumen buys at midday, when the exchange is at ₹3.20 against the grid's ₹7.50.",
+  },
+  {
+    ...lumenModules[0],
+    line: "Lumen fetches and checks every bill at every site, so you pay only for what you used, with no penalties or hidden charges.",
+    screen: screenBills,
+    alt: "Lumen screen: bills, smart meters and sensors feed one list of sites, each with its sources and price per unit.",
+  },
 ];
 
 
@@ -70,14 +96,12 @@ export default function RunAndOptimise() {
               key={m.href}
               flip={i % 2 === 1}
               visual={
-                <div className={`surface ${styles.screen}`}>
-                  <Placeholder note={`Lumen screen: ${m.label.toLowerCase()}`} tone="plain" ratio="16 / 10" />
+                <div className={`surface ${styles.stage}`}>
+                  <img src={m.screen.src} alt={m.alt} width={m.screen.width} height={m.screen.height} className={styles.screen} />
                 </div>
               }
             >
-              <span className={styles.moduleIcon}>
-                <IconSvg icon={icons[m.icon]} size={24} />
-              </span>
+              <DuoIcon name={m.icon} hero />
               <h3 className={styles.moduleName}>{m.label}</h3>
               <p className={styles.moduleLine}>{m.line}</p>
               {/* TODO: the Lumen module pages don't exist yet. */}

@@ -1,6 +1,5 @@
 import Image from "next/image";
-import { IconSvg } from "@ds/components/Icon.jsx";
-import { icons } from "@ds/brand/icons.js";
+import { DuoIcon } from "@ds/components/DuoIcon.jsx";
 import face1 from "@/assets/placeholder-faces/face-1.jpg";
 import { site, telHref } from "@/lib/site";
 import { ContactForm } from "./ContactForm";
@@ -18,11 +17,11 @@ export function ContactReach({ short = false, topic, leadRole = "Sales lead" }: 
       <div className={styles.direct}>
         <p className={styles.directTitle}>{short ? "Or call our team" : "Prefer to talk now?"}</p>
         <a href={telHref} className={styles.line}>
-          <IconSvg icon={icons.phone} size={20} />
+          <DuoIcon name="duo-phone" size={20} />
           {site.phone}
         </a>
         <a href={`mailto:${site.email}`} className={styles.line}>
-          <IconSvg icon={icons.envelope} size={20} />
+          <DuoIcon name="duo-envelope" size={20} />
           {site.email}
         </a>
         <p className={styles.reply}>We reply within one business day.</p>
