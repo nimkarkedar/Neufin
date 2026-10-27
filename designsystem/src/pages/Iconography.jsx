@@ -2,6 +2,7 @@ import { PageHeader, Section, Callout } from '../components/ui.jsx';
 import { icons, iconColours } from '../brand/icons.js';
 import { hexOf } from '../brand/tokens.js';
 import { Icon, IconSvg } from '../components/Icon.jsx';
+import { DuoIcon } from '../components/DuoIcon.jsx';
 import { nucleoSamples } from '../brand/icon-samples.generated.js';
 
 // What each family is for. Keyed by family, or family + fill where the fills differ.
@@ -124,10 +125,29 @@ export default function Iconography() {
       <Section title="Rules">
         <div className="rows">
           <div className="row"><span className="row-key">One family per set</span><p>Icons shown together come from one family and one fill. Glyph may stand in for outline only to show a selected state.</p></div>
-          <div className="row"><span className="row-key">Colour</span><p>Use one of the three tones: light (violet), neutral (Near Black, one colour) or dark. The website uses only neutral: every icon on the site is one colour, the text colour (Near Black, or Warm White on the dark band), never violet and never two-tone. Flags and card logos keep their own colours.</p></div>
-          <div className="row"><span className="row-key">Size</span><p>Use the family's own grid, or a multiple of it. Don't change stroke widths.</p></div>
+          <div className="row"><span className="row-key">Colour</span><p>Use one of the three tones: light (violet), neutral (Near Black, one colour) or dark. On the website, content icons are duo icons (below); functional icons (arrows, close, field icons, the accordion plus) are one colour, the text colour. Flags and card logos keep their own colours.</p></div>
+          <div className="row"><span className="row-key">Size</span><p>Use the family's own grid, or a multiple of it. On the website the duo icon holds its line at about 2px at any size (DuoIcon sets the stroke); elsewhere don't change stroke widths.</p></div>
           <div className="row"><span className="row-key">With text</span><p>An icon sits next to its label, never in place of it, unless the meaning is universal (close, menu, search).</p></div>
           <div className="row"><span className="row-key">Accessibility</span><p>Icons next to a label are hidden from screen readers. An icon on its own gets a <code>title</code>.</p></div>
+        </div>
+      </Section>
+
+      <Section title="On the website: duo icons">
+        <div className="tile">
+          <div className="tile-stage stage-light" style={{ gap: 40, alignItems: 'center', flexWrap: 'wrap' }}>
+            <DuoIcon name="duo-solar" hero />
+            <DuoIcon name="duo-shield" hero />
+            <DuoIcon name="duo-bolt" hero size="m" />
+            <span style={{ display: 'inline-flex', gap: 16, alignItems: 'center' }}><DuoIcon name="duo-calendar" />From 30 days to 15 years</span>
+            <span style={{ display: 'inline-flex', gap: 16, alignItems: 'center' }}><DuoIcon name="duo-phone" />+91 98251 30769</span>
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">One family</span><p>Every content icon on the website is Nucleo UI outline-duo (the family with a duo version of everything Neufin uses), named <code>duo-*</code> in the icon list. The line is the text colour (Warm White on a dark band); the second tone is Violet 200, so violet shows only as a soft fill inside the icon. Chosen over a violet line in a Violet 100 circle, which put too much violet on pages that already have a violet header and band (Kedar, 2026-10-27).</p></div>
+          <div className="row"><span className="row-key">Hero</span><p>Leads a block: one icon per grid cell, module or menu item. The icon (32px) in a 64px circle; 48px circle with a 24px icon in menus (<code>size="m"</code>). The circle contrasts with what it sits on: Warm White on a White card or menu, White on the Warm White page (<code>--duo-circle: var(--white)</code> on the block). Inside an element with <code>.duo-icon-host</code> the circle turns White while that element is hovered or focused, as the element turns Violet 100.</p></div>
+          <div className="row"><span className="row-key">Supporting</span><p>The same icon with no circle, 24px (20px beside small text), next to its text: lists, contact lines, plan figures, the Lumen diagram.</p></div>
+          <div className="row"><span className="row-key">Not duo</span><p>Arrows, close, field and error icons, the accordion plus, the plan finder's down arrow and the stamp's bill stay one colour. Status ticks (toast, form sent) keep Energy Mint.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>{'<DuoIcon name="duo-solar" hero />'}</code> or <code>{'<DuoIcon name="duo-phone" />'}</code> in <code>src/components/DuoIcon.jsx</code>; styles <code>.duo-icon</code>, <code>.duo-icon-hero</code>, <code>.duo-icon-m</code>, <code>.duo-icon-host</code> in ui.css.</p></div>
         </div>
       </Section>
 

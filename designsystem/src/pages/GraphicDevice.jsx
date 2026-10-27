@@ -112,7 +112,7 @@ export default function GraphicDevice() {
               <svg viewBox="0 0 300 160" style={{ width: '100%', height: '100%' }}><path d="M-1 30 H60 Q120 30 170 120 H301 V154 H160 Q105 64 50 64 H-1Z" fill="var(--signal-yellow)" /></svg>
             </div>
           </DoDont>
-          <DoDont kind="dont" caption="Use more than two Stripes in a layout, except in pattern pieces.">
+          <DoDont kind="dont" caption="Use more than two Stripes in a layout, except in pattern pieces (the website's pattern tiles: one band with thin echo lines, on Web components).">
             <div className="mini-stage" style={{ background: 'var(--violet-900)', padding: 0, position: 'relative' }}>
               {[0, 40, 80].map((o) => <div key={o} style={{ position: 'absolute', inset: 0 }}><Stripe width={300} height={160} y={o - 10} thickness={18} kinkX={60 + o} drop={60} /></div>)}
             </div>

@@ -1,4 +1,6 @@
-import { useState } from 'react';
+import { DuoIcon } from '../components/DuoIcon.jsx';
+import { StripePattern, patternCombos } from '../components/StripePattern.jsx';
+import { useRef, useState } from 'react';
 import { breakpoints, layout, motion, radii } from '../brand/tokens.js';
 import { PageHeader, Section } from '../components/ui.jsx';
 import { RollingFigure } from '../components/RollingFigure.jsx';
@@ -43,6 +45,24 @@ function OptionTilesDemo({ inverse = false }) {
         </label>
       ))}
     </div>
+  );
+}
+
+function DialogDemo() {
+  const ref = useRef(null);
+  return (
+    <>
+      <button type="button" className="btn btn-secondary" onClick={() => ref.current?.showModal()}>Open the dialog</button>
+      <dialog ref={ref} className="dialog" aria-labelledby="demo-dialog-title" onClick={(e) => e.target === ref.current && ref.current.close()}>
+        <button type="button" className="dialog-close" aria-label="Close" onClick={() => ref.current?.close()}>
+          <IconSvg icon={icons.close} size={24} />
+        </button>
+        <div style={{ padding: 40 }}>
+          <h3 id="demo-dialog-title">Request a call back</h3>
+          <p style={{ marginTop: 8 }}>On the website this holds the Contact page's form.</p>
+        </div>
+      </dialog>
+    </>
   );
 }
 
@@ -212,6 +232,51 @@ export default function WebComponents() {
         </div>
       </Section>
 
+      <Section title="Statement and figures">
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo" style={{ display: 'grid', gap: 20, alignItems: 'stretch' }}>
+            <div className="surface" style={{ padding: 32 }}>
+              <p className="statement">Our customers already pay 15% less per unit</p>
+              <p className="statement-line">Compared with their electricity board rate.</p>
+            </div>
+            <div className="surface" style={{ overflow: 'hidden' }}>
+              <dl className="figures">
+                <div className="figure"><dt className="figure-label">states covered</dt><dd className="figure-value">16</dd></div>
+                <div className="figure"><dt className="figure-label">energy plans</dt><dd className="figure-value">90+</dd></div>
+                <div className="figure"><dt className="figure-label">from 30+ suppliers</dt><dd className="figure-value">4+ GW</dd></div>
+              </dl>
+            </div>
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Statement</span><p>One claim set large inside a box, from the home numbers block: H1 in Archivo, at most 22 characters a line, then one line in Body L and the secondary colour. One per box, with the box's button at its foot. Used on the home page, About, Renewable energy advisory (also as the title inside the suppliers panel). <code>.statement</code>, <code>.statement-line</code>.</p></div>
+          <div className="row"><span className="row-key">Figures</span><p>Key figures in a grid, flush inside a box with no padding: the figure in H1 over its label, labels given two lines of room so figures in a row share a baseline, lines between cells edge to edge. Two a row on phones (an odd last figure takes the row), three from tablets; padding 24 / 32px. A cell fills with Violet 100 under the pointer, colour only. Used on the home page, About, Sell energy and Renewable energy advisory. <code>.figures</code>, <code>.figure</code>, <code>.figure-value</code>, <code>.figure-label</code>.</p></div>
+        </div>
+      </Section>
+
+      <Section title="Pattern tiles">
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo" style={{ display: 'block' }}>
+            <ul className="pattern-tiles" style={{ '--cols': 4 }}>
+              {[['duo-flag', 'Extreme ownership'], ['duo-user-heart', 'Customer obsession'], ['duo-puzzle', 'Solution mindset'], ['duo-handshake', 'Show respect']].map(([icon, title], i) => (
+                <li key={title}>
+                  <div className="pattern-tile-art">
+                    <StripePattern fg={patternCombos[i].fg} bg={patternCombos[i].bg}><DuoIcon name={icon} hero /></StripePattern>
+                  </div>
+                  <h3 className="pattern-tile-title">{title}</h3>
+                  <p className="pattern-tile-text">One line under the title, on the page.</p>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Use</span><p>A set of three or four ideas (values, what a supplier gets) that would otherwise be a row of cards waiting for art. Not for links or anything clickable: the tiles are pictures.</p></div>
+          <div className="row"><span className="row-key">Tile</span><p>The Stripe as a pattern piece (<code>StripePattern</code>): one solid band at the symbol's angle with crisp corners, six thin echo lines either side fading outward, bleeding off both edges, in the device's colour combinations in a fixed order (Signal Yellow on Violet 900, Near Black on Coral, Warm White on Electric Violet, Coral on Violet 900), so neighbours always differ. The idea's hero duo icon sits on the band's diagonal in a White circle ringed in the tile's colour, like a node on a wire. Radius L, 4:5 from tablets, 3:2 on phones.</p></div>
+          <div className="row"><span className="row-key">Words</span><p>Under the tile, on the page: the title in Card title, the line in Body and the secondary colour. No White panel, so the set reads differently from the cards. One row from desktop (<code>--cols</code>), two a row on tablets. <code>.pattern-tiles</code>, <code>.pattern-tile-art</code>, <code>-title</code>, <code>-text</code>.</p></div>
+        </div>
+      </Section>
+
       <Section title="Arrow link, tag and avatar">
         <div className="tile">
           <div className="tile-stage stage-light web-demo" style={{ alignItems: 'center' }}>
@@ -227,6 +292,23 @@ export default function WebComponents() {
           <div className="row"><span className="row-key">Arrow link</span><p>A text link to the next page, with the Nucleo arrow that nudges right on hover. Never the main action. <code>.link-arrow</code>.</p></div>
           <div className="row"><span className="row-key">Tag</span><p>A small label for a content type, a group, a step or a duration. It hugs its text, and can take a 14px icon or a live dot (<code>.tag-dot</code>, Energy Mint with a soft pulsing glow, still with reduced motion) for a duration. Sentence case, never uppercase, not clickable. <code>.tag</code>.</p></div>
           <div className="row"><span className="row-key">Avatar</span><p>A person's round photo beside their name, 48px (<code>.avatar-l</code> 64px), with a Grey 200 ring. Without a photo it shows their initials in Archivo on Warm White, so a row of people stays one family. Put an <code>img</code> inside, or the initials. <code>.avatar</code>.</p></div>
+        </div>
+      </Section>
+
+      <Section title="Dialog and toast">
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo" style={{ alignItems: 'center' }}>
+            <DialogDemo />
+            {/* The toast is fixed to the screen on the website; here it sits in the stage. */}
+            <p className="toast" role="status" style={{ position: 'static', translate: 'none', animation: 'none' }}>
+              <span className="toast-icon"><IconSvg icon={icons.check} size={20} /></span>
+              Thanks, we'll call you within one business day.
+            </p>
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Dialog</span><p>A modal window for a short task that shouldn't take the visitor off the page, such as the call-back form. The native <code>{'<dialog>'}</code> opened with <code>showModal()</code>, so focus stays inside, Escape closes it and focus returns to the button that opened it. White, radius L, the overlay shadow over the scrim, a round close button top right (Nucleo close, 48px). Full screen on phones. Fades in and rises 8px; still with reduced motion. <code>.dialog</code>, <code>.dialog-close</code>.</p></div>
+          <div className="row"><span className="row-key">Toast</span><p>A one-line confirmation after something is sent, only when nothing else on screen says so (the call-back dialog closes on send; the Contact page shows its own thank-you card instead). Near Black with White text and a White 16% hairline, so it still shows over the Near Black footer; a check in an Energy Mint circle, radius L, the overlay shadow, bottom centre. Rises in, stays about 5 seconds, fades out (<code>data-leaving</code>). <code>role="status"</code> so screen readers hear it. Never carries an action. <code>.toast</code>, <code>.toast-icon</code>.</p></div>
         </div>
       </Section>
 
@@ -311,8 +393,8 @@ export default function WebComponents() {
         <div className="rows spec-inline">
           <div className="row"><span className="row-key">Use</span><p>Every vertical card on the site (Kedar, 2026-10-27): two looks, each still or clickable. No other vertical card, no round spot illustrations or icons in cards.</p></div>
           <div className="row"><span className="row-key">Photo</span><p><code>.vertical-card-photo</code>: the picture fills the card under the Violet wash (Violet 300 multiplied at 45%) with a Near Black shade rising from the foot; White title and line at the bottom, on the left.</p></div>
-          <div className="row"><span className="row-key">Panel</span><p>The default: the picture across the top, its foot stepping down along the Stripe at 32° (starting two thirds across, 32 / 40px drop), then a White panel with an optional <code>.tag</code> (a step, an industry, a content type), the title and the line. In a row of cards (<code>.vertical-card-row</code> on the grid or the ScrollRow) the panels share one height, the tallest in the row, so pictures line up and no card keeps spare room unless a neighbour needs it.</p></div>
-          <div className="row"><span className="row-key">Text</span><p>Title in the Card title style (28px, 24px on phones), line Body (16px), the same on every card. Both keep to a left column clear of the step and the arrow, each cut after two lines with an ellipsis, and sit at the foot of the panel.</p></div>
+          <div className="row"><span className="row-key">Panel</span><p>The default: the picture across the top with a flat, straight foot (the Stripe step was dropped as too playful: Kedar, 2026-10-27, mature and simple as on Apple), then a White panel with an optional <code>.tag</code> (a step, an industry, a content type), the title and the line. In a row of cards (<code>.vertical-card-row</code> on the grid or the ScrollRow) the panels share one height, the tallest in the row, so pictures line up and no card keeps spare room unless a neighbour needs it.</p></div>
+          <div className="row"><span className="row-key">Text</span><p>Title in the Card title style (28px, 24px on phones), line Body (16px), the same on every card. Both keep to a left column clear of the arrow, each cut after two lines with an ellipsis, and sit at the foot of the panel.</p></div>
           <div className="row"><span className="row-key">Clickable</span><p>An <code>a.vertical-card</code> with <code>.vertical-card-go</code>, a round arrow (40 / 44px) on the line's row, bottoms aligned, Grey 200 at rest. The card stays still: the arrow turns Electric Violet with a White arrow and stays put, the shadow deepens to the overlay shadow and the picture eases in by 4%. Reduced motion: no zoom. A still card is a <code>div</code> with real headings and answers nothing.</p></div>
           <div className="row"><span className="row-key">Placeholder</span><p>Without a picture the media is plain Near Black.</p></div>
           <div className="row"><span className="row-key">Code</span><p><code>.vertical-card</code> holding <code>.vertical-card-media</code> (an <code>img</code>, alt empty) and <code>.vertical-card-body</code> with <code>.vertical-card-words</code> (an optional <code>.tag</code>, <code>.vertical-card-title</code>, <code>.vertical-card-text</code>) and, on a link, <code>.vertical-card-go</code> in its own column. Shape 4:5, radius L, padding 24 / 32px. On desktop cards are a third of the content width: three across, or a sideways scroll row for more.</p></div>
@@ -401,6 +483,11 @@ export default function WebComponents() {
           <div><span>Surface</span><strong><code>.surface</code>: White, Grey 200 line, radius l, raised shadow. Every large content block on a page uses it. Every card carries the raised shadow.</strong></div>
           <div><span>Card</span><strong><code>.card</code>: White, Grey 200 line, radius l, no shadow. For smaller blocks in a row: features, links to pages, plans</strong></div>
           <div><span>Overlay shadow</span><strong>Menus that float over the page</strong></div>
+          <div><span>Hover fill</span><strong><code>--hover-fill</code>, Violet 100: the one colour for anything that fills under the pointer (figure cells, icon grid cells, FAQ questions and an open one, link rows, menu items and the current menu item). Never a second hover colour on a page</strong></div>
+          <div><span>Focus</span><strong><code>:focus-visible</code> (ui.css, every element): a 2px Electric Violet ring, 3px outside, radius XS, for keyboard focus</strong></div>
+          <div><span>Grid lines</span><strong><code>--grid-lines</code>: a faint vertical grid (Near Black 7%, 80px apart) to set behind a diagram, as on Run and optimise's how it works</strong></div>
+          <div><span>Saving badge</span><strong><code>.saving-badge</code>: the percentage saved, Signal Yellow with Near Black H3 text, radius S; with <code>data-pop</code> (re-keyed on change) it swells and sends out a fading yellow ring. Still with reduced motion. The plan finder's answer</strong></div>
+          <div><span>Icon ring</span><strong><code>.duo-icon-ring</code>: a 2px White ring round a hero duo icon so overlapping icons (a plan's two sources) stay apart</strong></div>
           <div><span>Scrim</span><strong>Near Black at 24% over the page behind an open menu (the header's mega menu)</strong></div>
           <div><span>Durations</span><strong>{motion.fast} / {motion.base} / {motion.slow}</strong></div>
           <div><span>Spin</span><strong>{motion.spin} a turn, for the stamp's ring on hover</strong></div>

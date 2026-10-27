@@ -2,6 +2,26 @@
    Built only from tokens (tokens.js). Documented on the Web components page.
    The website imports this file; change it here, not in the website. */
 
+/* ---------- Hover fill ----------
+   One colour for everything that fills under the pointer (Kedar, 2026-10-27: two hover
+   colours on one page was a miss): figure cells, icon grid cells, FAQ questions (and an
+   open one), link rows, menu items. Violet 100: it shows on White and on Warm White. */
+:root {
+  --hover-fill: var(--violet-100);
+  /* A faint vertical grid behind a diagram (Run and optimise's how it works): Near Black
+     7% lines, 80px apart. Use as a background. */
+  --grid-lines: repeating-linear-gradient(90deg, color-mix(in srgb, var(--near-black) 7%, transparent) 0 1px, transparent 1px 80px);
+}
+
+/* ---------- Focus ----------
+   Every focusable element shows a 2px Electric Violet ring (the accent) 3px outside it
+   when reached by keyboard. */
+:focus-visible {
+  outline: 2px solid var(--accent, var(--electric-violet));
+  outline-offset: 3px;
+  border-radius: var(--radius-xs);
+}
+
 /* ---------- Buttons ----------
    Pill shaped, 48px tall. Primary is solid Near Black: one per block or card, for
    the main action. Secondary is white with a Grey 200 outline, for everything else.
@@ -98,6 +118,160 @@
   border: 1px solid var(--grey-200);
   border-radius: var(--radius-l);
   box-shadow: var(--shadow-raised);
+}
+
+/* ---------- Statement ----------
+   One claim set large inside a box, from the home numbers block ("Our customers already
+   pay 15% less per unit"): H1 in Archivo, at most 22 characters a line, then one line in
+   Body L and the secondary colour. One per box; the box's button sits at its foot. */
+
+.statement {
+  max-width: 22ch;
+  font-family: var(--font-display);
+  font-size: var(--text-h1-size);
+  line-height: var(--text-h1-lh);
+  font-weight: var(--text-h1-weight);
+  letter-spacing: var(--text-h1-track);
+  text-wrap: balance;
+}
+
+.statement-line {
+  max-width: 44ch;
+  margin-top: 12px;
+  color: var(--ink-2, var(--grey-600));
+  font-size: var(--text-body-l-size);
+  line-height: var(--text-body-l-lh);
+  text-wrap: pretty;
+}
+
+/* ---------- Figures ----------
+   Key figures in a grid inside a box, from the home numbers block: the figure in H1 over
+   its label, every label given two lines of room so figures in a row share a baseline,
+   lines between cells running edge to edge (the cells sit on the line colour with a 1px
+   gap). Two a row on phones, three from tablets. A cell takes the hover fill under the
+   pointer, colour only. Put it flush in a box with no padding. */
+
+.figures {
+  --figure-pad: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-auto-rows: 1fr;
+  gap: 1px;
+  margin: 0;
+  background: var(--line, var(--grey-200));
+}
+
+.figure {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: center;
+  padding: var(--figure-pad);
+  background: var(--white);
+  transition: background-color var(--duration-slow) ease-out;
+}
+
+.figure:hover {
+  background: var(--hover-fill);
+  transition-duration: var(--duration-fast);
+}
+
+.figure-value {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: var(--text-h1-size);
+  line-height: var(--text-h1-lh);
+  font-weight: var(--text-h1-weight);
+  letter-spacing: var(--text-h1-track);
+  white-space: nowrap;
+}
+
+.figure-label {
+  min-height: 2lh;
+  margin-top: 4px;
+  color: var(--ink-2, var(--grey-600));
+}
+
+/* Phones: an odd last figure takes the whole row, so no empty cell shows the line colour. */
+@media (max-width: 767px) {
+  .figures > .figure:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (min-width: 768px) {
+  .figures {
+    --figure-pad: 32px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+/* ---------- Pattern tiles ----------
+   A set of ideas (values, what you get) without cards: each idea is a tile of the Stripe
+   pattern (StripePattern: the band with echo lines, in one of the device's colour
+   combinations, an icon on the band like a node on a wire), its title and line under it on
+   the page. All in a row from desktop (--cols), two a row on tablets, one on phones with a
+   wider tile. No hover: the tiles are pictures, not links. */
+
+.pattern-tiles {
+  --cols: 3;
+  display: grid;
+  gap: 32px var(--grid-gutter);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pattern-tile-art {
+  --duo-circle: var(--white);
+  aspect-ratio: 3 / 2;
+  overflow: hidden;
+  border-radius: var(--radius-l);
+}
+
+/* The node: the hero icon's White circle, sized in the drawing's units so it scales with
+   the tile, ringed in the tile's background so the band reads as passing behind it. */
+.pattern-tile-art .duo-icon-hero {
+  width: 88px;
+  height: 88px;
+  box-shadow: 0 0 0 8px var(--tile-bg);
+}
+
+.pattern-tile-art .duo-icon-hero svg {
+  width: 40px;
+  height: 40px;
+}
+
+.pattern-tile-title {
+  margin-top: 20px;
+  font-family: var(--font-display);
+  font-size: var(--text-card-size);
+  line-height: var(--text-card-lh);
+  font-weight: var(--text-card-weight);
+  letter-spacing: var(--text-card-track);
+  text-wrap: balance;
+}
+
+.pattern-tile-text {
+  max-width: 36ch;
+  margin-top: 8px;
+  color: var(--ink-2, var(--grey-600));
+  text-wrap: pretty;
+}
+
+@media (min-width: 768px) {
+  .pattern-tiles {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .pattern-tile-art {
+    aspect-ratio: 4 / 5;
+  }
+}
+
+@media (min-width: 1024px) {
+  .pattern-tiles {
+    grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+  }
 }
 
 /* ---------- Card ----------
@@ -1065,6 +1239,183 @@
   }
 }
 
+/* ---------- Duo icon ----------
+   Every content icon on the website (Kedar, 2026-10-27): Nucleo UI outline-duo, the line in
+   the text colour (Warm White on a dark band, through --ink), the second tone Violet 200 at
+   full strength, so violet shows only as a soft fill inside the icon. The line stays about
+   2px at any size (DuoIcon sets the stroke). Hero puts it in a circle (64px, or 48px with
+   -m) that contrasts with what it sits on: Warm White on a White card or menu (the
+   default), White on the Warm White page (set --duo-circle: var(--white) on the block).
+   Inside a .duo-icon-host the circle turns White while the host is hovered or focused (the
+   host itself may turn Violet 100). Supporting is the icon alone. */
+.duo-icon {
+  --icon-color-2: var(--violet-200);
+  --nucleo-outline-duo-opacity: 1;
+  display: inline-grid;
+  flex: none;
+  place-items: center;
+  line-height: 0;
+  color: var(--ink, var(--near-black));
+}
+
+.duo-icon-hero {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: var(--duo-circle, var(--warm-white));
+  transition: background-color var(--duration-slow) ease-out;
+}
+
+.duo-icon-m {
+  width: 48px;
+  height: 48px;
+}
+
+.duo-icon-host:hover .duo-icon-hero,
+.duo-icon-host:focus-visible .duo-icon-hero {
+  background: var(--white);
+  transition-duration: var(--duration-fast);
+}
+
+/* Overlapping hero icons (two sources on a plan) keep apart with a 2px White ring. */
+.duo-icon-ring {
+  box-shadow: 0 0 0 2px var(--white);
+}
+
+/* ---------- Dialog ----------
+   A modal window over the page, on the native <dialog> opened with showModal(), so the
+   browser keeps focus inside, closes it on Escape and puts focus back where it was. White,
+   radius L, the overlay shadow, the page dimmed behind it by the scrim; a round close
+   button in the top right corner (.dialog-close, the Nucleo close icon, 48px tap area).
+   Full screen on phones. It fades in and rises 8px; no motion with reduced motion. Use it
+   for a short task that shouldn't take the visitor off the page, such as the call-back
+   form (Kedar, 2026-10-27). */
+.dialog {
+  width: min(100% - 2 * var(--grid-margin), 720px);
+  max-width: none;
+  max-height: calc(100dvh - 2 * var(--grid-margin));
+  margin: auto;
+  padding: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-overlay);
+  color: var(--near-black);
+}
+
+.dialog[open] {
+  animation: dialog-in var(--duration-base) var(--ease-out);
+}
+
+.dialog::backdrop {
+  background: var(--scrim);
+}
+
+@keyframes dialog-in {
+  from {
+    opacity: 0;
+    translate: 0 8px;
+  }
+}
+
+.dialog-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  border-radius: 50%;
+  color: var(--near-black);
+  cursor: pointer;
+  transition: background-color var(--duration-fast) ease;
+}
+
+.dialog-close:hover,
+.dialog-close:focus-visible {
+  background: var(--warm-white);
+}
+
+@media (max-width: 767px) {
+  .dialog {
+    width: 100%;
+    height: 100dvh;
+    max-height: none;
+    border: 0;
+    border-radius: 0;
+  }
+}
+
+/* ---------- Toast ----------
+   A short confirmation after something is sent, when nothing else on screen says so
+   (the call-back modal closes on send). Near Black with White text (Kedar, 2026-10-27), a
+   White 16% hairline so it still shows over the Near Black footer, a check in an Energy
+   Mint circle, radius L, the overlay shadow, bottom centre above everything. It
+   rises in, stays about 5 seconds and fades out (set data-leaving for the way out);
+   screen readers hear it (role="status"). No motion with reduced motion. One line of
+   plain words, never an action. */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  max-width: calc(100% - 2 * var(--grid-margin));
+  padding: 12px 20px 12px 12px;
+  background: var(--near-black);
+  border: 1px solid color-mix(in srgb, var(--white) 16%, transparent);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-overlay);
+  color: var(--white);
+  font-weight: 500;
+  translate: -50% 0;
+  animation: toast-in var(--duration-slow) var(--ease-out);
+  transition: opacity var(--duration-base) ease;
+}
+
+.toast[data-leaving] {
+  opacity: 0;
+}
+
+.toast-icon {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--energy-mint);
+  color: var(--near-black);
+}
+
+@keyframes toast-in {
+  from {
+    opacity: 0;
+    translate: -50% 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dialog[open],
+  .toast {
+    animation: none;
+  }
+
+  .toast {
+    transition: none;
+  }
+}
+
 /* ---------- Avatar ----------
    A person's round photo, beside their name (e.g. an angel investor). Without a photo it
    shows their initials on Warm White, so a row of people stays one family. 48px; `-l` 64px. */
@@ -1212,12 +1563,11 @@
   transition: background-color var(--duration-fast);
 }
 
-/* The whole item, question and open answer together, is White on hover and while
-   open, filling exactly the space between its lines. On a White band, set
-   --accordion-fill to Warm White so the fill still shows. */
+/* The whole item, question and open answer together, takes the hover fill on hover and
+   while open, filling exactly the space between its lines. */
 .accordion details:hover,
 .accordion details[open] {
-  background: var(--accordion-fill, var(--white));
+  background: var(--hover-fill);
 }
 
 .accordion summary {
@@ -1270,12 +1620,13 @@
 
    - Photo (.vertical-card-photo): the picture fills the card under the Violet wash, with a
      soft Near Black shade rising from the foot; the White title and line sit at the bottom.
-   - Panel (the default): the picture across the top, its foot stepping down along the
-     Stripe at 32°, then a White panel with an optional tag (a step, an industry, a content
-     type), the title and the line.
+   - Panel (the default): the picture across the top with a flat, straight foot (Kedar,
+     2026-10-27: the Stripe step read as kiddish; mature and simple, as on Apple), then a
+     White panel with an optional tag (a step, an industry, a content type), the title and
+     the line.
 
    Every card's title is Card title (28px, 24px on phones) and its line Body, at most two
-   lines each, kept to a column clear of the step; longer text is cut with an ellipsis. The
+   lines each, kept to a column clear of the arrow; longer text is cut with an ellipsis. The
    text sits at the panel's foot. A card is a two-row grid (picture, panel) held at 4:5;
    in a row of cards the layout shares those rows (.vertical-card-row on the grid, see
    below), so each panel is as tall as the tallest in its row and the pictures line up,
@@ -1291,9 +1642,6 @@
 .vertical-card {
   --vcard-pad: 24px;
   --vcard-go: 40px;
-  /* The Stripe step at the panel's top edge: where it starts, and how far it drops. */
-  --vcard-step-at: 66%;
-  --vcard-drop: 32px;
   position: relative;
   display: grid;
   /* Two rows, the picture and the panel. In a row of cards the rows are shared (subgrid,
@@ -1338,14 +1686,6 @@ a.vertical-card:focus-visible {
   min-height: 0;
   overflow: hidden;
   background: var(--near-black);
-  clip-path: polygon(
-    0 0,
-    100% 0,
-    100% 100%,
-    calc(var(--vcard-step-at) + var(--vcard-drop) / var(--stripe-slope, 0.6306)) 100%,
-    var(--vcard-step-at) calc(100% - var(--vcard-drop)),
-    0 calc(100% - var(--vcard-drop))
-  );
 }
 
 .vertical-card-media > img,
@@ -1369,16 +1709,14 @@ a.vertical-card:focus-visible .vertical-card-media > img {
   grid-row: 2;
   grid-column: 1;
   display: grid;
-  /* Two columns: the words (tag, title, line) stacked on the left, clear of the step, and
-     the arrow on the right, at the foot. The arrow's column is held on every card,
+  /* Two columns: the words (tag, title, line) stacked on the left, and the arrow on the
+     right, at the foot. The arrow's column is held on every card,
      clickable or not, so text measures the same everywhere. */
   grid-template-columns: minmax(0, 1fr) var(--vcard-go);
   align-content: end;
   align-items: end;
   column-gap: 16px;
-  /* The panel tucks under the step; its text starts level with the step's foot. */
-  margin-top: calc(-1 * var(--vcard-drop));
-  padding: var(--vcard-drop) var(--vcard-pad) var(--vcard-pad);
+  padding: var(--vcard-pad);
 }
 
 .vertical-card-words {
@@ -1456,7 +1794,6 @@ a.vertical-card:focus-visible .vertical-card-go {
   position: absolute;
   inset: 0;
   z-index: -1;
-  clip-path: none;
 }
 
 /* The Violet wash (Violet 300 multiplied at 45%) and the shade under the text. */
@@ -1480,16 +1817,10 @@ a.vertical-card:focus-visible .vertical-card-go {
   background: linear-gradient(transparent, color-mix(in srgb, var(--near-black) 72%, transparent));
 }
 
-.vertical-card-photo .vertical-card-body {
-  margin-top: 0;
-  padding-top: var(--vcard-pad);
-}
-
 @media (min-width: 1024px) {
   .vertical-card {
     --vcard-pad: 32px;
     --vcard-go: 44px;
-    --vcard-drop: 40px;
   }
 }
 
@@ -1571,6 +1902,51 @@ a.vertical-card:focus-visible .vertical-card-go {
   max-width: 36ch;
   font-size: var(--text-small-size);
   line-height: var(--text-small-lh);
+}
+
+/* ---------- Saving badge ----------
+   The percentage saved, the hero of an answer (the plan finder): Signal Yellow with Near
+   Black text in H3, radius S. Whenever a choice changes it pops (data-pop, re-keyed): a
+   quick swell and a yellow ring that spreads and fades; none with reduced motion. */
+.saving-badge {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 14px;
+  border-radius: var(--radius-s);
+  background: var(--signal-yellow);
+  color: var(--near-black);
+  font-family: var(--font-display);
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  font-weight: var(--text-h3-weight);
+  font-variant-numeric: tabular-nums;
+}
+
+.saving-badge[data-pop] {
+  animation: saving-badge-pop calc(var(--duration-slow) * 2) var(--ease-out);
+}
+
+@keyframes saving-badge-pop {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--signal-yellow) 70%, transparent);
+  }
+
+  30% {
+    transform: scale(1.18);
+  }
+
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 18px color-mix(in srgb, var(--signal-yellow) 0%, transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .saving-badge[data-pop] {
+    animation: none;
+  }
 }
 
 /* ---------- Rolling figure ----------
