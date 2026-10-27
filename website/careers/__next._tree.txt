@@ -1,9 +1,10 @@
-:HL["/Neufin/website/_next/static/chunks/31n098-ugdlku.css","style"]
+:HL["/Neufin/website/_next/static/chunks/0f3737u8c7vn7.css","style"]
+:HL["/Neufin/website/_next/static/chunks/1h9-jd2ymck6z.css","style"]
 :HL["/Neufin/website/_next/static/media/03fc1b4a8d284b5e-s.p.0wiir8udbzjvx.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/media/75affa71d1e2f6a7-s.p.17-aodiw50953.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/media/99e609270109b47d-s.p.40sczeszzbjw1.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/media/effe91970fc4db64-s.p.0oace-s_gkfks.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
-:HL["/Neufin/website/_next/static/chunks/0w448yo9uxi6j.css","style"]
+:HL["/Neufin/website/_next/static/chunks/0ka8esl6ckk3w.css","style"]
 :HL["/Neufin/website/_next/static/media/expressway-night.317lnv8v631rv.jpg","image"]
 :HL["/Neufin/website/_next/static/media/founders-rushil-rahool.393c-_lgztmlv.jpg","image"]
 :HL["/Neufin/website/_next/static/media/restaurant.2ewpe8lbh221z.jpg","image"]
@@ -20,4 +21,4 @@
 :HL["/Neufin/website/_next/static/media/cop28-dubai.0yxhopsbf7kyf.jpg","image"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"careers","h":64,"c":"$Q2"}]]
-0:{"b":"czRZaWZrAWBD1CJqycU3v","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"5CftLNpP1t2PEWen3mxJj","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
