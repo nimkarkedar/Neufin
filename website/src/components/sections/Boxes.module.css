@@ -62,6 +62,7 @@
 
 .rows {
   --pad: 24px;
+  --step-track-pad: 20px; /* the rows' padding above and below, for the step track's rail */
   display: grid;
   margin: 0;
   padding: 0;
@@ -145,6 +146,10 @@ a.row:focus-visible {
   .row {
     padding-block: 24px;
   }
+
+  .rows {
+    --step-track-pad: 24px;
+  }
 }
 
 /* Phones: the row's link or tag drops under its text, and in a row with a line the icon
@@ -162,5 +167,28 @@ a.row:focus-visible {
   .row:has(.rowEnd) .rowEnd {
     flex-basis: 100%;
     padding-left: 84px;
+  }
+
+  /* On the step track the circle sits at the top of a row whose tag wraps under it, so the
+     rail is pinned to the row's full height beside the text instead of taking a column. */
+  .row:has(:global(.step-track-mark)) {
+    position: relative;
+    padding-left: calc(var(--pad) + 84px);
+  }
+
+  .row:has(:global(.step-track-mark)) .rowEnd {
+    padding-left: 0;
+  }
+
+  .row :global(.step-track-mark) {
+    position: absolute;
+    inset-block: 0;
+    left: var(--pad);
+    margin: 0;
+  }
+
+  .row :global(.step-track-line):first-child {
+    flex: none;
+    height: var(--step-track-pad);
   }
 }

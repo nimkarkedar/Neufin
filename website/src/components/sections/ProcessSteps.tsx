@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { DuoIcon } from "@ds/components/DuoIcon.jsx";
 import { IconSvg } from "@ds/components/Icon.jsx";
+import { StepMark, StepTrack } from "@ds/components/StepTrack.jsx";
 import { icons } from "@ds/brand/icons.js";
 import type { IconName } from "@/lib/site";
 import boxes from "./Boxes.module.css";
@@ -11,7 +12,9 @@ export type ProcessStep = { icon: IconName; title: string; text: string; duratio
 // How a process happens, step by step (Kedar's reference, 2026-10-27): the home FAQ's two
 // columns, the title and its line on the left, the steps as rows in one White box on the
 // right, each with a hero duo icon, an H3 title and a line, and the time it takes as a tag
-// with the live dot. Order carries the sequence: no step numbers. Used for Buy cheaper
+// with the live dot. Order carries the sequence: no step numbers. The circles sit on the
+// design system's step track, so current runs from step to step while the box is in view
+// (Kedar, 2026-10-28: show they are steps, and quick). Used for Buy cheaper
 // power and Energy plans (QuoteSteps), Services and Careers' hiring.
 // `link` adds the next step as a primary button under the head (Kedar: a proper call to
 // action, as Ramp's steps carry; not a text link). `white` sets it on a White band, to part it from a two-column FAQ
@@ -46,10 +49,12 @@ export function ProcessSteps({
             </Link>
           )}
         </div>
-        <ol className={`surface ${boxes.rows}`}>
+        <StepTrack className={`surface ${boxes.rows}`}>
           {steps.map((s) => (
-            <li key={s.title} className={boxes.row}>
-              <DuoIcon name={s.icon} hero />
+            <li key={s.title} className={`step-track-item ${boxes.row}`}>
+              <StepMark>
+                <DuoIcon name={s.icon} hero />
+              </StepMark>
               <span className={boxes.rowText}>
                 <span className={boxes.rowTitle}>{s.title}</span>
                 <span className={boxes.rowLine}>{s.text}</span>
@@ -64,7 +69,7 @@ export function ProcessSteps({
               )}
             </li>
           ))}
-        </ol>
+        </StepTrack>
       </div>
     </section>
   );
