@@ -107,6 +107,7 @@ export const scrim = `rgb(${ink} / 0.24)`;
 // `roll` is a figure's digits rolling to a new value (RollingFigure).
 // `current` is one loop of the current flashing along the power lines in a photo:
 // the flash takes the first tenth, the rest is the pause before the next.
+// `step` is one step of a process lighting in turn along its rail (StepTrack).
 export const motion = {
   easeOut: 'cubic-bezier(0.16, 1, 0.3, 1)',
   fast: '0.15s',
@@ -117,6 +118,7 @@ export const motion = {
   marquee: '60s',
   current: '4s',
   roll: '0.7s',
+  step: '1.2s',
 };
 
 // Status colours for UI messages. Error is Electric Coral darkened so text and icons pass
@@ -160,6 +162,7 @@ export function allTokens() {
   t['--duration-marquee'] = motion.marquee;
   t['--duration-current'] = motion.current;
   t['--duration-roll'] = motion.roll;
+  t['--duration-step'] = motion.step;
   externalColours.forEach((c) => (t[`--${c.token}`] = c.hex));
   return t;
 }

@@ -7,6 +7,7 @@ import { RollingFigure } from '../components/RollingFigure.jsx';
 import { WhatsAppBadge } from '../components/WhatsAppBadge.jsx';
 import { Segmented } from '../components/Segmented.jsx';
 import { ScrollRow } from '../components/ScrollRow.jsx';
+import { StepMark, StepTrack } from '../components/StepTrack.jsx';
 import { IconSvg } from '../components/Icon.jsx';
 import { icons } from '../brand/icons.js';
 import { asset } from '../brand/asset.js';
@@ -295,6 +296,26 @@ export default function WebComponents() {
         </div>
       </Section>
 
+      <Section title="Step track">
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo">
+            <StepTrack className="surface step-track-demo">
+              {[['duo-bill', 'Share your bills'], ['duo-coins', 'Get a quote'], ['duo-contract', 'Sign the contract'], ['duo-bolt', 'Power starts']].map(([icon, title]) => (
+                <li key={title} className="step-track-item">
+                  <StepMark><DuoIcon name={icon} hero /></StepMark>
+                  <strong>{title}</strong>
+                </li>
+              ))}
+            </StepTrack>
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Use</span><p>A process told in rows, where order and speed matter: the website's process steps (Kedar, 2026-10-28). Each step's hero duo icon sits on a 2px Grey 200 rail that joins it to the next. No step numbers: the rail carries the order.</p></div>
+          <div className="row"><span className="row-key">Motion</span><p>While the list is in view, current runs down the rail one step per <code>--duration-step</code> ({motion.step}): the line draws in Electric Violet to the next circle, then that circle lights with a 2px ring. All lit, it holds, fades back together, rests and runs again. The rows never move. Still, with the grey rail only, with reduced motion or without JavaScript.</p></div>
+          <div className="row"><span className="row-key">Markup</span><p><code>StepTrack</code> renders the list; each <code>li.step-track-item</code> holds a <code>StepMark</code> around its hero <code>DuoIcon</code>. Set <code>--step-track-pad</code> to the rows' padding above and below so the rail runs edge to edge. <code>.step-track</code>, <code>-item</code>, <code>-mark</code>, <code>-line</code>.</p></div>
+        </div>
+      </Section>
+
       <Section title="Dialog and toast">
         <div className="tile">
           <div className="tile-stage stage-light web-demo" style={{ alignItems: 'center' }}>
@@ -493,6 +514,7 @@ export default function WebComponents() {
           <div><span>Spin</span><strong>{motion.spin} a turn, for the stamp's ring on hover</strong></div>
           <div><span>Draw</span><strong>{motion.draw}, once, for a chart line drawing itself in</strong></div>
           <div><span>Roll</span><strong>{motion.roll}, for a figure's digits rolling to a new value</strong></div>
+          <div><span>Step</span><strong>{motion.step}, for one step of a process lighting in turn along its rail</strong></div>
           <div><span>Marquee</span><strong>{motion.marquee} a loop, for a sliding logo strip. Pauses on hover; still with reduced motion</strong></div>
           <div><span>Current</span><strong>{motion.current} a loop, for current along the power lines in a photo (home hero): a Violet 100 flash with a soft glow shoots along the wires in the first tenth, then rests. None with reduced motion</strong></div>
           <div><span>Easing</span><strong>Ease-out for things opening</strong></div>
