@@ -1,5 +1,5 @@
-:HL["/Neufin/website/_next/static/chunks/0f3737u8c7vn7.css","style"]
+:HL["/Neufin/website/_next/static/chunks/17okeh80x0u-z.css","style"]
 :HL["/Neufin/website/_next/static/chunks/1h9-jd2ymck6z.css","style"]
 2:[["children",{"s":"__PAGE__","h":160}]]
 1:[["children",{"s":"/_not-found","h":64,"c":"$Q2"}]]
-0:{"b":"5CftLNpP1t2PEWen3mxJj","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"sWO6JDApoVeiLj-64RHa-","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
