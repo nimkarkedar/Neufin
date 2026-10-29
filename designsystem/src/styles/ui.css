@@ -1901,6 +1901,12 @@ a.vertical-card:focus-visible .vertical-card-go {
   mix-blend-mode: multiply;
 }
 
+/* A picture drawn in code (an <svg>, e.g. a chart in the source colours) keeps its own
+   colours: no wash. The shade under the text stays. */
+.vertical-card-photo .vertical-card-media:has(> svg)::before {
+  display: none;
+}
+
 .vertical-card-photo .vertical-card-media::after {
   top: 40%;
   background: linear-gradient(transparent, color-mix(in srgb, var(--near-black) 72%, transparent));
@@ -1932,6 +1938,84 @@ a.vertical-card:focus-visible .vertical-card-go {
   grid-row: span 2;
   grid-template-rows: subgrid;
   row-gap: 0;
+}
+
+/* ---------- Sideways on phones only ----------
+   Sets that sit in a grid from tablets but would stack into a long scroll on a phone
+   (Kedar, 2026-10-29). Below 768px they swipe sideways and snap, the next item peeking in;
+   no buttons (phones swipe). From tablets, nothing changes.
+
+   - .scroll-row-phone on a grid of cards on the page (e.g. three vertical cards): the
+     .scroll-row look, running to the screen's edges, each card --scroll-item wide (82%).
+   - .figures-scroll around a .figures grid: on phones each figure is its own small card
+     (the .surface look) in a row running to the screen's edges, two showing and the third
+     peeking in (Kedar: one long container looked odd); the box around the grid drops its
+     own look there. It needs role="region", a label and tabindex="0", as nothing inside
+     it takes focus. */
+@media (max-width: 767px) {
+  .scroll-row-phone {
+    --scroll-item: 82%;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: var(--scroll-item);
+    margin: -4px calc(-1 * var(--grid-margin)) -16px;
+    padding: 4px var(--grid-margin) 16px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--grid-margin);
+    scrollbar-width: none;
+  }
+
+  .vertical-card-row.scroll-row-phone {
+    grid-template-rows: minmax(0, 1fr) auto;
+  }
+
+  .scroll-row-phone > * {
+    min-width: 0;
+    scroll-snap-align: start;
+  }
+
+  .figures-scroll {
+    container-type: inline-size;
+    margin: -4px calc(-1 * var(--grid-margin)) -16px;
+    padding: 4px var(--grid-margin) 16px;
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--grid-margin);
+    scrollbar-width: none;
+  }
+
+  .figures-scroll > .figures {
+    --figure-pad: 20px;
+    width: max-content;
+    grid-template-columns: none;
+    grid-auto-flow: column;
+    grid-auto-columns: 42cqw;
+    gap: 12px;
+    background: none;
+  }
+
+  .figures-scroll > .figures > .figure {
+    scroll-snap-align: start;
+    border: 1px solid var(--grey-200);
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow-raised);
+  }
+
+  .figures-scroll > .figures > .figure:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+
+  .scroll-row-phone::-webkit-scrollbar,
+  .figures-scroll::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.figures-scroll:focus-visible {
+  outline-offset: -2px;
 }
 
 /* ---------- Media placeholder ----------

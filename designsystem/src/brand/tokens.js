@@ -60,15 +60,14 @@ export const fonts = {
 // Headings open up step by step as they get smaller (Display 1.05 to H3 1.25), so the
 // descenders of one line clear the capitals of the next, even at Display size.
 export const typeScale = [
-  { name: 'Display', token: 'display', font: 'display', size: 72, mobile: 44, lh: 1.05, weight: 800, track: '-0.02em' },
-  { name: 'H1', token: 'h1', font: 'display', size: 48, mobile: 36, lh: 1.1, weight: 700, track: '-0.015em' },
-  { name: 'H2', token: 'h2', font: 'display', size: 36, mobile: 28, lh: 1.15, weight: 800, track: '-0.01em' },
-  { name: 'Card title', token: 'card', font: 'display', size: 28, mobile: 24, lh: 1.15, weight: 800, track: '-0.01em' },
-  { name: 'H3', token: 'h3', font: 'display', size: 22, mobile: 20, lh: 1.25, weight: 700, track: '0' },
-  { name: 'Body L', token: 'body-l', font: 'body', size: 20, mobile: 18, lh: 1.5, weight: 400, track: '0' },
+  { name: 'Display', token: 'display', font: 'display', size: 64, mobile: 44, lh: 1.05, weight: 800, track: '-0.02em' },
+  { name: 'H1', token: 'h1', font: 'display', size: 44, mobile: 36, lh: 1.1, weight: 700, track: '-0.015em' },
+  { name: 'H2', token: 'h2', font: 'display', size: 32, mobile: 28, lh: 1.15, weight: 800, track: '-0.01em' },
+  { name: 'Card title', token: 'card', font: 'display', size: 26, mobile: 24, lh: 1.15, weight: 800, track: '-0.01em' },
+  { name: 'H3', token: 'h3', font: 'display', size: 20, lh: 1.25, weight: 700, track: '0' },
+  { name: 'Body L', token: 'body-l', font: 'body', size: 18, lh: 1.5, weight: 400, track: '0' },
   { name: 'Body', token: 'body', font: 'body', size: 16, lh: 1.55, weight: 400, track: '0' },
-  { name: 'Small', token: 'small', font: 'body', size: 13, lh: 1.45, weight: 400, track: '0.01em' },
-  { name: 'Label', token: 'label', font: 'body', size: 12, lh: 1.3, weight: 600, track: '0' },
+  { name: 'Small', token: 'small', font: 'body', size: 12, lh: 1.45, weight: 400, track: '0.01em' },
 ];
 
 // Web layout. 12 columns of 88px with 20px gutters on desktop (1276px of content),
