@@ -39,6 +39,13 @@ export const photos = [
   { id: 'pylon-mist-delhi', src: '/assets/photos/pylon-mist-delhi.jpg', alt: 'A pylon and fishermen in a boat on a misty lake at dawn, New Delhi', align: 'xMidYMid' },
   // Unsplash License: litoon dev (Unsplash ID E8pqwxaS6ko), 1600 × 1067. Careers placeholder for the team at work.
   { id: 'engineers-at-screen', src: '/assets/photos/engineers-at-screen.jpg', alt: 'Two engineers looking closely at a computer screen', align: 'xMinYMid' },
+  // Supplied by Kedar (2026-10-29), 1200 × 1800. Services, Move a meter card. TODO: credit.
+  // Supplied by Kedar (2026-10-29), 1122 × 1402. Services, Bill name change card. TODO: credit; it shows MSEDCL's
+  // name and logo, a named customer, an address and a QR code (confirm they are sample data and that the board's mark may be shown).
+  { id: 'electricity-bill', src: '/assets/photos/electricity-bill.jpg', alt: 'A hand holding a printed electricity bill from the Maharashtra state electricity board', align: 'xMidYMid' },
+  // Supplied by Kedar (2026-10-29), 1350 × 1800. Services, Open access card. TODO: credit.
+  { id: 'switch-panel', src: '/assets/photos/switch-panel.jpg', alt: 'A red isolator switch and three rocker switches, red, orange and green, on a turquoise panel', align: 'xMidYMid' },
+  { id: 'meters-wall', src: '/assets/photos/meters-wall.jpg', alt: 'Rows of grey electricity meter cabinets with padlocks against a brick wall with conduit pipes', align: 'xMidYMid' },
   { id: 'electrician-rack', src: '/assets/photos/electrician-rack.jpg', alt: 'Technician in a high-visibility vest wiring an electrical cabinet', align: 'xMinYMid' },
 ];
 

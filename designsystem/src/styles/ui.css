@@ -836,44 +836,6 @@
   outline-color: var(--electric-violet);
 }
 
-/* An icon before the label (a source's solar panel, a calendar), in the label's colour.
-   Several icons sit side by side. */
-.segmented-icon {
-  display: inline-flex;
-  gap: 2px;
-  margin-right: 8px;
-}
-
-/* Stacked: the options in a column from desktop, for a filter sidebar (the plan list). The
-   track is a soft panel (radius L), each option a full-width row (radius M), and the thumb
-   glides up and down. A row on phones and tablets, like the standard control. */
-@media (min-width: 1024px) {
-  .segmented-stacked {
-    display: flex;
-    flex-direction: column;
-    justify-self: stretch;
-    width: 100%;
-    overflow: visible;
-    border-radius: var(--radius-l);
-  }
-
-  .segmented-stacked .segmented-thumb {
-    top: 0;
-    bottom: auto;
-    height: var(--h);
-    border-radius: var(--radius-m);
-    translate: var(--x) var(--y);
-    transition:
-      translate var(--duration-slow) var(--ease-out),
-      height var(--duration-slow) var(--ease-out);
-  }
-
-  .segmented-stacked .segmented-option {
-    border-radius: var(--radius-m);
-    white-space: normal;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .segmented-thumb {
     transition: none;
@@ -1550,9 +1512,12 @@
   grid-auto-flow: column;
   grid-auto-columns: var(--scroll-item);
   gap: var(--grid-gutter);
-  /* Room for card shadows, taken back by the margin so rows don't add space to the layout. */
-  margin: -4px calc(-1 * var(--grid-margin)) -16px;
-  padding: 4px var(--grid-margin) 16px;
+  /* Room for card shadows (the raised shadow reaches 32px below a card), taken back by the
+     margin so rows don't add space to the layout. Less and the row clips the shadow into a
+     hard line (Kedar, 2026-10-29). */
+  --shadow-room: 40px;
+  margin: -4px calc(-1 * var(--grid-margin)) calc(-1 * var(--shadow-room));
+  padding: 4px var(--grid-margin) var(--shadow-room);
   overflow-x: auto;
   overscroll-behavior-x: contain;
   scroll-snap-type: x mandatory;
@@ -1584,7 +1549,7 @@
   display: none;
   justify-content: flex-end;
   gap: 12px;
-  margin-top: 8px;
+  margin-top: 16px;
 }
 
 /* Round 48px buttons in the secondary button's colours. */
@@ -1610,13 +1575,21 @@
   cursor: default;
 }
 
-/* The buttons hang into the section's bottom padding (their 48px plus the 8px above), so
-   a row's cards end where any other section's content ends and the space to the next
-   section is the same everywhere (Kedar, 2026-10-27). */
+/* The buttons sit clear of the cards and their shadow (16px under them on tablets, 24px on
+   desktop: Kedar, 2026-10-29) and hang into the section's bottom padding (64 / 80px), so a
+   row's cards end where any other section's content ends and the space to the next section
+   is the same everywhere (Kedar, 2026-10-27). */
 @media (min-width: 768px) {
   .scroll-row-controls {
     display: flex;
-    margin-bottom: -56px;
+    margin-bottom: -64px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .scroll-row-controls {
+    margin-top: 24px;
+    margin-bottom: -72px;
   }
 }
 
@@ -1703,6 +1676,217 @@
   color: var(--grey-600);
 }
 
+/* ---------- Checkbox and radio ----------
+   (Check.jsx) A native input, visually hidden, with a drawn box beside its label: 20px,
+   a 1.5px Grey 600 line (3:1 or better against White, unlike Grey 200), radius XS for the
+   checkbox, round for the radio. Checked: the checkbox fills Near Black with a White tick
+   (Nucleo check), the radio shows a Near Black dot. Hover darkens the line; keyboard focus
+   rings the box. A count after the label is in the secondary text colour. The whole row is
+   the target: 48px tall on phones, 40px from desktop. */
+
+.check {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  color: var(--ink, var(--near-black));
+  cursor: pointer;
+}
+
+.check-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  opacity: 0;
+}
+
+.check-box {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  background: var(--white);
+  border: 1.5px solid var(--grey-600);
+  border-radius: var(--radius-xs);
+  color: transparent;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out);
+}
+
+.check:hover .check-box {
+  border-color: var(--near-black);
+}
+
+.check-input:checked + .check-box {
+  background: var(--near-black);
+  border-color: var(--near-black);
+  color: var(--white);
+}
+
+.check-radio .check-box {
+  border-radius: var(--radius-pill);
+}
+
+.check-radio .check-box::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: var(--near-black);
+  scale: 0;
+  transition: scale var(--duration-fast) var(--ease-out);
+}
+
+.check-radio .check-input:checked + .check-box {
+  background: var(--white);
+}
+
+.check-radio .check-input:checked + .check-box::after {
+  scale: 1;
+}
+
+.check-input:focus-visible + .check-box {
+  outline: 2px solid var(--electric-violet);
+  outline-offset: 2px;
+}
+
+.check-count {
+  color: var(--ink-2, var(--grey-600));
+  font-variant-numeric: tabular-nums;
+}
+
+/* With a hint: the label semibold, the hint under it in Small secondary text, the box level
+   with the label's first line. */
+.check-with-hint {
+  align-items: flex-start;
+  padding-block: 8px;
+}
+
+.check-with-hint .check-box {
+  margin-top: 2px;
+}
+
+.check-with-hint .check-label {
+  font-weight: 600;
+}
+
+.check-hint {
+  display: block;
+  color: var(--ink-2, var(--grey-600));
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+  font-weight: 400;
+}
+
+@media (min-width: 1024px) {
+  .check {
+    min-height: 40px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .check-radio .check-box::after {
+    transition: none;
+  }
+}
+
+/* ---------- Filter group ----------
+   One filter in a column of filters (a fieldset of checkboxes or radios, or a select):
+   its name in Body semibold, the options under it, a Grey 200 line between groups, 20px
+   above and below. */
+
+.filter-group {
+  display: block;
+  min-width: 0;
+  margin: 0;
+  padding: 20px 0;
+  border: 0;
+  border-top: 1px solid var(--line, var(--grey-200));
+}
+
+.filter-group-title {
+  float: left;
+  width: 100%;
+  margin-bottom: 8px;
+  padding: 0;
+  font-weight: 600;
+}
+
+.filter-group-title + * {
+  clear: both;
+}
+
+/* ---------- Data table ----------
+   Rows to scan and compare (energy plans): inside a .surface, all White (a Warm White header
+   ran into the Warm White page: Kedar), the header row in Small semibold secondary text, then rows with Grey 200 lines edge to edge, figures in
+   tabular digits. Cells pad 16px (24px at the box's edges), rows 20px top and bottom. A row
+   takes the hover fill under the pointer, colour only. Put .data-table-num on a figure
+   column to set it right-aligned. A row's action is .data-table-go, the vertical card's round
+   arrow (Grey 200, Electric Violet with a White arrow while the row is hovered). */
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.data-table th,
+.data-table td {
+  padding: 20px 16px;
+  text-align: left;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--line, var(--grey-200));
+}
+
+/* A row's name (th scope="row") reads like a cell; figures stay on one line. */
+.data-table tbody th {
+  font-weight: 400;
+}
+
+.data-table td {
+  white-space: nowrap;
+}
+
+.data-table thead th {
+  padding-block: 16px;
+  color: var(--ink-2, var(--grey-600));
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.data-table th:first-child,
+.data-table td:first-child {
+  padding-left: 24px;
+}
+
+.data-table th:last-child,
+.data-table td:last-child {
+  padding-right: 24px;
+}
+
+.data-table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+
+.data-table tbody tr {
+  transition: background-color var(--duration-slow) ease-out;
+}
+
+.data-table tbody tr:hover {
+  background: var(--hover-fill);
+  transition-duration: var(--duration-fast);
+}
+
+.data-table .data-table-num {
+  text-align: right;
+}
+
 /* ---------- Vertical card ----------
    The site's one vertical card (Kedar, 2026-10-27): 4:5, radius L, the raised shadow, the
    title and its line on the left. Two looks, each still or clickable:
@@ -1716,7 +1900,7 @@
 
    Every card's title is Card title (28px, 24px on phones) and its line Body, at most two
    lines each, kept to a column clear of the arrow; longer text is cut with an ellipsis. The
-   text sits at the panel's foot. A card is a two-row grid (picture, panel) held at 4:5;
+   words start at the top of the panel, so titles line up across a row. A card is a two-row grid (picture, panel) held at 4:5;
    in a row of cards the layout shares those rows (.vertical-card-row on the grid, see
    below), so each panel is as tall as the tallest in its row and the pictures line up,
    with no spare room where no card needs it. Until a picture arrives the media is plain
@@ -1802,8 +1986,11 @@ a.vertical-card:focus-visible .vertical-card-media > img {
      right, at the foot. The arrow's column is held on every card,
      clickable or not, so text measures the same everywhere. */
   grid-template-columns: minmax(0, 1fr) var(--vcard-go);
-  align-content: end;
-  align-items: end;
+  /* In a row the panel is as tall as the tallest one there. The words start at its top,
+     so tags and titles line up across the row whatever their length, and the arrow sits
+     at its foot, so the arrows line up too (Kedar, 2026-10-29). */
+  grid-template-rows: 1fr;
+  align-items: start;
   column-gap: 16px;
   padding: var(--vcard-pad);
 }
@@ -1846,12 +2033,14 @@ a.vertical-card:focus-visible .vertical-card-media > img {
 
 /* The arrow, in its own column, its bottom level with the last line of the words. Grey 200
    at rest, Electric Violet with a White arrow while the card is hovered. */
-.vertical-card-go {
+.vertical-card-go,
+.data-table-go {
   grid-column: 2;
+  align-self: end;
   display: grid;
   place-items: center;
-  width: var(--vcard-go);
-  height: var(--vcard-go);
+  width: var(--vcard-go, 40px);
+  height: var(--vcard-go, 40px);
   border-radius: 50%;
   background: var(--grey-200);
   color: var(--near-black);
@@ -1861,7 +2050,9 @@ a.vertical-card:focus-visible .vertical-card-media > img {
 }
 
 a.vertical-card:hover .vertical-card-go,
-a.vertical-card:focus-visible .vertical-card-go {
+a.vertical-card:focus-visible .vertical-card-go,
+.data-table tbody tr:hover .data-table-go,
+.data-table-go:focus-visible {
   background: var(--electric-violet);
   color: var(--white);
 }
@@ -1878,6 +2069,8 @@ a.vertical-card:focus-visible .vertical-card-go {
   background: var(--near-black);
   color: var(--white);
 }
+
+
 
 .vertical-card-photo .vertical-card-media {
   position: absolute;
@@ -1958,8 +2151,8 @@ a.vertical-card:focus-visible .vertical-card-go {
     grid-template-columns: none;
     grid-auto-flow: column;
     grid-auto-columns: var(--scroll-item);
-    margin: -4px calc(-1 * var(--grid-margin)) -16px;
-    padding: 4px var(--grid-margin) 16px;
+    margin: -4px calc(-1 * var(--grid-margin)) -40px;
+    padding: 4px var(--grid-margin) 40px;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;
@@ -1978,8 +2171,8 @@ a.vertical-card:focus-visible .vertical-card-go {
 
   .figures-scroll {
     container-type: inline-size;
-    margin: -4px calc(-1 * var(--grid-margin)) -16px;
-    padding: 4px var(--grid-margin) 16px;
+    margin: -4px calc(-1 * var(--grid-margin)) -40px;
+    padding: 4px var(--grid-margin) 40px;
     overflow-x: auto;
     overscroll-behavior-x: contain;
     scroll-snap-type: x mandatory;

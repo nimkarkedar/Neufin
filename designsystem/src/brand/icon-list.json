@@ -13,7 +13,7 @@
     "map": { "family": "core", "label": "map", "fill": "outline", "size": "24px" },
     "office": { "family": "core", "label": "office", "fill": "outline", "size": "24px" },
     "field-location": { "family": "ui", "label": "location", "fill": "outline", "size": "18px" },
-    "field-gauge": { "family": "ui", "label": "gauge", "fill": "outline", "size": "18px" },
+    "field-chevron": { "family": "ui", "label": "chevron-down", "fill": "outline", "size": "18px" },
     "field-calendar": { "family": "ui", "label": "calendar", "fill": "outline", "size": "18px" },
     "drop": { "family": "ui", "label": "arrow-down", "fill": "outline", "size": "18px" },
     "field-error": { "family": "ui", "label": "circle-warning", "fill": "outline", "size": "18px" },

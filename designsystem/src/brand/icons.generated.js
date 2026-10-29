@@ -104,13 +104,13 @@ export const nucleoIcons = {
   "viewBox": "0 0 18 18",
   "body": "<path d=\"M9 13.25C10.2535 12.8534 13.75 10.0776 13.75 6.50861C13.75 3.88181 11.6234 1.75 9 1.75C6.3766 1.75 4.25 3.88191 4.25 6.50861C4.25 10.0776 7.7465 12.8534 9 13.25Z\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 1.5)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"></path> <path d=\"M9 8.25C9.966 8.25 10.75 7.466 10.75 6.5C10.75 5.534 9.966 4.75 9 4.75C8.034 4.75 7.25 5.534 7.25 6.5C7.25 7.466 8.034 8.25 9 8.25Z\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 1.5)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-color=\"color-2\" fill=\"none\"></path> <path d=\"M14.2505 12.8711C15.4897 13.23 16.25 13.7159 16.25 14.25C16.25 15.355 13.004 16.25 9 16.25C4.996 16.25 1.75 15.355 1.75 14.25C1.75 13.7152 2.51 13.2299 3.7487 12.8712\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 1.5)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-color=\"color-2\" fill=\"none\"></path>"
  },
- "field-gauge": {
+ "field-chevron": {
   "family": "ui",
-  "label": "gauge",
+  "label": "chevron-down",
   "fill": "outline",
   "size": "18px",
   "viewBox": "0 0 18 18",
-  "body": "<path d=\"M4.009 15.25H13.991C15.38 13.929 16.25 12.068 16.25 10C16.25 5.996 13.004 2.75 9 2.75C4.996 2.75 1.75 5.996 1.75 10C1.75 12.068 2.62 13.929 4.009 15.25Z\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 1.5)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" fill=\"none\"></path> <path d=\"M9.00005 10L5.89404 6.89401\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 1.5)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-color=\"color-2\" fill=\"none\"></path> <path d=\"M4.75 10C4.75 10.81 4.97499 11.581 5.39799 12.25\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 1.5)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-color=\"color-2\" fill=\"none\"></path> <path d=\"M12.603 12.25C13.025 11.581 13.25 10.81 13.25 10C13.25 7.657 11.343 5.75 9 5.75\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 1.5)\" stroke-linecap=\"round\" stroke-linejoin=\"round\" data-color=\"color-2\" fill=\"none\"></path>"
+  "body": "<polyline points=\"15.25 6.5 9 12.75 2.75 6.5\" fill=\"none\" stroke=\"currentColor\" stroke-linecap=\"round\" stroke-linejoin=\"round\" stroke-width=\"var(--nucleo-stroke-width, 1.5)\"></polyline>"
  },
  "field-calendar": {
   "family": "ui",

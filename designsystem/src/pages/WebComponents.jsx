@@ -7,6 +7,7 @@ import { RollingFigure } from '../components/RollingFigure.jsx';
 import { WhatsAppBadge } from '../components/WhatsAppBadge.jsx';
 import { Segmented } from '../components/Segmented.jsx';
 import { ScrollRow } from '../components/ScrollRow.jsx';
+import { Check } from '../components/Check.jsx';
 import { StepMark, StepTrack } from '../components/StepTrack.jsx';
 import { IconSvg } from '../components/Icon.jsx';
 import { icons } from '../brand/icons.js';
@@ -158,6 +159,61 @@ export default function WebComponents() {
         </div>
       </Section>
 
+      <Section title="Checkbox, radio and filter group">
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo" style={{ alignItems: 'flex-start' }}>
+            <div className="web-field">
+              <fieldset className="filter-group">
+                <legend className="filter-group-title">Contract length</legend>
+                <div>
+                  <Check label="Under 1 year" count={2} defaultChecked />
+                  <Check label="1–5 years" count={3} />
+                  <Check label="5+ years" count={3} />
+                </div>
+              </fieldset>
+              <fieldset className="filter-group">
+                <legend className="filter-group-title">Business type</legend>
+                <div>
+                  <Check type="radio" name="demo-type" label="Industrial" hint="Factories, plants" defaultChecked />
+                  <Check type="radio" name="demo-type" label="Commercial" hint="Offices, hotels, malls" />
+                </div>
+              </fieldset>
+            </div>
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Use</span><p>Filters in a column, such as the Energy plans page: a checkbox for "any of these" (none ticked means all), a radio for "one of these". A long single choice (a state) stays a select field.</p></div>
+          <div className="row"><span className="row-key">Box</span><p>20px, a 1.5px Grey 600 line (3:1 or better on White), radius XS for the checkbox, round for the radio. Checked: Near Black with a White Nucleo tick, or a Near Black dot. Hover darkens the line; keyboard focus rings the box in Electric Violet.</p></div>
+          <div className="row"><span className="row-key">Row</span><p>Label in Body, an optional count in brackets in the secondary colour. With <code>hint</code>, the label is semibold with a Small secondary line under it (Industrial / Factories, plants). The whole row is the target: 48px tall on phones, 40px from desktop.</p></div>
+          <div className="row"><span className="row-key">Group</span><p><code>.filter-group</code>: a fieldset with a <code>.filter-group-title</code> legend in Body semibold, the options under it, a Grey 200 line between groups, 20px above and below.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>{'<Check label="…" count={3} checked onChange />'}</code>, <code>type="radio"</code> with a shared <code>name</code> (components/Check.jsx, styles <code>.check</code> in ui.css). A native input underneath, so keyboard and screen readers work as usual.</p></div>
+        </div>
+      </Section>
+
+      <Section title="Data table">
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo">
+            <div className="surface" style={{ width: '100%', overflow: 'hidden' }}>
+              <table className="data-table">
+                <thead>
+                  <tr><th scope="col">Plan</th><th scope="col" className="data-table-num">Price per unit</th><th scope="col">Contract length</th><th scope="col">Investment</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>1-year solar</td><td className="data-table-num">₹6.90</td><td>1 year</td><td>None</td></tr>
+                  <tr><td>5-year solar and wind</td><td className="data-table-num">₹6.20</td><td>5 years</td><td>None</td></tr>
+                  <tr><td>15-year solar</td><td className="data-table-num">₹5.60</td><td>15 years</td><td>Needed</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Use</span><p>Rows people scan and compare, such as the energy plans. Desktop only; on phones the same rows become cards.</p></div>
+          <div className="row"><span className="row-key">Look</span><p>Inside a <code>.surface</code>, all White (a Warm White header runs into the page): the header row in Small semibold secondary text, then rows with Grey 200 lines edge to edge, figures in tabular digits (right-aligned with <code>.data-table-num</code>). Cells pad 16px, 24px at the box's edges, rows 20px top and bottom. A row takes the Violet 100 hover fill, colour only.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>table.data-table</code> with <code>th scope="col"</code> headers and a caption for screen readers.</p></div>
+        </div>
+      </Section>
+
       <Section title="Choice chips">
         <div className="tile">
           <div className="tile-stage stage-light web-demo">
@@ -198,7 +254,7 @@ export default function WebComponents() {
           <div className="row"><span className="row-key">Use</span><p>One choice from a short set that switches what's shown, such as the home page's industries, the plan finder's choices, and the filters on Customer stories, Careers and the plan list. Calmer than a row of outlined chips: one track, plain text, one solid thumb.</p></div>
           <div className="row"><span className="row-key">Interaction</span><p>The thumb glides to the new choice (slow, ease-out) and the label's colour follows; hovering an option darkens (light) or whitens (inverse) its label. Arrow keys move the choice. When the set is wider than its space the track scrolls sideways and the chosen option scrolls into view. No slide with reduced motion.</p></div>
           <div className="row"><span className="row-key">Shape</span><p>Pill track with 4px inset, options 40px tall (<code>small</code>: 32px, Small text, 14px either side and 2px apart, for forms with several sets such as the plan finder). Light: Near Black 5% track (shows on White and Warm White), Near Black thumb, Grey 600 labels, White when chosen. Inverse (on Violet 900 or Near Black): White 10% track, White thumb, Violet 100 labels, Near Black when chosen.</p></div>
-          <div className="row"><span className="row-key">Code</span><p><code>&lt;Segmented name label options value onChange inverse small stacked icons /&gt;</code> (label optional when a visible legend names the group) from <code>components/Segmented.jsx</code>; styles <code>.segmented</code>, <code>.segmented-inverse</code>, <code>.segmented-stacked</code>, <code>.segmented-icon</code> in ui.css.</p></div>
+          <div className="row"><span className="row-key">Code</span><p><code>&lt;Segmented name label options value onChange inverse small /&gt;</code> (label optional when a visible legend names the group) from <code>components/Segmented.jsx</code>; styles <code>.segmented</code>, <code>.segmented-inverse</code> in ui.css.</p></div>
           <div className="row"><span className="row-key">Stacked</span><p>For a filter sidebar (the plan list): from desktop the options sit in a column, each a full-width row, and the thumb glides up and down; on phones they stay a row. <code>icons</code> leads each option with a Nucleo icon in the label's colour (one per option, or several side by side, e.g. solar panel and windmill).</p></div>
         </div>
       </Section>
@@ -414,7 +470,7 @@ export default function WebComponents() {
         <div className="rows spec-inline">
           <div className="row"><span className="row-key">Use</span><p>Every vertical card on the site (Kedar, 2026-10-27): two looks, each still or clickable. No other vertical card, no round spot illustrations or icons in cards.</p></div>
           <div className="row"><span className="row-key">Photo</span><p><code>.vertical-card-photo</code>: the picture fills the card under the Violet wash (Violet 300 multiplied at 45%) with a Near Black shade rising from the foot; White title and line at the bottom, on the left. A picture drawn in code (an inline <code>&lt;svg&gt;</code>, such as a chart in the source colours) takes no wash, only the shade.</p></div>
-          <div className="row"><span className="row-key">Panel</span><p>The default: the picture across the top with a flat, straight foot (the Stripe step was dropped as too playful: Kedar, 2026-10-27, mature and simple as on Apple), then a White panel with an optional <code>.tag</code> (a step, an industry, a content type), the title and the line. In a row of cards (<code>.vertical-card-row</code> on the grid or the ScrollRow) the panels share one height, the tallest in the row, so pictures line up and no card keeps spare room unless a neighbour needs it.</p></div>
+          <div className="row"><span className="row-key">Panel</span><p>The default: the picture across the top with a flat, straight foot (the Stripe step was dropped as too playful: Kedar, 2026-10-27, mature and simple as on Apple), then a White panel with an optional <code>.tag</code> (a step, an industry, a content type), the title and the line. In a row of cards (<code>.vertical-card-row</code> on the grid or the ScrollRow) the panels share one height, the tallest in the row, so pictures line up and no card keeps spare room unless a neighbour needs it. The words start at the top of the panel and the arrow sits at its foot, so tags, titles and arrows line up across the row whatever the title's length.</p></div>
           <div className="row"><span className="row-key">Text</span><p>Title in the Card title style (26px, 24px on phones), line Body (16px), the same on every card. Both keep to a left column clear of the arrow, each cut after two lines with an ellipsis, and sit at the foot of the panel.</p></div>
           <div className="row"><span className="row-key">Clickable</span><p>An <code>a.vertical-card</code> with <code>.vertical-card-go</code>, a round arrow (40 / 44px) on the line's row, bottoms aligned, Grey 200 at rest. The card stays still: the arrow turns Electric Violet with a White arrow and stays put, the shadow deepens to the overlay shadow and the picture eases in by 4%. Reduced motion: no zoom. A still card is a <code>div</code> with real headings and answers nothing.</p></div>
           <div className="row"><span className="row-key">Placeholder</span><p>Without a picture the media is plain Near Black.</p></div>

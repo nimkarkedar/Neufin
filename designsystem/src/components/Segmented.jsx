@@ -11,12 +11,10 @@ import { useLayoutEffect, useRef, useState } from 'react';
 // option is filled by CSS instead, so it always shows.
 // Styles: `.segmented` in ui.css.
 
-// `small` is the compact size for forms with several sets (the plan finder). `stacked` puts
-// the options in a column from desktop (1024px), for a filter sidebar; they stay a row on
-// phones. `icons` (one node per option, or null) leads each label with an icon. `label` names
+// `small` is the compact size for forms with several sets (the plan finder). `label` names
 // the group for screen readers; leave it out when a visible legend already does.
-/** @param {{ name: string, label?: string, options: string[], value: number, onChange: (i: number) => void, inverse?: boolean, small?: boolean, stacked?: boolean, icons?: import('react').ReactNode[], className?: string }} props */
-export function Segmented({ name, label, options, value, onChange, inverse = false, small = false, stacked = false, icons, className }) {
+/** @param {{ name: string, label?: string, options: string[], value: number, onChange: (i: number) => void, inverse?: boolean, small?: boolean, className?: string }} props */
+export function Segmented({ name, label, options, value, onChange, inverse = false, small = false, className }) {
   const track = useRef(null);
   const [thumb, setThumb] = useState(null);
 
@@ -26,7 +24,7 @@ export function Segmented({ name, label, options, value, onChange, inverse = fal
     const place = () => {
       const opt = el.querySelectorAll('.segmented-option')[value];
       if (!opt) return;
-      setThumb({ left: opt.offsetLeft, top: opt.offsetTop, width: opt.offsetWidth, height: opt.offsetHeight });
+      setThumb({ left: opt.offsetLeft, width: opt.offsetWidth });
       // Keep the chosen option in view when the track scrolls (phones).
       const { scrollLeft, clientWidth, scrollWidth } = el;
       if (scrollWidth > clientWidth && (opt.offsetLeft < scrollLeft || opt.offsetLeft + opt.offsetWidth > scrollLeft + clientWidth)) {
@@ -39,18 +37,13 @@ export function Segmented({ name, label, options, value, onChange, inverse = fal
     return () => ro.disconnect();
   }, [value]);
 
-  const classes = ['segmented', inverse && 'segmented-inverse', small && 'segmented-small', stacked && 'segmented-stacked', thumb && 'segmented-ready', className].filter(Boolean).join(' ');
+  const classes = ['segmented', inverse && 'segmented-inverse', small && 'segmented-small', thumb && 'segmented-ready', className].filter(Boolean).join(' ');
   return (
     <div ref={track} className={classes} role="radiogroup" aria-label={label}>
-      {thumb && <span className="segmented-thumb" style={{ '--x': `${thumb.left}px`, '--y': `${thumb.top}px`, '--w': `${thumb.width}px`, '--h': `${thumb.height}px` }} aria-hidden="true" />}
+      {thumb && <span className="segmented-thumb" style={{ '--x': `${thumb.left}px`, '--w': `${thumb.width}px` }} aria-hidden="true" />}
       {options.map((o, i) => (
         <label key={o} className="segmented-option">
           <input type="radio" name={name} checked={value === i} onChange={() => onChange(i)} />
-          {icons?.[i] && (
-            <span className="segmented-icon" aria-hidden="true">
-              {icons[i]}
-            </span>
-          )}
           {o}
         </label>
       ))}
