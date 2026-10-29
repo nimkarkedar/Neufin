@@ -12,11 +12,6 @@
   stroke-width: 1;
 }
 
-.axis {
-  stroke: color-mix(in srgb, var(--white) 24%, transparent);
-  stroke-width: 1;
-}
-
 .open { fill: var(--clear-blue); }
 .exchange { fill: var(--electric-violet); }
 .solar { fill: var(--signal-yellow); }

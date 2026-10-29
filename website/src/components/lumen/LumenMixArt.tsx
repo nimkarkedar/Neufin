@@ -5,7 +5,9 @@ import styles from "./LumenMixArt.module.css";
 // the source colours of the Lumen screens: open access and the exchange all day, solar
 // filling the middle, the battery taking over the evening peak, the grid shrinking where
 // Lumen switches. The two peak windows are shaded. No labels: the card's title says it.
-// Drawn in a 400 × 500 frame (the card's 4:5); the chart keeps to the top, clear of the text.
+// Drawn in a 400 × 500 frame (the card's 4:5), filling it (Kedar, 2026-10-29): the bars run
+// edge to edge and stand on the card's bottom edge, the text over their bases under the
+// card's shade.
 
 type Hour = [open: number, exchange: number, solar: number, battery: number, grid: number];
 
@@ -35,21 +37,21 @@ const peaks = [
   [12, 14],
 ];
 
-const left = 32;
-const pitch = 336 / hours.length;
-const barW = 14;
-const base = 272;
-const unit = 1.7;
-const barX = (i: number) => left + i * pitch + (pitch - barW) / 2;
+const width = 400;
+const pitch = width / hours.length;
+const barW = pitch - 6;
+const base = 500;
+const unit = 3.3;
+const barX = (i: number) => i * pitch + (pitch - barW) / 2;
 
 export function LumenMixArt() {
   return (
     <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" aria-hidden="true" className={styles.art}>
       {peaks.map(([from, to]) => (
-        <rect key={from} x={barX(from) - 4} y={40} width={barX(to) - barX(from) + barW + 8} height={base - 40} className={styles.peak} />
+        <rect key={from} x={barX(from) - 3} y={0} width={barX(to) - barX(from) + barW + 6} height={base} className={styles.peak} />
       ))}
-      {[base - 70, base - 140, base - 210].map((y) => (
-        <line key={y} x1={left} x2={left + 336} y1={y} y2={y} className={styles.rule} />
+      {[base - 140, base - 280, base - 420].map((y) => (
+        <line key={y} x1={0} x2={width} y1={y} y2={y} className={styles.rule} />
       ))}
       {hours.map((hour, i) => {
         let top = base;
@@ -59,7 +61,6 @@ export function LumenMixArt() {
           return <rect key={`${i}-${s}`} x={barX(i)} y={top} width={barW} height={v * unit} className={styles[sources[s]]} />;
         });
       })}
-      <line x1={left} x2={left + 336} y1={base} y2={base} className={styles.axis} />
     </svg>
   );
 }

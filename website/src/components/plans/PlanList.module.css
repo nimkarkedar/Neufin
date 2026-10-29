@@ -1,42 +1,60 @@
-/* Plan finder: filters beside the plans, and the suggester. Mobile first.
-   Three type styles only: the plan name (H3), body text for the figures, and Small
-   secondary text for labels and notes. */
+/* Energy plans: filters beside the plans. Mobile first. The controls are the design
+   system's (.filter-group, .check, .select-field, .data-table); this file only lays them
+   out. Type: the plan name in Body semibold, figures in Body, notes in Small secondary. */
 
 .layout {
   display: grid;
-  gap: 32px;
+  gap: 24px;
 }
 
 /* ---------- Filters ---------- */
 
 .filters {
-  display: grid;
-  align-content: start;
-  gap: 24px;
   min-width: 0;
 }
 
-.field {
-  display: grid;
-  align-content: start;
-  gap: 8px;
-  min-width: 0;
-  margin: 0;
+.filtersHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.chevron {
+  transition: rotate var(--duration-base) var(--ease-out);
+}
+
+.toggle[aria-expanded="true"] .chevron {
+  rotate: 180deg;
+}
+
+.clear {
+  min-height: 48px;
   padding: 0;
+  background: none;
   border: 0;
+  color: var(--ink);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
 }
 
-/* A long option ("Office, hotel, mall or shop") must not widen the field past the column. */
-.field :global(.select-field) {
+.groups {
+  margin-top: 16px;
+}
+
+/* The select runs the column's width. */
+.groups :global(.select-field) {
+  display: flex;
   min-width: 0;
 }
 
-.label {
-  padding: 0;
-  color: var(--ink-2);
-  font-size: var(--text-small-size);
-  line-height: var(--text-small-lh);
-  font-weight: 600;
+/* Phones and tablets: the groups fold away behind the Filters button. */
+@media (max-width: 1023px) {
+  .groups:not([data-open]) {
+    display: none;
+  }
 }
 
 /* ---------- Plans ---------- */
@@ -52,119 +70,92 @@
   line-height: var(--text-small-lh);
 }
 
-.list {
-  display: grid;
-  gap: 16px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-/* A plan: on phones a card (who it's for, the figures, the quote); from 1280px one row
-   whose figures sit in the same columns on every plan. */
-.plan {
-  display: grid;
-  gap: 20px;
-  padding: 24px 20px;
-  transition: box-shadow var(--duration-base) var(--ease-out);
-}
-
-.plan:hover {
-  box-shadow: var(--shadow-raised);
-}
-
-.who {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  min-width: 0;
-}
-
-/* The source's icons; a plan with two sources shows both, overlapping like faces. */
-.sources {
-  display: flex;
-  flex: none;
-  /* Room for two overlapping icons on every plan, so the names line up. */
-  width: 80px;
-}
-
-
-.sourceIcon + .sourceIcon {
-  margin-left: -16px;
-}
-
 .name {
-  font-size: var(--text-h3-size);
-  line-height: var(--text-h3-lh);
-  font-weight: var(--text-h3-weight);
+  display: block;
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-lh);
+  font-weight: 600;
 }
 
 .note {
+  display: block;
   color: var(--ink-2);
   font-size: var(--text-small-size);
   line-height: var(--text-small-lh);
-}
-
-.who .note {
-  margin-top: 4px;
-}
-
-.facts {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 16px;
-  margin: 0;
-}
-
-.fact {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-width: 0;
-}
-
-.fact dt {
-  display: flex;
-  flex: none;
-}
-
-.facts dd {
-  margin: 0;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-}
-
-/* Figures in pairs, one over the other (Kedar: price over term), so a row stays narrow. */
-.pair {
-  display: grid;
-  align-content: center;
-  gap: 8px;
+  font-weight: 400;
 }
 
 .price {
   font-weight: 600;
+  white-space: nowrap;
 }
 
 .price .note {
+  display: inline;
+}
+
+/* Desktop table (from 1280px; narrower screens show the cards). */
+.tableBox {
+  display: none;
+  overflow: hidden;
+}
+
+.planCell {
   font-weight: 400;
 }
 
-.cta {
-  justify-self: start;
+.quoteCell {
+  width: 1px;
 }
 
-/* With a pointer, Get a quote shows on the first plan, and on the others while hovered or
-   focused (Kedar). Touch screens always show it. */
-@media (hover: hover) {
-  .plan:not(:first-child) .cta {
-    opacity: 0;
-    transition: opacity var(--duration-base) var(--ease-out);
-  }
+/* Cards (below 1280px): name and who it suits beside the price, then the terms in one
+   line beside the round arrow (the table's). The whole card is the link; under the pointer
+   the arrow turns Electric Violet, as in a table row. */
+.cards {
+  display: grid;
+  gap: 12px;
+  padding: 0;
+  list-style: none;
+}
 
-  .plan:hover .cta,
-  .plan:focus-within .cta {
-    opacity: 1;
-  }
+.card {
+  display: grid;
+  gap: 12px;
+  padding: 20px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.cardHead,
+.cardFoot {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cardHead {
+  align-items: start;
+}
+
+.cardFoot {
+  align-items: center;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+}
+
+.cardPrice {
+  flex: none;
+  text-align: right;
+}
+
+.cardPrice .price {
+  display: block;
+}
+
+.card:hover :global(.data-table-go),
+.card:focus-visible :global(.data-table-go) {
+  background: var(--electric-violet);
+  color: var(--white);
 }
 
 .empty {
@@ -174,35 +165,13 @@
   padding: 32px;
 }
 
-/* Tablets and small laptops: Get a quote sits to the right, so when it is hidden it leaves
-   no empty space under the figures. */
 @media (min-width: 768px) {
-  .plan {
-    grid-template-columns: minmax(0, 1fr) auto;
-    column-gap: 24px;
-    padding: 32px;
-  }
-
-  .who,
-  .facts {
-    grid-column: 1;
-  }
-
-  .cta {
-    grid-column: 2;
-    grid-row: 1 / span 2;
-    align-self: center;
-  }
-
-  .facts {
-    grid-template-columns: repeat(3, auto);
-    justify-content: start;
-    column-gap: 32px;
+  .card {
+    padding: 24px 32px;
   }
 }
 
-/* Desktop: a narrow filter column (256px, wide enough for "Solar and wind" with its icons),
-   sticky under the header, and the plans taking the rest. */
+/* Desktop: a 256px filter column, sticky under the header, its groups always shown. */
 @media (min-width: 1024px) {
   .layout {
     grid-template-columns: 256px minmax(0, 1fr);
@@ -214,47 +183,31 @@
     top: calc(var(--header-h) + 24px);
     align-self: start;
   }
+
+  .toggle {
+    display: none;
+  }
+
+  .filtersHead {
+    min-height: 0;
+  }
+
+  .groups {
+    margin-top: 0;
+  }
+
+  .groups > :first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
 }
 
 @media (min-width: 1280px) {
-
-  /* Fixed figure columns, so price, term and size line up down the list. */
-  .plan {
-    grid-template-columns: minmax(0, 1fr) auto auto;
-    align-items: center;
-    column-gap: 20px;
-    padding: 20px 24px;
+  .tableBox {
+    display: block;
   }
 
-  .who,
-  .facts,
-  .cta {
-    grid-column: auto;
-    grid-row: auto;
-  }
-
-  .facts {
-    grid-template-columns: 152px 176px 168px;
-    column-gap: 16px;
-  }
-
-  /* In a row the source icons sit above the name, smaller, so the name gets the width. */
-  .who {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 12px;
-  }
-
-  .sources {
-    width: auto;
-  }
-
-  .sourceIcon {
-    width: 36px;
-    height: 36px;
-  }
-
-  .sourceIcon + .sourceIcon {
-    margin-left: -8px;
+  .cards {
+    display: none;
   }
 }

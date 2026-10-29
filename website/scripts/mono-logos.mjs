@@ -6,7 +6,8 @@
 // result is then trimmed to the ink, so every logo sizes from its real edges.
 // The site shows them as masks in the current text colour (`LogoWall`).
 //
-// Run `npm run logos` after adding or replacing a file in ../Logos. Only SVGs are used.
+// Run `npm run logos` after adding or replacing a file in ../Logos. Only SVGs are used; a logo
+// supplied only as a large PNG can be wrapped in an SVG first (an <image> inside an <svg>).
 import fs from "node:fs";
 import path from "node:path";
 import sharp from "sharp";
@@ -17,7 +18,7 @@ const out = path.resolve(import.meta.dirname, "../src/assets/logos");
 // Logos drawn in white for dark backgrounds: keep their shape instead.
 const shapeOnly = new Set(["partners/tata-power.svg"]);
 // Very light colours that need more strength to come out solid.
-const strength = { "partners/ecofy.svg": 4, "customers/hitech.svg": 5, "customers/rajdarbaar.svg": 5 };
+const strength = { "partners/ecofy.svg": 4, "customers/hitech.svg": 5, "customers/rajdarbaar.svg": 5, "hardware/polaris.svg": 6 };
 // Net Zero's leaf is a traced photo: a high strength with a cut-off makes it one solid
 // shape while its white background still drops out.
 const cutoff = { "partners/net-zero.svg": [9, -0.25] };

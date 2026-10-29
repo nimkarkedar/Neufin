@@ -13,13 +13,18 @@ import styles from "./LogoBar.module.css";
 // The row is drawn twice so the loop has no gap; the copy is hidden from screen
 // readers. Every bar moves at the same speed whatever its length. Hover pauses it;
 // with reduced motion it stands still and scrolls sideways instead.
-export function LogoBar({ label, logos = allLogos, underHeader = false }: { label?: string; logos?: BrandLogo[]; underHeader?: boolean }) {
+// `still`: a short set (a few logos that fit the width, e.g. Services' hardware partners)
+// shows once, in place, at the same size, lined up with the label: a loop of three or four
+// would run out and leave a gap (Kedar, 2026-10-29).
+type LogoBarProps = { label?: string; logos?: BrandLogo[]; underHeader?: boolean; still?: boolean };
+
+export function LogoBar({ label, logos = allLogos, underHeader = false, still = false }: LogoBarProps) {
   const bar = (
-    <div className={styles.bar}>
+    <div className={styles.bar} data-still={still || undefined}>
       {label && <p className={styles.label}>{label}</p>}
       <div className={styles.viewport}>
         <div className={styles.track} style={{ "--items": logos.length } as CSSProperties}>
-          {[false, true].map((copy) => (
+          {(still ? [false] : [false, true]).map((copy) => (
             <ul key={String(copy)} className={styles.list} aria-hidden={copy || undefined} aria-label={copy ? undefined : label}>
               {logos.map((l) => (
                 <li key={l.name} className={styles.logo}>

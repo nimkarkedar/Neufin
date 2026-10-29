@@ -24,8 +24,8 @@ const count = (label: string) => numbers.find((n) => n.label.includes(label))?.v
 
 // Energy plans, from the brief's Energy plans table (CME Group as a loose reference): the
 // header with the facts line, the filters and plans (choices carried in from the visitor's
-// link and kept), how it works, "Not sure which plan fits?" with the short call-back form,
-// then the FAQ. The footer contact card closes the page.
+// link and kept), how it works, the FAQ, then "Not sure which plan fits?" with the short
+// call-back form as the close (the footer contact card is hidden here, as on Sell energy).
 export default function PlanFinderPage() {
   return (
     <>
@@ -53,11 +53,9 @@ export default function PlanFinderPage() {
         <PlanList />
       </Section>
 
-      <QuoteSteps />
-
-      <Section id="not-sure" tone="white" title="Not sure which plan fits?" lead="Our team will recommend a plan for your sites.">
-        <ContactReach short />
-      </Section>
+      {/* Backgrounds alternate down the page (Kedar, 2026-10-29): plans on the page, steps on
+          White, FAQ on the page, then the call-back on White as the close. */}
+      <QuoteSteps white />
 
       {/* TODO: Neufin to answer the open questions; "Why is there a price range?" to confirm. */}
       <FaqSection
@@ -74,6 +72,11 @@ export default function PlanFinderPage() {
           { q: "What happens when my term ends?" },
         ]}
       />
+
+      {/* The close: the page's own call-back, so the footer's contact card is hidden here. */}
+      <Section id="not-sure" tone="white" title="Not sure which plan fits?" lead="Our team will recommend a plan for your sites.">
+        <ContactReach short />
+      </Section>
     </>
   );
 }

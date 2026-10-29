@@ -1,4 +1,6 @@
 import Link from "next/link";
+import { IconSvg } from "@ds/components/Icon.jsx";
+import { icons } from "@ds/brand/icons.js";
 import { StripeHeader } from "@/components/sections/StripeHeader";
 // TODO: Neufin's own photo; a library photo stands in.
 import millPhoto from "@ds/../public/assets/photos/spinning-mill.jpg";
@@ -24,6 +26,7 @@ export default function CustomerStories() {
         actions={
           <Link href={planFinderHref} className="btn btn-accent">
             See plans and prices
+            <IconSvg icon={icons.arrow} size={20} />
           </Link>
         }
         photo={millPhoto}

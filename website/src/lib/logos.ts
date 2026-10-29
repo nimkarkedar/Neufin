@@ -10,6 +10,10 @@ import mahindra from "@/assets/logos/customers/mahindra.svg";
 import rajdarbar from "@/assets/logos/customers/rajdarbaar.svg";
 import smartworks from "@/assets/logos/customers/smart-works.svg";
 import yesBank from "@/assets/logos/customers/yes-bank.svg";
+import polaris from "@/assets/logos/hardware/polaris.svg";
+import ripple from "@/assets/logos/hardware/ripple-metering.svg";
+import schneider from "@/assets/logos/hardware/schneider-electric.svg";
+import urjaMatters from "@/assets/logos/hardware/urja-matters.svg";
 import threeOne4 from "@/assets/logos/investors/3one4-capital.svg";
 import betterCapital from "@/assets/logos/investors/better-capital.svg";
 import goodCapital from "@/assets/logos/investors/good-capital.svg";
@@ -63,6 +67,15 @@ const financeLogos = [
   logo("Tata Capital", tataCapital),
   logo("Ecofy", ecofy),
   logo("Net Zero Finance", netZero),
+];
+
+// Hardware partners for Services (Kedar's final set, 2026-10-29: Schneider Electric, Urja
+// Matters, Ripple, Polaris Smart Metering).
+export const hardwareLogos = [
+  logo("Schneider Electric", schneider),
+  logo("Urja Matters", urjaMatters),
+  logo("Ripple", ripple),
+  logo("Polaris Smart Metering", polaris),
 ];
 
 // Institutional investors only (Neufin, 2026-10-27). Angel investors' company logos are

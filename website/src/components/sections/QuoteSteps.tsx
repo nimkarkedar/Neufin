@@ -12,6 +12,15 @@ const steps: ProcessStep[] = [
   { icon: "duo-bolt", title: "Power starts", text: "Depending on the plan you pick.", duration: "From 30 days" },
 ];
 
-export function QuoteSteps() {
-  return <ProcessSteps title="From first call to cheaper energy" lead="Most businesses go from first call to a quote in two days." steps={steps} link={{ label: "Get a quote", href: contactLink.href }} />;
+// `white` puts it on a White band, where the section above is on the Warm White page too.
+export function QuoteSteps({ white = false }: { white?: boolean }) {
+  return (
+    <ProcessSteps
+      title="From first call to cheaper energy"
+      lead="Most businesses go from first call to a quote in two days."
+      steps={steps}
+      link={{ label: "Get a quote", href: contactLink.href }}
+      white={white}
+    />
+  );
 }

@@ -74,6 +74,25 @@
   }
 }
 
+/* Still: one row in place, no fade, the first logo lined up with the label. Wraps to a
+   second line on a narrow screen rather than scrolling. */
+.bar[data-still] .viewport {
+  margin-inline: 0;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.bar[data-still] .track {
+  width: auto;
+  animation: none;
+}
+
+.bar[data-still] .list {
+  flex-wrap: wrap;
+  gap: 0 48px;
+  padding: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .viewport {
     overflow-x: auto;
@@ -102,5 +121,10 @@
     --logo-size: 52px;
     gap: 64px;
     padding-inline: 32px;
+  }
+
+  .bar[data-still] .list {
+    gap: 0 64px;
+    padding-inline: 0;
   }
 }

@@ -6,18 +6,20 @@ import { icons } from "@ds/brand/icons.js";
 // TODO: Neufin's own photos; library photos stand in.
 import electricianRack from "@ds/../public/assets/photos/electrician-rack.jpg";
 import meters from "@ds/../public/assets/photos/meters.jpg";
+import metersWall from "@ds/../public/assets/photos/meters-wall.jpg";
+import electricityBill from "@ds/../public/assets/photos/electricity-bill.jpg";
+import switchPanel from "@ds/../public/assets/photos/switch-panel.jpg";
 import electrician from "@ds/../public/assets/photos/electrician.jpg";
 import transformerCrew from "@ds/../public/assets/photos/transformer-crew.jpg";
 import solarPanels from "@ds/../public/assets/photos/solar.jpg";
 import { HowWeDoIt } from "@/components/home/HowWeDoIt";
-import { LogoRow } from "@/components/sections/Blocks";
 import { VerticalCard, cardLayouts } from "@/components/sections/Cards";
 import { ProcessSteps, type ProcessStep } from "@/components/sections/ProcessSteps";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { LogoBar } from "@/components/sections/LogoBar";
 import { Section } from "@/components/sections/Section";
 import { StripeHeader } from "@/components/sections/StripeHeader";
-import { customerLogos } from "@/lib/logos";
+import { customerLogos, hardwareLogos } from "@/lib/logos";
 import { pageMeta } from "@/lib/meta";
 import { contactLink, services, solutions } from "@/lib/site";
 
@@ -32,16 +34,15 @@ export const metadata = pageMeta(
 // customer logos close under it, then hardware partners, the shared vertical cards (photo and panel),
 // the shared FAQ and solution cards, and the footer's contact card as the last step.
 
-// One line per service, in the order of `services` (site.ts), and its photo. TODO: photos
-// for moving a meter, the name change and open access approvals.
+// One line per service, in the order of `services` (site.ts), and its photo.
 // Card titles are shortened from the service names where needed, to fit one line.
 const details: { title?: string; text: string; image?: StaticImageData; focus?: string }[] = [
   { text: "Two-way meters for open access, installed, tested and approved.", image: meters },
   { title: "Smart meters", text: "New smart meters, so you can track your energy use closely.", image: electrician, focus: "30% 50%" },
-  { title: "Move a meter", text: "Move your meter when your site location changes." },
-  { title: "Bill name change", text: "Update the name on your electricity connection." },
+  { title: "Move a meter", text: "Move your meter when your site location changes.", image: metersWall },
+  { title: "Bill name change", text: "Update the name on your electricity connection.", image: electricityBill },
   { title: "Contract demand", text: "Match contract demand to real use and cut demand charges.", image: transformerCrew },
-  { title: "Open access", text: "We file your open access applications for you." },
+  { title: "Open access", text: "We file your open access applications for you.", image: switchPanel },
   { text: "Get net metering approved for your rooftop solar.", image: solarPanels },
 ];
 
@@ -73,8 +74,7 @@ export default function Services() {
       <LogoBar label="Used by businesses across India" logos={customerLogos} underHeader />
 
       <Section>
-        {/* TODO: the partners' logos (not in the Logos folder yet). */}
-        <LogoRow label="Hardware partners" names={["Schneider", "urjamatters", "Ripple", "Polaris"]} />
+        <LogoBar label="Hardware partners" logos={hardwareLogos} still />
       </Section>
 
       <Section id="all" title="Every site and electricity board job, in one place">
