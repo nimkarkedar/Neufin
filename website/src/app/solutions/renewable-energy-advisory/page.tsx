@@ -88,7 +88,7 @@ export default function Advisory() {
       />
 
       <Section id="problems" title="Making an energy roadmap is hard, we know">
-        <IconGrid items={problems} columns={4} />
+        <IconGrid items={problems} columns={4} swipe label="What makes a roadmap hard" />
       </Section>
 
       <Section id="your-sites" tone="white" title="One partner on your path to 100% clean energy">
@@ -154,7 +154,7 @@ export default function Advisory() {
       </Section>
 
       <Section id="research" tone="white" title="Neu from Neufin Energy" link={publicationsLink}>
-        <ul className={cardLayouts.three}>
+        <ul className={cardLayouts.threeSwipe}>
           {reads.map((r) => (
             <li key={r.title}>
               <VerticalCard {...r} />

@@ -72,15 +72,18 @@ export default function SellEnergy() {
 
       <Section id="proof" title="Developers sell to India's top businesses through Neufin">
         <div className={`surface ${styles.proof}`}>
-          {/* The home numbers block's figures grid (design system `.figures`), flush at the top. */}
-          <dl className="figures">
-            {proof.map((n) => (
-              <div key={n.label} className="figure">
-                <dt className="figure-label">{n.label}</dt>
-                <dd className="figure-value">{n.value}</dd>
-              </div>
-            ))}
-          </dl>
+          {/* The home numbers block's figures grid (design system `.figures`), flush at the top;
+              on phones separate cards swiping sideways (`.figures-scroll`). */}
+          <div className="figures-scroll" role="region" aria-label="Neufin for suppliers in numbers" tabIndex={0}>
+            <dl className="figures">
+              {proof.map((n) => (
+                <div key={n.label} className="figure">
+                  <dt className="figure-label">{n.label}</dt>
+                  <dd className="figure-value">{n.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
           <div className={styles.logos}>
             <LogoBar label="Our suppliers" logos={supplierLogos} />
             <LogoBar label="Our buyers" logos={customerLogos} />
@@ -89,11 +92,12 @@ export default function SellEnergy() {
       </Section>
 
       <Section id="what-you-get" title="Work with Neufin Energy">
-        <PatternTiles items={gets} />
+        <PatternTiles items={gets} swipe label="What you get" />
       </Section>
 
       <Section id="ways" title="Sell on your terms" link={{ label: "Talk to us", href: contactLink.href }}>
-        <ul className={cardLayouts.three}>
+        {/* Still cards, so the row itself takes focus for keyboard scrolling on phones. */}
+        <ul className={cardLayouts.threeSwipe} aria-label="Ways to sell" tabIndex={0}>
           {ways.map((w) => (
             <li key={w.title}>
               <VerticalCard look="photo" image={w.photo} title={w.title} text={w.text} />

@@ -87,7 +87,7 @@ export default function BuyCheaperPower() {
               <IconSvg icon={icons.arrow} size={20} />
             </Link>
           </div>
-          <IconGrid items={kinds} />
+          <IconGrid items={kinds} swipe label="Kinds of plan" />
         </div>
       </Section>
 
@@ -106,7 +106,7 @@ export default function BuyCheaperPower() {
       <QuoteSteps />
 
       <Section id="latest" title="Neu from Neufin Energy" link={resourcesLink}>
-        <ul className={cardLayouts.three}>
+        <ul className={cardLayouts.threeSwipe}>
           {latest.map((p) => (
             <li key={p.title}>
               <VerticalCard {...p} />

@@ -116,7 +116,7 @@ export default function About() {
       </Section>
 
       <Section id="latest" title="Neu from Neufin Energy" link={{ label: "All posts", href: blogs.href }}>
-        <ul className={cardLayouts.three}>
+        <ul className={cardLayouts.threeSwipe}>
           {[posts.story, posts.preSeed, posts.greentrade].map((p) => (
             <li key={p.title}>
               <VerticalCard {...p} />

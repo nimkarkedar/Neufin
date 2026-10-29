@@ -9,9 +9,15 @@ export type PatternTile = { icon: IconName; title: string; text: string };
 // combinations, its icon on the band like a node on a wire, with the title (Card title) and
 // line under it on the page. All in one row from desktop. Replaces cards that waited for
 // art: Careers' values, Sell energy's what you get.
-export function PatternTiles({ items }: { items: PatternTile[] }) {
+// `swipe`: on phones the tiles run in a sideways row instead of a stack (`label` names it).
+export function PatternTiles({ items, swipe = false, label }: { items: PatternTile[]; swipe?: boolean; label?: string }) {
   return (
-    <ul className="pattern-tiles" style={{ "--cols": items.length } as React.CSSProperties}>
+    <ul
+      className={`pattern-tiles ${swipe ? "scroll-row-phone" : ""}`}
+      style={{ "--cols": items.length } as React.CSSProperties}
+      aria-label={swipe ? label : undefined}
+      tabIndex={swipe ? 0 : undefined}
+    >
       {items.map((it, i) => {
         const combo = patternCombos[i % patternCombos.length];
         return (

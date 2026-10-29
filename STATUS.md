@@ -16,7 +16,7 @@ Only these pages: Home, Solutions (Buy cheaper energy, Run and optimise, RE advi
 | About | `/about` | Built from the brief: the story as one paragraph, home numbers block, team row with real portraits, the four institutional investors and 14 named angels, partners and press (press still TODO), real posts. Licence section removed. Ends on the footer contact card. |
 | Customer stories | `/customer-stories` | Header done (mill photo, brief copy). Story cards still the old style (pastel placeholders, hover lift): next to rebuild on the shared cards, keeping the industry filter. |
 | Buy cheaper power | `/solutions/buy-cheaper-power` | Built from the brief: plans as two boxes (four points; the four kinds in a 2 × 2 grid), plan finder (no energy charges row), story cards shared with Customer stories, steps with duration tags, FAQ, other solutions. |
-| Run and optimise | `/solutions/run-and-optimise` | Built from the brief: module rows, Lumen industries block, animated how-it-works diagram on coral (LumenFlow). Lumen screens from Kedar's folder in the module rows (2026-10-27). |
+| Run and optimise | `/solutions/run-and-optimise` | Built from the brief: module rows, Lumen industries block, animated how-it-works diagram on coral (LumenFlow). Lumen screens in the module rows drawn in the design system, each screen the card itself (2026-10-29). |
 | Renewable energy advisory | `/solutions/renewable-energy-advisory` | Re-laid out (2026-10-27) so no two neighbouring sections share a pattern: photo header, problems icon grid, one-partner boxes (statement + five service rows) on White, suppliers panel on Violet 900, stories (the one card row), publications as post cards, FAQ, solution cards, call-back close with the advisory lead (footer card hidden). Brief rows 4 and 7 still to add. |
 | Services | `/solutions/services` | Built from the brief (2026-10-27): text-on-photo header, customer logos and hardware partners (names until logos arrive), the seven services as photo cards (two photos TODO), three steps (illustrations TODO), FAQ, other solutions. Service pages not built. |
 | Sell energy | `/solutions/sell-energy` | Built from the brief (2026-10-27): text-on-photo header, figures and supplier and buyer logos in one box, what you get (illustrations TODO), three routes as photo cards, FAQ, its own call-back close with the supply lead (footer card hidden). Brief row 5 and testimonials to come. |
@@ -25,10 +25,13 @@ Only these pages: Home, Solutions (Buy cheaper energy, Run and optimise, RE advi
 
 Cards (2026-10-27): every vertical card on every page is the one `VerticalCard` (photo or panel, still or clickable). Cards waiting for art are Near Black; Kedar sends images card by card. Sets of ideas without art are pattern tiles (Careers values, Sell energy's what you get) and processes are the shared process steps (Buy cheaper power, Energy plans, Services, Careers hiring) (2026-10-27). Horizontal cards are next.
 
+Phones (2026-10-29): stacked sets swipe sideways instead (`.scroll-row-phone`, `.figures-scroll`, `cardLayouts.threeSwipe`, `swipe` on `IconGrid` and `PatternTiles`) on Home, Buy cheaper power, Advisory, Sell energy, About and Careers; tablets and desktop unchanged. Open: at 82% width some card titles and lines hit the two-line cut on phones.
+
 The pattern for rebuilding a page: read its brief table, reuse the shared blocks, put the header on a dark photo with text on it (`StripeHeader over`), end on the footer contact card, leave TODO pockets, screenshot at 390 and 1440, log it in `website/CLAUDE.md`.
 
 ## Open questions for Kedar or Neufin
 
+- **Layout at 90%:** type is one notch smaller on laptops (2026-10-29). Whether spacing, cards, buttons and the header should also step down, like a full 90% browser zoom, is to decide later (Kedar).
 - **Savings figure:** "up to 30%" (Buy cheaper power brief) vs "up to 40%" (home hero and FAQ) vs 15% (numbers block) vs 27% (plan finder example). One story needed.
 - **Tailwind CSS:** paused by Kedar. Options given: A full migration, B Tailwind (themed from tokens.js, defaults off) for new and changed work only (recommended), C hold. `website/CLAUDE.md` still says "No Tailwind".
 - **Plan finder:** the Buy brief wants yearly use, the electricity board by name, auto-detected state and a price-type line. Changing it changes the home page too.

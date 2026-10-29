@@ -132,7 +132,8 @@ export default function Careers() {
       </Section>
 
       <Section id="like" title="What it’s actually like to work here">
-        <ul className={cardLayouts.three}>
+        {/* Still cards, so the row itself takes focus for keyboard scrolling on phones. */}
+        <ul className={cardLayouts.threeSwipe} aria-label="What it's like to work here" tabIndex={0}>
           {like.map((l) => (
             <li key={l.title}>
               <VerticalCard look="photo" image={l.photo} focus={l.focus} title={l.title} text={l.text} />
@@ -143,7 +144,7 @@ export default function Careers() {
 
       {/* On the page, not a band: the tiles carry the colour. */}
       <Section id="values" title="How we work: our values">
-        <PatternTiles items={values} />
+        <PatternTiles items={values} swipe label="Our values" />
       </Section>
 
       <Section id="life" title="Life at Neufin">

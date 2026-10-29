@@ -21,23 +21,26 @@ export function Proof({ fade = true }: { fade?: boolean }) {
 
       <div className={styles.cards}>
         <div className={`surface ${styles.facts}`}>
-          <dl className={`figures ${styles.grid}`}>
-            {numbers.map((n) => (
-              <div key={n.label} className="figure">
-                <dt className="figure-label">{n.label}</dt>
-                <dd className="figure-value">{n.value}</dd>
+          {/* On phones the cells swipe sideways in one row (design system .figures-scroll). */}
+          <div className={`figures-scroll ${styles.grid}`} role="region" aria-label="Neufin in numbers" tabIndex={0}>
+            <dl className="figures">
+              {numbers.map((n) => (
+                <div key={n.label} className="figure">
+                  <dt className="figure-label">{n.label}</dt>
+                  <dd className="figure-value">{n.value}</dd>
+                </div>
+              ))}
+              <div className={`figure ${styles.licence}`}>
+                <dt className={styles.licenceName}>Licensed by CERC</dt>
+                <dd>
+                  <RingStamp text="Licensed by CERC · Power trading licence · " size={112} className={styles.stamp}>
+                    {/* The regulator's emblem, in its own colours. */}
+                    <img src={cerc.src} alt="Central Electricity Regulatory Commission emblem" className={styles.emblem} />
+                  </RingStamp>
+                </dd>
               </div>
-            ))}
-            <div className={`figure ${styles.licence}`}>
-              <dt className={styles.licenceName}>Licensed by CERC</dt>
-              <dd>
-                <RingStamp text="Licensed by CERC · Power trading licence · " size={112} className={styles.stamp}>
-                  {/* The regulator's emblem, in its own colours. */}
-                  <img src={cerc.src} alt="Central Electricity Regulatory Commission emblem" className={styles.emblem} />
-                </RingStamp>
-              </dd>
-            </div>
-          </dl>
+            </dl>
+          </div>
         </div>
 
         <div className={`surface ${styles.saving}`}>

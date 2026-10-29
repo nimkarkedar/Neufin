@@ -50,9 +50,28 @@
   overflow: hidden;
 }
 
-/* The figures grid is the design system's `.figures`; here it fills the box's height. */
+/* The figures grid is the design system's `.figures` (in `.figures-scroll`, sideways on
+   phones); here it fills the box's height. */
 .grid {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid > dl {
+  flex: 1;
+}
+
+/* Phones: each figure is its own card (.figures-scroll), so the box around them drops its
+   own look and lets the row run to the screen's edges. */
+@media (max-width: 767px) {
+  .facts {
+    overflow: visible;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
 }
 
 /* The licence: the ring stamp over the regulator's emblem, its name under it, centred. */

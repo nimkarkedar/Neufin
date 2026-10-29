@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import Link from "next/link";
 import type { StaticImageData } from "next/image";
 import { IconSvg } from "@ds/components/Icon.jsx";
@@ -14,14 +15,19 @@ import styles from "./Cards.module.css";
 // No picture yet: the media is plain Near Black (TODO in the page's data).
 // Each layout also carries the design system's .vertical-card-row, so the panels in a row
 // share one height (the tallest there) and the pictures line up.
+// `threeSwipe` is `three` that swipes sideways on phones instead of stacking (Kedar,
+// 2026-10-29: shorter pages on phones), the design system's .scroll-row-phone.
 export const cardLayouts = {
   three: `${styles.three} vertical-card-row`,
+  threeSwipe: `${styles.three} vertical-card-row scroll-row-phone`,
   row: `${styles.row} vertical-card-row`,
 };
 
 export type VerticalCardProps = {
   look?: "photo" | "panel";
   image?: StaticImageData;
+  // A picture drawn in code (an <svg>) in place of `image`; on a photo card it takes no wash.
+  figure?: ReactNode;
   focus?: string;
   tag?: string;
   title?: string;
@@ -31,7 +37,7 @@ export type VerticalCardProps = {
   label?: string;
 };
 
-export function VerticalCard({ look = "panel", image, focus, tag, title, text, href, label }: VerticalCardProps) {
+export function VerticalCard({ look = "panel", image, figure, focus, tag, title, text, href, label }: VerticalCardProps) {
   // A still card keeps real headings; inside a link the parts are spans.
   const Part = href ? "span" : "div";
   const Title = href ? "span" : "h3";
@@ -39,7 +45,7 @@ export function VerticalCard({ look = "panel", image, focus, tag, title, text, h
   const className = `vertical-card ${look === "photo" ? "vertical-card-photo" : ""}`;
   const inner = (
     <>
-      <Part className="vertical-card-media">{image && <img src={image.src} alt="" style={{ objectPosition: focus }} />}</Part>
+      <Part className="vertical-card-media">{figure ?? (image && <img src={image.src} alt="" style={{ objectPosition: focus }} />)}</Part>
       {(title || tag) && (
         <Part className="vertical-card-body">
           <Part className="vertical-card-words">

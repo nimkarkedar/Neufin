@@ -15,6 +15,27 @@
   border-top: 1px solid var(--line);
 }
 
+/* Phones: the figures are separate cards swiping sideways (.figures-scroll) and the logos a
+   White block of their own below them, so the outer box drops its look (Kedar, 2026-10-29). */
+@media (max-width: 767px) {
+  .proof {
+    gap: var(--grid-gutter);
+    overflow: visible;
+    background: none;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .logos {
+    overflow: hidden;
+    background: var(--white);
+    border: 1px solid var(--grey-200);
+    border-radius: var(--radius-l);
+    box-shadow: var(--shadow-raised);
+  }
+}
+
 @media (min-width: 768px) {
   .logos {
     gap: 32px;

@@ -1,0 +1,24 @@
+/* On the card's Near Black media. Source colours as in LumenScreen. */
+.art {
+  background: var(--near-black);
+}
+
+.peak {
+  fill: color-mix(in srgb, var(--white) 7%, transparent);
+}
+
+.rule {
+  stroke: color-mix(in srgb, var(--white) 10%, transparent);
+  stroke-width: 1;
+}
+
+.axis {
+  stroke: color-mix(in srgb, var(--white) 24%, transparent);
+  stroke-width: 1;
+}
+
+.open { fill: var(--clear-blue); }
+.exchange { fill: var(--electric-violet); }
+.solar { fill: var(--signal-yellow); }
+.battery { fill: var(--energy-mint); }
+.grid { fill: var(--grey-400); }

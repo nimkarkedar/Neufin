@@ -1,0 +1,275 @@
+/* Lumen's screens, drawn in the design system. Mobile first. The screen is the surface
+   itself (.surface: White, Grey 200 line, radius L, raised shadow); its parts fill it. */
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  margin: 0;
+  padding: 24px 20px;
+  font-variant-numeric: tabular-nums;
+}
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  font-weight: var(--text-h3-weight);
+}
+
+.head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.muted {
+  display: block;
+  color: var(--ink-2);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+}
+
+.strong {
+  display: block;
+  font-weight: 600;
+}
+
+.figure {
+  font-family: var(--font-display);
+  font-size: var(--text-h2-size);
+  line-height: var(--text-h2-lh);
+  font-weight: var(--text-h2-weight);
+  letter-spacing: var(--text-h2-track);
+}
+
+.unit {
+  color: var(--ink-2);
+  font-family: var(--font-body);
+  font-size: var(--text-body-size);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+.pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* A problem Lumen found: the tag's icon in the Error colour, the text stays Near Black. */
+.alert svg {
+  color: var(--error);
+}
+
+/* Rows: fixes and sites, on Warm White inside the White screen. */
+.rows {
+  display: grid;
+  gap: 8px;
+  list-style: none;
+  padding: 0;
+}
+
+.fix {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 16px;
+  background: var(--warm-white);
+  border-radius: var(--radius-m);
+}
+
+.end {
+  text-align: right;
+}
+
+/* ---------- Power contract ---------- */
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  padding-bottom: 8px;
+  color: var(--ink-2);
+  font-size: var(--text-small-size);
+  font-weight: 400;
+  text-align: right;
+}
+
+.table td {
+  padding: 12px 0;
+  border-top: 1px solid var(--line);
+  text-align: right;
+}
+
+.table th:first-child,
+.table td:first-child {
+  text-align: left;
+}
+
+.table .tag {
+  margin-left: auto;
+}
+
+.total {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+
+/* ---------- Switching: the day's exchange price ---------- */
+
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  color: var(--ink-2);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+}
+
+.legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.keyGrid,
+.keyExchange {
+  width: 16px;
+  height: 0;
+  border-top: 2px dashed var(--grey-400);
+}
+
+.keyExchange {
+  border-top: 3px solid var(--electric-violet);
+}
+
+.chart {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 900 / 220;
+  overflow: visible;
+}
+
+.buyBand {
+  fill: var(--violet-100);
+}
+
+.gridLine {
+  stroke: var(--grey-400);
+  stroke-width: 2;
+  stroke-dasharray: 8 8;
+  vector-effect: non-scaling-stroke;
+}
+
+.priceLine {
+  fill: none;
+  stroke: var(--electric-violet);
+  stroke-width: 3;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.dot {
+  fill: var(--electric-violet);
+  stroke: var(--white);
+  stroke-width: 3;
+}
+
+/* Each time sits centred under its hour; the first and last keep to the plot's edges. */
+.axis {
+  position: relative;
+  height: calc(var(--text-small-size) * var(--text-small-lh));
+  margin-top: -8px;
+  color: var(--ink-2);
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+}
+
+.axis span {
+  position: absolute;
+  top: 0;
+  translate: -50% 0;
+  white-space: nowrap;
+}
+
+.axis span:first-child {
+  translate: 0 0;
+}
+
+.axis span:last-child {
+  translate: -100% 0;
+}
+
+/* ---------- Bills: sources feed one list of sites ---------- */
+
+.sources {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.source {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  background: var(--warm-white);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-small-size);
+  font-weight: 500;
+}
+
+.site {
+  display: grid;
+  grid-template-columns: 5.5em minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  padding-block: 8px;
+  border-top: 1px solid var(--line);
+}
+
+.bar {
+  display: flex;
+  gap: 2px;
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+}
+
+.bar i {
+  display: block;
+}
+
+.key {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.solar { background: var(--signal-yellow); }
+.battery { background: var(--energy-mint); }
+.open { background: var(--clear-blue); }
+.exchange { background: var(--electric-violet); }
+.grid { background: var(--grey-400); }
+
+/* From desktop every screen is the same 4:3, its parts spread to fill it, so the four
+   rows match. A screen with more in it grows rather than clipping. */
+@media (min-width: 1024px) {
+  .screen {
+    aspect-ratio: 4 / 3;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 40px;
+  }
+}

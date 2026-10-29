@@ -1,5 +1,4 @@
-// Lumen's dashboard, cropped to its app window (Kedar, 2026-10-27), in place of the laptop photo.
-import lumenDashboard from "@/assets/lumen/reporting-dashboard.png";
+import { LumenMixArt } from "@/components/lumen/LumenMixArt";
 import electrician from "@ds/../public/assets/photos/electrician-rack.jpg";
 import windHills from "@ds/../public/assets/photos/wind-hills.jpg";
 import solarSite from "@ds/../public/assets/photos/solar-site.jpg";
@@ -26,9 +25,8 @@ const cards = [
     title: "Run and optimise",
     text: "Lumen watches every meter, plant and bill, and flags overcharges.",
     href: solutions.run.href,
-    image: lumenDashboard,
-    // The cost chart, past the sidebar.
-    focus: "22% 50%",
+    // A day of power by source, drawn (Kedar, 2026-10-29: the dashboard screenshot was too real).
+    figure: <LumenMixArt />,
   },
   {
     id: "advisory",
@@ -54,10 +52,10 @@ export function HowWeDoIt({ title = "How we keep your price low", exclude = "buy
       <h2 id="how-title" className={styles.title}>
         {title}
       </h2>
-      <ul className={cardLayouts.three}>
+      <ul className={cardLayouts.threeSwipe}>
         {cards.filter((c) => c.id !== exclude).map((c) => (
           <li key={c.title}>
-            <VerticalCard look="photo" image={c.image} focus={"focus" in c ? c.focus : undefined} title={c.title} text={c.text} href={c.href} />
+            <VerticalCard look="photo" image={"image" in c ? c.image : undefined} figure={"figure" in c ? c.figure : undefined} title={c.title} text={c.text} href={c.href} />
           </li>
         ))}
       </ul>
