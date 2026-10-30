@@ -4,7 +4,7 @@
 // off both sides. Drawn for the pattern tile (`.pattern-tile` in ui.css): a set of ideas
 // (values, what you get) each in one of the device's colour combinations.
 
-import { STRIPE_SLOPE, stripePoints } from '../brand/stripe-geometry.js';
+import { STRIPE_SLOPE, offsetPoints, stripePoints } from '../brand/stripe-geometry.js';
 
 const W = 400;
 const H = 500;
@@ -12,30 +12,9 @@ const H = 500;
 // ring, about 67px on a 300px-wide tile.
 const NODE = 120;
 
-// Offset a polyline sideways by d (positive = up and to the right of the band), keeping
-// mitred, crisp corners, so every echo runs exactly parallel to the band.
-function offsetPolyline(points, d) {
-  const segs = [];
-  for (let i = 0; i < points.length - 1; i += 1) {
-    const [x1, y1] = points[i];
-    const [x2, y2] = points[i + 1];
-    const len = Math.hypot(x2 - x1, y2 - y1);
-    // Normal pointing up (negative y) for a left-to-right segment.
-    const nx = (y2 - y1) / len;
-    const ny = -(x2 - x1) / len;
-    segs.push([[x1 + nx * d, y1 + ny * d], [x2 + nx * d, y2 + ny * d]]);
-  }
-  const out = [segs[0][0]];
-  for (let i = 0; i < segs.length - 1; i += 1) {
-    const [[ax, ay], [bx, by]] = segs[i];
-    const [[cx, cy], [dx, dy]] = segs[i + 1];
-    const den = (ax - bx) * (cy - dy) - (ay - by) * (cx - dx);
-    const t = ((ax - cx) * (cy - dy) - (ay - cy) * (cx - dx)) / den;
-    out.push([ax + t * (bx - ax), ay + t * (by - ay)]);
-  }
-  out.push(segs[segs.length - 1][1]);
-  return out.map((p) => p.map((n) => n.toFixed(1)).join(',')).join(' ');
-}
+// An echo line: the band's centre line offset sideways by d (offsetPoints keeps the corners
+// mitred), as an SVG points string.
+const offsetPolyline = (points, d) => offsetPoints(points, d).map((p) => p.map((n) => n.toFixed(1)).join(',')).join(' ');
 
 // drop: how far the band steps. The band is placed so the middle of its diagonal is the
 // drawing's centre, where children (an icon in its circle) sit like a node on a wire; the

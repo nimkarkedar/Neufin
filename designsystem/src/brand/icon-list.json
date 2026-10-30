@@ -2,7 +2,6 @@
   "icons": {
     "bolt": { "family": "core", "label": "bolt", "fill": "outline", "size": "24px" },
     "leaf": { "family": "core", "label": "leaf", "fill": "outline", "size": "24px" },
-    "bill": { "family": "core", "label": "bill", "fill": "outline", "size": "24px" },
     "chart": { "family": "core", "label": "chart-bar-trend-up", "fill": "outline", "size": "24px" },
     "people": { "family": "core", "label": "users-3", "fill": "outline", "size": "24px" },
     "arrow": { "family": "core", "label": "arrow-right", "fill": "outline", "size": "24px" },

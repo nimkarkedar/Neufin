@@ -16,14 +16,6 @@ export const nucleoIcons = {
   "viewBox": "0 0 24 24",
   "body": "<path d=\"M12.964 11.5663V11.5663C10.0771 14.8656 6.48655 17.4749 2.45702 19.2018L2.00005 19.3977\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path> <path d=\"M5.57136 18.4746C8.83933 21.6842 13.9611 21.8576 17.0112 18.8621C23.3229 12.6633 20.2541 2 20.2541 2C20.2541 2 18.2873 4.02279 15.0389 4.52748C11.2936 5.10937 7.92314 4.5423 5.17688 7.23943C2.12677 10.235 2.30339 15.2651 5.57136 18.4746Z\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" fill=\"none\"></path>"
  },
- "bill": {
-  "family": "core",
-  "label": "bill",
-  "fill": "outline",
-  "size": "24px",
-  "viewBox": "0 0 24 24",
-  "body": "<path d=\"M21 18.5L21 3L7 3L7 16\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-miterlimit=\"10\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" fill=\"none\"></path> <path d=\"M13 18.5V21H2V18C2 16.8954 2.89543 16 4 16H15H14\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" fill=\"none\"></path> <path d=\"M11 11H17\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path> <path d=\"M11 7H13\" stroke=\"var(--icon-color-2, currentColor)\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" data-color=\"color-2\" fill=\"none\"></path> <path d=\"M21 19C21 20.1046 20.1046 21 19 21C17.8954 21 17 20.1046 17 19L17 18C17 16.8954 16.1046 16 15 16C13.8954 16 13 16.8954 13 18\" stroke=\"currentColor\" stroke-width=\"var(--nucleo-stroke-width, 2)\" stroke-linecap=\"var(--nucleo-stroke-linecap, square)\" fill=\"none\"></path>"
- },
  "chart": {
   "family": "core",
   "label": "chart-bar-trend-up",

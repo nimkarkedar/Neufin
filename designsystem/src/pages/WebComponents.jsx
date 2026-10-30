@@ -1,5 +1,6 @@
 import { DuoIcon } from '../components/DuoIcon.jsx';
 import { StripePattern, patternCombos } from '../components/StripePattern.jsx';
+import { PlanMark } from '../components/PlanMark.jsx';
 import { useRef, useState } from 'react';
 import { breakpoints, layout, motion, radii } from '../brand/tokens.js';
 import { PageHeader, Section } from '../components/ui.jsx';
@@ -331,6 +332,27 @@ export default function WebComponents() {
           <div className="row"><span className="row-key">Use</span><p>A set of three or four ideas (values, what a supplier gets) that would otherwise be a row of cards waiting for art. Not for links or anything clickable: the tiles are pictures.</p></div>
           <div className="row"><span className="row-key">Tile</span><p>The Stripe as a pattern piece (<code>StripePattern</code>): one solid band at the symbol's angle with crisp corners, six thin echo lines either side fading outward, bleeding off both edges, in the device's colour combinations in a fixed order (Signal Yellow on Violet 900, Near Black on Coral, Warm White on Electric Violet, Coral on Violet 900), so neighbours always differ. The idea's hero duo icon sits on the band's diagonal in a White circle ringed in the tile's colour, like a node on a wire. Radius L, 4:5 from tablets, 3:2 on phones.</p></div>
           <div className="row"><span className="row-key">Words</span><p>Under the tile, on the page: the title in Card title, the line in Body and the secondary colour. No White panel, so the set reads differently from the cards. One row from desktop (<code>--cols</code>), two a row on tablets. <code>.pattern-tiles</code>, <code>.pattern-tile-art</code>, <code>-title</code>, <code>-text</code>.</p></div>
+        </div>
+      </Section>
+
+      <Section title="Plan marks">
+        <div className="tile">
+          <div className="tile-stage stage-light web-demo" style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
+            {[['saver', 'Saver'], ['flexi', 'Flexi Saver'], ['max', 'Max Saver'], ['rooftop', 'Rooftop']].map(([kind, name]) => (
+              <figure key={kind} style={{ display: 'grid', gap: 8, margin: 0 }}>
+                <span style={{ display: 'block', width: 96, height: 96, overflow: 'hidden', borderRadius: 'var(--radius-s)' }}>
+                  <PlanMark kind={kind} />
+                </span>
+                <figcaption>{name}</figcaption>
+              </figure>
+            ))}
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Use</span><p>One mark per energy plan pack, so each pack is recognisable wherever it appears (the plan finder; the Energy plans page and decks next) without using the logo. Not icons: they stand only for the four packs.</p></div>
+          <div className="row"><span className="row-key">Shape</span><p>Drawn from the Stripe (<code>PlanMark</code>): bands at the symbol's 32° with crisp, mitred corners and thin echo lines. The shape says what the pack does: Saver one step down, Flexi Saver down and back up (no lock-in), Max Saver three bands stepping together, Rooftop a roof pitch at the same angle.</p></div>
+          <div className="row"><span className="row-key">Colour</span><p>Each pack keeps one graphic device combination (<code>planMarkCombos</code>): Signal Yellow on Violet 900, Near Black on Coral, Signal Yellow on Electric Violet, Coral on Violet 900. Shown as a square tile, radius S, 40px on phones and 56px from desktop in the plan finder.</p></div>
+          <div className="row"><span className="row-key">Pills</span><p>The packs as a row of pill tabs a little bigger than chips (<code>.plan-pills</code>, <code>.plan-pill</code>, <code>-mark</code>, <code>-sub</code>): 56px tall, the round mark (36px), the name in Body semibold and one Small line (% less, or a plan count); White with a Grey 200 line, the chosen one solid Near Black with White text. Each is a radio label; the row scrolls sideways. Used by the plan finder on phones and tablets and as the pack filter on Energy plans.</p></div>
         </div>
       </Section>
 

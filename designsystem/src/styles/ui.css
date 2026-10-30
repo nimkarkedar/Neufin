@@ -2037,6 +2037,7 @@ a.vertical-card:focus-visible .vertical-card-media > img {
 .data-table-go {
   grid-column: 2;
   align-self: end;
+  flex: none; /* stays round beside text that wraps (Energy plans cards) */
   display: grid;
   place-items: center;
   width: var(--vcard-go, 40px);
@@ -2356,4 +2357,87 @@ a.vertical-card:focus-visible .vertical-card-go,
   .rolling-reel {
     transition: none;
   }
+}
+
+/* ---------- Plan pills ----------
+   The four energy plan packs as a row of pill tabs a little bigger than chips (Kedar,
+   2026-10-30): the plan finder on phones and tablets, and the pack filter on Energy plans.
+   Each pill is a radio label: the pack's round mark (PlanMark), the name in Body semibold and
+   one Small line (% less, or a count). White with a Grey 200 line; the chosen one solid Near
+   Black with White text, like the chosen chip and segmented option. `.plan-pills` is the row,
+   scrolling sideways when it runs out of room. */
+
+.plan-pills {
+  display: flex;
+  gap: 8px;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.plan-pills::-webkit-scrollbar {
+  display: none;
+}
+
+.plan-pill {
+  position: relative;
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 56px;
+  padding: 8px 20px 8px 8px;
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-pill);
+  color: var(--near-black);
+  font-weight: 600;
+  line-height: var(--text-small-lh);
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+/* A pill without a mark (All plans) keeps even padding. */
+.plan-pill:not(:has(.plan-pill-mark)) {
+  padding-left: 20px;
+}
+
+.plan-pill:hover:not([data-on]) {
+  background: var(--hover-fill);
+}
+
+.plan-pill[data-on] {
+  background: var(--near-black);
+  border-color: var(--near-black);
+  color: var(--white);
+}
+
+.plan-pill:has(input:focus-visible) {
+  outline: 2px solid var(--electric-violet);
+  outline-offset: 2px;
+}
+
+.plan-pill-mark {
+  flex: none;
+  width: 36px;
+  height: 36px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+}
+
+.plan-pill-sub {
+  display: block;
+  color: var(--grey-600);
+  font-size: var(--text-small-size);
+  font-weight: 400;
+}
+
+.plan-pill[data-on] .plan-pill-sub {
+  color: var(--grey-200);
 }
