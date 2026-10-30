@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 
 // What a visitor has told us about their site (state, business type, yearly use, term,
-// investment, work email), shared by the Energy plans page's header and plan list. It comes
+// investment, work email) and the pack they picked in the plan finder, shared by the Energy plans page's header and plan list. It comes
 // from the link they arrived with (e.g. /products/plan-finder/?state=Gujarat&term=mid), else
 // from their last visit on this browser, and every change is written back to both, so the
 // choice persists (brief: "that choice / info should persist on this page").
@@ -16,9 +16,10 @@ type PlanChoices = {
   term?: string;
   investment?: string;
   email?: string;
+  pack?: string;
 };
 
-const keys: (keyof PlanChoices)[] = ["state", "type", "use", "term", "investment", "email"];
+const keys: (keyof PlanChoices)[] = ["state", "type", "use", "term", "investment", "email", "pack"];
 const storageKey = "neufin-plan-choices";
 const changed = "neufin:plan-choices";
 

@@ -7,17 +7,29 @@
   gap: 24px;
 }
 
+/* ---------- The pack pills, and the Filters button on phones ----------
+   One row: Filters, then the design system's plan pills (All plans and the four packs)
+   scrolling sideways. From desktop the button goes and the pills sit above the plans. */
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+
+.toggle {
+  flex: none;
+}
+
+.pills {
+  flex: 1;
+}
+
 /* ---------- Filters ---------- */
 
 .filters {
   min-width: 0;
-}
-
-.filtersHead {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
 }
 
 .chevron {
@@ -29,6 +41,7 @@
 }
 
 .clear {
+  display: block;
   min-height: 48px;
   padding: 0;
   background: none;
@@ -40,9 +53,6 @@
   cursor: pointer;
 }
 
-.groups {
-  margin-top: 16px;
-}
 
 /* The select runs the column's width. */
 .groups :global(.select-field) {
@@ -50,9 +60,9 @@
   min-width: 0;
 }
 
-/* Phones and tablets: the groups fold away behind the Filters button. */
+/* Phones and tablets: the filters fold away behind the Filters button. */
 @media (max-width: 1023px) {
-  .groups:not([data-open]) {
+  .filters:not([data-open]) {
     display: none;
   }
 }
@@ -102,6 +112,21 @@
 
 .planCell {
   font-weight: 400;
+}
+
+/* The plan's pack mark (PlanMark) beside its name. */
+.planName {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.mark {
+  flex: none;
+  width: 32px;
+  height: 32px;
+  overflow: hidden;
+  border-radius: var(--radius-s);
 }
 
 .quoteCell {
@@ -175,10 +200,23 @@
 @media (min-width: 1024px) {
   .layout {
     grid-template-columns: 256px minmax(0, 1fr);
-    column-gap: 40px;
+    grid-template-areas:
+      "filters bar"
+      "filters results";
+    grid-template-rows: auto 1fr;
+    gap: 20px 40px;
+  }
+
+  .bar {
+    grid-area: bar;
+  }
+
+  .results {
+    grid-area: results;
   }
 
   .filters {
+    grid-area: filters;
     position: sticky;
     top: calc(var(--header-h) + 24px);
     align-self: start;
@@ -186,14 +224,6 @@
 
   .toggle {
     display: none;
-  }
-
-  .filtersHead {
-    min-height: 0;
-  }
-
-  .groups {
-    margin-top: 0;
   }
 
   .groups > :first-child {

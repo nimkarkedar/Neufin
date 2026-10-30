@@ -1,15 +1,16 @@
-/* The plan finder (home and Buy cheaper power). An Electric Violet band across the full width (Kedar),
-   with the section's usual padding; inside, the H2 title in White and one White box
-   split 5 / 7 from desktop: the choices, then the bill. The block fits one
-   screen at 1440 × 900. Inside the box the light colour roles: Near Black text, Grey 600
-   secondary text, Grey 200 lines, and the design system's standard slider and tiles. */
+/* The plan finder (home and Buy cheaper power): an Electric Violet band, the H2 title in
+   White, and one White box (the `.surface` look) holding the four packs and the calculator as
+   one piece. The packs are tabs on Warm White, each with a radio circle; the chosen one turns
+   White and its line to the panel goes, so the two read as one surface.
+   Phones and tablets: the packs as a sideways strip on top, the panel under it, then Need a
+   different mix?. From 1024px: packs and that block on the left (5 / 12), the panel on the
+   right; title and box fit one laptop screen (about 700px at 1280 × 800). */
 
 .band {
   background: var(--electric-violet);
   color: var(--white);
 }
 
-/* .plain (the flat home page) clears section backgrounds, so the band is this wrapper. */
 .section {
   padding-block: var(--section-space);
 }
@@ -19,35 +20,97 @@
   line-height: var(--text-h2-lh);
   font-weight: var(--text-h2-weight);
   letter-spacing: var(--text-h2-track);
-  text-wrap: balance;
 }
 
-.card {
-  --pad: 24px;
-  --ink: var(--near-black);
-  --ink-2: var(--grey-600);
-  --line: var(--grey-200);
+.tool {
   display: grid;
-  margin-top: 20px;
+  margin-top: 16px;
   overflow: hidden;
-  color: var(--ink);
+  background: var(--white);
+  border: 1px solid var(--grey-200);
+  border-radius: var(--radius-l);
+  box-shadow: var(--shadow-raised);
+  color: var(--near-black);
 }
 
-/* ---------- Choices ---------- */
+/* ---------- The packs ----------
+   Phones and tablets: the design system's plan pills (`.plan-pills`, `.plan-pill`), one row
+   scrolling sideways on the box's Warm White top (Kedar). From 1024px: tabs down the left
+   that join the panel (below), overriding the pill look. */
 
-/* The choices on the box's flat White, as the design system's surfaces (Kedar), with a
-   Grey 200 hairline to the bill: below on phones, on the right from desktop. */
-.inputs {
+.tabs {
+  padding: 12px;
+  border-bottom: 1px solid var(--grey-200);
+  background: var(--warm-white);
+}
+
+/* The radio circle shows on the laptop tabs; a pill is its own sign. */
+.radio {
+  display: none;
+  margin-top: 2px;
+}
+
+.tab:hover .radio {
+  border-color: var(--near-black);
+}
+
+.tabWords {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.tabHead {
+  display: grid;
+}
+
+/* The facts to compare: laptops only (the phone strip stays compact). */
+.tabCompare {
+  display: none;
+}
+
+/* ---------- The panel ---------- */
+
+.panel {
   display: grid;
   align-content: start;
-  gap: 32px; /* air between the small choices */
-  padding: var(--pad);
-  border-bottom: 1px solid var(--line);
+  min-width: 0;
+}
+
+.inputs {
+  display: grid;
+  gap: 20px;
+  padding: 20px;
+  border-bottom: 1px solid var(--grey-200);
+}
+
+.panelLine {
+  color: var(--grey-600);
+}
+
+.panelHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 16px;
+}
+
+.panelTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  font-weight: var(--text-h3-weight);
+}
+
+.fieldRow {
+  display: grid;
+  gap: 20px;
 }
 
 .field {
   display: grid;
-  gap: 12px;
+  gap: 8px;
   min-width: 0;
   margin: 0;
   padding: 0;
@@ -63,153 +126,73 @@
 fieldset.field > legend {
   float: left;
   width: 100%;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 
-/* The choice starts under the floated legend. */
-.choice {
+fieldset.field > :not(legend) {
   clear: both;
 }
 
-/* ---------- The bill ---------- */
-
-.bill {
-  position: relative;
+.useHead {
   display: flex;
-  flex-direction: column;
-  padding: var(--pad);
-}
-
-/* The bill's title with the live tag at the right end: the bill follows the choices. */
-.billHead {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
-  gap: 8px 16px;
+  gap: 16px;
 }
 
-.billTitle {
+.useValue {
   font-weight: 600;
-}
-
-/* One hairline under the column heads, one under the last row. */
-.table {
-  width: 100%;
-  margin-top: 8px;
-  border-collapse: collapse;
-}
-
-.table th,
-.table td {
-  padding: 12px 0;
-  text-align: right;
-  vertical-align: top;
-}
-
-.table thead th {
-  padding-top: 16px;
-  border-bottom: 1px solid var(--line);
-  color: var(--ink-2);
-  font-size: var(--text-small-size);
-  line-height: var(--text-small-lh);
-  font-weight: 400;
-}
-
-.table tbody tr:first-child > * {
-  padding-top: 16px;
-}
-
-.table tbody tr:last-child > * {
-  padding-bottom: 16px;
-  border-bottom: 1px solid var(--line);
-}
-
-.table th:first-child {
-  padding-right: 12px;
-  text-align: left;
-}
-
-.table td + td,
-.table th + th {
-  padding-left: 8px; /* phones: tight, so Neufin's figure fits beside its arrow */
-}
-
-@media (min-width: 768px) {
-  .table td + td,
-  .table th + th {
-    padding-left: 16px;
-  }
-}
-
-.table tbody th {
-  color: var(--ink-2);
-  font-weight: 400;
-}
-
-/* The board's figures read as the "before", in the secondary colour; Neufin's in White. */
-.table td {
-  color: var(--ink-2);
   font-variant-numeric: tabular-nums;
 }
 
-/* Phones: the table in Small text, so Neufin's figure and its arrow fit beside the
-   board's. */
-@media (max-width: 767px) {
-  .table tbody {
-    font-size: var(--text-small-size);
-    line-height: var(--text-small-lh);
-  }
-
-  .drop svg {
-    width: 12px;
-    height: 12px;
-  }
+.result {
+  display: grid;
+  align-content: start;
+  padding: 20px;
 }
 
-/* Tablets and up: the two figure columns share the width evenly. Phones let them size to
-   their figures (the labels column wraps instead). */
-@media (min-width: 768px) {
-  .table td {
-    width: 32%;
-  }
+/* The board's bill and the pack's, as two bars from the same start. */
+.bars {
+  display: grid;
+  gap: 12px;
 }
 
-.table .neufin {
-  color: var(--ink);
-  font-weight: 600;
-  white-space: nowrap;
+.barRow {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 4px 16px;
 }
 
-.drop {
-  display: inline-flex;
-  margin-right: 4px;
-  vertical-align: -2px;
+.barRow dt {
+  color: var(--grey-600);
 }
 
-.logo {
-  max-width: none;
-  margin-left: auto;
+.barRow dd {
+  font-variant-numeric: tabular-nums;
 }
 
-.logoWide {
-  display: none !important;
+.bar {
+  grid-column: 1 / -1;
+  height: 8px;
+  width: calc(var(--w) * 100%);
+  border-radius: var(--radius-pill);
+  transition: width var(--duration-slow) var(--ease-out);
 }
 
-/* ---------- Saving and actions ---------- */
+.barBoard {
+  background: var(--grey-400);
+}
 
-/* The saving right under the table, at the foot of the amount column; the actions on
-   a row of their own at the bottom of the box. */
-.foot {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: 24px;
-  margin-top: 24px;
+.barNeufin {
+  background: var(--electric-violet);
 }
 
 .saving {
-  text-align: right;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  margin-top: 20px;
 }
 
 .savingFigure {
@@ -220,86 +203,215 @@ fieldset.field > legend {
   letter-spacing: var(--text-h2-track);
 }
 
-/* The amount and "/mon" (same size, Kedar) stay together on one line. */
-.amount {
+.savingAmount {
   white-space: nowrap;
 }
 
-.savingNote {
+.savingUnit {
+  font-family: var(--font-body);
+  font-size: var(--text-body-size);
+  font-weight: 400;
+  letter-spacing: 0;
+}
+
+/* The note and the call back at the panel's foot: stacked on phones (button first), one
+   row from tablets with the button on the right. */
+.foot {
   display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 8px 12px;
-  margin-top: 8px;
-  color: var(--ink-2);
+  flex-direction: column-reverse;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.cta {
+  width: 100%;
+}
+
+.note {
+  color: var(--grey-600);
   font-size: var(--text-small-size);
   line-height: var(--text-small-lh);
 }
 
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px 24px;
-  margin-top: auto;
+/* ---------- Need a different mix? ---------- */
+
+.custom {
+  display: grid;
+  align-content: end;
+  gap: 12px;
+  padding: 20px;
+  background: var(--warm-white);
+  border-top: 1px solid var(--grey-200);
 }
 
-.more {
-  color: var(--ink);
+.customTitle {
+  font-family: var(--font-display);
+  font-size: var(--text-h3-size);
+  line-height: var(--text-h3-lh);
+  font-weight: var(--text-h3-weight);
 }
 
-/* The transparent pricing stamp: Violet 100, a quiet watermark on the White bill, large and sunk past its bottom right
-   corner so the box's edges crop it (Kedar); out of the flow, so the actions row stays
-   on the box's bottom edge. Tilted as a stamp lands. Tablets and up; phones keep the box
-   compact. */
-.stamp {
-  position: absolute;
-  /* 20% smaller than before (Kedar), still cut by the box's corner, nudged 5px up and
-     10px left of where the smaller ring would sit. */
-  right: -35px;
-  bottom: -72px;
-  display: none;
-  color: var(--violet-100);
-  transform: rotate(-10deg);
-  pointer-events: none;
+.customCta {
+  justify-self: start;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .bar {
+    transition: none;
+  }
+}
+
+/* ---------- Tablets ---------- */
 
 @media (min-width: 768px) {
-  .stamp {
-    display: block;
+  .tool {
+    margin-top: 20px;
+  }
+
+  .tabs {
+    padding: 16px 32px;
+  }
+
+  .inputs,
+  .result,
+  .custom {
+    padding: 24px 32px;
+  }
+
+  .fieldRow {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .foot {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+  }
+
+  .note {
+    max-width: 40ch;
+  }
+
+  .cta {
+    flex: none;
+    width: auto;
   }
 }
 
-@media (min-width: 768px) {
-  .card {
-    --pad: 32px;
-  }
+/* ---------- Laptops: packs on the left, joined to the panel ---------- */
 
-  .logoWide {
-    display: block !important;
-  }
-
-  .logoNarrow {
-    display: none !important;
-  }
-
-}
-
-/* Desktop: the choices take 40% of the box (a little narrower than 5 / 12, Kedar), still
-   wide enough at 1280px for every set on one line. */
 @media (min-width: 1024px) {
-  .card {
-    --pad: 40px;
-    grid-template-columns: 2fr 3fr;
-    margin-top: 24px;
+  .tool {
+    grid-template-columns: 5fr 7fr;
+    grid-template-rows: auto 1fr;
   }
 
-  .inputs {
+  .tabs {
+    grid-column: 1;
+    grid-row: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    padding: 0;
     border-bottom: 0;
-    border-right: 1px solid var(--line);
+    overflow: visible;
   }
 
+  .panel {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .custom {
+    grid-column: 1;
+    grid-row: 2;
+    border-top: 0;
+    border-right: 1px solid var(--grey-200);
+  }
+
+  .tab {
+    align-items: flex-start;
+    min-height: 0;
+    padding: 20px 32px;
+    font-weight: 400;
+    line-height: inherit;
+    white-space: normal;
+    background: none;
+    border: 0;
+    border-right: 1px solid var(--grey-200);
+    border-bottom: 1px solid var(--grey-200);
+    border-radius: 0;
+  }
+
+  /* The chosen tab: White, its line to the panel gone, so the two are one surface. */
+  .tab[data-on] {
+    background: var(--white);
+    border-color: var(--grey-200);
+    border-right-color: var(--white);
+    color: var(--near-black);
+  }
+
+  .tab[data-on] .tabPct {
+    color: var(--grey-600);
+  }
+
+  .tabPct {
+    font-size: var(--text-small-size);
+    line-height: var(--text-small-lh);
+    white-space: nowrap;
+  }
+
+  .tabName {
+    white-space: nowrap;
+    font-family: var(--font-display);
+    font-size: var(--text-h3-size);
+    line-height: var(--text-h3-lh);
+    font-weight: var(--text-h3-weight);
+  }
+
+  .tab:has(input:focus-visible) {
+    outline-offset: -2px;
+  }
+
+  .radio {
+    display: grid;
+  }
+
+  .panelLine {
+    display: none;
+  }
+
+  .tabWords {
+    flex: 1;
+  }
+
+  .tabHead {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .tabCompare {
+    display: grid;
+    gap: 2px;
+    color: var(--grey-600);
+  }
+
+  .tabMeta {
+    font-size: var(--text-small-size);
+    line-height: var(--text-small-lh);
+  }
+
+  .tile {
+    width: 56px;
+    height: 56px;
+    border-radius: var(--radius-s);
+  }
+
+  .inputs,
+  .result {
+    padding: 24px 40px;
+  }
 }
-
-

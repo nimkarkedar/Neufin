@@ -1,24 +1,27 @@
-// The plan finder's prices: contract lengths, monthly use bands, site types, electricity
-// board rates by state and Neufin's plans. A plain module, so the plan finder (a client
-// component) and the numbers block's saving chart (server) share one source.
-// TODO: every figure is illustrative; replace with Neufin's price bands per state,
-// contract length and site type, and the full list of 16 states.
+// The plan finder's data: Neufin's four energy plan packs, the site types and the electricity
+// board rate by state. A plain module, so server pages can read it too (the Energy plans page
+// next, Kedar 2026-10-30).
+// TODO: every figure is illustrative; replace with Neufin's saving, term and price band for
+// each pack, the board rates per state and site type, and the full list of 16 states.
 
-export const terms = ["30 days", "1 year", "3 years", "5 years", "15 years"];
+export type PackKind = "saver" | "flexi" | "max" | "rooftop";
 
-// Monthly use bands in lakh units (the field's label says "in units"), each billed at a
-// typical monthly use inside it.
-export const uses = [
-  { label: "Under 1 lakh", units: 75_000, discount: 0 },
-  { label: "1–5 lakh", units: 3_00_000, discount: 0 },
-  { label: "5–20 lakh", units: 10_00_000, discount: 0.1 },
-  { label: "Over 20 lakh", units: 25_00_000, discount: 0.2 },
+// The client's four packs (Kedar's mock, 2026-10-30). `short` is the few words the plan finder
+// shows to compare them; `line` is the client's description; `save` the share below the
+// board's price.
+export type Pack = { kind: PackKind; name: string; short: string; line: string; save: number; term: string };
+
+export const packs: Pack[] = [
+  { kind: "saver", name: "Saver", short: "No upfront cost", line: "Buy lower-cost energy, with no upfront investment.", save: 0.2, term: "1 to 3 years" },
+  { kind: "flexi", name: "Flexi Saver", short: "No long-term lock-in", line: "Buy energy at competitive prices, with no long-term lock-in.", save: 0.12, term: "From 30 days" },
+  { kind: "max", name: "Max Saver", short: "Own a share of a plant", line: "Invest in a share of a solar or wind plant, or own one, for the lowest cost.", save: 0.35, term: "10 to 25 years" },
+  { kind: "rooftop", name: "Rooftop", short: "Solar on your own roof", line: "Generate your own solar power on site. Lease the system or buy it outright.", save: 0.3, term: "Up to 25 years" },
 ];
 
 // Each type of site, with what the board adds per unit for it.
 export const sites: { label: string; boardExtra: number }[] = [
   { label: "Factory or plant", boardExtra: 0 },
-  { label: "Office, hotel, mall or shop", boardExtra: 0.8 },
+  { label: "Office, hotel or mall", boardExtra: 0.8 },
 ];
 
 // Electricity board rate per unit for an industrial site, by state.
@@ -33,32 +36,5 @@ export const states: { name: string; board: number }[] = [
   { name: "Uttar Pradesh", board: 8.9 },
 ];
 
-export type Plan = { name: string; price: number; fixed: boolean };
-
-export const plans: Plan[][] = [
-  [
-    { name: "Daily market power", price: 7.4, fixed: false },
-    { name: "Short-term solar and wind", price: 7.7, fixed: true },
-    { name: "Short-term solar", price: 7.9, fixed: true },
-  ],
-  [
-    { name: "1-year solar", price: 6.9, fixed: true },
-    { name: "1-year wind", price: 7.2, fixed: true },
-    { name: "Daily market power", price: 7.4, fixed: false },
-  ],
-  [
-    { name: "3-year solar", price: 6.4, fixed: true },
-    { name: "3-year solar and wind", price: 6.7, fixed: true },
-    { name: "Solar with battery", price: 7.3, fixed: true },
-  ],
-  [
-    { name: "5-year solar and wind", price: 6.2, fixed: true },
-    { name: "5-year solar", price: 6.3, fixed: true },
-    { name: "Solar with battery", price: 7.1, fixed: true },
-  ],
-  [
-    { name: "15-year solar", price: 5.6, fixed: true },
-    { name: "15-year solar and wind", price: 5.9, fixed: true },
-    { name: "Solar with battery", price: 6.8, fixed: true },
-  ],
-];
+// A pack's lowest price per unit: its saving off the lowest board rate.
+export const packFrom = (p: Pack) => Math.min(...states.map((s) => s.board)) * (1 - p.save);

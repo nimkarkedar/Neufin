@@ -4,33 +4,40 @@ import Link from "next/link";
 import { useState } from "react";
 import { Check } from "@ds/components/Check.jsx";
 import { IconSvg } from "@ds/components/Icon.jsx";
+import { PlanMark } from "@ds/components/PlanMark.jsx";
 import { icons } from "@ds/brand/icons.js";
 import { usePlanChoices } from "@/lib/planChoices";
+import { packs, type PackKind } from "@/lib/plans";
 import styles from "./PlanList.module.css";
 
 // Energy plans (/products/plan-finder): every plan, filtered by state, business type, yearly
 // use, term and investment, from the brief's Energy plans table. Rebuilt after Kedar's review
 // (2026-10-29: "keep it simple"; an Upwork-style filter column as a loose reference): filters
 // as plain groups of checkboxes and radios from the design system, the plans as a calm table
-// to scan on desktop ("a glorified Excel") and as cards on smaller screens.
+// to scan on desktop ("a glorified Excel") and as cards on smaller screens. The four packs
+// from the plan finder (2026-10-30) sort the plans: a row of plan pills above the plans (beside
+// the Filters button on phones), and each plan's mark beside its name.
 
 type Term = "spot" | "short" | "mid" | "long";
-type Plan = { name: string; bestFor: string; term: string; t: Term; min: string; minYearly: number | null; investment: boolean };
+type Plan = { name: string; pack: PackKind; bestFor: string; term: string; t: Term; min: string; minYearly: number | null; investment: boolean };
 
 // Each plan carries what the brief lists: name, who it suits, the landed price per unit, the
 // term, the smallest size, the smallest yearly use and whether it needs an investment.
 // TODO: Neufin's real plans (the brief's "exact plans" list), with landed prices per state,
 // minimum yearly units (`minYearly`, in units; null until known, so the use filter shows every
-// plan) and which plans need an investment (a guess for now: the 15-year plans).
+// plan), which plans need an investment (a guess for now: the 15-year plans) and which pack
+// each plan belongs to (a guess: 30-day is Flexi Saver, no-investment terms Saver, plans with
+// an investment Max Saver; the rooftop plan is a placeholder).
 const plans: Plan[] = [
-  { name: "30-day market power", bestFor: "Short or changing needs", term: "30 days", t: "spot", min: "0.5 MWp", minYearly: null, investment: false },
-  { name: "1-year solar", bestFor: "Plants that run by day", term: "1 year", t: "mid", min: "0.5 MWp", minYearly: null, investment: false },
-  { name: "1-year wind", bestFor: "Sites that run in the evening and at night", term: "1 year", t: "mid", min: "0.5 MWp", minYearly: null, investment: false },
-  { name: "3-year solar", bestFor: "Plants and offices that run by day", term: "3 years", t: "mid", min: "0.5 MWp", minYearly: null, investment: false },
-  { name: "5-year solar and wind", bestFor: "Sites with steady day and night use", term: "5 years", t: "mid", min: "X MWp", minYearly: null, investment: false },
-  { name: "Solar with battery", bestFor: "Sites with a high evening peak", term: "5 to 15 years", t: "long", min: "X MWp", minYearly: null, investment: false },
-  { name: "15-year solar", bestFor: "The lowest fixed price over the long run", term: "15 years", t: "long", min: "X MWp", minYearly: null, investment: true },
-  { name: "15-year solar and wind", bestFor: "Round-the-clock sites that want a steady price", term: "15 years", t: "long", min: "X MWp", minYearly: null, investment: true },
+  { name: "30-day market power", pack: "flexi", bestFor: "Short or changing needs", term: "30 days", t: "spot", min: "0.5 MWp", minYearly: null, investment: false },
+  { name: "1-year solar", pack: "saver", bestFor: "Plants that run by day", term: "1 year", t: "mid", min: "0.5 MWp", minYearly: null, investment: false },
+  { name: "1-year wind", pack: "saver", bestFor: "Sites that run in the evening and at night", term: "1 year", t: "mid", min: "0.5 MWp", minYearly: null, investment: false },
+  { name: "3-year solar", pack: "saver", bestFor: "Plants and offices that run by day", term: "3 years", t: "mid", min: "0.5 MWp", minYearly: null, investment: false },
+  { name: "5-year solar and wind", pack: "saver", bestFor: "Sites with steady day and night use", term: "5 years", t: "mid", min: "X MWp", minYearly: null, investment: false },
+  { name: "Solar with battery", pack: "saver", bestFor: "Sites with a high evening peak", term: "5 to 15 years", t: "long", min: "X MWp", minYearly: null, investment: false },
+  { name: "15-year solar", pack: "max", bestFor: "The lowest fixed price over the long run", term: "15 years", t: "long", min: "X MWp", minYearly: null, investment: true },
+  { name: "15-year solar and wind", pack: "max", bestFor: "Round-the-clock sites that want a steady price", term: "15 years", t: "long", min: "X MWp", minYearly: null, investment: true },
+  { name: "Rooftop solar", pack: "rooftop", bestFor: "Sites with free roof space", term: "Up to 25 years", t: "long", min: "X kWp", minYearly: null, investment: false },
 ];
 
 const states = ["Maharashtra", "Karnataka", "Tamil Nadu", "Gujarat", "Telangana", "Haryana", "Rajasthan", "Uttar Pradesh"];
@@ -63,9 +70,10 @@ const pick = <T extends { value: string }>(list: T[], value: string | undefined)
 // A checkbox filter travels in the link as a comma list ("term=spot,mid").
 const list = (value: string | undefined) => (value ? value.split(",").filter(Boolean) : []);
 
-type Filters = { terms: string[]; investments: string[]; max: number };
+type Filters = { pack: string; terms: string[]; investments: string[]; max: number };
 
 const matches = (p: Plan, f: Filters) =>
+  (!f.pack || p.pack === f.pack) &&
   (!f.terms.length || f.terms.includes(p.t)) &&
   (!f.investments.length || f.investments.includes(p.investment ? "yes" : "none")) &&
   (p.minYearly === null || p.minYearly <= f.max);
@@ -85,30 +93,54 @@ export function PlanList() {
   const state = states.includes(choices.state ?? "") ? choices.state! : states[0];
   const type = pick(types, choices.type);
   const use = pick(uses, choices.use);
-  const filters: Filters = { terms: list(choices.term), investments: list(choices.investment), max: use.max };
+  const pack = packs.some((k) => k.kind === choices.pack) ? choices.pack! : "";
+  const filters: Filters = { pack, terms: list(choices.term), investments: list(choices.investment), max: use.max };
   const shown = plans.filter((p) => matches(p, filters));
   const active = filters.terms.length + filters.investments.length + (use.value === "any" ? 0 : 1);
   // How many plans a box would show if ticked, given the other filters.
   const countWith = (key: "terms" | "investments", value: string) => plans.filter((p) => matches(p, { ...filters, [key]: [value] })).length;
+  // How many plans a pack pill would show, given the other filters.
+  const countPack = (value: string) => plans.filter((p) => matches(p, { ...filters, pack: value })).length;
+  const plural = (n: number) => `${n} ${n === 1 ? "plan" : "plans"}`;
   const toggle = (current: string[], value: string) => (current.includes(value) ? current.filter((v) => v !== value) : [...current, value]).join(",");
   const quote = `/contact/?${new URLSearchParams({ state, ...(choices.email ? { email: choices.email } : {}) })}`;
 
   return (
     <div className={styles.layout}>
-      <aside className={styles.filters} aria-label="Filter plans">
-        <div className={styles.filtersHead}>
-          <button type="button" className={`btn btn-secondary ${styles.toggle}`} aria-expanded={open} aria-controls="plan-filters" onClick={() => setOpen(!open)}>
-            {active ? `Filters (${active})` : "Filters"}
-            <IconSvg icon={icons["field-chevron"]} size={18} className={styles.chevron} />
-          </button>
-          {active > 0 && (
-            <button type="button" className={styles.clear} onClick={() => choose({ term: "", investment: "", use: "" })}>
-              Clear filters
-            </button>
-          )}
-        </div>
+      {/* The packs as plan pills, the same as the plan finder's; on phones and tablets the
+          Filters button leads the row (Kedar). */}
+      <div className={styles.bar}>
+        <button type="button" className={`btn btn-secondary ${styles.toggle}`} aria-expanded={open} aria-controls="plan-filters" onClick={() => setOpen(!open)}>
+          {active ? `Filters (${active})` : "Filters"}
+          <IconSvg icon={icons["field-chevron"]} size={18} className={styles.chevron} />
+        </button>
+        <fieldset className={`plan-pills ${styles.pills}`}>
+          <legend className="visually-hidden">Plan type</legend>
+          {[{ kind: "" as const, name: "All plans" }, ...packs].map((k) => (
+            <label key={k.kind || "all"} className="plan-pill" data-on={pack === k.kind || undefined}>
+              <input type="radio" name="plan-pack" className="visually-hidden" checked={pack === k.kind} onChange={() => choose({ pack: k.kind })} />
+              {k.kind && (
+                <span className="plan-pill-mark">
+                  <PlanMark kind={k.kind} />
+                </span>
+              )}
+              <span>
+                {k.name}
+                <span className="plan-pill-sub">{plural(countPack(k.kind))}</span>
+              </span>
+            </label>
+          ))}
+        </fieldset>
+      </div>
 
-        <div id="plan-filters" className={styles.groups} data-open={open || undefined}>
+      <aside id="plan-filters" className={styles.filters} data-open={open || undefined} aria-label="Filter plans">
+        {active > 0 && (
+          <button type="button" className={styles.clear} onClick={() => choose({ term: "", investment: "", use: "" })}>
+            Clear filters
+          </button>
+        )}
+
+        <div className={styles.groups}>
           <label className="filter-group">
             <span className="filter-group-title">Your state</span>
             <span className="select-field">
@@ -198,8 +230,15 @@ export function PlanList() {
                   {shown.map((p) => (
                     <tr key={p.name}>
                       <th scope="row" className={styles.planCell}>
-                        <span className={styles.name}>{p.name}</span>
-                        <span className={styles.note}>{p.bestFor}</span>
+                        <span className={styles.planName}>
+                          <span className={styles.mark}>
+                            <PlanMark kind={p.pack} />
+                          </span>
+                          <span>
+                            <span className={styles.name}>{p.name}</span>
+                            <span className={styles.note}>{p.bestFor}</span>
+                          </span>
+                        </span>
                       </th>
                       <td className={`data-table-num ${styles.price}`}>
                         <span className={styles.note}>from</span> ₹X.XX
@@ -226,9 +265,14 @@ export function PlanList() {
                 <li key={p.name}>
                   <Link href={quote} className={`surface ${styles.card}`}>
                     <span className={styles.cardHead}>
-                      <span>
-                        <span className={styles.name}>{p.name}</span>
-                        <span className={styles.note}>{p.bestFor}</span>
+                      <span className={styles.planName}>
+                        <span className={styles.mark}>
+                          <PlanMark kind={p.pack} />
+                        </span>
+                        <span>
+                          <span className={styles.name}>{p.name}</span>
+                          <span className={styles.note}>{p.bestFor}</span>
+                        </span>
                       </span>
                       <span className={styles.cardPrice}>
                         <span className={styles.price}>from ₹X.XX</span>
