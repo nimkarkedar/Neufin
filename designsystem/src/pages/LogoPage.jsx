@@ -175,6 +175,20 @@ export default function LogoPage() {
         </div>
       </Section>
 
+      <Section title="Favicon" intro="The browser tab and home screen icon: the White symbol on an Electric Violet tile.">
+        <div className="tile">
+          <div className="tile-stage stage-light favicon-demo">
+            {[64, 32, 16].map((s) => <img key={s} src={asset('/assets/logo/neufin-favicon.svg')} width={s} height={s} alt={`Favicon at ${s}px`} />)}
+          </div>
+        </div>
+        <div className="rows spec-inline">
+          <div className="row"><span className="row-key">Colours</span><p>Symbol in White on Electric Violet. No other pairing.</p></div>
+          <div className="row"><span className="row-key">Shape</span><p>A square tile with soft corners (14 on 64). The phone home screen version is a full square; iOS rounds it.</p></div>
+          <div className="row"><span className="row-key">Clear space</span><p>The symbol fills 40 of 64, so at least 1x stays clear on every side.</p></div>
+          <div className="row"><span className="row-key">Files</span><p><a href={asset('/assets/logo/neufin-favicon.svg')} download>neufin-favicon.svg</a> (browser tab) and <a href={asset('/assets/logo/neufin-apple-icon.png')} download>neufin-apple-icon.png</a> (180 × 180, home screen). The website copies both in <code>scripts/sync-ds-assets.mjs</code>.</p></div>
+        </div>
+      </Section>
+
       <Section title="Downloads">
         <div className="download-grid">
           {downloads.map((d) => (

@@ -38,5 +38,6 @@ Nucleo only, listed in `src/brand/icon-list.json`, copied by `npm run icons` (ne
 
 ## Other
 
+- Favicon: `public/assets/logo/neufin-favicon.svg` (White symbol on an Electric Violet tile) and `neufin-apple-icon.png` (180, full square), on the Logo page; the website copies both (`website/scripts/sync-ds-assets.mjs`).
 - Sales deck: `src/presentations/deck.js`, `.pptx` built by `npm run slides`.
 - Publish: `npm run deploy` (builds for `/Neufin/designsystem/` and publishes to `gh-pages`).
