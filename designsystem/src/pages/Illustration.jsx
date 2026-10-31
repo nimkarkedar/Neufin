@@ -24,6 +24,7 @@ const cardArt = [
   { file: 'plan-wind.jpg', label: 'A row of wind turbines along a band of power, on White (3:2): wind plans' },
   { file: 'plan-battery.jpg', label: 'Battery cabinets wired by a band of power to a generator, on White (3:2): battery plans' },
   { file: 'plan-exchange.jpg', label: 'A band of power rising and falling over a candlestick chart, on White (3:2): daily market plans' },
+  { file: 'pylon-neon-wires.png', label: 'A glowing pylon with bands of power running to the horizon, transparent, cropped to the art: one partner box, Renewable energy advisory' },
 ];
 
 function Choice({ items, value, onChange }) {
