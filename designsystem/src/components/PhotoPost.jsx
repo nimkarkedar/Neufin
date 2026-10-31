@@ -39,6 +39,9 @@ export const photos = [
   { id: 'pylon-mist-delhi', src: '/assets/photos/pylon-mist-delhi.jpg', alt: 'A pylon and fishermen in a boat on a misty lake at dawn, New Delhi', align: 'xMidYMid' },
   // Unsplash License: litoon dev (Unsplash ID E8pqwxaS6ko), 1600 × 1067. Careers placeholder for the team at work.
   { id: 'engineers-at-screen', src: '/assets/photos/engineers-at-screen.jpg', alt: 'Two engineers looking closely at a computer screen', align: 'xMinYMid' },
+  // Supplied by Kedar (2026-10-31), 6000 × 4000, cropped to the left 4500 × 1875 (she sits at about 72% across, clear of the
+  // header text) and saved at 3600 × 1500. About header. TODO: credit, and the worker's consent to appear.
+  { id: 'factory-worker-edging', src: '/assets/photos/factory-worker-edging.jpg', alt: 'A smiling worker in a blue uniform and hairnet at an over-edging machine on a factory floor', align: 'xMaxYMid' },
   // Supplied by Kedar (2026-10-31), 2090 × 608, saved as is (a 2× file would be 3200px or more). Run and optimise header. TODO: credit.
   { id: 'wind-turbine-sky', src: '/assets/photos/wind-turbine-sky.jpg', alt: 'One wind turbine with red-tipped blades against a clear blue sky', align: 'xMidYMid' },
   // Supplied by Kedar (2026-10-29), 1200 × 1800. Services, Move a meter card. TODO: credit.
