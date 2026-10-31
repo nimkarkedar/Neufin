@@ -209,9 +209,10 @@ export default function WebComponents() {
           </div>
         </div>
         <div className="rows spec-inline">
-          <div className="row"><span className="row-key">Use</span><p>Rows people scan and compare, such as the energy plans. Desktop only; on phones the same rows become cards.</p></div>
+          <div className="row"><span className="row-key">Use</span><p>Rows people scan and compare. For options compared side by side, use the compare version below.</p></div>
           <div className="row"><span className="row-key">Look</span><p>Inside a <code>.surface</code>, all White (a Warm White header runs into the page): the header row in Small semibold secondary text, then rows with Grey 200 lines edge to edge, figures in tabular digits (right-aligned with <code>.data-table-num</code>). Cells pad 16px, 24px at the box's edges, rows 20px top and bottom. A row takes the Violet 100 hover fill, colour only.</p></div>
           <div className="row"><span className="row-key">Code</span><p><code>table.data-table</code> with <code>th scope="col"</code> headers and a caption for screen readers.</p></div>
+          <div className="row"><span className="row-key">Compare</span><p>Options side by side (Energy plans): <code>table.data-table.data-table-compare</code> in a <code>.data-table-scroll</code> inside the <code>.surface</code>. Each option is a column (200px, 148px on phones, so the next one peeks in), the row names pinned on the left while the columns scroll sideways, everything left-aligned. A row with <code>td.data-table-more</code> holds a View details button that opens the next <code>tbody</code> (<code>hidden</code> until then, <code>aria-expanded</code> on the button). Give the scroll box <code>tabIndex=0</code>, <code>role="region"</code> and a label so keyboards can scroll it.</p></div>
         </div>
       </Section>
 
@@ -308,6 +309,7 @@ export default function WebComponents() {
         </div>
         <div className="rows spec-inline">
           <div className="row"><span className="row-key">Statement</span><p>One claim set large inside a box, from the home numbers block: H1 in Archivo, at most 22 characters a line, then one line in Body L and the secondary colour. One per box, with the box's button at its foot. Used on the home page, About, Renewable energy advisory (also as the title inside the suppliers panel). <code>.statement</code>, <code>.statement-line</code>.</p></div>
+          <div className="row"><span className="row-key">Lead text</span><p>One paragraph told at a larger size with no box: Archivo at the H3 size, weight 500, on columns 1–8 (About, Our story; Energy plans, What is an energy plan?). <code>.lead-text</code>.</p></div>
           <div className="row"><span className="row-key">Figures</span><p>Key figures in a grid, flush inside a box with no padding: the figure in H1 over its label, labels given two lines of room so figures in a row share a baseline, lines between cells edge to edge. Two a row on phones (an odd last figure takes the row), three from tablets; padding 24 / 32px. A cell fills with Violet 100 under the pointer, colour only. Used on the home page, About, Sell energy and Renewable energy advisory. <code>.figures</code>, <code>.figure</code>, <code>.figure-value</code>, <code>.figure-label</code>.</p></div>
         </div>
       </Section>
@@ -338,7 +340,7 @@ export default function WebComponents() {
       <Section title="Plan marks">
         <div className="tile">
           <div className="tile-stage stage-light web-demo" style={{ display: 'flex', gap: 24, flexWrap: 'wrap' }}>
-            {[['saver', 'Saver'], ['flexi', 'Flexi Saver'], ['max', 'Max Saver'], ['rooftop', 'Rooftop']].map(([kind, name]) => (
+            {[['hyper', 'Hyper Flex'], ['smart', 'Smart Saver'], ['max', 'Max Saver'], ['rooftop', 'Rooftop Solar']].map(([kind, name]) => (
               <figure key={kind} style={{ display: 'grid', gap: 8, margin: 0 }}>
                 <span style={{ display: 'block', width: 96, height: 96, overflow: 'hidden', borderRadius: 'var(--radius-s)' }}>
                   <PlanMark kind={kind} />
@@ -350,9 +352,9 @@ export default function WebComponents() {
         </div>
         <div className="rows spec-inline">
           <div className="row"><span className="row-key">Use</span><p>One mark per energy plan pack, so each pack is recognisable wherever it appears (the plan finder; the Energy plans page and decks next) without using the logo. Not icons: they stand only for the four packs.</p></div>
-          <div className="row"><span className="row-key">Shape</span><p>Drawn from the Stripe (<code>PlanMark</code>): bands at the symbol's 32° with crisp, mitred corners and thin echo lines. The shape says what the pack does: Saver one step down, Flexi Saver down and back up (no lock-in), Max Saver three bands stepping together, Rooftop a roof pitch at the same angle.</p></div>
-          <div className="row"><span className="row-key">Colour</span><p>Each pack keeps one graphic device combination (<code>planMarkCombos</code>): Signal Yellow on Violet 900, Near Black on Coral, Signal Yellow on Electric Violet, Coral on Violet 900. Shown as a square tile, radius S, 40px on phones and 56px from desktop in the plan finder.</p></div>
-          <div className="row"><span className="row-key">Pills</span><p>The packs as a row of pill tabs a little bigger than chips (<code>.plan-pills</code>, <code>.plan-pill</code>, <code>-mark</code>, <code>-sub</code>): 56px tall, the round mark (36px), the name in Body semibold and one Small line (% less, or a plan count); White with a Grey 200 line, the chosen one solid Near Black with White text. Each is a radio label; the row scrolls sideways. Used by the plan finder on phones and tablets and as the pack filter on Energy plans.</p></div>
+          <div className="row"><span className="row-key">Shape</span><p>Drawn from the Stripe (<code>PlanMark</code>): bands at the symbol's 32° with crisp, mitred corners and thin echo lines. The shape says what the pack does: Hyper Flex down and back up (no lock-in), Smart Saver one step down, Max Saver three bands stepping together, Rooftop Solar a roof pitch at the same angle.</p></div>
+          <div className="row"><span className="row-key">Colour</span><p>Each pack keeps one graphic device combination (<code>planMarkCombos</code>): Near Black on Coral (Hyper Flex), Signal Yellow on Violet 900 (Smart Saver), Signal Yellow on Electric Violet (Max Saver), Coral on Violet 900 (Rooftop Solar). Shown as a square tile, radius S, 40px on phones and 56px from desktop in the plan finder.</p></div>
+          <div className="row"><span className="row-key">Pills</span><p>The packs as a row of pill tabs a little bigger than chips (<code>.plan-pills</code>, <code>.plan-pill</code>, <code>-mark</code>, <code>-sub</code>): 56px tall, the round mark (36px), the name in Body semibold and one Small line (% less, or a plan count); White with a Grey 200 line, the chosen one solid Near Black with White text. Each is a radio label; the row scrolls sideways. Used by the plan finder on phones and tablets.</p></div>
         </div>
       </Section>
 

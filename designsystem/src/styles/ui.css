@@ -1987,6 +1987,136 @@
   text-align: right;
 }
 
+/* ---------- Compare table ----------
+   Options side by side (Energy plans: each plan a column, Kedar's brief 2026-10-31, CME
+   Group as a loose reference): the data table turned on its side. Wrap it in
+   .data-table-scroll inside a .surface; it scrolls sideways when the columns don't fit, with
+   the row names pinned on the left (White, a Grey 200 line on their right). Columns are at
+   200px wide (148px on phones), so at common widths the next one peeks in and long names wrap; the
+   header row holds each option's name; everything is left-aligned, so each column reads
+   down one straight edge (Kedar). A row of
+   .data-table-more (a full-width button cell, "View details") opens the rows below it. */
+
+.data-table-scroll {
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  border-radius: inherit;
+}
+
+.data-table-compare {
+  width: max-content;
+  min-width: 100%;
+}
+
+.data-table-compare {
+  --compare-col: 148px;
+  --compare-label: 112px;
+}
+
+.data-table-compare th,
+.data-table-compare td {
+  width: var(--compare-col);
+  min-width: var(--compare-col);
+  text-align: left;
+  white-space: normal;
+}
+
+@media (min-width: 768px) {
+  .data-table-compare {
+    --compare-col: 200px;
+    --compare-label: 160px;
+  }
+}
+
+.data-table-compare thead th {
+  padding-top: 24px;
+  vertical-align: top;
+  white-space: normal;
+  color: var(--near-black);
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-lh);
+}
+
+/* The row names, pinned while the columns scroll under them. */
+.data-table-compare th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  width: var(--compare-label);
+  min-width: var(--compare-label);
+  background: var(--white);
+  /* Drawn on the cell, not as a border: a collapsed border stays behind when the pinned
+     cell scrolls, and the line vanished (Kedar). */
+  box-shadow: inset -1px 0 0 var(--line, var(--grey-200));
+  color: var(--ink-2, var(--grey-600));
+  font-size: var(--text-small-size);
+  line-height: var(--text-small-lh);
+  font-weight: 600;
+  text-align: left;
+}
+
+.data-table-compare tbody tr:hover {
+  background: none;
+}
+
+.data-table-compare tbody:not(:last-of-type) tr:last-child > * {
+  border-bottom: 1px solid var(--line, var(--grey-200));
+}
+
+/* Cells that may wrap reserve two lines (.data-table-two around their text), so turning an
+   option on or off never changes a row's height and the table doesn't jump (Kedar). */
+.data-table-two {
+  display: grid;
+  align-items: center;
+  min-height: calc(2em * var(--text-body-lh));
+}
+
+/* In the header row, names sit at the top of their two lines, close under the mark. */
+.data-table-compare thead .data-table-two {
+  align-items: start;
+}
+
+/* View details: one button across the table, under the first rows. */
+.data-table td.data-table-more {
+  padding: 0;
+  text-align: left;
+}
+
+.data-table-more > button {
+  position: sticky;
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 0 24px;
+  background: none;
+  border: 0;
+  color: var(--near-black);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.data-table-more > button > svg {
+  transition: rotate var(--duration-base) var(--ease-out);
+}
+
+.data-table-more > button[aria-expanded="true"] > svg {
+  rotate: 180deg;
+}
+
+/* ---------- Lead text ----------
+   One paragraph told at a larger size, with no box: Archivo at the H3 size, weight 500
+   (About, Our story; Energy plans, What is an energy plan?). Keep it to columns 1–8. */
+.lead-text {
+  font-family: var(--font-display);
+  font-size: var(--text-h3-size);
+  line-height: var(--text-body-l-lh);
+  font-weight: 500;
+  text-wrap: pretty;
+}
+
 /* ---------- Vertical card ----------
    The site's one vertical card (Kedar, 2026-10-27): 4:5, radius L, the raised shadow, the
    title and its line on the left. Two looks, each still or clickable:
@@ -2475,7 +2605,8 @@ button.vertical-card {
    Each pill is a radio label: the pack's round mark (PlanMark), the name in Body semibold and
    one Small line (% less, or a count). White with a Grey 200 line; the chosen one solid Near
    Black with White text, like the chosen chip and segmented option. `.plan-pills` is the row,
-   scrolling sideways when it runs out of room. */
+   scrolling sideways when it runs out of room. `.plan-pill-toggle` (below) makes them
+   checkboxes. */
 
 .plan-pills {
   display: flex;
@@ -2550,4 +2681,59 @@ button.vertical-card {
 
 .plan-pill[data-on] .plan-pill-sub {
   color: var(--grey-200);
+}
+
+/* Toggle version, for "any of these" (Energy plans: which plan types to compare, all on to
+   start; Kedar, 2026-10-31). Each pill is a checkbox label. On: White, a Near Black line, the
+   mark in full colour and a check after the name. Off: no fill, the Grey 200 line, the mark
+   faded to grey and the name in the secondary colour, so what's in the comparison reads at a
+   glance. Same size and shape as the pills above; a colour change only. */
+.plan-pill-toggle {
+  padding-right: 16px;
+  background: transparent;
+  color: var(--ink-2, var(--grey-600));
+  transition:
+    background-color var(--duration-fast) var(--ease-out),
+    border-color var(--duration-fast) var(--ease-out),
+    color var(--duration-fast) var(--ease-out);
+}
+
+.plan-pill-toggle .plan-pill-mark {
+  filter: grayscale(1);
+  opacity: 0.4;
+  transition:
+    filter var(--duration-fast) var(--ease-out),
+    opacity var(--duration-fast) var(--ease-out);
+}
+
+.plan-pill-toggle .plan-pill-check {
+  display: grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  visibility: hidden;
+}
+
+.plan-pill.plan-pill-toggle[data-on] {
+  background: var(--white);
+  border-color: var(--near-black);
+  color: var(--near-black);
+}
+
+.plan-pill-toggle[data-on] .plan-pill-mark {
+  filter: none;
+  opacity: 1;
+}
+
+.plan-pill-toggle[data-on] .plan-pill-check {
+  visibility: visible;
+}
+
+.plan-pill-toggle:hover:not([data-on]) {
+  color: var(--near-black);
+}
+
+/* The last one on can't be turned off (there is always something to compare). */
+.plan-pill-toggle:has(input:disabled) {
+  cursor: default;
 }
