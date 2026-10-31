@@ -32,6 +32,8 @@ const amount = (n: number) => {
   if (n >= 1_00_000) return `₹${fmt(n / 1_00_000)} lakh`;
   return `₹${Math.round(n).toLocaleString("en-IN")}`;
 };
+// The Energy plans page's monthly use band for an amount, so its filters start where this left off.
+const useBand = (n: number) => (n < 1_00_000 ? "under-1l" : n <= 5_00_000 ? "1l-5l" : n <= 20_00_000 ? "5l-20l" : "over-20l");
 const units = (n: number) => (n >= 1_00_000 ? `${(n / 1_00_000).toLocaleString("en-IN")} lakh units` : `${n.toLocaleString("en-IN")} units`);
 
 export function PlanFinder({ title = "Energy plans to fit your business goals" }: { title?: string }) {
@@ -198,7 +200,7 @@ export function PlanFinder({ title = "Energy plans to fit your business goals" }
           {/* For everyone the four packs don't fit; the panel's Get a call back covers a custom plan. */}
           <div className={styles.custom}>
             <p className={styles.customTitle}>Need a different mix?</p>
-            <Link href={`${planFinderHref}?${new URLSearchParams({ pack: pack.kind, state: states[state].name })}`} className={`btn btn-secondary ${styles.customCta}`}>
+            <Link href={`${planFinderHref}?${new URLSearchParams({ state: states[state].name, type: site ? "commercial" : "industrial", use: useBand(uses[use]) })}`} className={`btn btn-secondary ${styles.customCta}`}>
               Try on your own
             </Link>
           </div>

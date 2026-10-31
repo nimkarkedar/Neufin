@@ -52,7 +52,7 @@ export default function About() {
           The founders' sentence leads The people behind Neufin below. */}
       <Section id="story" title="Our story">
         <div className={styles.story}>
-          <p className={styles.storyText}>
+          <p className="lead-text">
             We launched Neufin Energy in September 2024 to make energy work for businesses. Data centres, factories and fast-growing
             industry have sharply raised India’s appetite for power. Markets and technology have moved on, but most businesses still
             can’t buy and sell power at the market’s speed. Our software closes that gap, so businesses of every size choose how and

@@ -114,19 +114,16 @@
 
 .checks li {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 12px;
-  font-weight: 500;
 }
 
-/* Energy Mint with Near Black: the design system's pairing for a positive mark. */
+/* A plain tick in the text colour, level with the first line: quiet, so the words lead
+   (Kedar, 2026-10-31: simple ticks; was a Mint circle). */
 .check {
   display: grid;
   place-items: center;
   flex-shrink: 0;
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--energy-mint);
-  color: var(--near-black);
+  height: calc(1em * var(--text-body-lh));
+  color: var(--ink);
 }

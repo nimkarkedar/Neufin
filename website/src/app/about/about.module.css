@@ -8,15 +8,7 @@
   color: var(--ink-2);
 }
 
-/* ---------- Our story: one paragraph on columns 1–8, as Buy cheaper power's plans box ---------- */
-
-.storyText {
-  font-family: var(--font-display);
-  font-size: var(--text-h3-size);
-  line-height: var(--text-body-l-lh);
-  font-weight: 500;
-  text-wrap: pretty;
-}
+/* ---------- Our story: one paragraph (the design system's .lead-text) on columns 1–8 ---------- */
 
 @media (min-width: 1024px) {
   .story {
@@ -25,7 +17,7 @@
     column-gap: var(--grid-gutter);
   }
 
-  .storyText {
+  .story > :global(.lead-text) {
     grid-column: 1 / span 8;
   }
 }

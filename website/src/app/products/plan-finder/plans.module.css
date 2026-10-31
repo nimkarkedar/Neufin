@@ -1,5 +1,61 @@
-/* Energy plans page. The header's facts line, under the line and above the link. */
+/* Energy plans page. The header's facts line, under the line. */
 .facts {
   flex-basis: 100%;
   font-weight: 600;
+}
+
+/* What is an energy plan?: the design system's lead text on columns 1–8. */
+@media (min-width: 1024px) {
+  .what {
+    max-width: calc((100% - 11 * var(--grid-gutter)) / 12 * 8 + 7 * var(--grid-gutter));
+  }
+}
+
+/* Preview of our plans: the four plan types in White boxes, each its mark, name and three
+   ticks (the shared Checks). Four across from desktop, two by two on tablets, sideways on
+   phones (.scroll-row-phone). */
+.types {
+  display: grid;
+  gap: var(--grid-gutter);
+  padding: 0;
+  list-style: none;
+}
+
+.type {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: 20px;
+  padding: 24px 20px;
+}
+
+.typeMark {
+  width: 56px;
+  height: 56px;
+  overflow: hidden;
+  border-radius: var(--radius-s);
+}
+
+.typeName {
+  font-family: var(--font-display);
+  font-size: var(--text-card-size);
+  line-height: var(--text-card-lh);
+  font-weight: var(--text-card-weight);
+  letter-spacing: var(--text-card-track);
+}
+
+@media (min-width: 768px) {
+  .types {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .type {
+    padding: 32px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .types {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
 }

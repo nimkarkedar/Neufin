@@ -2,9 +2,9 @@
 
 import { useEffect, useState } from "react";
 
-// What a visitor has told us about their site (state, business type, yearly use, term,
-// investment, work email) and the pack they picked in the plan finder, shared by the Energy plans page's header and plan list. It comes
-// from the link they arrived with (e.g. /products/plan-finder/?state=Gujarat&term=mid), else
+// What a visitor has told us about their site (state, business type, monthly use, term, the
+// plan types they're comparing and work email), read by the Energy plans page's plan list. It comes from the link they
+// arrived with (e.g. /products/plan-finder/?state=Gujarat&term=1-5y), else
 // from their last visit on this browser, and every change is written back to both, so the
 // choice persists (brief: "that choice / info should persist on this page").
 // TODO: pages that link here (home hero and plan finder, Buy cheaper power) should add their
@@ -14,12 +14,12 @@ type PlanChoices = {
   type?: string;
   use?: string;
   term?: string;
-  investment?: string;
+  // The plan types ticked, a comma list ("hyper,max"); left out means all four.
+  types?: string;
   email?: string;
-  pack?: string;
 };
 
-const keys: (keyof PlanChoices)[] = ["state", "type", "use", "term", "investment", "email", "pack"];
+const keys: (keyof PlanChoices)[] = ["state", "type", "use", "term", "types", "email"];
 const storageKey = "neufin-plan-choices";
 const changed = "neufin:plan-choices";
 

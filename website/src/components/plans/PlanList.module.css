@@ -1,35 +1,28 @@
-/* Energy plans: filters beside the plans. Mobile first. The controls are the design
-   system's (.filter-group, .check, .select-field, .data-table); this file only lays them
-   out. Type: the plan name in Body semibold, figures in Body, notes in Small secondary. */
+/* Energy plans: the filter bar above the plans, then the plans at full width. Mobile first.
+   The controls are the design system's (.select-field, .check, .data-table-compare); this
+   file only lays them out. Type: field labels Body semibold, the plan name Body semibold,
+   the saving Card title, the rest Body. */
 
 .layout {
   display: grid;
-  gap: 24px;
+  grid-template-columns: minmax(0, 1fr); /* the wide table scrolls inside, never widens the page */
+  gap: 16px;
 }
 
-/* ---------- The pack pills, and the Filters button on phones ----------
-   One row: Filters, then the design system's plan pills (All plans and the four packs)
-   scrolling sideways. From desktop the button goes and the pills sit above the plans. */
+/* ---------- The filter bar ----------
+   The four dropdowns side by side (two a row on tablets, one on phones), then the plan
+   types as toggle pills in a row. */
 
 .bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-width: 0;
+  display: grid;
+  gap: 20px;
+  margin-bottom: 8px;
 }
 
+/* Phones: the Filters button opens the bar; the fields one under another, the plan types
+   two by two. */
 .toggle {
-  flex: none;
-}
-
-.pills {
-  flex: 1;
-}
-
-/* ---------- Filters ---------- */
-
-.filters {
-  min-width: 0;
+  justify-self: start;
 }
 
 .chevron {
@@ -40,147 +33,85 @@
   rotate: 180deg;
 }
 
-.clear {
-  display: block;
-  min-height: 48px;
-  padding: 0;
-  background: none;
-  border: 0;
-  color: var(--ink);
-  font-weight: 600;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  cursor: pointer;
-}
-
-
-/* The select runs the column's width. */
-.groups :global(.select-field) {
-  display: flex;
-  min-width: 0;
-}
-
-/* Phones and tablets: the filters fold away behind the Filters button. */
-@media (max-width: 1023px) {
-  .filters:not([data-open]) {
+@media (max-width: 767px) {
+  .bar:not([data-open]) {
     display: none;
   }
 }
 
-/* ---------- Plans ---------- */
+.fields {
+  display: grid;
+  gap: 16px;
+}
 
-.results {
+.field {
+  display: grid;
+  gap: 8px;
   min-width: 0;
 }
 
-.count {
-  margin-bottom: 16px;
-  color: var(--ink-2);
-  font-size: var(--text-small-size);
-  line-height: var(--text-small-lh);
-}
-
-.name {
-  display: block;
-  font-size: var(--text-body-size);
-  line-height: var(--text-body-lh);
+.fieldLabel {
+  padding: 0;
   font-weight: 600;
 }
 
-.note {
-  display: block;
-  color: var(--ink-2);
-  font-size: var(--text-small-size);
-  line-height: var(--text-small-lh);
-  font-weight: 400;
-}
-
-.price {
-  font-weight: 600;
-  white-space: nowrap;
-}
-
-.price .note {
-  display: inline;
-}
-
-/* Desktop table (from 1280px; narrower screens show the cards). */
-.tableBox {
-  display: none;
-  overflow: hidden;
-}
-
-.planCell {
-  font-weight: 400;
-}
-
-/* The plan's pack mark (PlanMark) beside its name. */
-.planName {
+/* The select runs the field's width. */
+.field :global(.select-field) {
   display: flex;
-  align-items: center;
-  gap: 12px;
+  min-width: 0;
+}
+
+.kinds {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.kinds > legend {
+  margin-bottom: 8px;
+}
+
+/* The plan types: the design system's plan pills as toggles, one row that scrolls
+   sideways when it runs out of room. */
+.kindList {
+  margin-inline: calc(-1 * var(--grid-margin));
+  padding-inline: var(--grid-margin);
+}
+
+/* ---------- Plans ---------- */
+
+/* Each plan's head: its type's mark (PlanMark) over the name. */
+.planHead {
+  display: grid;
+  justify-items: start;
+  gap: 8px;
 }
 
 .mark {
-  flex: none;
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   overflow: hidden;
   border-radius: var(--radius-s);
 }
 
-.quoteCell {
-  width: 1px;
+.name {
+  font-weight: 600;
 }
 
-/* Cards (below 1280px): name and who it suits beside the price, then the terms in one
-   line beside the round arrow (the table's). The whole card is the link; under the pointer
-   the arrow turns Electric Violet, as in a table row. */
-.cards {
-  display: grid;
-  gap: 12px;
-  padding: 0;
-  list-style: none;
+.saving {
+  font-family: var(--font-display);
+  font-size: var(--text-card-size);
+  line-height: var(--text-card-lh);
+  font-weight: var(--text-card-weight);
+  letter-spacing: var(--text-card-track);
 }
 
-.card {
-  display: grid;
-  gap: 12px;
-  padding: 20px;
-  color: inherit;
-  text-decoration: none;
-}
-
-.cardHead,
-.cardFoot {
+/* Get your quote today, centred under the plans. */
+.cta {
   display: flex;
-  justify-content: space-between;
-  gap: 16px;
-}
-
-.cardHead {
-  align-items: start;
-}
-
-.cardFoot {
-  align-items: center;
-  padding-top: 12px;
-  border-top: 1px solid var(--line);
-}
-
-.cardPrice {
-  flex: none;
-  text-align: right;
-}
-
-.cardPrice .price {
-  display: block;
-}
-
-.card:hover :global(.data-table-go),
-.card:focus-visible :global(.data-table-go) {
-  background: var(--electric-violet);
-  color: var(--white);
+  justify-content: center;
+  margin-top: 16px;
 }
 
 .empty {
@@ -190,54 +121,26 @@
   padding: 32px;
 }
 
+/* Tablets: the bar always open, two dropdowns a row, the plan types in one row. */
 @media (min-width: 768px) {
-  .card {
-    padding: 24px 32px;
-  }
-}
-
-/* Desktop: a 256px filter column, sticky under the header, its groups always shown. */
-@media (min-width: 1024px) {
-  .layout {
-    grid-template-columns: 256px minmax(0, 1fr);
-    grid-template-areas:
-      "filters bar"
-      "filters results";
-    grid-template-rows: auto 1fr;
-    gap: 20px 40px;
-  }
-
-  .bar {
-    grid-area: bar;
-  }
-
-  .results {
-    grid-area: results;
-  }
-
-  .filters {
-    grid-area: filters;
-    position: sticky;
-    top: calc(var(--header-h) + 24px);
-    align-self: start;
-  }
-
   .toggle {
     display: none;
   }
 
-  .groups > :first-child {
-    padding-top: 0;
-    border-top: 0;
+  .fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px 20px;
+  }
+
+  .kindList {
+    margin-inline: 0;
+    padding-inline: 0;
   }
 }
 
-@media (min-width: 1280px) {
-  .tableBox {
-    display: block;
-  }
-
-  .cards {
-    display: none;
+/* Desktop: the four dropdowns in one row. */
+@media (min-width: 1024px) {
+  .fields {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
