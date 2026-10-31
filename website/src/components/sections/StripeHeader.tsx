@@ -48,6 +48,7 @@ function breadcrumbData(crumbs: Crumb[]) {
 // takes a Stripe colour combination.
 export function StripeHeader({
   crumbs,
+  brand,
   title,
   lead,
   actions,
@@ -61,6 +62,8 @@ export function StripeHeader({
   // The text on the photo in White (Contact, Careers, About; Kedar, 2026-10-26). Needs a dark photo.
   over?: boolean;
   crumbs: Crumb[];
+  // A product's logo above the title (Run and optimise: Lumen; Kedar, 2026-10-31).
+  brand?: ReactNode;
   title: ReactNode;
   lead?: ReactNode;
   actions?: ReactNode;
@@ -113,6 +116,7 @@ export function StripeHeader({
             </Link>
           </>
         )}
+        {brand && <div className={styles.brand}>{brand}</div>}
         <h1 className={styles.title}>{title}</h1>
         {lead && <p className={styles.lead}>{lead}</p>}
         {actions && <div className={styles.actions}>{actions}</div>}

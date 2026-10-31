@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { DuoIcon } from "@ds/components/DuoIcon.jsx";
 import { IconSvg } from "@ds/components/Icon.jsx";
+import { LumenLogo } from "@ds/components/LumenLogo.jsx";
 import { icons } from "@ds/brand/icons.js";
 import styles from "./LumenScreen.module.css";
 
@@ -15,6 +16,10 @@ type LumenScreenKind = "assets" | "contract" | "switching" | "bills";
 function Frame({ label, children }: { label: string; children: ReactNode }) {
   return (
     <figure role="img" aria-label={label} className={`surface ${styles.screen}`}>
+      <div className={styles.appBar}>
+        <LumenLogo variant="symbol" height={20} aria-hidden="true" />
+        Lumen
+      </div>
       {children}
     </figure>
   );

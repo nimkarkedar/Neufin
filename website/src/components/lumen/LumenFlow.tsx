@@ -1,5 +1,6 @@
 import type { CSSProperties } from "react";
 import { DuoIcon } from "@ds/components/DuoIcon.jsx";
+import { LumenLogo } from "@ds/components/LumenLogo.jsx";
 import { icons } from "@ds/brand/icons.js";
 import styles from "./LumenFlow.module.css";
 
@@ -43,6 +44,11 @@ export function LumenFlow() {
   return (
     <div className={styles.panel}>
       <div className={styles.stage}>
+        {/* Lumen's logo, loud, on the coral over its card, the bulb lighting up as the data
+            comes in (Kedar, 2026-10-31). Near Black: White fails 4.5:1 on coral. */}
+        <div className={styles.brand}>
+          <LumenLogo live height="100%" />
+        </div>
         <svg className={styles.links} viewBox="0 0 1200 560" aria-hidden="true">
           {bands.map((d) => (
             <path key={`b${d}`} d={d} className={styles.band} />

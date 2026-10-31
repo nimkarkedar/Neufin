@@ -82,6 +82,15 @@
   }
 }
 
+/* Lumen's logo on the coral, Near Black (5.8:1; White is 3.1:1): leading the panel on phones
+   and tablets, centred over Lumen's card from 1280. 40px, 56px from 1280 (design system Lumen
+   page, `live`). */
+.brand {
+  height: 40px;
+  margin-bottom: 24px;
+  color: var(--near-black);
+}
+
 .title {
   font-size: var(--text-h3-size);
   line-height: var(--text-h3-lh);
@@ -232,6 +241,17 @@
     width: 21.6%;
     height: 42.8%;
     justify-content: center;
+  }
+
+  /* Over Lumen's card (its centre is the stage's), 20px above it. */
+  .brand {
+    position: absolute;
+    z-index: 1;
+    top: calc(28.6% - 76px);
+    left: 50%;
+    height: 56px;
+    margin: 0;
+    translate: -50% 0;
   }
 
   .results {

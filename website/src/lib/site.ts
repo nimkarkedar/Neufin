@@ -4,7 +4,9 @@ import type { icons } from "@ds/brand/icons.js";
 
 export type IconName = keyof typeof icons;
 type NavLink = { label: string; href: string };
-type MenuItem = NavLink & { description?: string; icon?: IconName };
+// `mark: "lumen"` shows Lumen's bulb in the icon's circle instead (Kedar, 2026-10-31); the
+// item keeps its `icon` for the column rule below.
+type MenuItem = NavLink & { description?: string; icon?: IconName; mark?: "lumen" };
 // A column is either all icon items (icon, label, note) or all plain links, never mixed.
 // Column titles are short labels in sentence case.
 export type MenuColumn = { title: string; items: MenuItem[] };
@@ -121,7 +123,7 @@ export const mainNav: NavItem[] = [
           title: "Products",
           items: [
             { ...energyPlans, icon: "duo-bolt", description: "Every plan, with the price." },
-            { ...lumen, icon: "duo-meter", description: "Pay less for the power you already use." },
+            { ...lumen, icon: "duo-meter", mark: "lumen", description: "Pay less for the power you already use." },
           ],
         },
         {

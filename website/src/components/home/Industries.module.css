@@ -21,6 +21,20 @@
   padding: 16px 12px 12px;
 }
 
+/* Run and optimise: the Lumen logo over the title, in the text colour (design system Lumen
+   page: at least 32px tall). */
+.lumenMark {
+  height: 32px;
+  margin-bottom: 16px;
+}
+
+@media (min-width: 1024px) {
+  .lumenMark {
+    height: 40px;
+    margin-bottom: 20px;
+  }
+}
+
 .title {
   font-size: var(--text-h3-size);
   line-height: var(--text-h3-lh);

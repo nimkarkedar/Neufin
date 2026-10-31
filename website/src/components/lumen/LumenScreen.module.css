@@ -10,6 +10,18 @@
   font-variant-numeric: tabular-nums;
 }
 
+/* The app bar: Lumen's bulb and name, a line edge to edge under it (design system Lumen
+   page: the bulb alone only with the name beside it). */
+.appBar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: -24px -20px 0;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--line);
+  font-weight: 600;
+}
+
 .title {
   font-family: var(--font-display);
   font-size: var(--text-h3-size);
@@ -271,5 +283,10 @@
     justify-content: space-between;
     gap: 24px;
     padding: 40px;
+  }
+
+  .appBar {
+    margin: -40px -40px 0;
+    padding: 16px 40px;
   }
 }

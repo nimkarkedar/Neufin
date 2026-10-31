@@ -11,6 +11,7 @@ import retail from "@ds/../public/assets/photos/industry-retail.jpg";
 import steel from "@ds/../public/assets/photos/industry-steel.jpg";
 import { useState } from "react";
 import { DuoIcon } from "@ds/components/DuoIcon.jsx";
+import { LumenLogo } from "@ds/components/LumenLogo.jsx";
 import { Segmented } from "@ds/components/Segmented.jsx";
 import { LogoMark } from "@/components/sections/Blocks";
 import { customerLogos, type BrandLogo } from "@/lib/logos";
@@ -75,16 +76,17 @@ const content: Record<string, { title: string; text: string; photo: { image: Sta
 
 // What Lumen fixes in each industry, for Run and optimise (the brief: a few solution
 // points, a figure and a link to the Lumen × industry page). TODO: Neufin to confirm the
-// points and send real figures.
+// points and send real figures. The card leads with the Lumen logo, so the visible title
+// starts at "For" (screen readers hear "Lumen for …").
 const lumenContent: Record<string, { title: string; points: string[] }> = {
-  Auto: { title: "Lumen for auto plants", points: ["Checks every plant's bill against its tariff", "Tracks rooftop solar output, shift by shift", "Moves load to the cheapest hours"] },
-  Plastics: { title: "Lumen for plastics", points: ["Shows each machine line's share of the bill", "Flags maximum demand penalties before they land", "Runs solar and grid by time of day"] },
-  Steel: { title: "Lumen for steel", points: ["Holds suppliers to your contract, unit by unit", "Flags power factor and demand penalties", "Buys from the exchange when it is cheaper"] },
-  "Hotels and resorts": { title: "Lumen for hotels and resorts", points: ["Every property's bill, fetched and checked", "Diesel and grid use compared, night by night", "Solar and battery output tracked per property"] },
-  "Real estate and malls": { title: "Lumen for real estate and malls", points: ["Common-area power split by tenant and floor", "Every unit's source on record for your reports", "Wrong bills caught before you pay them"] },
-  "Offices and coworking": { title: "Lumen for offices and coworking", points: ["Every centre's bill in one place", "Spots centres that use power after hours", "Checks your contract terms each month"] },
-  "Banks and finance": { title: "Lumen for banks and finance", points: ["Hundreds of branch bills, fetched and checked", "Clean power share tracked for your targets", "Data centre load watched round the clock"] },
-  "Retail chains": { title: "Lumen for retail chains", points: ["Every store's bill, fetched and checked", "Stores compared by power use per square foot", "Penalties and wrong tariffs flagged early"] },
+  Auto: { title: "For auto plants", points: ["Checks every plant's bill against its tariff", "Tracks rooftop solar output, shift by shift", "Moves load to the cheapest hours"] },
+  Plastics: { title: "For plastics", points: ["Shows each machine line's share of the bill", "Flags maximum demand penalties before they land", "Runs solar and grid by time of day"] },
+  Steel: { title: "For steel", points: ["Holds suppliers to your contract, unit by unit", "Flags power factor and demand penalties", "Buys from the exchange when it is cheaper"] },
+  "Hotels and resorts": { title: "For hotels and resorts", points: ["Every property's bill, fetched and checked", "Diesel and grid use compared, night by night", "Solar and battery output tracked per property"] },
+  "Real estate and malls": { title: "For real estate and malls", points: ["Common-area power split by tenant and floor", "Every unit's source on record for your reports", "Wrong bills caught before you pay them"] },
+  "Offices and coworking": { title: "For offices and coworking", points: ["Every centre's bill in one place", "Spots centres that use power after hours", "Checks your contract terms each month"] },
+  "Banks and finance": { title: "For banks and finance", points: ["Hundreds of branch bills, fetched and checked", "Clean power share tracked for your targets", "Data centre load watched round the clock"] },
+  "Retail chains": { title: "For retail chains", points: ["Every store's bill, fetched and checked", "Stores compared by power use per square foot", "Penalties and wrong tariffs flagged early"] },
 };
 
 // Industries on the home page (and, with `lumen`, on Run and optimise): the design system's choice chips pick an industry (the
@@ -112,7 +114,21 @@ export function Industries({ lumen = false }: { lumen?: boolean }) {
 
       <div className={`surface ${styles.panel}`} aria-live="polite">
         <div className={styles.text}>
-          <h3 className={styles.title}>{l ? l.title : c.title}</h3>
+          {l && (
+            <div className={styles.lumenMark}>
+              <LumenLogo height="100%" />
+            </div>
+          )}
+          <h3 className={styles.title}>
+            {l ? (
+              <>
+                <span className="visually-hidden">Lumen </span>
+                {l.title}
+              </>
+            ) : (
+              c.title
+            )}
+          </h3>
           {l ? (
             <ul className={styles.points}>
               {l.points.map((p) => (

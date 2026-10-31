@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { DuoIcon } from "@ds/components/DuoIcon.jsx";
 import { IconSvg } from "@ds/components/Icon.jsx";
+import { LumenLogo } from "@ds/components/LumenLogo.jsx";
 import { icons } from "@ds/brand/icons.js";
 // TODO: Neufin's own photo; a library photo stands in.
 import turbineSky from "@ds/../public/assets/photos/wind-turbine-sky.jpg";
@@ -70,6 +71,7 @@ export default function RunAndOptimise() {
     <>
       <StripeHeader
         crumbs={[{ label: "Products" }, { label: solutions.run.label }]}
+        brand={<LumenLogo height="100%" />}
         title="Generate more. Pay less."
         lead="Software that improves generation and finds hidden opportunities to save on energy cost."
         actions={

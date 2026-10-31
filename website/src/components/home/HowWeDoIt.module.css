@@ -15,8 +15,23 @@
   text-wrap: balance;
 }
 
+/* The Lumen logo on the Run and optimise card: top left, in line with the card's text,
+   above the media's wash; White (design system Lumen page: at least 32px tall). */
+.lumen {
+  position: absolute;
+  z-index: 1;
+  top: var(--vcard-pad);
+  left: var(--vcard-pad);
+  height: 32px;
+  color: var(--white);
+}
+
 @media (min-width: 1024px) {
   .title {
     margin-bottom: 20px;
+  }
+
+  .lumen {
+    height: 40px;
   }
 }

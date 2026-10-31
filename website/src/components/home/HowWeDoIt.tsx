@@ -1,3 +1,4 @@
+import { LumenLogo } from "@ds/components/LumenLogo.jsx";
 import { LumenMixArt } from "@/components/lumen/LumenMixArt";
 import electrician from "@ds/../public/assets/photos/electrician-rack.jpg";
 import windHills from "@ds/../public/assets/photos/wind-hills.jpg";
@@ -25,8 +26,16 @@ const cards = [
     title: "Run and optimise",
     text: "Lumen watches every meter, plant and bill, and flags overcharges.",
     href: solutions.run.href,
-    // A day of power by source, drawn (Kedar, 2026-10-29: the dashboard screenshot was too real).
-    figure: <LumenMixArt />,
+    // A day of power by source, drawn (Kedar, 2026-10-29: the dashboard screenshot was too real),
+    // signed with the Lumen logo in the top corner, White on the dark sky above the bars (Kedar, 2026-10-31).
+    figure: (
+      <>
+        <LumenMixArt />
+        <span className={styles.lumen}>
+          <LumenLogo height="100%" />
+        </span>
+      </>
+    ),
   },
   {
     id: "advisory",

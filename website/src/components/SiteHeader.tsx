@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { DuoIcon } from "@ds/components/DuoIcon.jsx";
+import { LumenLogo } from "@ds/components/LumenLogo.jsx";
 import { Icon } from "@ds/components/Icon.jsx";
 import { Logo } from "@ds/components/Logo.jsx";
 import { hexOf } from "@ds/brand/tokens.js";
@@ -26,6 +27,19 @@ const Chevron = () => (
   </svg>
 );
 
+// A menu item's hero circle: its duo icon, or Lumen's bulb (Near Black, like the icons' line)
+// for the Lumen item, with the name beside it.
+function MenuMark({ item }: { item: MenuColumn["items"][number] }) {
+  if (item.mark === "lumen") {
+    return (
+      <span className="duo-icon duo-icon-hero duo-icon-m">
+        <LumenLogo variant="symbol" height={24} aria-hidden="true" />
+      </span>
+    );
+  }
+  return <DuoIcon name={item.icon!} hero size="m" />;
+}
+
 // One labelled column of a desktop flyout: icon items (tile, label, note) or plain links.
 function FlyoutColumn({ column, pathname }: { column: MenuColumn; pathname: string }) {
   return (
@@ -36,7 +50,7 @@ function FlyoutColumn({ column, pathname }: { column: MenuColumn; pathname: stri
           <li key={m.href + m.label}>
             {m.icon ? (
               <Link href={m.href} className={`duo-icon-host ${styles.flyoutItem}`} aria-current={ariaCurrent(pathname, m.href)}>
-                <DuoIcon name={m.icon} hero size="m" />
+                <MenuMark item={m} />
                 <span>
                   <span className={styles.flyoutLabel}>{m.label}</span>
                   <span className={styles.flyoutDesc}>{m.description}</span>
@@ -299,7 +313,7 @@ export function SiteHeader() {
                                   className={m.icon ? `duo-icon-host ${styles.groupLink}` : styles.groupPlain}
                                   aria-current={ariaCurrent(pathname, m.href)}
                                 >
-                                  {m.icon && <DuoIcon name={m.icon} hero size="m" />}
+                                  {m.icon && <MenuMark item={m} />}
                                   {m.label}
                                 </Link>
                               </li>
