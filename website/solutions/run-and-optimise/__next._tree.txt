@@ -1,11 +1,11 @@
-:HL["/Neufin/website/_next/static/chunks/32dz524fb1_tw.css","style"]
+:HL["/Neufin/website/_next/static/chunks/01ctc1b7_2ypg.css","style"]
 :HL["/Neufin/website/_next/static/chunks/1j4mhncthp1x4.css","style"]
 :HL["/Neufin/website/_next/static/media/03fc1b4a8d284b5e-s.p.0wiir8udbzjvx.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/media/75affa71d1e2f6a7-s.p.17-aodiw50953.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/media/99e609270109b47d-s.p.40sczeszzbjw1.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/media/effe91970fc4db64-s.p.0oace-s_gkfks.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/chunks/1ehi33aj-lw3m.css","style"]
-:HL["/Neufin/website/_next/static/chunks/0xxrn23kqhgjn.css","style"]
+:HL["/Neufin/website/_next/static/chunks/1dnbz88of54f4.css","style"]
 :HL["/Neufin/website/_next/static/media/wind-turbine-sky.3viyyp632hd86.jpg","image"]
 :HL["/Neufin/website/_next/static/media/solar-site.00a2k3ywizqb3.jpg","image"]
 :HL["/Neufin/website/_next/static/media/wind-hills.05y-45-165zo8.jpg","image"]
@@ -13,4 +13,4 @@
 3:[["children",{"s":"__PAGE__","h":160}]]
 2:[["children",{"s":"run-and-optimise","h":96,"c":"$Q3"}]]
 1:[["children",{"s":"solutions","h":64,"c":"$Q2"}]]
-0:{"b":"6lFgMcJFaejXHX3skiyfu","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"Eq2PS9hvXDgbvWOxc3xa_","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
