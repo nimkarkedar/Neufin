@@ -4,6 +4,7 @@
 // A group without a label lists its links straight under the section.
 import Overview from './pages/Overview.jsx';
 import LogoPage from './pages/LogoPage.jsx';
+import LumenPage from './pages/LumenPage.jsx';
 import Colour from './pages/Colour.jsx';
 import Typography from './pages/Typography.jsx';
 import GraphicDevice from './pages/GraphicDevice.jsx';
@@ -26,6 +27,7 @@ export const nav = [
         group: 'Brand foundations',
         items: [
           { id: 'logo', label: 'Logo', page: LogoPage },
+          { id: 'lumen', label: 'Lumen', page: LumenPage },
           { id: 'colour', label: 'Colour', page: Colour },
           { id: 'typography', label: 'Typography', page: Typography },
           { id: 'graphic-device', label: 'Graphic device', page: GraphicDevice },

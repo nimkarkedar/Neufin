@@ -25,6 +25,7 @@ npm run dev     # http://localhost:5173
 | Tokens: colours, gradients, fonts, type scale (desktop and phone sizes), layout grid and breakpoints, radii, shadows, motion | `src/brand/tokens.js` |
 | Icons in use: `icon-list.json` (what to copy), `icons.generated.js` (copied SVGs), `icons.js` (names and colours). Run `npm run icons` after editing the list | `src/brand/` |
 | Logo paths (generated from `Neufin-logo.svg`) | `src/brand/logo-paths.js` |
+| Lumen logo paths (generated from `Lumen-logo.svg`) | `src/brand/lumen-logo-paths.js` |
 | Logo, Icon, Stripe shapes, stamp, photo filters, WhatsApp badge | `src/components/*.jsx` |
 | Web components: buttons and text fields | `src/styles/ui.css` |
 | Sales deck: every slide layout, its grid and its help text | `src/presentations/deck.js` |
@@ -32,7 +33,7 @@ npm run dev     # http://localhost:5173
 | Styles for this site only | `src/styles/app.css` |
 | Logo downloads, photos, PDF page renders | `public/assets/` |
 
-Source files: `Neufin.pdf`, `Neufin-logo.svg`.
+Source files: `Neufin.pdf`, `Neufin-logo.svg`, `Lumen-logo.svg`.
 
 ## Used by the website
 
@@ -43,6 +44,7 @@ The website imports these from `designsystem/` at build time. Renaming or removi
 | `src/brand/tokens.js` | `allTokens` (every token as a CSS variable), `fonts`, `typeScale`, `breakpoints`, `layout`, `hexOf` |
 | `src/brand/icons.js` | icon names (Nucleo, copied by `npm run icons`) |
 | `src/components/Logo.jsx` | `Logo` |
+| `src/components/LumenLogo.jsx` | `LumenLogo` (Run and optimise header, Lumen screens, How it works) |
 | `src/components/Icon.jsx` | `Icon`, `IconSvg` |
 | `src/components/Stripe.jsx` | `stripeEdgeClipPath`, `STRIPE_SLOPE`, `stripePoints` (home chart) |
 | `src/components/WhatsAppBadge.jsx` | `WhatsAppBadge` |

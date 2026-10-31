@@ -189,6 +189,10 @@ export default function LogoPage() {
         </div>
       </Section>
 
+      <Section title="Sub-brand" intro="Lumen, Neufin Energy’s software, has its own logo, always signed By Neufin Energy. Neufin leads; the two logos never sit side by side as a pair.">
+        <p><a href="#/lumen">See the Lumen guidelines</a></p>
+      </Section>
+
       <Section title="Downloads">
         <div className="download-grid">
           {downloads.map((d) => (
