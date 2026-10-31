@@ -1,13 +1,13 @@
-import { ScrollRow } from "@ds/components/ScrollRow.jsx";
 // TODO: Neufin's own photo; a library photo stands in (credit in the design system's photo list).
 import pylonMist from "@ds/../public/assets/photos/pylon-mist-delhi.jpg";
+import { TeamRow } from "@/components/about/TeamRow";
 import { Proof } from "@/components/home/Proof";
 import { VerticalCard, cardLayouts } from "@/components/sections/Cards";
 import { LogoBar } from "@/components/sections/LogoBar";
 import { Section } from "@/components/sections/Section";
 import { StripeHeader } from "@/components/sections/StripeHeader";
 import { investorLogos, supplierLogos } from "@/lib/logos";
-import { angels, team } from "@/lib/people";
+import { angels } from "@/lib/people";
 import { pageMeta } from "@/lib/meta";
 import { posts } from "@/lib/content";
 import { about, blogs } from "@/lib/site";
@@ -67,11 +67,7 @@ export default function About() {
         title="The people behind Neufin"
         lead="Founded in Bengaluru by childhood friends Rahool Gadkari and Rushil Noronha, who have built and grown businesses from the ground up."
       >
-        <ScrollRow label="The team" className={cardLayouts.row}>
-          {team.map((p) => (
-            <VerticalCard key={p.name} look="photo" image={p.photo} focus={p.focus} title={p.name} text={p.role} href={p.linkedin} label="on LinkedIn" />
-          ))}
-        </ScrollRow>
+        <TeamRow />
       </Section>
 
       <Section id="investors" tone="white" title="Backed by leading investors">

@@ -11,7 +11,9 @@ import styles from "./Cards.module.css";
 // - "photo": the picture fills the card, the text in White at the bottom;
 // - "panel": the picture across the top, stepping down along the Stripe into a White panel
 //   with an optional tag ("Step 3", an industry, a content type).
-// With `href` the whole card is a link and shows the round arrow; without, it stays still.
+// With `href` the whole card is a link and shows the round arrow; with `onOpen` it is a
+// button that opens something on the page (a dialog) and shows a plus; with neither it
+// stays still.
 // No picture yet: the media is plain Near Black (TODO in the page's data).
 // Each layout also carries the design system's .vertical-card-row, so the panels in a row
 // share one height (the tallest there) and the pictures line up.
@@ -35,13 +37,16 @@ export type VerticalCardProps = {
   href?: string;
   // Words read after the title on a link, for screen readers (e.g. "on LinkedIn").
   label?: string;
+  // Makes the card a button (the About team: opens the person's details in a dialog).
+  onOpen?: () => void;
 };
 
-export function VerticalCard({ look = "panel", image, figure, focus, tag, title, text, href, label }: VerticalCardProps) {
-  // A still card keeps real headings; inside a link the parts are spans.
-  const Part = href ? "span" : "div";
-  const Title = href ? "span" : "h3";
-  const Text = href ? "span" : "p";
+export function VerticalCard({ look = "panel", image, figure, focus, tag, title, text, href, label, onOpen }: VerticalCardProps) {
+  // A still card keeps real headings; inside a link or button the parts are spans.
+  const active = Boolean(href || onOpen);
+  const Part = active ? "span" : "div";
+  const Title = active ? "span" : "h3";
+  const Text = active ? "span" : "p";
   const className = `vertical-card ${look === "photo" ? "vertical-card-photo" : ""}`;
   const inner = (
     <>
@@ -53,16 +58,22 @@ export function VerticalCard({ look = "panel", image, figure, focus, tag, title,
             {title && <Title className="vertical-card-title">{title}</Title>}
             {text && <Text className="vertical-card-text">{text}</Text>}
           </Part>
-          {href && (
+          {active && (
             <span className="vertical-card-go">
               {label && <span className="visually-hidden">{label}</span>}
-              <IconSvg icon={icons.arrow} size={20} />
+              <IconSvg icon={onOpen ? icons.plus : icons.arrow} size={20} />
             </span>
           )}
         </Part>
       )}
     </>
   );
+  if (onOpen)
+    return (
+      <button type="button" className={className} aria-haspopup="dialog" onClick={onOpen}>
+        {inner}
+      </button>
+    );
   if (!href) return <div className={className}>{inner}</div>;
   if (href.startsWith("http"))
     return (
