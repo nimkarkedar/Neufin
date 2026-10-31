@@ -53,6 +53,8 @@ export function StripeHeader({
   actions,
   photo,
   focus = "50% 50%",
+  focusPhone,
+  tallPhone,
   combo = stripeCombos.violetOnWarmWhite,
   over = false,
 }: {
@@ -64,6 +66,10 @@ export function StripeHeader({
   actions?: ReactNode;
   photo?: StaticImageData;
   focus?: string;
+  // Phones show a narrow slice of the photo: which part (object-position), if not `focus`.
+  focusPhone?: string;
+  // Phones: the photo 40% taller than the box, cut at the top (Contact's bright horizon).
+  tallPhone?: boolean;
   combo?: { bg: string; fg: string };
 }) {
   const trail = [{ label: "Home", href: "/" }, ...crumbs];
@@ -73,14 +79,14 @@ export function StripeHeader({
 
   const picture = photo && (
     <>
-      <img src={photo.src} alt="" style={{ objectPosition: focus } as CSSProperties} />
+      <img src={photo.src} alt="" style={{ "--focus": focus, "--focus-phone": focusPhone } as CSSProperties} />
       {/* The design system's Violet wash, as on the home page's photos. */}
       <span className={styles.wash} />
     </>
   );
 
   return (
-    <section className={styles.header} data-over={over || undefined}>
+    <section className={styles.header} data-over={over || undefined} data-tall-phone={(over && tallPhone) || undefined}>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbData(crumbs)) }} />
       {over && (
         <div className={styles.backdrop} style={{ clipPath: edge, background: photo ? undefined : combo.fg }} aria-hidden="true">

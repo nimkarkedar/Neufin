@@ -102,7 +102,8 @@ export default function Careers() {
           </>
         }
         photo={expressway}
-        focus="50% 0%"
+        focus="50% 100%"
+        tallPhone
         over
       />
 

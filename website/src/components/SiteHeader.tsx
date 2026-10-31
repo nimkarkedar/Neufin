@@ -121,6 +121,14 @@ export function SiteHeader() {
 
   useEffect(() => () => clearTimeout(hoverTimer.current), []);
 
+  // After a page change the clicked nav link would keep focus (the page doesn't reload),
+  // and Chrome shows its focus ring at the next key press, a screenshot shortcut included
+  // (Kedar, 2026-10-31). The link lets go once the new page is in.
+  useEffect(() => {
+    const active = document.activeElement;
+    if (active instanceof HTMLElement && navRef.current?.contains(active)) active.blur();
+  }, [pathname]);
+
   // At the top of the page the header has no bottom line, so its White runs straight
   // into the page's top fade. The line appears once the page scrolls under it.
   const [scrolled, setScrolled] = useState(false);

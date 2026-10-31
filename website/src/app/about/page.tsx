@@ -1,5 +1,5 @@
-// TODO: Neufin's own photo; a library photo stands in (credit in the design system's photo list).
-import pylonMist from "@ds/../public/assets/photos/pylon-mist-delhi.jpg";
+// Kedar's factory floor photo (2026-10-31; TODO credit in the design system's photo list).
+import factoryWorker from "@ds/../public/assets/photos/factory-worker-edging.jpg";
 import { TeamRow } from "@/components/about/TeamRow";
 import { Proof } from "@/components/home/Proof";
 import { VerticalCard, cardLayouts } from "@/components/sections/Cards";
@@ -42,8 +42,9 @@ export default function About() {
         crumbs={[{ label: about.label }]}
         title="Powering the future of business"
         lead="Our mission is to turn energy into a competitive advantage for every business."
-        photo={pylonMist}
-        focus="50% 75%"
+        photo={factoryWorker}
+        focus="25% 40%"
+        focusPhone="78% 35%"
         over
       />
 

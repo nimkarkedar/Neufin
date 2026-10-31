@@ -103,6 +103,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: var(--focus, 50% 50%);
 }
 
 /* The design system's Violet wash (PhotoFilters VioletWash): Violet 300 multiplied at 45%. */
@@ -181,6 +182,7 @@
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: var(--focus, 50% 50%);
 }
 
 /* One even Violet 900 layer over the Violet wash, the same across the photo and at every
@@ -193,10 +195,15 @@
   opacity: 0.35;
 }
 
-/* On phones the box is narrow, so the photo is cropped at the sides only. It runs 40%
-   taller than the box, cut at the top, so a horizon in the photo's upper half rises
-   clear of the title. */
+/* On phones the box is narrow, so the photo is cropped at the sides; `focusPhone` picks
+   which part shows (--focus-phone, else the desktop focus). A page whose bright horizon
+   would sit behind the title (Contact) can opt in to `tallPhone`: the photo runs 40%
+   taller than the box, cut at the top, so the horizon rises clear of the text. */
 .header[data-over] .backdrop img {
+  object-position: var(--focus-phone, var(--focus));
+}
+
+.header[data-over][data-tall-phone] .backdrop img {
   inset: auto 0 0;
   height: 140%;
 }
@@ -210,9 +217,11 @@
 }
 
 @media (min-width: 768px) {
-  .header[data-over] .backdrop img {
+  .header[data-over] .backdrop img,
+  .header[data-over][data-tall-phone] .backdrop img {
     inset: 0;
     height: 100%;
+    object-position: var(--focus);
   }
 
   .header[data-over] {

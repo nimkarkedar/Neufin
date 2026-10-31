@@ -25,6 +25,7 @@ export default function Contact() {
         lead="Start paying less for energy today. Reach out to us for a quote."
         photo={bengaluru}
         focus="50% 50%"
+        tallPhone
         over
       />
 
