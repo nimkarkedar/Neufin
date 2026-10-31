@@ -56,7 +56,7 @@ export default function SellEnergy() {
   return (
     <>
       <StripeHeader
-        crumbs={[{ label: "Solutions" }, { label: solutions.sell.label }]}
+        crumbs={[{ label: "Products" }, { label: solutions.sell.label }]}
         title="Sell your energy faster"
         lead="Verified business buyers, so you can generate while we take care of the rest."
         actions={

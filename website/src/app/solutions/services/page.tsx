@@ -57,7 +57,7 @@ export default function Services() {
   return (
     <>
       <StripeHeader
-        crumbs={[{ label: "Solutions" }, { label: solutions.services.label }]}
+        crumbs={[{ label: "Products" }, { label: solutions.services.label }]}
         title="Energy services for your business"
         lead="Metering, electricity board approvals across India and hardware installation, done with ease."
         actions={

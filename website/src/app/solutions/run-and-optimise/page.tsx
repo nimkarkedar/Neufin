@@ -69,7 +69,7 @@ export default function RunAndOptimise() {
   return (
     <>
       <StripeHeader
-        crumbs={[{ label: "Solutions" }, { label: solutions.run.label }]}
+        crumbs={[{ label: "Products" }, { label: solutions.run.label }]}
         title="Generate more. Pay less."
         lead="Software that improves generation and finds hidden opportunities to save on energy cost."
         actions={

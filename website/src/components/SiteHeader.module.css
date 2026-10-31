@@ -54,10 +54,6 @@
   fill: currentColor;
 }
 
-:global(body:has([data-header~="overlay"])) .header:not([data-scrolled], [data-menu-open], :has(.flyout[data-open])) .topLink:hover {
-  background: color-mix(in srgb, var(--white) 16%, transparent);
-}
-
 /* The Contact button turns White with Near Black text. */
 :global(body:has([data-header~="overlay"])) .header:not([data-scrolled], [data-menu-open], :has(.flyout[data-open])) .contact {
   background: var(--white);
@@ -306,14 +302,20 @@
     font-weight: 500;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color var(--duration-fast) ease;
+  }
+
+  /* One selection mark only: the 2px underline. Hover, an open menu and the current page
+     all show it, with no pill behind (Kedar, 2026-10-31: a pill and an underline together
+     looked off); an open menu also flips its chevron. The keyboard ring is Near Black,
+     close and pill-shaped. */
+  .topLink:focus-visible {
+    outline-color: var(--near-black);
+    outline-offset: 2px;
+    border-radius: var(--radius-pill);
   }
 
   .topLink:hover,
-  .topLink[aria-expanded="true"] {
-    background: var(--hover-fill);
-  }
-
+  .topLink[aria-expanded="true"],
   .topLink[aria-current="page"],
   .topLink[data-current] {
     text-decoration: underline;

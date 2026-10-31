@@ -1,9 +1,11 @@
+import Image from "next/image";
 import Link from "next/link";
 import { DuoIcon } from "@ds/components/DuoIcon.jsx";
 import { IconSvg } from "@ds/components/Icon.jsx";
 import { ScrollRow } from "@ds/components/ScrollRow.jsx";
 import { icons } from "@ds/brand/icons.js";
 // TODO: Neufin's own photos; library photos stand in.
+import pylonArt from "@ds/../public/assets/illustrations/pylon-neon-wires.png";
 import windFarm from "@ds/../public/assets/photos/careers-wind-farm.jpg";
 import transformerCrew from "@ds/../public/assets/photos/transformer-crew.jpg";
 import { ContactReach } from "@/components/contact/ContactReach";
@@ -72,7 +74,7 @@ export default function Advisory() {
   return (
     <>
       <StripeHeader
-        crumbs={[{ label: "Solutions" }, { label: solutions.advisory.label }]}
+        crumbs={[{ label: "Products" }, { label: solutions.advisory.label }]}
         title="Get an actionable energy transition plan for your business"
         lead="We plan, carry out and help you meet your clean energy targets, for your sites and your suppliers."
         // A plain button to Contact, as on Sell energy (Kedar, 2026-10-27: no email field).
@@ -93,13 +95,15 @@ export default function Advisory() {
 
       <Section id="your-sites" tone="white" title="One partner on your path to 100% clean energy">
         <div className={boxes.boxes}>
-          {/* One claim in the home numbers block's statement style, and the button. */}
-          <div className={`surface ${boxes.about}`}>
+          {/* One claim in the home numbers block's statement style, the button under it, and
+              Kedar's pylon illustration (transparent) across the foot. */}
+          <div className={`surface ${boxes.about} ${boxes.aboutArt}`}>
             <p className="statement">One team plans and runs your switch, in 16 states</p>
             <Link href={contactLink.href} className="btn btn-primary">
               Talk to us
               <IconSvg icon={icons.arrow} size={20} />
             </Link>
+            <Image src={pylonArt} alt="" className={boxes.art} sizes="(min-width: 1024px) 600px, 100vw" />
           </div>
           <ul className={`surface ${boxes.rows}`}>
             {services.map((s) => (

@@ -54,7 +54,7 @@ export default function BuyCheaperPower() {
   return (
     <>
       <StripeHeader
-        crumbs={[{ label: "Solutions" }, { label: solutions.buy.label }]}
+        crumbs={[{ label: "Products" }, { label: solutions.buy.label }]}
         title="Cut your energy bill by up to 30%"
         lead="Choose your tariff, tenure and capacity."
         actions={

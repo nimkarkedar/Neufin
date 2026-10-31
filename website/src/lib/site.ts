@@ -83,6 +83,8 @@ export const services: NavLink[] = [
 
 // Energy plans: every plan in one place (the plan finder page). Phase 1 (Kedar, 2026-10-27).
 const energyPlans: NavLink = { label: "Energy plans", href: "/products/plan-finder" };
+// Lumen, Neufin's software: its page is Run and optimise (Kedar, 2026-10-31).
+const lumen: NavLink = { label: "Lumen", href: "/solutions/run-and-optimise" };
 // Lumen's modules, with the icon and line the Products menu and the home page's Lumen
 // block both show.
 export const lumenModules: (MenuItem & { icon: IconName; description: string })[] = [
@@ -108,15 +110,24 @@ export const contactLink: NavLink = { label: "Contact us", href: "/contact" };
 export const mainNav: NavItem[] = [
   { label: "Home", href: "/" },
   {
-    label: "Solutions",
-    href: "/solutions",
+    // Products (Kedar, 2026-10-31; was Solutions): Neufin's two products first, then the
+    // solutions for businesses. Lumen is the Run and optimise page, so that page isn't
+    // listed twice, and Energy plans is no longer a link of its own beside the menu.
+    label: "Products",
+    href: "/products",
     menu: {
       columns: [
         {
+          title: "Products",
+          items: [
+            { ...energyPlans, icon: "duo-bolt", description: "Every plan, with the price." },
+            { ...lumen, icon: "duo-meter", description: "Pay less for the power you already use." },
+          ],
+        },
+        {
           title: "For businesses",
           items: [
-            { ...solutions.buy, icon: "duo-bolt", description: "Energy plans for your sites." },
-            { ...solutions.run, icon: "duo-meter", description: "Pay less for the power you already use." },
+            { ...solutions.buy, icon: "duo-coins", description: "Energy plans for your sites." },
             { ...solutions.advisory, icon: "duo-leaf", description: "A clear plan to reach your clean power goals." },
             { ...solutions.services, icon: "duo-wrench", description: "Meter work and electricity board approvals, done for you." },
           ],
@@ -130,7 +141,6 @@ export const mainNav: NavItem[] = [
       },
     },
   },
-  energyPlans,
   {
     label: "Resources",
     href: "/resources",
@@ -175,7 +185,7 @@ export const socialLinks: NavLink[] = [
 
 // Footer columns: every Phase 1 page, so search engines find them all.
 export const footerGroups: { title: string; links: NavLink[] }[] = [
-  { title: "Solutions", links: Object.values(solutions) },
-  { title: "Resources", links: [energyPlans, blogs, publications, customerStories] },
+  { title: "Products", links: [energyPlans, lumen, solutions.buy, solutions.advisory, solutions.services, solutions.sell] },
+  { title: "Resources", links: [blogs, publications, customerStories] },
   { title: "Company", links: [about, careers, contactLink] },
 ];

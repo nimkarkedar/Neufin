@@ -4,7 +4,7 @@ Where the project stands on 2026-10-26, when the work moved from Kedar's persona
 
 ## Phase 1 (Kedar, 2026-10-27)
 
-Only these pages: Home, Solutions (Buy cheaper energy, Run and optimise, RE advisory, Services, Sell energy), Energy plans, Blog, Publications, Customer stories, About, Careers, Contact us. The nav and footer link only to these. Energy plans is `/products/plan-finder`; Blog and Publications are still to build.
+Only these pages: Home, Solutions (Buy cheaper energy, Run and optimise, RE advisory, Services, Sell energy), Energy plans, Blog, Publications, Customer stories, About, Careers, Contact us. The nav and footer link only to these. The Solutions menu is now Products (2026-10-31): Energy plans and Lumen, then the solutions for businesses, Sell energy in its side panel. Energy plans is `/products/plan-finder`; Blog and Publications are still to build.
 
 ## Pages
 

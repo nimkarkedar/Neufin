@@ -17,6 +17,28 @@
   padding: var(--pad);
 }
 
+/* The box with an illustration at its foot: the statement and button stay together at the
+   top (24px apart); the transparent art sits small in the bottom left corner straight on
+   the White card, flush with its left edge and sunk 20px past the bottom, which cuts it. */
+.aboutArt {
+  --about-pad: var(--pad);
+  justify-content: flex-start;
+  gap: 24px;
+  padding-bottom: 0;
+  overflow: hidden;
+}
+
+.art {
+  flex: none;
+  width: calc((100% + 2 * var(--about-pad)) * 0.83);
+  max-width: none;
+  height: auto;
+  margin-top: auto;
+  margin-left: calc(-1 * var(--about-pad));
+  margin-bottom: -20px;
+  padding-top: 24px;
+}
+
 /* A title inside a dense card (a panel with points and a photo): the design system's Card
    title step (28/800, 24 on phones), as every card title. The H1 statement is for a box
    with little else in it. */
@@ -137,6 +159,16 @@ a.row:focus-visible {
   .about {
     justify-content: space-between;
     padding: 48px;
+  }
+
+  .aboutArt {
+    --about-pad: 48px;
+    justify-content: flex-start;
+    padding-bottom: 0;
+  }
+
+  .art {
+    min-height: 0;
   }
 
   .about .points {
