@@ -3,7 +3,7 @@ import { DuoIcon } from "@ds/components/DuoIcon.jsx";
 import { IconSvg } from "@ds/components/Icon.jsx";
 import { icons } from "@ds/brand/icons.js";
 // TODO: Neufin's own photo; a library photo stands in.
-import teamCoding from "@ds/../public/assets/photos/careers-team-coding.jpg";
+import turbineSky from "@ds/../public/assets/photos/wind-turbine-sky.jpg";
 import { HowWeDoIt } from "@/components/home/HowWeDoIt";
 import { Industries } from "@/components/home/Industries";
 import { LumenFlow } from "@/components/lumen/LumenFlow";
@@ -78,8 +78,8 @@ export default function RunAndOptimise() {
             <IconSvg icon={icons.arrow} size={20} />
           </Link>
         }
-        photo={teamCoding}
-        focus="50% 55%"
+        photo={turbineSky}
+        focus="50% 50%"
         over
       />
 

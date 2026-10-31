@@ -26,6 +26,7 @@ Standing rules and preferences, gathered from his reviews. Most are also in `web
 - **Copy:** plain, factual, numbers over adjectives, per the Tone of voice page. No two-beat slogans ("X. Y."); where the brief insists on one, keep it and say so.
 - **Folds:** a simple section fits one laptop screen (1440 × 900, ideally 1280 × 800). Use sideways rows (`ScrollRow`) when cards don't fit.
 - **Mobile first.** Check 390 and 1440 before showing.
+- **Sharp photos:** save full-width photos (headers, hero) at 3200–3600px wide and card photos at about 2× the card; the site serves files as saved, so a small file shows soft on retina screens (2026-10-31).
 - **Text on photos:** only on dark photos, White text 4.5:1 or better (measure it). Pick another photo rather than darkening the wash.
 - **Accessibility:** WCAG AA, keyboard and screen reader support, reduced motion respected.
 

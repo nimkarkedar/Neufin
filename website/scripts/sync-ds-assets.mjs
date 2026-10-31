@@ -3,8 +3,10 @@
 import { copyFileSync } from "node:fs";
 
 const files = [
-  // The browser tab icon: the Neufin symbol in Electric Violet.
-  ["../designsystem/public/assets/logo/neufin-symbol-violet.svg", "src/app/icon.svg"],
+  // The favicon: the White symbol on an Electric Violet tile (Logo page, Favicon).
+  ["../designsystem/public/assets/logo/neufin-favicon.svg", "src/app/icon.svg"],
+  // The same on a full square for phone home screens (iOS rounds the corners itself).
+  ["../designsystem/public/assets/logo/neufin-apple-icon.png", "src/app/apple-icon.png"],
 ];
 
 for (const [from, to] of files) copyFileSync(new URL(`../${from}`, import.meta.url), new URL(`../${to}`, import.meta.url));
