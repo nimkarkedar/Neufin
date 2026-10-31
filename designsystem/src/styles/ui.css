@@ -1404,6 +1404,106 @@
   }
 }
 
+/* ---------- Profile (in a dialog) ----------
+   One person's details in a .dialog, opened from their card (About, The people behind
+   Neufin; Kedar, 2026-10-31): the photo, then the name (Card title), the role in the
+   secondary text colour, the bio in Body, the fun fact in a Warm White block, and LinkedIn
+   as a secondary button with its logo. No company or college logos for now. From tablets the photo fills the window's height on the left (at least 4:5); on
+   phones it runs across the top, under a White close button. */
+.profile {
+  display: grid;
+}
+
+.profile-photo {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: var(--near-black);
+}
+
+.profile-photo > img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* On phones the close button sits on the photo, so it takes a White circle. */
+@media (max-width: 767px) {
+  .dialog:has(.profile) .dialog-close {
+    background: var(--white);
+  }
+}
+
+.profile-body {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+  padding: 24px 20px 32px;
+}
+
+.profile-name {
+  font-family: var(--font-display);
+  font-size: var(--text-card-size);
+  line-height: var(--text-card-lh);
+  font-weight: var(--text-card-weight);
+  letter-spacing: var(--text-card-track);
+}
+
+.profile-role {
+  margin-top: -8px;
+  color: var(--ink-2, var(--grey-600));
+}
+
+.profile-bio {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-lh);
+}
+
+/* The fun fact: a Warm White block under the bio, a semibold label over the line. */
+.profile-fact {
+  display: grid;
+  gap: 4px;
+  padding: 16px 20px;
+  background: var(--warm-white);
+  border-radius: var(--radius-m);
+}
+
+.profile-fact > h3 {
+  font-size: var(--text-body-size);
+  line-height: var(--text-body-lh);
+  font-weight: 600;
+}
+
+/* LinkedIn: a full secondary button with the logo, at the foot of the words. */
+.profile-body > .btn {
+  justify-self: start;
+  margin-top: 8px;
+}
+
+@media (min-width: 768px) {
+  .profile {
+    grid-template-columns: 5fr 7fr;
+  }
+
+  /* The photo fills the window's height beside the words, at least 4:5. */
+  .profile-photo {
+    aspect-ratio: auto;
+    min-height: 100%;
+  }
+
+  .profile-photo::before {
+    content: "";
+    display: block;
+    aspect-ratio: 4 / 5;
+  }
+
+  .profile-body {
+    padding: 48px 40px 40px;
+  }
+}
+
 /* ---------- Toast ----------
    A short confirmation after something is sent, when nothing else on screen says so
    (the call-back modal closes on send). Near Black with White text (Kedar, 2026-10-27), a
@@ -1932,6 +2032,16 @@
   transition: box-shadow var(--duration-slow) var(--ease-out);
 }
 
+/* A card that opens a dialog instead of going anywhere (the About team): a <button
+   class="vertical-card"> answers like a clickable card, with a plus in place of the arrow. */
+button.vertical-card {
+  width: 100%;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
 /* Holds the card at 4:5 across both rows; the picture takes what the panel leaves. */
 .vertical-card::before {
   content: "";
@@ -1941,12 +2051,12 @@
   visibility: hidden;
 }
 
-a.vertical-card:hover,
-a.vertical-card:focus-visible {
+:is(a, button).vertical-card:hover,
+:is(a, button).vertical-card:focus-visible {
   box-shadow: var(--shadow-overlay);
 }
 
-a.vertical-card:focus-visible {
+:is(a, button).vertical-card:focus-visible {
   outline: 2px solid var(--electric-violet);
   outline-offset: 3px;
 }
@@ -1972,8 +2082,8 @@ a.vertical-card:focus-visible {
   transition: scale calc(var(--duration-slow) * 2) var(--ease-out);
 }
 
-a.vertical-card:hover .vertical-card-media > img,
-a.vertical-card:focus-visible .vertical-card-media > img {
+:is(a, button).vertical-card:hover .vertical-card-media > img,
+:is(a, button).vertical-card:focus-visible .vertical-card-media > img {
   scale: 1.04;
 }
 
@@ -2050,8 +2160,8 @@ a.vertical-card:focus-visible .vertical-card-media > img {
     color var(--duration-base) var(--ease-out);
 }
 
-a.vertical-card:hover .vertical-card-go,
-a.vertical-card:focus-visible .vertical-card-go,
+:is(a, button).vertical-card:hover .vertical-card-go,
+:is(a, button).vertical-card:focus-visible .vertical-card-go,
 .data-table tbody tr:hover .data-table-go,
 .data-table-go:focus-visible {
   background: var(--electric-violet);
@@ -2059,8 +2169,8 @@ a.vertical-card:focus-visible .vertical-card-go,
 }
 
 @media (prefers-reduced-motion: reduce) {
-  a.vertical-card:hover .vertical-card-media > img,
-  a.vertical-card:focus-visible .vertical-card-media > img {
+  :is(a, button).vertical-card:hover .vertical-card-media > img,
+  :is(a, button).vertical-card:focus-visible .vertical-card-media > img {
     scale: none;
   }
 }
