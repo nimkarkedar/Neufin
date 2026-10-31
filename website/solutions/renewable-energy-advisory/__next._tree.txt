@@ -1,4 +1,4 @@
-:HL["/Neufin/website/_next/static/chunks/2lrjiuoo_3u7s.css","style"]
+:HL["/Neufin/website/_next/static/chunks/0lyj_bca4mu77.css","style"]
 :HL["/Neufin/website/_next/static/chunks/1j4mhncthp1x4.css","style"]
 :HL["/Neufin/website/_next/static/media/03fc1b4a8d284b5e-s.p.0wiir8udbzjvx.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/media/75affa71d1e2f6a7-s.p.17-aodiw50953.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
@@ -6,7 +6,7 @@
 :HL["/Neufin/website/_next/static/media/effe91970fc4db64-s.p.0oace-s_gkfks.woff2","font",{"crossOrigin":"","type":"font/woff2"}]
 :HL["/Neufin/website/_next/static/chunks/2t8_vjwskp6pd.css","style"]
 :HL["/Neufin/website/_next/static/chunks/1ehi33aj-lw3m.css","style"]
-:HL["/Neufin/website/_next/static/chunks/10lqr2kb4jms4.css","style"]
+:HL["/Neufin/website/_next/static/chunks/3ek70d3b8uu_6.css","style"]
 :HL["/Neufin/website/_next/static/media/careers-wind-farm.0ktqv41b06uaq.jpg","image"]
 :HL["/Neufin/website/_next/static/media/renewable-energy-handbook.1ej-vzfwvmsnn.jpg","image"]
 :HL["/Neufin/website/_next/static/media/india-energy-stack.3u7uqvv_rm8o4.jpg","image"]
@@ -16,4 +16,4 @@
 3:[["children",{"s":"__PAGE__","h":160}]]
 2:[["children",{"s":"renewable-energy-advisory","h":96,"c":"$Q3"}]]
 1:[["children",{"s":"solutions","h":64,"c":"$Q2"}]]
-0:{"b":"-hSIjVexWvogBIf5ig5i2","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
+0:{"b":"DL5ClBxy2nE-r-ArdeSqo","t":{"t":{"s":"","h":16,"c":"$Q1"}}}
