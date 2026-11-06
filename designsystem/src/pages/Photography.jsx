@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { asset } from '../brand/asset.js';
 import { PageHeader, Section, Callout, DoDont } from '../components/ui.jsx';
-import { PhotoPost, photos, layouts, treatments, fields } from '../components/PhotoPost.jsx';
+import { PhotoPost, photos, layouts, treatments, fields, postControls, downloadPost } from '../components/PhotoPost.jsx';
 
 const ratios = [
   { id: 'portrait', label: '4:5 · 1080 × 1350' },
@@ -37,12 +37,31 @@ function TryIt() {
   const [field, setField] = useState(null);
   const [grid, setGrid] = useState(true);
   const [headline, setHeadline] = useState('Power that costs less, from sources you choose.');
+  const [adjust, setAdjust] = useState({});
+  const [saving, setSaving] = useState(false);
+  const [failed, setFailed] = useState(false);
+  const stage = useRef(null);
   const L = layouts.find((l) => l.id === layout);
-  const pickLayout = (id) => { setLayout(id); setTreatment(null); setField(null); };
+  const { sliders } = postControls({ layout, photo: byId(photo), ratio, adjust });
+  const pickLayout = (id) => { setLayout(id); setTreatment(null); setField(null); setAdjust({}); };
+  const pickRatio = (id) => { setRatio(id); setAdjust({}); };
+  const size = ratio === 'portrait' ? '1080x1350' : '1080x1080';
+  async function download() {
+    if (saving) return;
+    setSaving(true);
+    setFailed(false);
+    try {
+      await downloadPost(stage.current.querySelector('.post'), `neufin-${layout}-${photo}-${size}@2x.png`);
+    } catch {
+      setFailed(true);
+    } finally {
+      setSaving(false);
+    }
+  }
   return (
     <div className="pp-try">
-      <div className="pp-try-stage">
-        <PhotoPost photo={byId(photo)} layout={layout} ratio={ratio} treatment={treatment ?? undefined} field={field ?? undefined} headline={headline} grid={grid} />
+      <div className="pp-try-stage" ref={stage}>
+        <PhotoPost photo={byId(photo)} layout={layout} ratio={ratio} treatment={treatment ?? undefined} field={field ?? undefined} headline={headline} grid={grid} adjust={adjust} />
       </div>
       <div className="pp-try-controls">
         <div className="gen-field">
@@ -56,7 +75,7 @@ function TryIt() {
           </div>
         </div>
         <div className="gen-field"><span>Layout</span><Seg items={shown} value={layout} onChange={pickLayout} /></div>
-        <div className="gen-field"><span>Size</span><Seg items={ratios} value={ratio} onChange={setRatio} /></div>
+        <div className="gen-field"><span>Size</span><Seg items={ratios} value={ratio} onChange={pickRatio} /></div>
         <div className="gen-field">
           <span>Treatment</span>
           {L.fixed ? <p className="caption">Lens always uses duotone.</p> : <Seg items={treatments} value={treatment ?? L.treatment} onChange={setTreatment} />}
@@ -69,11 +88,21 @@ function TryIt() {
             ))}
           </div>
         </div>
+        {sliders.map((s) => (
+          <label key={s.key} className="pg-slider">
+            <span>{s.label}</span>
+            <input type="range" min={s.min} max={s.max} step="any" value={s.value} aria-valuetext={`${Math.round(s.value)} px`} onChange={(e) => setAdjust({ ...adjust, [s.key]: +e.target.value })} />
+          </label>
+        ))}
         <label className="gen-field">
           <span>Headline</span>
           <textarea rows={2} value={headline} onChange={(e) => setHeadline(e.target.value)} />
         </label>
         <label className="pp-check"><input type="checkbox" checked={grid} onChange={(e) => setGrid(e.target.checked)} /> Show grid</label>
+        <div className="gen-field">
+          <div><button type="button" className="btn btn-primary" onClick={download} aria-disabled={saving}>{saving ? 'Preparing…' : 'Download PNG'}</button></div>
+          <span className="caption" aria-live="polite">{failed ? 'The download failed. Try again.' : `${ratio === 'portrait' ? '2160 × 2700' : '2160 × 2160'} px, twice the post size, without the grid.`}</span>
+        </div>
       </div>
     </div>
   );
@@ -154,7 +183,7 @@ export default function Photography() {
         </div>
       </Section>
 
-      <Section title="Try it" intro="Pick a photo and a layout. Overlays stay on the grid and at 32°.">
+      <Section title="Try it" intro="Pick a photo and a layout, adjust it and download the post. Overlays start on the grid and stay at 32°.">
         <TryIt />
       </Section>
     </>
