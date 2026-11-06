@@ -24,7 +24,7 @@ Buttons `.btn` + `-primary` (Near Black) / `-secondary` / `-accent` (Electric Vi
 
 ## Components (`src/components/`)
 
-`Logo`, `LumenLogo` (Lumen, the sub-brand: `full` or `symbol`, one colour via `color`), `Icon` / `IconSvg` (Nucleo), `DuoIcon` (the website's content icons: hero in a circle or supporting, UI outline-duo, Near Black line, Violet 200 second tone; `.duo-icon*` in ui.css), `StripePattern` (the Stripe as a pattern piece for pattern tiles, `patternCombos`), `PlanMark` (one Stripe-drawn mark per energy plan type: hyper, smart, max, rooftop for Hyper Flex, Smart Saver, Max Saver, Rooftop Solar; `planMarkCombos`), `Stripe` (`stripeEdgeClipPath`, `STRIPE_SLOPE` = 536/850, about 32°), `Stamp` and `RingStamp`, `RollingFigure`, `Segmented`, `Check`, `ScrollRow`, `StepTrack`, `WhatsAppBadge`, `PhotoFilters`, `PhotoPost` (also the photo library list with credits).
+`Logo`, `LumenLogo` (Lumen, the sub-brand: `full` or `symbol`, one colour via `color`), `Icon` / `IconSvg` (Nucleo), `DuoIcon` (the website's content icons: hero in a circle or supporting, UI outline-duo, Near Black line, Violet 200 second tone; `.duo-icon*` in ui.css), `StripePattern` (the Stripe as a pattern piece for pattern tiles, `patternCombos`), `PlanMark` (one Stripe-drawn mark per energy plan type: hyper, smart, max, rooftop for Hyper Flex, Smart Saver, Max Saver, Rooftop Solar; `planMarkCombos`), `Stripe` (`stripeEdgeClipPath`, `STRIPE_SLOPE` = 536/850, about 32°), `Stamp` and `RingStamp`, `RollingFigure`, `Segmented`, `Check`, `ScrollRow`, `StepTrack`, `WhatsAppBadge`, `PhotoFilters`, `PhotoPost` (also the photo library list with credits, each layout's Try it sliders via `postControls`, and `downloadPost` for the PNG).
 
 ## Icons
 
@@ -33,6 +33,11 @@ Nucleo only, listed in `src/brand/icon-list.json`, copied by `npm run icons` (ne
 ## Imagery
 
 - **Photos:** `public/assets/photos/`, each listed in `PhotoPost.jsx` with its source and licence (Kedar's own, or Unsplash License with photographer and ID). Rules on the Photography page: India, real places, no staged stock; text on a photo only on a dark photo, White text 4.5:1 or better.
+- **Photo post Try it (Kedar, 2026-11-06):** the Photography page's Try it gets continuous sliders per layout and a 2x PNG download.
+  Each layout shows only its own sliders (`controls` in `PhotoPost.jsx`): the Stripe's thickness, drop, turn point and position, the panel or block size, and the text size; the 32° angle is never adjustable.
+  The sliders track the thumb with no module snapping (Kedar found snapped steps jumpy), so overlays leave the module grid while adjusted; the defaults are the layouts as designed and stay on the grid.
+  Cut and Window cap the position so the headline keeps its room.
+  Download PNG saves 2160 × 2700 or 2160 × 2160 from the full photo file, without the grid; the library photos are 1600px wide, so the photo in a 2x file is upscaled.
 - **Illustrations:** `public/assets/illustrations/`, shown on the Illustration page: Inspiration (style references for ChatGPT, zip via `npm run references`), Spot illustrations (round, for White art cards: values, hiring, Buy steps), Card illustrations (full 4:5 cards: the four plans). Match the background to the exact token when adding.
 - **Illustration prompts:** all wording in `src/illustration/prompt-template.md` (MASTER, KIND: object / icon / scene, FORMAT, COLOURS, CONCEPT), built by `src/illustration/prompt.js` for the Illustration page and read by the `illustration-prompt` skill. Edit the template, not the skill, to change what every prompt says. Lessons: the concept leads and references set style only; never ask ChatGPT for transparency; describe the background positively (negative lists invite the blobs they forbid).
 

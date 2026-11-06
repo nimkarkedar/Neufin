@@ -111,8 +111,9 @@ function Clip({ c, name, points, rect }) {
 }
 
 // The ribbon: three lanes of the Stripe that turn the photo violet where they cross it.
-function Ribbon({ c, y, kinkX, drop, clip }) {
-  const ls = lanes({ y, kinkX, drop, widths: [G, G / 2, G] });
+// The lanes split the thickness t 2 : 1 : 2, so the default 2.5 modules gives 90, 45 and 90.
+function Ribbon({ c, y, kinkX, drop, t = 2.5 * G, clip }) {
+  const ls = lanes({ y, kinkX, drop, widths: [(t * 2) / 5, t / 5, (t * 2) / 5] });
   return {
     defs: ls.map((p, i) => <Clip key={i} c={c} name={`lane${i}`} points={p} />),
     art: (
@@ -150,6 +151,19 @@ function TextBlock({ c, x, y, w, h, size }) {
   };
 }
 
+// Slider controls for the Try it playground, in canvas px. Each layout lists its own; the values reach
+// render as c.v. min and max can depend on the other values (v). Values are continuous so the post
+// tracks the thumb; the defaults are the layouts as designed, on the grid.
+const slider = (key, label, min, max) => (value) => ({ key, label, min, max, value });
+const thickness = slider('t', 'Thickness', 1.5 * G, 4 * G);
+const drop = slider('drop', 'Drop', G, 6 * G);
+const turn = slider('turn', 'Turn point', 0, 8 * G);
+const position = (bottom) => slider('y', 'Position', (v) => -v.t / 2, (v) => bottom(v) - v.drop - v.t / 2);
+const blockSize = slider('block', 'Block size', 3 * G, 8 * G);
+const textSize = slider('size', 'Text size', 40, 120);
+const stripeSliders = (c, { y, t, kinkX, bottom = () => c.H }) => [thickness(t), drop(3 * G), turn(kinkX), position(bottom)(y)];
+const windowHead = (c) => (c.portrait ? 10.5 * G : 8.5 * G);
+
 export const layouts = [
   {
     id: 'plain',
@@ -165,19 +179,24 @@ export const layouts = [
     note: 'The Stripe in three lanes crosses the photo. Inside the lanes the photo turns violet. Logo on a block, no headline.',
     treatment: 'natural',
     field: 'warm-white',
+    controls: (c) => [
+      ...stripeSliders(c, { y: (c.photo.ribbon ?? [5, 4])[c.portrait ? 0 : 1] * G, t: 2.5 * G, kinkX: 3 * G }),
+      slider('block', 'Logo block', 2 * G, 4 * G)(2 * G),
+    ],
     render(c) {
-      const row = (c.photo.ribbon ?? [5, 4])[c.portrait ? 0 : 1];
-      const r = Ribbon({ c, y: row * G, kinkX: 3 * G, drop: 3 * G });
+      const { y, t, turn: kinkX, drop: d, block } = c.v;
+      const r = Ribbon({ c, y, t, kinkX, drop: d });
+      const k = block / (2 * G);
       return {
         defs: r.defs,
         art: (
           <>
             <Img c={c} filter={c.treatment} />
             {r.art}
-            <rect x={0} y={c.H - 2 * G} width={4 * G} height={2 * G} fill={c.field.css} />
+            <rect x={0} y={c.H - block} width={2 * block} height={block} fill={c.field.css} />
           </>
         ),
-        text: <Mark c={c} x={G} y={c.H - 2 * G + 62} />,
+        text: <Mark c={c} x={G * k} y={c.H - block + 62 * k} h={56 * k} />,
       };
     },
   },
@@ -187,18 +206,23 @@ export const layouts = [
     note: 'The photo shares the canvas with a solid panel for the logo and headline. The ribbon runs to the panel edge.',
     treatment: 'natural',
     field: 'warm-white',
+    controls: (c) => [
+      c.portrait ? slider('panel', 'Panel size', 5 * G, 9 * G)(6 * G) : slider('panel', 'Panel size', 4 * G, 7 * G)(5 * G),
+      ...stripeSliders(c, { y: 3 * G, t: 2.5 * G, kinkX: c.portrait ? 4 * G : 7 * G, bottom: (v) => (c.portrait ? c.H - v.panel : c.H) }),
+      textSize(c.portrait ? 80 : 54),
+    ],
     render(c) {
-      const box = c.portrait ? [0, 0, W, 9 * G] : [5 * G, 0, 7 * G, c.H];
-      const r = c.portrait
-        ? Ribbon({ c, y: 3 * G, kinkX: 4 * G, drop: 3 * G, clip: 'box' })
-        : Ribbon({ c, y: 3 * G, kinkX: 7 * G, drop: 3 * G, clip: 'box' });
+      const { y, t, turn: kinkX, drop: d, panel, size } = c.v;
+      const top = c.H - panel;
+      const box = c.portrait ? [0, 0, W, top] : [panel, 0, W - panel, c.H];
+      const r = Ribbon({ c, y, t, kinkX, drop: d, clip: 'box' });
       return {
         defs: <><Clip c={c} name="box" rect={box} />{r.defs}</>,
         art: <><Img c={c} filter={c.treatment} box={box} />{r.art}</>,
         text: c.portrait ? (
-          <><Mark c={c} x={G} y={10 * G} /><Head c={c} x={G} y={11.3 * G} w={10 * G} size={80} /></>
+          <><Mark c={c} x={G} y={top + G} /><Head c={c} x={G} y={top + 2.3 * G} w={10 * G} size={size} /></>
         ) : (
-          <><Mark c={c} x={G} y={G} /><Head c={c} x={G} y={6.5 * G} w={3.6 * G} size={54} /></>
+          <><Mark c={c} x={G} y={G} /><Head c={c} x={G} y={6.5 * G} w={panel - 1.4 * G} size={size} /></>
         ),
       };
     },
@@ -210,9 +234,15 @@ export const layouts = [
     treatment: 'duotone',
     fixed: true,
     field: 'electric-violet',
+    controls: (c) => [
+      ...stripeSliders(c, { y: c.portrait ? 4 * G : 3 * G, t: 2 * G, kinkX: 4 * G }),
+      blockSize(c.portrait ? 5 * G : 4 * G),
+      textSize(c.portrait ? 70 : 54),
+    ],
     render(c) {
-      const pts = stripePoints({ width: W, y: c.portrait ? 4 * G : 3 * G, thickness: 2 * G, kinkX: 4 * G, drop: 3 * G });
-      const b = c.portrait ? TextBlock({ c, x: 0, y: c.H - 5 * G, w: 8 * G, h: 5 * G, size: 70 }) : TextBlock({ c, x: 0, y: c.H - 4 * G, w: 8 * G, h: 4 * G, size: 54 });
+      const { y, t, turn: kinkX, drop: d, block, size } = c.v;
+      const pts = stripePoints({ width: W, y, thickness: t, kinkX, drop: d });
+      const b = TextBlock({ c, x: 0, y: c.H - block, w: 8 * G, h: block, size });
       return {
         defs: <Clip c={c} name="lens" points={pts} />,
         art: <><Img c={c} filter="duotone" /><Img c={c} clip="lens" />{b.art}</>,
@@ -226,17 +256,21 @@ export const layouts = [
     note: 'A solid field cuts into the photo along the Stripe’s step. The headline sits below the step.',
     treatment: 'natural',
     field: 'electric-violet',
+    controls: (c) => [
+      drop(2 * G),
+      turn(5 * G),
+      slider('y', 'Position', 0, (v) => c.H - v.drop - 5 * G)(c.portrait ? 8 * G : 5 * G),
+      textSize(c.portrait ? 80 : 64),
+    ],
     render(c) {
-      const yL = c.portrait ? 8 * G : 5 * G;
-      const kinkX = 5 * G;
-      const drop = 2 * G;
-      const run = drop / STRIPE_SLOPE;
-      const field = [[0, yL], [kinkX, yL], [kinkX + run, yL + drop], [W, yL + drop], [W, c.H], [0, c.H]].map((p) => p.join(',')).join(' ');
+      const { y: yL, turn: kinkX, drop: d, size } = c.v;
+      const run = d / STRIPE_SLOPE;
+      const field = [[0, yL], [kinkX, yL], [kinkX + run, yL + d], [W, yL + d], [W, c.H], [0, c.H]].map((p) => p.join(',')).join(' ');
       return {
         art: <><Img c={c} filter={c.treatment} /><polygon points={field} fill={c.field.css} /></>,
         text: (
           <>
-            <Head c={c} x={G} y={yL + drop + G * 0.55} w={9 * G} size={c.portrait ? 80 : 64} />
+            <Head c={c} x={G} y={yL + d + G * 0.55} w={9 * G} size={size} />
             <Mark c={c} x={G} y={c.H - G - 56} />
           </>
         ),
@@ -249,15 +283,22 @@ export const layouts = [
     note: 'The photo shows only through one band of the symbol, on a solid canvas.',
     treatment: 'natural',
     field: 'violet-900',
+    controls: (c) => [
+      slider('m', 'Thickness', 150, 330)(c.portrait ? 300 : 240),
+      turn(2 * G),
+      slider('y', 'Position', (v) => -v.m / 2, (v) => windowHead(c) - 2.723 * v.m)(c.portrait ? G : 60),
+      textSize(c.portrait ? 80 : 60),
+    ],
     render(c) {
-      const b = c.portrait ? markBand({ x0: -20, kink: 2 * G, y: G, m: 300, x2: W + 20 }) : markBand({ x0: -20, kink: 2 * G, y: 60, m: 240, x2: W + 20 });
+      const { m, turn: kink, y, size } = c.v;
+      const b = markBand({ x0: -20, kink, y, m, x2: W + 20 });
       return {
         defs: <Clip c={c} name="window" points={b.points} />,
         art: <Img c={c} filter={c.treatment} clip="window" />,
         text: (
           <>
             <Mark c={c} right={G} y={c.portrait ? G : 60} />
-            <Head c={c} x={G} y={c.portrait ? 10.5 * G : 8.5 * G} w={8 * G} size={c.portrait ? 80 : 60} />
+            <Head c={c} x={G} y={windowHead(c)} w={8 * G} size={size} />
           </>
         ),
       };
@@ -269,9 +310,10 @@ export const layouts = [
     note: 'Solid blocks on the grid cover part of the photo. A Signal Yellow square sits corner to corner with the text block, like the symbol’s square ends.',
     treatment: 'wash',
     field: 'electric-violet',
+    controls: (c) => [blockSize(c.portrait ? 5 * G : 4 * G), textSize(c.portrait ? 64 : 54)],
     render(c) {
-      const h = c.portrait ? 5 * G : 4 * G;
-      const b = TextBlock({ c, x: 0, y: c.H - h, w: 7 * G, h, size: c.portrait ? 64 : 54 });
+      const { block: h, size } = c.v;
+      const b = TextBlock({ c, x: 0, y: c.H - h, w: 7 * G, h, size });
       return {
         art: <><Img c={c} filter={c.treatment} />{b.art}<rect x={7 * G} y={c.H - h - G} width={G} height={G} fill="var(--signal-yellow)" /></>,
         text: b.text,
@@ -284,10 +326,26 @@ function GridLines({ H }) {
   const lines = [];
   for (let x = G; x < W; x += G) lines.push(<line key={`x${x}`} x1={x} y1={0} x2={x} y2={H} />);
   for (let y = G; y < H; y += G) lines.push(<line key={`y${y}`} x1={0} y1={y} x2={W} y2={y} />);
-  return <g stroke="#FFFFFF" strokeOpacity="0.55" strokeWidth="1.5" style={{ mixBlendMode: 'difference' }}>{lines}</g>;
+  return <g className="post-grid-lines" stroke="var(--white)" strokeOpacity="0.55" strokeWidth="1.5" style={{ mixBlendMode: 'difference' }}>{lines}</g>;
 }
 
-export function PhotoPost({ photo = photos[0], layout = 'ribbon', ratio = 'portrait', treatment, field, headline = 'Power that costs less, from sources you choose.', grid = false }) {
+const bound = (b, v, c) => (typeof b === 'function' ? b(v, c) : b);
+
+// The layout's sliders with their live ranges, and the clamped values to draw with. `adjust` holds
+// only the values someone has moved; the rest follow the layout's defaults (the ribbon's follows the photo).
+export function postControls({ layout = 'ribbon', photo = photos[0], ratio = 'portrait', adjust = {} }) {
+  const c = { photo, portrait: ratio === 'portrait', H: ratio === 'portrait' ? 1350 : 1080 };
+  const list = layouts.find((l) => l.id === layout).controls?.(c) ?? [];
+  const v = Object.fromEntries(list.map((s) => [s.key, adjust[s.key] ?? s.value]));
+  const range = (s) => [bound(s.min, v, c), bound(s.max, v, c)];
+  for (let pass = 0; pass < 2; pass += 1) {
+    list.forEach((s) => { const [lo, hi] = range(s); v[s.key] = Math.min(hi, Math.max(lo, v[s.key])); });
+  }
+  const sliders = list.map((s) => { const [min, max] = range(s); return { key: s.key, label: s.label, min, max, value: v[s.key] }; });
+  return { sliders, values: v };
+}
+
+export function PhotoPost({ photo = photos[0], layout = 'ribbon', ratio = 'portrait', treatment, field, headline = 'Power that costs less, from sources you choose.', grid = false, adjust }) {
   const id = `pp${useId().replace(/[^a-zA-Z0-9]/g, '')}`;
   const L = layouts.find((l) => l.id === layout);
   const H = ratio === 'portrait' ? 1350 : 1080;
@@ -297,6 +355,7 @@ export function PhotoPost({ photo = photos[0], layout = 'ribbon', ratio = 'portr
     portrait: ratio === 'portrait',
     treatment: L.fixed ? L.treatment : treatment ?? L.treatment,
     field: { token, css: `var(--${token})` },
+    v: postControls({ layout, photo, ratio, adjust }).values,
   };
   const { defs, art, text } = L.render(c);
   return (
@@ -309,4 +368,97 @@ export function PhotoPost({ photo = photos[0], layout = 'ribbon', ratio = 'portr
       {text}
     </div>
   );
+}
+
+const blobToDataUrl = (blob) => new Promise((resolve, reject) => {
+  const r = new FileReader();
+  r.onload = () => resolve(r.result);
+  r.onerror = () => reject(r.error);
+  r.readAsDataURL(blob);
+});
+
+// An SVG as a standalone image: token variables become their values, since an image can't see the page's CSS.
+async function svgImage(svg) {
+  const root = getComputedStyle(document.documentElement);
+  const markup = new XMLSerializer().serializeToString(svg).replace(/var\(--([\w-]+)\)/g, (_, n) => root.getPropertyValue(`--${n}`).trim());
+  const url = URL.createObjectURL(new Blob([markup], { type: 'image/svg+xml' }));
+  try {
+    const img = new Image();
+    img.src = url;
+    await img.decode();
+    return img;
+  } finally {
+    URL.revokeObjectURL(url);
+  }
+}
+
+// Draws a headline line by line where the browser broke it, read from each character's box,
+// so the PNG wraps exactly as the post on screen.
+function drawHead(ctx, head, box, k) {
+  const cs = getComputedStyle(head);
+  const size = parseFloat(cs.fontSize) * k;
+  ctx.font = `${cs.fontWeight} ${size}px ${cs.fontFamily}`;
+  ctx.fillStyle = cs.color;
+  if ('letterSpacing' in ctx) ctx.letterSpacing = `${(parseFloat(cs.letterSpacing) || 0) * k}px`;
+  ctx.textBaseline = 'alphabetic';
+  const ascent = ctx.measureText(head.textContent).fontBoundingBoxAscent;
+  const lines = [];
+  const range = document.createRange();
+  const walker = document.createTreeWalker(head, NodeFilter.SHOW_TEXT);
+  for (let n = walker.nextNode(); n; n = walker.nextNode()) {
+    for (let i = 0; i < n.length; i += 1) {
+      range.setStart(n, i);
+      range.setEnd(n, i + 1);
+      const r = range.getClientRects()[0];
+      const ch = n.data[i];
+      const last = lines.at(-1);
+      if (r && /\S/.test(ch) && (!last || Math.abs(r.top - last.top) > r.height / 2)) lines.push({ top: r.top, left: r.left, text: ch });
+      else if (last) last.text += ch;
+    }
+  }
+  lines.forEach((l) => ctx.fillText(l.text.replace(/\s+/g, ' ').trim(), (l.left - box.left) * k, (l.top - box.top) * k + ascent));
+}
+
+// Saves a rendered PhotoPost as a PNG at `scale` times the 1080 canvas, with the full photo file and
+// without the grid. The art and logos are drawn as SVG images and the headline as canvas text.
+export async function downloadPost(post, filename, scale = 2) {
+  await document.fonts.ready;
+  const box = post.getBoundingClientRect();
+  const k = (W * scale) / box.width;
+  const canvas = document.createElement('canvas');
+  canvas.width = W * scale;
+  canvas.height = Math.round(box.height * k);
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = getComputedStyle(post).backgroundColor;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  const art = post.querySelector('.post-art').cloneNode(true);
+  art.querySelectorAll('.post-grid-lines').forEach((g) => g.remove());
+  art.setAttribute('width', canvas.width);
+  art.setAttribute('height', canvas.height);
+  const photoUrls = new Map();
+  for (const img of art.querySelectorAll('image')) {
+    const href = img.getAttribute('href');
+    if (!photoUrls.has(href)) photoUrls.set(href, await fetch(href).then((r) => r.blob()).then(blobToDataUrl));
+    img.setAttribute('href', photoUrls.get(href));
+  }
+  ctx.drawImage(await svgImage(art), 0, 0, canvas.width, canvas.height);
+
+  for (const logo of post.querySelectorAll('.post-logo svg')) {
+    const r = logo.getBoundingClientRect();
+    const copy = logo.cloneNode(true);
+    copy.removeAttribute('style');
+    copy.setAttribute('color', getComputedStyle(logo).color);
+    copy.setAttribute('width', r.width * k);
+    copy.setAttribute('height', r.height * k);
+    ctx.drawImage(await svgImage(copy), (r.left - box.left) * k, (r.top - box.top) * k, r.width * k, r.height * k);
+  }
+  post.querySelectorAll('.post-head').forEach((head) => drawHead(ctx, head, box, k));
+
+  const png = await new Promise((resolve, reject) => canvas.toBlob((b) => (b ? resolve(b) : reject(new Error('PNG export failed'))), 'image/png'));
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(png);
+  a.download = filename;
+  a.click();
+  setTimeout(() => URL.revokeObjectURL(a.href), 1000);
 }
